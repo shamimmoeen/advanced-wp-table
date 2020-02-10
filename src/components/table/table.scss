@@ -1,0 +1,35 @@
+$color__border: black;
+
+.wp-table {
+	.wp-table-header,
+	.wp-table-body {
+		.wp-tr {
+			display: flex;
+
+			&:not(:nth-of-type(1)) {
+				box-shadow: inset 0 1px 0 $color__border;
+			}
+
+			.wp-td {
+				flex: 1;
+			}
+		}
+	}
+
+	.wp-table-header {
+		box-shadow: -1px 0 0 0 $color__border;
+
+		.wp-tr {
+			box-shadow: inset 0 1px 0 0 $color__border;
+		}
+	}
+
+	.wp-table-body {
+		box-shadow: 0 0 0 1px $color__border;
+	}
+
+	.wp-td {
+		box-shadow: 1px 0 0 $color__border;
+		padding: 5px;
+	}
+}
