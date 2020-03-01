@@ -1,0 +1,19 @@
+.wp-table-gutenberg-editor {
+	.block-editor {
+		position: relative;
+
+		.block-editor-block-card {
+			padding: 16px;
+		}
+
+		.components-select-control__input {
+			font-size: 14px;
+			line-height: 2;
+			color: #32373c;
+			border-color: #7e8993;
+			box-shadow: none;
+			border-radius: 3px;
+			padding: 0 24px 0 8px;
+		}
+	}
+}

@@ -26,8 +26,8 @@ class WP_Table {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'load_wp_table_backend_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_wp_table_backend_scripts' ) );
 	}
 
 	/**
@@ -40,18 +40,35 @@ class WP_Table {
 	}
 
 	/**
-	 * Load frontend scripts.
+	 * Load wp table backend scripts.
+	 *
+	 * @param string $hook The hook identifier.
 	 *
 	 * @since 1.0.0
 	 */
-	public function load_frontend_scripts() {
+	public function load_wp_table_backend_scripts( $hook ) {
+		if ( 'toplevel_page_wporg' !== $hook ) {
+			return;
+		}
+
+		wp_enqueue_media();
+		wp_enqueue_script( 'media-upload' );
+		wp_enqueue_script( 'wp-edit-post' );
+		wp_enqueue_style( 'wp-edit-post' );
+
+		enqueue_block_styles_assets();
+		wp_common_block_scripts_and_styles();
+
+		// Automatically load dependencies and version.
+		$asset_file = include plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
+
 		if ( defined( 'WP_ENVIRONMENT' ) && 'development' === WP_ENVIRONMENT ) {
 			// Load scripts when in development.
 			wp_enqueue_script(
 				'wp-table-backend-js',
 				'http://localhost:8083/index.js',
-				array( 'wp-element' ),
-				time(),
+				$asset_file['dependencies'],
+				$asset_file['version'],
 				true
 			);
 		} else {
@@ -59,8 +76,8 @@ class WP_Table {
 			wp_enqueue_script(
 				'wp-table-backend-js',
 				plugin_dir_url( __FILE__ ) . 'build/index.js',
-				array( 'wp-element' ),
-				filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' ),
+				$asset_file['dependencies'],
+				$asset_file['version'],
 				true
 			);
 		}
@@ -68,15 +85,16 @@ class WP_Table {
 
 }
 
+require_once plugin_dir_path( __FILE__ ) . 'settings.php';
+
 /**
  * Run the class.
  *
- * @since 1.0.0
- *
  * @return \WP_Table
+ * @since 1.0.0
  */
 function wp_table_run() {
 	return new WP_Table();
 }
 
-add_action( 'plugins_loaded', wp_table_run() );
+add_action( 'plugins_loaded', 'wp_table_run' );

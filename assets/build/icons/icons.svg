@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?> 
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <font id="icons" horiz-adv-x="512">
+    <font-face font-family="icons"
+      units-per-em="512" ascent="512"
+      descent="0" />
+    <missing-glyph horiz-adv-x="0" />
+    <glyph glyph-name="move"
+      unicode="&#xF101;"
+      horiz-adv-x="512" d=" M288 192V96H352L256 0L160 96H224V192zM224 320V416H160L256 512L352 416H288V320zM192 224H96V160L0 256L96 352V288H192zM320 288H416V352L512 256L416 160V224H320z" />
+  </font>
+</defs>
+</svg>
