@@ -28,6 +28,22 @@ class WP_Table {
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_wp_table_backend_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_wp_table_backend_scripts' ) );
+		add_action( 'init', array( $this, 'register_post_type' ) );
+	}
+
+	/**
+	 * Register Post Type.
+	 */
+	public function register_post_type() {
+		$args = array(
+			'public'            => true,
+			'show_in_menu'      => true,
+			'show_in_nav_menus' => false,
+			'show_in_rest'      => true,
+			'label'             => __( 'WP Table', 'wp-table' ),
+		);
+
+		register_post_type( 'wp-table', $args );
 	}
 
 	/**
@@ -57,7 +73,7 @@ class WP_Table {
 		wp_enqueue_style( 'wp-edit-post' );
 
 		enqueue_block_styles_assets();
-		wp_common_block_scripts_and_styles();
+		enqueue_editor_block_styles_assets();
 
 		// Automatically load dependencies and version.
 		$asset_file = include plugin_dir_path( __FILE__ ) . 'build/index.asset.php';

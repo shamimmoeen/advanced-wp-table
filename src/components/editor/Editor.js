@@ -7,12 +7,9 @@ import {
 	SETTINGS_DEFAULTS,
 	WritingFlow,
 } from '@wordpress/block-editor';
-import { registerCoreBlocks } from '@wordpress/block-library';
 import { DropZoneProvider, Popover, SlotFillProvider } from '@wordpress/components';
-import { useEffect, useState } from '@wordpress/element';
+import { Fragment, useEffect, useState } from '@wordpress/element';
 import '@wordpress/format-library';
-
-import './style.scss';
 
 /**
  * Fix media upload permission error.
@@ -21,23 +18,12 @@ import './style.scss';
  */
 SETTINGS_DEFAULTS.__experimentalMediaUpload = wp.mediaUtils.uploadMedia;
 
-const MyEditorComponent = () => {
+const WPTableEditor = ( { cellData, onHandleSetCellData, onHandleCloseModal } ) => {
 	const [ blocks, updateBlocks ] = useState( [] );
-	const cacheKey = 'wp_table_blocks';
 
 	useEffect( () => {
-		registerCoreBlocks();
-	}, [] );
-
-	useEffect( () => {
-		// eslint-disable-next-line no-undef
-		const oldBlocks = localStorage.getItem( cacheKey );
-
-		if ( ! oldBlocks ) {
-			return;
-		}
-
-		const wpParsed = wp.blocks.parse( oldBlocks );
+		const { content } = cellData;
+		const wpParsed = wp.blocks.parse( content );
 
 		updateBlocks( wpParsed );
 	}, [] );
@@ -47,24 +33,27 @@ const MyEditorComponent = () => {
 	};
 
 	const handleResetBlocks = () => {
-		// eslint-disable-next-line no-undef
-		localStorage.removeItem( cacheKey );
-		updateBlocks( [] );
+		const { content } = cellData;
+		const wpParsed = wp.blocks.parse( content );
+
+		updateBlocks( wpParsed );
 	};
 
 	const handleSave = () => {
 		const string = wp.blocks.serialize( blocks );
 
-		// eslint-disable-next-line no-undef
-		localStorage.setItem( cacheKey, string );
+		onHandleSetCellData( string );
 	};
 
 	return (
-		<div>
-			<div>
+		<Fragment>
+			{ /*{ console.log( cellData ) }*/ }
+			<div className={ 'wp-table-cell-editor-button-groups' }>
 				<button onClick={ handleSave } className={ 'button button-primary' }>Save</button>
 				{ ` ` }
 				<button onClick={ handleResetBlocks } className={ 'button button-primary' }>Reset Blocks</button>
+				{ ` ` }
+				<button onClick={ onHandleCloseModal } className={ 'button button-default' }>Close</button>
 			</div>
 			<div className="block-editor">
 				<div className="block-editor__container">
@@ -101,8 +90,8 @@ const MyEditorComponent = () => {
 					</SlotFillProvider>
 				</div>
 			</div>
-		</div>
+		</Fragment>
 	);
 };
 
-export default MyEditorComponent;
+export default WPTableEditor;

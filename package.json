@@ -20,6 +20,7 @@
   "author": "Mainul Hassan Main <shamim.moeen@gmail.com> (https://mainulhassan.info)",
   "license": "MIT",
   "devDependencies": {
+    "@wordpress/block-library": "^2.14.3",
     "@wordpress/scripts": "^6.2.0",
     "css-loader": "^3.4.2",
     "eslint": "^6.8.0",
