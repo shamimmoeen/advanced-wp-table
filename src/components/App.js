@@ -2,33 +2,31 @@ const { Fragment, useState, useEffect } = wp.element;
 import apiFetch from '@wordpress/api-fetch';
 import { registerCoreBlocks } from '@wordpress/block-library';
 import { hot } from 'react-hot-loader/root';
+import List from './list/List';
 import Modal from './modal/Modal';
 import Buttons from './table/Buttons';
 import Table from './table/Table';
 
 const defaultTable = {
-	size: {
-		rows: 2,
-		columns: 2,
+	new: false,
+	id: null,
+	post: null,
+	newTableData: {
+		title: '',
+		rows: '2',
+		columns: '2',
 	},
-	rows: [
-		[
-			'',
-			'',
-		],
-		[
-			'',
-			'',
-		],
-	],
+	newTableError: null,
+	isLoading: false,
 };
 
 const App = () => {
 	const [ data, setData ] = useState( [] );
 	const [ modalState, setModalState ] = useState( 0 );
 	const [ cellData, setCellData ] = useState( '' );
+	const [ list, setList ] = useState( { loading: true, list: [] } );
+	const [ table, setTable ] = useState( defaultTable );
 	const { size, rows } = data;
-	const cacheKey = 'wp_table_blocks';
 
 	useEffect( () => {
 		registerCoreBlocks();
@@ -46,14 +44,22 @@ const App = () => {
 	}, [] );
 
 	useEffect( () => {
-		// eslint-disable-next-line no-undef
-		let oldData = JSON.parse( localStorage.getItem( cacheKey ) );
-
-		if ( ! oldData ) {
-			oldData = defaultTable;
+		if ( ! table.post ) {
+			return;
 		}
 
-		setData( oldData );
+		const _size = {
+			rows: parseInt( table.post.wp_table_data.size.rows ),
+			columns: parseInt( table.post.wp_table_data.size.columns ),
+		};
+
+		setData( { ...table.post.wp_table_data, size: _size } );
+	}, [ table ] );
+
+	useEffect( () => {
+		apiFetch( { path: '/wp/v2/wp-table' } ).then( ( posts ) => {
+			setList( { loading: false, list: posts } );
+		} );
 	}, [] );
 
 	const handleAddRow = () => {
@@ -84,12 +90,6 @@ const App = () => {
 
 		const newSize = { ...tempSize, columns: tempSize.columns + 1 };
 		const newTable = { size: newSize, rows: newData };
-
-		setData( newTable );
-	};
-
-	const handleResetTable = () => {
-		const newTable = { ...defaultTable };
 
 		setData( newTable );
 	};
@@ -176,47 +176,250 @@ const App = () => {
 	const handleSaveTable = () => {
 		const content = prepareData();
 
-		// GET
-		apiFetch( { path: '/wp/v2/wp-table' } ).then( ( posts ) => {
-			console.log( posts );
+		// PUT
+		apiFetch( {
+			path: `/wp/v2/wp-table/${ table.id }`,
+			method: 'PUT',
+			data: { content, wp_table_data: { size, rows } },
+		} ).then( ( res ) => {
+			const newList = list.list.map( ( item ) => {
+				if ( item.id === res.id ) {
+					return res;
+				}
+
+				return item;
+			} );
+
+			setList( { ...list, list: newList } );
 		} );
+	};
+
+	const handleSetTable = ( item ) => {
+		setTable( { ...table, id: item.id, post: item } );
+	};
+
+	const handleNewTable = () => {
+		setTable( { ...defaultTable, new: true } );
+	};
+
+	const handleNewTableInput = ( e ) => {
+		const { newTableData } = table;
+		newTableData[ e.target.name ] = e.target.value;
+		setTable( { ...table, newTableData, newTableError: null } );
+	};
+
+	const validateNewTable = () => {
+		const { title, rows: noOfRows, columns: noOfColumns } = table.newTableData;
+		let error;
+
+		if ( ! title ) {
+			error = 'Title shouldn\'t be empty';
+		} else if ( parseInt( noOfRows ) < 1 ) {
+			error = 'No of rows should be greater than 0';
+		} else if ( parseInt( noOfColumns ) < 1 ) {
+			error = 'No of columns should be greater than 0';
+		}
+
+		if ( ! error ) {
+			return true;
+		}
+
+		return error;
+	};
+
+	const createNewTable = () => {
+		const { title, rows: noOfRows, columns: noOfColumns } = table.newTableData;
+		setTable( { ...table, isLoading: true } );
+
+		const tableSize = {
+			rows: noOfRows,
+			columns: noOfColumns,
+		};
+
+		const tableData = [];
+
+		for ( let i = 0; i < noOfRows; i++ ) {
+			const emptyRow = [];
+
+			for ( let j = 0; j < noOfColumns; j++ ) {
+				emptyRow.push( '' );
+			}
+
+			tableData.push( emptyRow );
+		}
 
 		// POST
 		apiFetch( {
 			path: '/wp/v2/wp-table',
 			method: 'POST',
-			data: { title: 'New Post Title', status: 'publish', content: content },
-		} ).then( res => {
-			console.log( res );
+			data: { title, status: 'publish', wp_table_data: { size: tableSize, rows: tableData } },
+		} ).then( ( res ) => {
+			const newList = [ res, ...list.list ];
+			setList( { ...list, list: newList } );
+			setTable( { ...table, new: false, id: res.id, post: res, isLoading: false } );
+		} ).catch( ( err ) => {
+			// eslint-disable-next-line no-console
+			console.log( err );
 		} );
-
-		// eslint-disable-next-line no-undef
-		localStorage.setItem( cacheKey, JSON.stringify( data ) );
 	};
 
-	return (
-		<Fragment>
-			<Table
-				rows={ rows }
-				onDragEnd={ handleDragEnd }
-				onHandleOpenModal={ handleOpenModal }
-				onHandleDeleteColumn={ handleDeleteColumn }
-				onHandleDeleteRow={ handleDeleteRow }
-			/>
-			<Buttons
-				onAddRow={ handleAddRow }
-				onAddColumn={ handleAddColumn }
-				onResetTable={ handleResetTable }
-				onSaveTable={ handleSaveTable }
-			/>
-			<Modal
-				modalState={ modalState }
-				cellData={ cellData }
-				onHandleSetCellData={ handleSetCellData }
-				onHandleCloseModal={ handleCloseModal }
-			/>
-		</Fragment>
-	);
+	const handleNewTableSubmission = () => {
+		const validate = validateNewTable();
+
+		if ( ! validate ) {
+			setTable( { ...table, newTableError: validate } );
+			return;
+		}
+
+		createNewTable();
+	};
+
+	const handleDeleteTable = ( id ) => {
+		// DELETE
+		apiFetch( {
+			path: `/wp/v2/wp-table/${ id }`,
+			method: 'DELETE',
+		} ).then( () => {
+			const newList = list.list.filter( ( item ) => id !== item.id );
+			setList( { ...list, list: newList } );
+		} ).catch( ( err ) => {
+			// eslint-disable-next-line no-console
+			console.log( err );
+		} );
+	};
+
+	const handleBackToTables = () => {
+		setTable( {
+			new: false,
+			id: null,
+			post: null,
+		} );
+	};
+
+	let content;
+
+	if ( table.new ) {
+		const { newTableError, isLoading } = table;
+		const { title, rows: noOfRows, columns: noOfColumns } = table.newTableData;
+
+		let buttonClasses = 'button button-primary wp-table-button-with-spinner';
+
+		if ( isLoading ) {
+			buttonClasses += ' wp-table-is-loading';
+		}
+
+		content = (
+			<Fragment>
+				<div className="wp-table-header">
+					<div className="wp-table-inner-header">
+						<h1>Add New Table</h1>
+					</div>
+				</div>
+				<div className={ 'wp-table-new-table-form' }>
+					<div className="wp-table-form-item">
+						<label htmlFor="title">Title</label>
+						<input
+							type="text"
+							id={ 'title' }
+							name={ 'title' }
+							placeholder={ 'Give a title' }
+							onChange={ handleNewTableInput }
+							value={ title }
+						/>
+					</div>
+					<div className="wp-table-form-item">
+						<label htmlFor="no-of-rows">How many rows?</label>
+						<input
+							type="number"
+							id={ 'no-of-rows' }
+							name={ 'rows' }
+							onChange={ handleNewTableInput }
+							value={ noOfRows }
+						/>
+					</div>
+					<div className="wp-table-form-item">
+						<label htmlFor="no-of-columns">How many columns?</label>
+						<input
+							type="number"
+							id={ 'no-of-columns' }
+							name={ 'columns' }
+							onChange={ handleNewTableInput }
+							value={ noOfColumns }
+						/>
+					</div>
+				</div>
+				<div className={ 'wp-table-new-table-form-buttons' }>
+					<button
+						className={ buttonClasses }
+						onClick={ handleNewTableSubmission }
+						disabled={ !! isLoading }
+					>
+						<span className="wp-table-spinner" />
+						Create
+					</button>
+					{ ` ` }
+					<button className={ 'button' } onClick={ handleBackToTables }>Cancel</button>
+				</div>
+				{ newTableError ? (
+					<div className={ 'notice notice-error' }><p>{ newTableError }</p></div>
+				) : '' }
+			</Fragment>
+		);
+	} else if ( ! table.id ) {
+		content = (
+			<Fragment>
+				<div className="wp-table-header">
+					<div className="wp-table-inner-header">
+						<h1>All Tables</h1>
+						<button
+							className={ 'button button-primary' }
+							onClick={ handleNewTable }
+						>
+							Add New
+						</button>
+					</div>
+				</div>
+				<List list={ list } onHandleSetTable={ handleSetTable } onHandleDeleteTable={ handleDeleteTable } />
+			</Fragment>
+		);
+	} else {
+		content = (
+			<Fragment>
+				<div className="wp-table-header">
+					<div className="wp-table-inner-header">
+						<h1>{ table.post.title.rendered }</h1>
+						<button
+							className={ 'button button-primary' }
+							onClick={ handleBackToTables }
+						>
+							<span className={ 'dashicons dashicons-controls-back' } /> Back to Tables
+						</button>
+					</div>
+				</div>
+				<Table
+					rows={ rows }
+					post={ table.post }
+					onDragEnd={ handleDragEnd }
+					onHandleOpenModal={ handleOpenModal }
+					onHandleDeleteColumn={ handleDeleteColumn }
+					onHandleDeleteRow={ handleDeleteRow }
+				/>
+				<Buttons
+					onAddRow={ handleAddRow }
+					onAddColumn={ handleAddColumn }
+					onSaveTable={ handleSaveTable }
+				/>
+				<Modal
+					modalState={ modalState }
+					cellData={ cellData }
+					onHandleSetCellData={ handleSetCellData }
+					onHandleCloseModal={ handleCloseModal }
+				/>
+			</Fragment>
+		);
+	}
+
+	return content;
 };
 
 export default hot( App );

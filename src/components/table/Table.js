@@ -1,6 +1,6 @@
 const { useRef, useState, Fragment } = wp.element;
+import '../App.scss';
 import Actions from './Actions';
-import './table.scss';
 
 // tell direction after drag start, the first direction that reach 5px offset
 const DRAG_DIRECTION_NONE = '';
@@ -75,7 +75,7 @@ const Table = ( props ) => {
 
 	return (
 		<Fragment>
-			<table>
+			<table className={ 'wp-table wp-table-post-item' }>
 				<tbody ref={ rowsEl }>{
 					rows.map( ( x = [], i ) => (
 						<tr key={ i }>

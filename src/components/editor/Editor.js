@@ -32,13 +32,6 @@ const WPTableEditor = ( { cellData, onHandleSetCellData, onHandleCloseModal } ) 
 		updateBlocks( e );
 	};
 
-	const handleResetBlocks = () => {
-		const { content } = cellData;
-		const wpParsed = wp.blocks.parse( content );
-
-		updateBlocks( wpParsed );
-	};
-
 	const handleSave = () => {
 		const string = wp.blocks.serialize( blocks );
 
@@ -49,9 +42,7 @@ const WPTableEditor = ( { cellData, onHandleSetCellData, onHandleCloseModal } ) 
 		<Fragment>
 			{ /*{ console.log( cellData ) }*/ }
 			<div className={ 'wp-table-cell-editor-button-groups' }>
-				<button onClick={ handleSave } className={ 'button button-primary' }>Save</button>
-				{ ` ` }
-				<button onClick={ handleResetBlocks } className={ 'button button-primary' }>Reset Blocks</button>
+				<button onClick={ handleSave } className={ 'button button-primary' }>Update Cell</button>
 				{ ` ` }
 				<button onClick={ onHandleCloseModal } className={ 'button button-default' }>Close</button>
 			</div>

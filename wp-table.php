@@ -29,6 +29,55 @@ class WP_Table {
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_wp_table_backend_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_wp_table_backend_scripts' ) );
 		add_action( 'init', array( $this, 'register_post_type' ) );
+		add_action( 'rest_api_init', array( $this, 'register_meta_api' ) );
+		$this->includes();
+	}
+
+	/**
+	 * Add the meta field to REST API responses for CPT wp-table read and write.
+	 */
+	public function register_meta_api() {
+		register_rest_field(
+			'wp-table',
+			'wp_table_data',
+			array(
+				'get_callback'    => array( $this, 'get_meta' ),
+				'update_callback' => array( $this, 'update_meta' ),
+				'schema'          => null,
+			)
+		);
+	}
+
+	/**
+	 * Handler for getting custom field data.
+	 *
+	 * @param array  $object     The object from the response.
+	 * @param string $field_name Name of field.
+	 *
+	 * @return mixed
+	 */
+	public function get_meta( $object, $field_name ) {
+		return get_post_meta( $object['id'], $field_name, true );
+	}
+
+	/**
+	 * Handler for updating custom field data.
+	 *
+	 * @param mixed  $value      The value of the field.
+	 * @param object $object     The object from the response.
+	 * @param string $field_name Name of field.
+	 *
+	 * @return bool|int
+	 */
+	public function update_meta( $value, $object, $field_name ) {
+		return update_post_meta( $object->ID, $field_name, $value );
+	}
+
+	/**
+	 * Include the dependencies.
+	 */
+	public function includes() {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/settings.php';
 	}
 
 	/**
@@ -63,7 +112,7 @@ class WP_Table {
 	 * @since 1.0.0
 	 */
 	public function load_wp_table_backend_scripts( $hook ) {
-		if ( 'toplevel_page_wporg' !== $hook ) {
+		if ( 'toplevel_page_wp-table' !== $hook ) {
 			return;
 		}
 
@@ -100,8 +149,6 @@ class WP_Table {
 	}
 
 }
-
-require_once plugin_dir_path( __FILE__ ) . 'settings.php';
 
 /**
  * Run the class.

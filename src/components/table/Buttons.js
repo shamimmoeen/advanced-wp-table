@@ -1,16 +1,13 @@
-const { Fragment } = wp.element;
-
-const Buttons = ( { onAddRow, onAddColumn, onResetTable, onSaveTable } ) => {
+const Buttons = ( { onAddRow, onAddColumn, onSaveTable } ) => {
 	return (
-		<Fragment>
-			<button className={ 'button' } onClick={ onAddRow }>Add Row</button>
-			{ ` ` }
-			<button className={ 'button' } onClick={ onAddColumn }>Add Column</button>
-			{ ` ` }
-			<button className={ 'button' } onClick={ onResetTable }>Reset</button>
-			{ ` ` }
-			<button className={ 'button button-primary' } onClick={ onSaveTable }>Save</button>
-		</Fragment>
+		<div className={ 'wp-table-post-buttons' }>
+			<button className={ 'button button-primary' } onClick={ onSaveTable }>Update</button>
+			<div>
+				<button className={ 'button' } onClick={ onAddRow }>Add Row</button>
+				{ ` ` }
+				<button className={ 'button' } onClick={ onAddColumn }>Add Column</button>
+			</div>
+		</div>
 	);
 };
 
