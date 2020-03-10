@@ -86,7 +86,7 @@ class WP_Table {
 	public function register_post_type() {
 		$args = array(
 			'public'            => true,
-			'show_in_menu'      => true,
+			'show_in_menu'      => false,
 			'show_in_nav_menus' => false,
 			'show_in_rest'      => true,
 			'label'             => __( 'WP Table', 'wp-table' ),
