@@ -145,6 +145,7 @@ const App = () => {
 		} );
 
 		setData( { ...data, rows: newRows } );
+		setModalState( ( prevState ) => ! prevState );
 	};
 
 	const handleCloseModal = () => {
