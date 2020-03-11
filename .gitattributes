@@ -1,7 +1,7 @@
 assets/wp-table.scss export-ignore
 assets/wp-table.css.map export-ignore
 bin/ export-ignore
-build/index.asset.php export-ignore
+build/index.js.map export-ignore
 src/ export-ignore
 tests/ export-ignore
 .babelrc export-ignore
