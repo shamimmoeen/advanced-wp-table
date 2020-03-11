@@ -193,8 +193,11 @@ class WP_Table {
 
 		ob_start();
 		the_content();
+		$content = ob_get_clean();
 
-		return ob_get_clean();
+		wp_reset_postdata();
+
+		return $content;
 	}
 
 	/**
