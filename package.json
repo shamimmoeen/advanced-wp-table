@@ -1,7 +1,7 @@
 {
   "name": "wp-table",
   "version": "1.0.0",
-  "description": "",
+  "description": "Create responsive tables using Gutenberg to use anywhere using shortcode.",
   "main": "webpack.config.js",
   "scripts": {
     "build": "wp-scripts build",
@@ -13,12 +13,11 @@
     "start": "webpack-dev-server",
     "start:wp": "wp-scripts start",
     "test:e2e": "wp-scripts test-e2e",
-    "test:unit": "wp-scripts test-unit-js",
-    "generate-fonts": "icon-font-generator assets/svg/*.svg -o assets/build/icons -p 'wp-table-icon' --codepoints codepoints.json"
+    "test:unit": "wp-scripts test-unit-js"
   },
-  "keywords": [],
+  "keywords": [ "wp-table", "responsive-table", "gutenberg-table" ],
   "author": "Mainul Hassan Main <shamim.moeen@gmail.com> (https://mainulhassan.info)",
-  "license": "MIT",
+  "license": "GPLv3",
   "devDependencies": {
     "@wordpress/block-library": "^2.14.3",
     "@wordpress/scripts": "^6.2.0",

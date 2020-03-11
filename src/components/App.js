@@ -54,7 +54,7 @@ const App = () => {
 		};
 
 		setData( { ...table.post.wp_table_data, size: _size } );
-	}, [ table ] );
+	}, [ table.post ] );
 
 	useEffect( () => {
 		apiFetch( { path: '/wp/v2/wp-table' } ).then( ( posts ) => {
@@ -155,33 +155,38 @@ const App = () => {
 	const prepareData = () => {
 		let content = '';
 
-		content += '<table>';
+		content += '<div class="wp-table">';
+		content += '<div class="wp-table-body">';
 
 		rows.forEach( ( row ) => {
-			content += '<tr>';
+			content += '<div class="wp-table-row">';
 
 			row.forEach( ( column ) => {
-				content += '<td>';
+				content += '<div class="wp-table-cell">';
 				content += column;
-				content += '</td>';
+				content += '</div>';
 			} );
 
-			content += '</tr>';
+			content += '</div>';
 		} );
 
-		content += '</table>';
+		content += '</div>';
+		content += '</div>';
 
 		return content;
 	};
 
 	const handleSaveTable = () => {
 		const content = prepareData();
+		const wpTableData = { size, rows };
+
+		setTable( { ...table, isLoading: true } );
 
 		// PUT
 		apiFetch( {
 			path: `/wp/v2/wp-table/${ table.id }`,
 			method: 'PUT',
-			data: { content, wp_table_data: { size, rows } },
+			data: { content, wp_table_data: wpTableData },
 		} ).then( ( res ) => {
 			const newList = list.list.map( ( item ) => {
 				if ( item.id === res.id ) {
@@ -192,6 +197,10 @@ const App = () => {
 			} );
 
 			setList( { ...list, list: newList } );
+			setTable( { ...table, isLoading: false } );
+		} ).catch( ( err ) => {
+			// eslint-disable-next-line no-console
+			console.log( err );
 		} );
 	};
 
@@ -267,7 +276,7 @@ const App = () => {
 	const handleNewTableSubmission = () => {
 		const validate = validateNewTable();
 
-		if ( ! validate ) {
+		if ( true !== validate ) {
 			setTable( { ...table, newTableError: validate } );
 			return;
 		}
@@ -409,6 +418,7 @@ const App = () => {
 					onAddRow={ handleAddRow }
 					onAddColumn={ handleAddColumn }
 					onSaveTable={ handleSaveTable }
+					isLoading={ table.isLoading }
 				/>
 				<Modal
 					modalState={ modalState }

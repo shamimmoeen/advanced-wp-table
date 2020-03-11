@@ -1,14 +1,14 @@
 <?php
 /**
  * Plugin Name:     WP Table
- * Plugin URI:      PLUGIN SITE HERE
- * Description:     Easily create responsive tables to use anywhere using shortcode.
+ * Plugin URI:      https://mainulhassan.info/wp-table
+ * Description:     Create responsive tables using Gutenberg to use anywhere using shortcode.
  * Author:          Mainul Hassan Main
  * Author URI:      https://mainulhassan.info
  * Text Domain:     wp-table
  * Domain Path:     /languages
- * Version:         0.1.0
- * License:         GPLv2 or later
+ * Version:         1.0.0
+ * License:         GPLv3
  *
  * @package         WP_Table
  */
@@ -26,15 +26,19 @@ class WP_Table {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_wp_table_backend_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_wp_table_backend_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'load_backend_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_scripts' ) );
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( 'rest_api_init', array( $this, 'register_meta_api' ) );
+		add_shortcode( 'wptable', array( $this, 'register_shortcode' ) );
+		add_action( 'admin_notices', array( $this, 'show_notices' ) );
 		$this->includes();
 	}
 
 	/**
 	 * Add the meta field to REST API responses for CPT wp-table read and write.
+	 *
+	 * @since 1.0.0
 	 */
 	public function register_meta_api() {
 		register_rest_field(
@@ -54,6 +58,8 @@ class WP_Table {
 	 * @param array  $object     The object from the response.
 	 * @param string $field_name Name of field.
 	 *
+	 * @since 1.0.0
+	 *
 	 * @return mixed
 	 */
 	public function get_meta( $object, $field_name ) {
@@ -67,6 +73,8 @@ class WP_Table {
 	 * @param object $object     The object from the response.
 	 * @param string $field_name Name of field.
 	 *
+	 * @since 1.0.0
+	 *
 	 * @return bool|int
 	 */
 	public function update_meta( $value, $object, $field_name ) {
@@ -75,13 +83,21 @@ class WP_Table {
 
 	/**
 	 * Include the dependencies.
+	 *
+	 * @since 1.0.0
 	 */
 	public function includes() {
+		if ( ! $this->should_we_run() ) {
+			return;
+		}
+
 		require_once plugin_dir_path( __FILE__ ) . 'includes/settings.php';
 	}
 
 	/**
 	 * Register Post Type.
+	 *
+	 * @since 1.0.0
 	 */
 	public function register_post_type() {
 		$args = array(
@@ -96,22 +112,31 @@ class WP_Table {
 	}
 
 	/**
-	 * Load admin scripts.
+	 * Load frontend scripts.
 	 *
 	 * @since 1.0.0
 	 */
-	public function load_admin_scripts() {
-		// Admin scripts go here...
+	public function load_frontend_scripts() {
+		wp_register_style(
+			'wp-table-style',
+			plugin_dir_url( __FILE__ ) . 'assets/wp-table.css',
+			array(),
+			filemtime( plugin_dir_path( __FILE__ ) . 'assets/wp-table.css' )
+		);
+
+		if ( 'wp-table' === get_post_type() ) {
+			wp_enqueue_style( 'wp-table-style' );
+		}
 	}
 
 	/**
-	 * Load wp table backend scripts.
+	 * Load backend scripts.
 	 *
 	 * @param string $hook The hook identifier.
 	 *
 	 * @since 1.0.0
 	 */
-	public function load_wp_table_backend_scripts( $hook ) {
+	public function load_backend_scripts( $hook ) {
 		if ( 'toplevel_page_wp-table' !== $hook ) {
 			return;
 		}
@@ -120,9 +145,6 @@ class WP_Table {
 		wp_enqueue_script( 'media-upload' );
 		wp_enqueue_script( 'wp-edit-post' );
 		wp_enqueue_style( 'wp-edit-post' );
-
-		enqueue_block_styles_assets();
-		enqueue_editor_block_styles_assets();
 
 		// Automatically load dependencies and version.
 		$asset_file = include plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
@@ -148,13 +170,72 @@ class WP_Table {
 		}
 	}
 
+	/**
+	 * Register the shortcode.
+	 *
+	 * @param array $atts The array of options.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return mixed|void
+	 */
+	public function register_shortcode( $atts ) {
+		$id = isset( $atts['id'] ) ? $atts['id'] : 0;
+
+		if ( ! $id ) {
+			return;
+		}
+
+		wp_enqueue_style( 'wp-table-style' );
+
+		$post = get_post( $id );
+		setup_postdata( $post );
+
+		ob_start();
+		the_content();
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * Should we run or not.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	private function should_we_run() {
+		if ( version_compare( get_bloginfo( 'version' ), '5.0', '<' ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Show admin notices.
+	 *
+	 * @since 1.0.0
+	 */
+	public function show_notices() {
+		if ( $this->should_we_run() ) {
+			return;
+		}
+
+		$class   = 'notice notice-info';
+		$message = __( 'WP Table plugin requires WordPress version 5.0 or greater.', 'wp-table' );
+
+		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+	}
+
 }
 
 /**
  * Run the class.
  *
- * @return \WP_Table
  * @since 1.0.0
+ *
+ * @return \WP_Table
  */
 function wp_table_run() {
 	return new WP_Table();

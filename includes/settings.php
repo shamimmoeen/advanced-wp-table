@@ -22,8 +22,8 @@ class WP_Table_Settings_Page {
 	 */
 	public function add_plugin_page() {
 		add_menu_page(
-			'WP Table',
-			'WP Table',
+			esc_html__( 'WP Table', 'wp-table' ),
+			esc_html__( 'WP Table', 'wp-table' ),
 			'manage_options',
 			'wp-table',
 			array( $this, 'create_admin_page' )
@@ -36,6 +36,7 @@ class WP_Table_Settings_Page {
 	public function create_admin_page() {
 		?>
 		<div class="wrap">
+			<h1></h1> <!-- Empty element to show admin notices properly if has. -->
 			<div id="wp-table-wrapper" class="wp-table-wrapper"></div>
 		</div>
 		<?php
