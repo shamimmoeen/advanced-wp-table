@@ -1,6 +1,6 @@
-# WP Table #
+# WP Table Advanced #
 **Contributors:** shamimmoeen
-**Tags:** wp-table, responsive-table, gutenberg-table
+**Tags:** wp-table, table, responsive-table, gutenberg-table
 **Requires at least:** 5.0.0
 **Tested up to:** 5.3.2
 **Requires PHP:** 5.6
@@ -22,7 +22,7 @@ Create responsive tables using Gutenberg to use anywhere using shortcode.
 
 ## Installation ##
 
-1. Upload `wp-table` directory to the `/wp-content/plugins/` directory
+1. Upload `wp-table-advanced` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 ## Frequently Asked Questions ##

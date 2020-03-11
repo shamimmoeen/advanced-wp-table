@@ -1,27 +1,27 @@
 <?php
 /**
- * Plugin Name:     WP Table
- * Plugin URI:      https://mainulhassan.info/wp-table
+ * Plugin Name:     WP Table Advanced
+ * Plugin URI:      https://mainulhassan.info/wp-table-advanced
  * Description:     Create responsive tables using Gutenberg to use anywhere using shortcode.
  * Author:          Mainul Hassan Main
  * Author URI:      https://mainulhassan.info
- * Text Domain:     wp-table
+ * Text Domain:     wp-table-advanced
  * Domain Path:     /languages
  * Version:         1.0.0
  * License:         GPLv3
  *
- * @package         WP_Table
+ * @package         WP_Table_Advanced
  */
 
 /**
- * Class WP_Table
+ * Class WP_Table_Advanced
  *
  * @since 1.0.0
  */
-class WP_Table {
+class WP_Table_Advanced {
 
 	/**
-	 * WP_Table constructor.
+	 * WP_Table_Advanced constructor.
 	 *
 	 * @since 1.0.0
 	 */
@@ -30,20 +30,20 @@ class WP_Table {
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_scripts' ) );
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( 'rest_api_init', array( $this, 'register_meta_api' ) );
-		add_shortcode( 'wptable', array( $this, 'register_shortcode' ) );
+		add_shortcode( 'wp_table_advanced', array( $this, 'register_shortcode' ) );
 		add_action( 'admin_notices', array( $this, 'show_notices' ) );
 		$this->includes();
 	}
 
 	/**
-	 * Add the meta field to REST API responses for CPT wp-table read and write.
+	 * Add the meta field to REST API responses for CPT wp-table-advanced read and write.
 	 *
 	 * @since 1.0.0
 	 */
 	public function register_meta_api() {
 		register_rest_field(
-			'wp-table',
-			'wp_table_data',
+			'wp-table-advanced',
+			'wp_table_advanced_data',
 			array(
 				'get_callback'    => array( $this, 'get_meta' ),
 				'update_callback' => array( $this, 'update_meta' ),
@@ -105,10 +105,10 @@ class WP_Table {
 			'show_in_menu'      => false,
 			'show_in_nav_menus' => false,
 			'show_in_rest'      => true,
-			'label'             => __( 'WP Table', 'wp-table' ),
+			'label'             => __( 'WP Table Advanced', 'wp-table-advanced' ),
 		);
 
-		register_post_type( 'wp-table', $args );
+		register_post_type( 'wp-table-advanced', $args );
 	}
 
 	/**
@@ -118,14 +118,14 @@ class WP_Table {
 	 */
 	public function load_frontend_scripts() {
 		wp_register_style(
-			'wp-table-style',
-			plugin_dir_url( __FILE__ ) . 'assets/wp-table.css',
+			'wp-table-advanced-style',
+			plugin_dir_url( __FILE__ ) . 'assets/wp-table-advanced.css',
 			array(),
-			filemtime( plugin_dir_path( __FILE__ ) . 'assets/wp-table.css' )
+			filemtime( plugin_dir_path( __FILE__ ) . 'assets/wp-table-advanced.css' )
 		);
 
-		if ( 'wp-table' === get_post_type() ) {
-			wp_enqueue_style( 'wp-table-style' );
+		if ( 'wp-table-advanced' === get_post_type() ) {
+			wp_enqueue_style( 'wp-table-advanced-style' );
 		}
 	}
 
@@ -137,7 +137,7 @@ class WP_Table {
 	 * @since 1.0.0
 	 */
 	public function load_backend_scripts( $hook ) {
-		if ( 'toplevel_page_wp-table' !== $hook ) {
+		if ( 'toplevel_page_wp-table-advanced' !== $hook ) {
 			return;
 		}
 
@@ -152,7 +152,7 @@ class WP_Table {
 		if ( defined( 'WP_ENVIRONMENT' ) && 'development' === WP_ENVIRONMENT ) {
 			// Load scripts when in development.
 			wp_enqueue_script(
-				'wp-table-backend-js',
+				'wp-table-advanced-backend-js',
 				'http://localhost:8083/index.js',
 				$asset_file['dependencies'],
 				$asset_file['version'],
@@ -161,7 +161,7 @@ class WP_Table {
 		} else {
 			// Load scripts when in production.
 			wp_enqueue_script(
-				'wp-table-backend-js',
+				'wp-table-advanced-backend-js',
 				plugin_dir_url( __FILE__ ) . 'build/index.js',
 				$asset_file['dependencies'],
 				$asset_file['version'],
@@ -186,7 +186,7 @@ class WP_Table {
 			return;
 		}
 
-		wp_enqueue_style( 'wp-table-style' );
+		wp_enqueue_style( 'wp-table-advanced-style' );
 
 		$post = get_post( $id );
 		setup_postdata( $post );
@@ -226,7 +226,7 @@ class WP_Table {
 		}
 
 		$class   = 'notice notice-info';
-		$message = __( 'WP Table plugin requires WordPress version 5.0 or greater.', 'wp-table' );
+		$message = __( 'WP Table Advanced plugin requires WordPress version 5.0 or greater.', 'wp-table-advanced' );
 
 		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
 	}
@@ -238,10 +238,10 @@ class WP_Table {
  *
  * @since 1.0.0
  *
- * @return \WP_Table
+ * @return \WP_Table_Advanced
  */
-function wp_table_run() {
-	return new WP_Table();
+function wp_table_advanced_run() {
+	return new WP_Table_Advanced();
 }
 
-add_action( 'plugins_loaded', 'wp_table_run' );
+add_action( 'plugins_loaded', 'wp_table_advanced_run' );

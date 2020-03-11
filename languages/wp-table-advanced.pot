@@ -2,9 +2,10 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Table 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-table\n"
-"POT-Creation-Date: 2020-03-11 16:33:30+00:00\n"
+"Project-Id-Version: WP Table Advanced 1.0.0\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/wp-table-advanced\n"
+"POT-Creation-Date: 2020-03-11 18:33:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,16 +25,20 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#. Plugin Name of the plugin/theme
-msgid "WP Table"
+#: includes/settings.php:25 includes/settings.php:26
+msgid "Tables"
 msgstr ""
 
-#: wp-table.php:226
-msgid "WP Table plugin requires WordPress version 5.0 or greater."
+#. Plugin Name of the plugin/theme
+msgid "WP Table Advanced"
+msgstr ""
+
+#: wp-table-advanced.php:229
+msgid "WP Table Advanced plugin requires WordPress version 5.0 or greater."
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "https://mainulhassan.info/wp-table"
+msgid "https://mainulhassan.info/wp-table-advanced"
 msgstr ""
 
 #. Description of the plugin/theme

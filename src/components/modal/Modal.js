@@ -5,9 +5,9 @@ const Modal = ( { modalState, cellData, onHandleSetCellData, onHandleCloseModal 
 
 	if ( modalState ) {
 		modal = (
-			<div className="wp-table-modal">
-				<div className="wp-table-modal-wrapper">
-					<div className="wp-table-modal-content">
+			<div className="wp-table-advanced-modal">
+				<div className="wp-table-advanced-modal-wrapper">
+					<div className="wp-table-advanced-modal-content">
 						<WPTableEditor
 							cellData={ cellData }
 							onHandleSetCellData={ onHandleSetCellData }
