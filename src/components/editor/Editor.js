@@ -41,7 +41,7 @@ const WPTableEditor = ( { cellData, onHandleSetCellData, onHandleCloseModal } ) 
 	return (
 		<Fragment>
 			{ /*{ console.log( cellData ) }*/ }
-			<div className={ 'wp-table-advanced-cell-editor-button-groups' }>
+			<div className={ 'advanced-wp-table-cell-editor-button-groups' }>
 				<button onClick={ handleSave } className={ 'button button-primary' }>Update Cell</button>
 				{ ` ` }
 				<button onClick={ onHandleCloseModal } className={ 'button button-default' }>Close</button>

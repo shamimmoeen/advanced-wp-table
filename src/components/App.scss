@@ -1,8 +1,8 @@
-.wp-table-advanced-wrapper {
+.advanced-wp-table-wrapper {
 	margin: 1em 0 0;
 }
 
-.wp-table-advanced-header {
+.advanced-wp-table-header {
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
@@ -19,7 +19,7 @@
 	}
 }
 
-.wp-table-advanced-inner-header {
+.advanced-wp-table-inner-header {
 	align-items: center;
 	display: flex;
 
@@ -43,13 +43,13 @@
 	}
 }
 
-.wp-table-advanced-post-buttons {
+.advanced-wp-table-post-buttons {
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
 }
 
-.wp-table-advanced-new-table-form {
+.advanced-wp-table-new-table-form {
 	margin: 2.5em 0;
 
 	label {
@@ -57,7 +57,7 @@
 		font-weight: bold;
 	}
 
-	.wp-table-advanced-form-item {
+	.advanced-wp-table-form-item {
 		align-items: center;
 		display: flex;
 		margin: 0 0 1em;
@@ -74,11 +74,11 @@
 	}
 }
 
-.wp-table-advanced-new-table-form-buttons {
+.advanced-wp-table-new-table-form-buttons {
 	margin: 0 0 1.5em;
 }
 
-.wp-table-advanced {
+.advanced-wp-table {
 	border-collapse: collapse;
 	margin: 2.5em 0;
 	width: 100%;
@@ -97,24 +97,24 @@
 	}
 }
 
-.wp-table-advanced-posts-list {
-	.wp-table-advanced-posts-list-shortcodes {
+.advanced-wp-table-posts-list {
+	.advanced-wp-table-posts-list-shortcodes {
 		width: 25%;
 	}
 
-	.wp-table-advanced-posts-list-actions {
+	.advanced-wp-table-posts-list-actions {
 		width: 25%;
 	}
 }
 
-.wp-table-advanced-post-item {
-	.wp-table-advanced-cell-wrapper {
+.advanced-wp-table-post-item {
+	.advanced-wp-table-cell-wrapper {
 		align-items: self-start;
 		display: flex;
 		justify-content: space-between;
 	}
 
-	.wp-table-advanced-edit-cell {
+	.advanced-wp-table-edit-cell {
 		border-radius: 3px 3px 0 0;
 		cursor: pointer;
 		font-size: 16px;
@@ -128,17 +128,17 @@
 
 	td {
 		&:hover {
-			.wp-table-advanced-edit-cell {
+			.advanced-wp-table-edit-cell {
 				opacity: 1;
 				visibility: visible;
 			}
 		}
 	}
 
-	.wp-table-advanced-cell-actions {
+	.advanced-wp-table-cell-actions {
 		position: relative;
 
-		.wp-table-advanced-actions-dropdown {
+		.advanced-wp-table-actions-dropdown {
 			background-color: #6d6d6d;
 			border-radius: 0 0 3px 3px;
 			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
@@ -154,18 +154,18 @@
 			width: 100px;
 			z-index: 1;
 
-			.wp-table-advanced-action-item {
+			.advanced-wp-table-action-item {
 				cursor: pointer;
 			}
 		}
 
 		&:hover {
-			.wp-table-advanced-edit-cell {
+			.advanced-wp-table-edit-cell {
 				background-color: #6d6d6d;
 				color: #fff;
 			}
 
-			.wp-table-advanced-actions-dropdown {
+			.advanced-wp-table-actions-dropdown {
 				opacity: 1;
 				visibility: visible;
 			}
@@ -173,7 +173,7 @@
 	}
 }
 
-.wp-table-advanced-modal {
+.advanced-wp-table-modal {
 	background-color: #fff;
 	bottom: 0;
 	left: 0;
@@ -183,7 +183,7 @@
 	top: 0;
 	z-index: 99999;
 
-	.wp-table-advanced-cell-editor-button-groups {
+	.advanced-wp-table-cell-editor-button-groups {
 		border-bottom: 1px solid #ddd;
 		padding: 25px;
 		text-align: right;
@@ -208,18 +208,18 @@
 	}
 }
 
-.wp-table-advanced-not-found {
+.advanced-wp-table-not-found {
 	margin: 2.5em  0;
 }
 
-.wp-table-advanced-wrapper {
+.advanced-wp-table-wrapper {
 	.button {
-		&.wp-table-advanced-button-with-spinner {
+		&.advanced-wp-table-button-with-spinner {
 			align-items: center;
 			display: inline-flex;
 
-			&:not(.wp-table-advanced-is-loading) {
-				.wp-table-advanced-spinner {
+			&:not(.advanced-wp-table-is-loading) {
+				.advanced-wp-table-spinner {
 					display: none;
 				}
 			}
@@ -227,15 +227,15 @@
 	}
 }
 
-.wp-table-advanced-spinner {
+.advanced-wp-table-spinner {
 	height: 14px;
 	margin: 0 5px 0 0;
 	position: relative;
 	width: 14px;
 }
 
-.wp-table-advanced-spinner:after {
-	animation: wp-table-advanced-dual-ring 1.2s linear infinite;
+.advanced-wp-table-spinner:after {
+	animation: advanced-wp-table-dual-ring 1.2s linear infinite;
 	border-color: #fff transparent #fff transparent;
 	border-radius: 50%;
 	border-style: solid;
@@ -248,7 +248,7 @@
 	width: 10px;
 }
 
-@keyframes wp-table-advanced-dual-ring {
+@keyframes advanced-wp-table-dual-ring {
 	0% {
 		transform: rotate(0deg);
 	}

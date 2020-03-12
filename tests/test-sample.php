@@ -2,7 +2,7 @@
 /**
  * Class SampleTest
  *
- * @package Wp_Table
+ * @package Advanced_WP_Table
  */
 
 /**

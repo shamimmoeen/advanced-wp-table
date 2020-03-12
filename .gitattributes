@@ -1,5 +1,5 @@
-assets/wp-table-advanced.scss export-ignore
-assets/wp-table-advanced.css.map export-ignore
+assets/advanced-wp-table.scss export-ignore
+assets/advanced-wp-table.css.map export-ignore
 bin/ export-ignore
 build/index.js.map export-ignore
 src/ export-ignore

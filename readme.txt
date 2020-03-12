@@ -1,6 +1,6 @@
-=== WP Table Advanced ===
+=== Advanced WP Table ===
 Contributors: shamimmoeen
-Tags: wp-table, table, responsive-table, gutenberg-table
+Tags: advanced-wp-table, wp-table, table, responsive-table, gutenberg-table
 Requires at least: 5.0.0
 Tested up to: 5.3.2
 Requires PHP: 5.6
@@ -8,11 +8,11 @@ Stable tag: 0.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Create responsive tables using Gutenberg to use anywhere using shortcode.
+Create responsive tables using Gutenberg.
 
 == Description ==
 
-=== Features ===
+= Features =
 
 * Made using react
 * Easily add rows and columns
@@ -22,7 +22,7 @@ Create responsive tables using Gutenberg to use anywhere using shortcode.
 
 == Installation ==
 
-1. Upload `wp-table-advanced` directory to the `/wp-content/plugins/` directory
+1. Upload `advanced-wp-table` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==

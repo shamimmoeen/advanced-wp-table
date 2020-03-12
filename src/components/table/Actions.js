@@ -2,25 +2,25 @@ const Actions = ( props ) => {
 	const { onHandleOpenModal, onHandleDeleteColumn, onHandleDeleteRow, x, y, i, j } = props;
 
 	return (
-		<div className={ 'wp-table-advanced-cell-actions' }>
-			<span className={ 'dashicons dashicons-admin-generic wp-table-advanced-edit-cell' } />
-			<div className="wp-table-advanced-actions-dropdown">
+		<div className={ 'advanced-wp-table-cell-actions' }>
+			<span className={ 'dashicons dashicons-admin-generic advanced-wp-table-edit-cell' } />
+			<div className="advanced-wp-table-actions-dropdown">
 				<div
-					className="wp-table-advanced-action-item"
+					className="advanced-wp-table-action-item"
 					onClick={ () => onHandleOpenModal( i, j ) }
 					role="presentation"
 				>
 					Edit
 				</div>
 				<div
-					className="wp-table-advanced-action-item"
+					className="advanced-wp-table-action-item"
 					onClick={ () => onHandleDeleteColumn( j ) }
 					role="presentation"
 				>
 					Delete Column
 				</div>
 				<div
-					className="wp-table-advanced-action-item"
+					className="advanced-wp-table-action-item"
 					onClick={ () => onHandleDeleteRow( i ) }
 					role="presentation"
 				>

@@ -49,15 +49,15 @@ const App = () => {
 		}
 
 		const _size = {
-			rows: parseInt( table.post.wp_table_advanced_data.size.rows ),
-			columns: parseInt( table.post.wp_table_advanced_data.size.columns ),
+			rows: parseInt( table.post.advanced_wp_table_data.size.rows ),
+			columns: parseInt( table.post.advanced_wp_table_data.size.columns ),
 		};
 
-		setData( { ...table.post.wp_table_advanced_data, size: _size } );
+		setData( { ...table.post.advanced_wp_table_data, size: _size } );
 	}, [ table.post ] );
 
 	useEffect( () => {
-		apiFetch( { path: '/wp/v2/wp-table-advanced' } ).then( ( posts ) => {
+		apiFetch( { path: '/wp/v2/advanced-wp-table' } ).then( ( posts ) => {
 			setList( { loading: false, list: posts } );
 		} );
 	}, [] );
@@ -155,14 +155,14 @@ const App = () => {
 	const prepareData = () => {
 		let content = '';
 
-		content += '<div class="wp-table-advanced">';
-		content += '<div class="wp-table-advanced-body">';
+		content += '<div class="advanced-wp-table">';
+		content += '<div class="advanced-wp-table-body">';
 
 		rows.forEach( ( row ) => {
-			content += '<div class="wp-table-advanced-row">';
+			content += '<div class="advanced-wp-table-row">';
 
 			row.forEach( ( column ) => {
-				content += '<div class="wp-table-advanced-cell">';
+				content += '<div class="advanced-wp-table-cell">';
 				content += column;
 				content += '</div>';
 			} );
@@ -178,15 +178,15 @@ const App = () => {
 
 	const handleSaveTable = () => {
 		const content = prepareData();
-		const wpTableData = { size, rows };
+		const advancedWPTableData = { size, rows };
 
 		setTable( { ...table, isLoading: true } );
 
 		// PUT
 		apiFetch( {
-			path: `/wp/v2/wp-table-advanced/${ table.id }`,
+			path: `/wp/v2/advanced-wp-table/${ table.id }`,
 			method: 'PUT',
-			data: { content, wp_table_advanced_data: wpTableData },
+			data: { content, advanced_wp_table_data: advancedWPTableData },
 		} ).then( ( res ) => {
 			const newList = list.list.map( ( item ) => {
 				if ( item.id === res.id ) {
@@ -260,9 +260,9 @@ const App = () => {
 
 		// POST
 		apiFetch( {
-			path: '/wp/v2/wp-table-advanced',
+			path: '/wp/v2/advanced-wp-table',
 			method: 'POST',
-			data: { title, status: 'publish', wp_table_advanced_data: { size: tableSize, rows: tableData } },
+			data: { title, status: 'publish', advanced_wp_table_data: { size: tableSize, rows: tableData } },
 		} ).then( ( res ) => {
 			const newList = [ res, ...list.list ];
 			setList( { ...list, list: newList } );
@@ -287,7 +287,7 @@ const App = () => {
 	const handleDeleteTable = ( id ) => {
 		// DELETE
 		apiFetch( {
-			path: `/wp/v2/wp-table-advanced/${ id }`,
+			path: `/wp/v2/advanced-wp-table/${ id }`,
 			method: 'DELETE',
 		} ).then( () => {
 			const newList = list.list.filter( ( item ) => id !== item.id );
@@ -312,21 +312,21 @@ const App = () => {
 		const { newTableError, isLoading } = table;
 		const { title, rows: noOfRows, columns: noOfColumns } = table.newTableData;
 
-		let buttonClasses = 'button button-primary wp-table-advanced-button-with-spinner';
+		let buttonClasses = 'button button-primary advanced-wp-table-button-with-spinner';
 
 		if ( isLoading ) {
-			buttonClasses += ' wp-table-advanced-is-loading';
+			buttonClasses += ' advanced-wp-table-is-loading';
 		}
 
 		content = (
 			<Fragment>
-				<div className="wp-table-advanced-header">
-					<div className="wp-table-advanced-inner-header">
+				<div className="advanced-wp-table-header">
+					<div className="advanced-wp-table-inner-header">
 						<h1>Add New Table</h1>
 					</div>
 				</div>
-				<div className={ 'wp-table-advanced-new-table-form' }>
-					<div className="wp-table-advanced-form-item">
+				<div className={ 'advanced-wp-table-new-table-form' }>
+					<div className="advanced-wp-table-form-item">
 						<label htmlFor="title">Title</label>
 						<input
 							type="text"
@@ -337,7 +337,7 @@ const App = () => {
 							value={ title }
 						/>
 					</div>
-					<div className="wp-table-advanced-form-item">
+					<div className="advanced-wp-table-form-item">
 						<label htmlFor="no-of-rows">How many rows?</label>
 						<input
 							type="number"
@@ -347,7 +347,7 @@ const App = () => {
 							value={ noOfRows }
 						/>
 					</div>
-					<div className="wp-table-advanced-form-item">
+					<div className="advanced-wp-table-form-item">
 						<label htmlFor="no-of-columns">How many columns?</label>
 						<input
 							type="number"
@@ -358,13 +358,13 @@ const App = () => {
 						/>
 					</div>
 				</div>
-				<div className={ 'wp-table-advanced-new-table-form-buttons' }>
+				<div className={ 'advanced-wp-table-new-table-form-buttons' }>
 					<button
 						className={ buttonClasses }
 						onClick={ handleNewTableSubmission }
 						disabled={ !! isLoading }
 					>
-						<span className="wp-table-advanced-spinner" />
+						<span className="advanced-wp-table-spinner" />
 						Create
 					</button>
 					{ ` ` }
@@ -378,8 +378,8 @@ const App = () => {
 	} else if ( ! table.id ) {
 		content = (
 			<Fragment>
-				<div className="wp-table-advanced-header">
-					<div className="wp-table-advanced-inner-header">
+				<div className="advanced-wp-table-header">
+					<div className="advanced-wp-table-inner-header">
 						<h1>All Tables</h1>
 						<button
 							className={ 'button button-primary' }
@@ -395,8 +395,8 @@ const App = () => {
 	} else {
 		content = (
 			<Fragment>
-				<div className="wp-table-advanced-header">
-					<div className="wp-table-advanced-inner-header">
+				<div className="advanced-wp-table-header">
+					<div className="advanced-wp-table-inner-header">
 						<h1>{ table.post.title.rendered }</h1>
 						<button
 							className={ 'button button-primary' }

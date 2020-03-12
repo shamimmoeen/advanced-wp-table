@@ -1,7 +1,7 @@
 {
-  "name": "wp-table-advanced",
+  "name": "advanced-wp-table",
   "version": "1.0.0",
-  "description": "Create responsive tables using Gutenberg to use anywhere using shortcode.",
+  "description": "Create responsive tables using Gutenberg.",
   "main": "webpack.config.js",
   "scripts": {
     "build": "wp-scripts build",
@@ -15,7 +15,7 @@
     "test:e2e": "wp-scripts test-e2e",
     "test:unit": "wp-scripts test-unit-js"
   },
-  "keywords": [ "wp-table-advanced", "table", "responsive-table", "gutenberg-table" ],
+  "keywords": [ "advanced-wp-table", "wp-table", "table", "responsive-table", "gutenberg-table" ],
   "author": "Mainul Hassan Main <shamim.moeen@gmail.com> (https://mainulhassan.info)",
   "license": "GPLv3",
   "devDependencies": {

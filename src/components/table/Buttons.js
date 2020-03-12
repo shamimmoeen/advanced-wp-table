@@ -1,18 +1,18 @@
 const Buttons = ( { onAddRow, onAddColumn, onSaveTable, isLoading } ) => {
-	let buttonClasses = 'button button-primary wp-table-advanced-button-with-spinner';
+	let buttonClasses = 'button button-primary advanced-wp-table-button-with-spinner';
 
 	if ( isLoading ) {
-		buttonClasses += ' wp-table-advanced-is-loading';
+		buttonClasses += ' advanced-wp-table-is-loading';
 	}
 
 	return (
-		<div className={ 'wp-table-advanced-post-buttons' }>
+		<div className={ 'advanced-wp-table-post-buttons' }>
 			<button
 				className={ buttonClasses }
 				onClick={ onSaveTable }
 				disabled={ !! isLoading }
 			>
-				<span className="wp-table-advanced-spinner" />
+				<span className="advanced-wp-table-spinner" />
 				Update
 			</button>
 			<div>

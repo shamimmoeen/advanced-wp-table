@@ -4,22 +4,22 @@ const List = ( { list, onHandleSetTable, onHandleDeleteTable } ) => {
 	if ( list.loading ) {
 		content = 'Loading...';
 	} else if ( 0 === list.list.length ) {
-		content = <div className={ 'wp-table-advanced-not-found' }>No table found!</div>;
+		content = <div className={ 'advanced-wp-table-not-found' }>No table found!</div>;
 	} else {
 		content = (
-			<table className="wp-table-advanced wp-table-advanced-posts-list">
+			<table className="advanced-wp-table advanced-wp-table-posts-list">
 				<thead>
 					<tr>
-						<th className={ 'wp-table-advanced-posts-list-titles' }>Title</th>
-						<th className={ 'wp-table-advanced-posts-list-shortcodes' }>Shortcode</th>
-						<th className={ 'wp-table-advanced-posts-list-actions' }>Actions</th>
+						<th className={ 'advanced-wp-table-posts-list-titles' }>Title</th>
+						<th className={ 'advanced-wp-table-posts-list-shortcodes' }>Shortcode</th>
+						<th className={ 'advanced-wp-table-posts-list-actions' }>Actions</th>
 					</tr>
 				</thead>
 				<tbody>{
 					list.list.map( ( item, index ) => (
 						<tr key={ index }>
-							<td className={ 'wp-table-advanced-post-title' }>{ item.title.rendered }</td>
-							<td>[wp_table_advanced id={ item.id }]</td>
+							<td className={ 'advanced-wp-table-post-title' }>{ item.title.rendered }</td>
+							<td>[advanced_wp_table id={ item.id }]</td>
 							<td>
 								<button
 									className={ 'button' }

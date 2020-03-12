@@ -75,7 +75,7 @@ const Table = ( props ) => {
 
 	return (
 		<Fragment>
-			<table className={ 'wp-table-advanced wp-table-advanced-post-item' }>
+			<table className={ 'advanced-wp-table advanced-wp-table-post-item' }>
 				<tbody ref={ rowsEl }>{
 					rows.map( ( x = [], i ) => (
 						<tr key={ i }>
@@ -151,9 +151,9 @@ const Table = ( props ) => {
 										setDragState( { ...defaultDragState } );
 									} }
 								>
-									<div className={ 'wp-table-advanced-cell-wrapper' }>
+									<div className={ 'advanced-wp-table-cell-wrapper' }>
 										<div
-											className={ 'wp-table-advanced-cell-content' }
+											className={ 'advanced-wp-table-cell-content' }
 											dangerouslySetInnerHTML={ createMarkup( y ) }
 										/>
 										<Actions

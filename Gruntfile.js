@@ -8,7 +8,7 @@ module.exports = function( grunt ) {
 
 		addtextdomain: {
 			options: {
-				textdomain: 'wp-table-advanced',
+				textdomain: 'advanced-wp-table',
 			},
 			update_all_domains: {
 				options: {
@@ -31,8 +31,8 @@ module.exports = function( grunt ) {
 				options: {
 					domainPath: '/languages',
 					exclude: [ '\.git/*', 'bin/*', 'node_modules/*', 'tests/*' ],
-					mainFile: 'wp-table-advanced.php',
-					potFilename: 'wp-table-advanced.pot',
+					mainFile: 'advanced-wp-table.php',
+					potFilename: 'advanced-wp-table.pot',
 					potHeaders: {
 						poedit: true,
 						'x-poedit-keywordslist': true,
