@@ -34,4 +34,10 @@ Create responsive tables using Gutenberg.
 = 1.0.0 =
 * Initial release.
 
+= 1.0.1 =
+* Flush and unflash rewrite rules in plugin activation and deactivation.
+* Fix cell vertical align design issue.
+* Add option to clone row.
+* Wrap table inside unique id.
+
 == Upgrade Notice ==
