@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name:     Advanced WP Table
- * Plugin URI:      https://mainulhassan.info/advanced-wp-table
+ * Plugin URI:      https://wordpress.org/plugins/advanced-wp-table
  * Description:     Create responsive tables using Gutenberg.
  * Author:          Mainul Hassan Main
  * Author URI:      https://mainulhassan.info
  * Text Domain:     advanced-wp-table
  * Domain Path:     /languages
- * Version:         1.0.0
+ * Version:         1.0.1
  * License:         GPLv3
  *
  * @package         Advanced_WP_Table
