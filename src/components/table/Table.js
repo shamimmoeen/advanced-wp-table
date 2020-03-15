@@ -17,7 +17,7 @@ const defaultDragState = {
 
 const Table = ( props ) => {
 	let { rows = [] } = props;
-	const { onDragEnd, onHandleOpenModal, onHandleDeleteColumn, onHandleDeleteRow } = props;
+	const { onDragEnd, onHandleOpenModal, onHandleDeleteColumn, onHandleDeleteRow, onHandleDuplicateRow } = props;
 	const [ dragState, setDragState ] = useState( { ...defaultDragState } );
 	const rowsEl = useRef( null ),
 		preview = useRef( null );
@@ -160,6 +160,7 @@ const Table = ( props ) => {
 											onHandleOpenModal={ onHandleOpenModal }
 											onHandleDeleteColumn={ onHandleDeleteColumn }
 											onHandleDeleteRow={ onHandleDeleteRow }
+											onHandleDuplicateRow={ onHandleDuplicateRow }
 											x={ x }
 											y={ y }
 											i={ i }

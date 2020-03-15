@@ -114,6 +114,18 @@ const App = () => {
 		setData( newTable );
 	};
 
+	const handleDuplicateRow = ( i ) => {
+		const tempSize = { ...size };
+		const newRows = [ ...rows ];
+		const newRowContent = newRows[ i ];
+		newRows.splice( i + 0, 0, newRowContent );
+
+		const newSize = { ...tempSize, rows: tempSize.rows + 1 };
+		const newTable = { size: newSize, rows: newRows };
+
+		setData( newTable );
+	};
+
 	const handleDragEnd = ( type, from, to, newData ) => {
 		const newTable = { ...data, rows: newData };
 
@@ -413,6 +425,7 @@ const App = () => {
 					onHandleOpenModal={ handleOpenModal }
 					onHandleDeleteColumn={ handleDeleteColumn }
 					onHandleDeleteRow={ handleDeleteRow }
+					onHandleDuplicateRow={ handleDuplicateRow }
 				/>
 				<Buttons
 					onAddRow={ handleAddRow }

@@ -1,5 +1,5 @@
 const Actions = ( props ) => {
-	const { onHandleOpenModal, onHandleDeleteColumn, onHandleDeleteRow, x, y, i, j } = props;
+	const { onHandleOpenModal, onHandleDeleteColumn, onHandleDeleteRow, onHandleDuplicateRow, x, y, i, j } = props;
 
 	return (
 		<div className={ 'advanced-wp-table-cell-actions' }>
@@ -25,6 +25,13 @@ const Actions = ( props ) => {
 					role="presentation"
 				>
 					Delete Row
+				</div>
+				<div
+					className="advanced-wp-table-action-item"
+					onClick={ () => onHandleDuplicateRow( i ) }
+					role="presentation"
+				>
+					Duplicate Row
 				</div>
 			</div>
 		</div>

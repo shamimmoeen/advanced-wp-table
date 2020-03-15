@@ -11,6 +11,7 @@
   }
   .advanced-wp-table .advanced-wp-table-body .advanced-wp-table-row .advanced-wp-table-cell {
     display: table-cell;
+    vertical-align: top;
   }
 
   .advanced-wp-table .advanced-wp-table-body .advanced-wp-table-row:not(:nth-of-type(1)) {
@@ -26,10 +27,6 @@
 @media (max-width: 767px) {
   .advanced-wp-table-row {
     margin: 0 0 1em;
-  }
-
-  .advanced-wp-table-cell {
-    display: flex;
   }
 
   .advanced-wp-table .advanced-wp-table-row {

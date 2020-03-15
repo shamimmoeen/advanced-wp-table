@@ -31,6 +31,7 @@ class Advanced_WP_Table {
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( 'rest_api_init', array( $this, 'register_meta_api' ) );
 		add_shortcode( 'advanced_wp_table', array( $this, 'register_shortcode' ) );
+		add_filter( 'the_content', array( $this, 'wrap_table_output' ) );
 		add_action( 'admin_notices', array( $this, 'show_notices' ) );
 		$this->includes();
 	}
@@ -180,10 +181,35 @@ class Advanced_WP_Table {
 		setup_postdata( $post );
 
 		ob_start();
+		echo '<div class="advanced-wp-table-wrapper" id="advanced-wp-table-' . esc_attr( $id ) . '">';
 		the_content();
+		echo '</div>';
 		$content = ob_get_clean();
 
 		wp_reset_postdata();
+
+		return $content;
+	}
+
+	/**
+	 * Wraps our table inside unique id.
+	 *
+	 * @param string $content The post content.
+	 *
+	 * @since 1.0.1
+	 *
+	 * @return string
+	 */
+	public function wrap_table_output( $content ) {
+		if ( is_singular( 'advanced-wp-table' ) && in_the_loop() && is_main_query() ) {
+			$wrap = '';
+
+			$wrap .= '<div class="advanced-wp-table-wrapper" id="advanced-wp-table-' . get_the_ID() . '">';
+			$wrap .= $content;
+			$wrap .= '</div>';
+
+			$content = $wrap;
+		}
 
 		return $content;
 	}
