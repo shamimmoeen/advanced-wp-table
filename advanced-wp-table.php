@@ -29,6 +29,7 @@ class Advanced_WP_Table {
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_backend_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_scripts' ) );
 		add_action( 'init', array( $this, 'register_post_type' ) );
+		add_action( 'init', array( $this, 'flush_rewrite_rules_maybe' ), 20 );
 		add_action( 'rest_api_init', array( $this, 'register_meta_api' ) );
 		add_shortcode( 'advanced_wp_table', array( $this, 'register_shortcode' ) );
 		add_filter( 'the_content', array( $this, 'wrap_table_output' ) );
@@ -110,6 +111,16 @@ class Advanced_WP_Table {
 		);
 
 		register_post_type( 'advanced-wp-table', $args );
+	}
+
+	/**
+	 * Flush rewrite rules if the previously added flag exists, and then remove the flag.
+	 */
+	public function flush_rewrite_rules_maybe() {
+		if ( get_option( 'advanced_wp_table_flush_rewrite_rules_flag' ) ) {
+			flush_rewrite_rules();
+			delete_option( 'advanced_wp_table_flush_rewrite_rules_flag' );
+		}
 	}
 
 	/**
@@ -246,6 +257,30 @@ class Advanced_WP_Table {
 	}
 
 }
+
+/**
+ * Run when the plugin is activated.
+ *
+ * @since 1.0.1
+ */
+function advanced_wp_table_activate() {
+	if ( ! get_option( 'advanced_wp_table_flush_rewrite_rules_flag' ) ) {
+		add_option( 'advanced_wp_table_flush_rewrite_rules_flag', true );
+	}
+}
+
+register_activation_hook( __FILE__, 'advanced_wp_table_activate' );
+
+/**
+ * Run when the plugin is deactivated.
+ *
+ * @since 1.0.1
+ */
+function advanced_wp_table_deactivate() {
+	delete_option( 'advanced_wp_table_flush_rewrite_rules_flag' );
+}
+
+register_deactivation_hook( __FILE__, 'advanced_wp_table_deactivate' );
 
 /**
  * Run the class.
