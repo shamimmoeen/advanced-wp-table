@@ -1,5 +1,5 @@
 # Advanced WP Table #
-**Contributors:** shamimmoeen  
+**Contributors:** [shamimmoeen](https://profiles.wordpress.org/shamimmoeen)  
 **Tags:** advanced-wp-table, wp-table, table, responsive-table, gutenberg-table  
 **Requires at least:** 5.0.0  
 **Tested up to:** 5.3.2  

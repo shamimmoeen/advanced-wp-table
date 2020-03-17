@@ -7,290 +7,79 @@
  * Author URI:      https://mainulhassan.info
  * Text Domain:     advanced-wp-table
  * Domain Path:     /languages
- * Version:         1.0.1
+ * Version:         1.1.0
  * License:         GPLv3
  *
  * @package         Advanced_WP_Table
  */
 
-/**
- * Class Advanced_WP_Table
- *
- * @since 1.0.0
- */
-class Advanced_WP_Table {
-
+if ( ! function_exists( 'awt_fs' ) ) {
 	/**
-	 * Advanced_WP_Table constructor.
+	 * Create a helper function for easy SDK access.
 	 *
-	 * @since 1.0.0
-	 */
-	public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_backend_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_scripts' ) );
-		add_action( 'init', array( $this, 'register_post_type' ) );
-		add_action( 'init', array( $this, 'flush_rewrite_rules_maybe' ), 20 );
-		add_action( 'rest_api_init', array( $this, 'register_meta_api' ) );
-		add_shortcode( 'advanced_wp_table', array( $this, 'register_shortcode' ) );
-		add_filter( 'the_content', array( $this, 'wrap_table_output' ) );
-		add_action( 'admin_notices', array( $this, 'show_notices' ) );
-		$this->includes();
-	}
-
-	/**
-	 * Add the meta field to REST API responses for CPT advanced-wp-table read and write.
-	 *
-	 * @since 1.0.0
-	 */
-	public function register_meta_api() {
-		register_rest_field(
-			'advanced-wp-table',
-			'advanced_wp_table_data',
-			array(
-				'get_callback'    => array( $this, 'get_meta' ),
-				'update_callback' => array( $this, 'update_meta' ),
-				'schema'          => null,
-			)
-		);
-	}
-
-	/**
-	 * Handler for getting custom field data.
-	 *
-	 * @param array  $object     The object from the response.
-	 * @param string $field_name Name of field.
-	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 *
 	 * @return mixed
+	 *
+	 * @throws \Freemius_Exception Throw error.
 	 */
-	public function get_meta( $object, $field_name ) {
-		return get_post_meta( $object['id'], $field_name, true );
-	}
+	function awt_fs() {
+		global $awt_fs;
 
-	/**
-	 * Handler for updating custom field data.
-	 *
-	 * @param mixed  $value      The value of the field.
-	 * @param object $object     The object from the response.
-	 * @param string $field_name Name of field.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool|int
-	 */
-	public function update_meta( $value, $object, $field_name ) {
-		return update_post_meta( $object->ID, $field_name, $value );
-	}
+		if ( ! isset( $awt_fs ) ) {
+			// Include Freemius SDK.
+			require_once dirname( __FILE__ ) . '/includes/freemius/start.php';
 
-	/**
-	 * Include the dependencies.
-	 *
-	 * @since 1.0.0
-	 */
-	public function includes() {
-		if ( ! $this->should_we_run() ) {
-			return;
+			$awt_fs = fs_dynamic_init(
+				array(
+					'id'             => '5735',
+					'slug'           => 'advanced-wp-table',
+					'type'           => 'plugin',
+					'public_key'     => 'pk_00b5e191384bb0759829eb9772649',
+					'is_premium'     => false,
+					'has_addons'     => false,
+					'has_paid_plans' => false,
+					'menu'           => array(
+						'slug' => 'advanced-wp-table',
+					),
+				)
+			);
 		}
 
-		require_once plugin_dir_path( __FILE__ ) . 'includes/settings.php';
+		return $awt_fs;
 	}
 
-	/**
-	 * Register Post Type.
-	 *
-	 * @since 1.0.0
-	 */
-	public function register_post_type() {
-		$args = array(
-			'public'            => true,
-			'show_in_menu'      => false,
-			'show_in_nav_menus' => false,
-			'show_in_rest'      => true,
-			'label'             => __( 'Advanced WP Table', 'advanced-wp-table' ),
-		);
-
-		register_post_type( 'advanced-wp-table', $args );
-	}
-
-	/**
-	 * Flush rewrite rules if the previously added flag exists, and then remove the flag.
-	 */
-	public function flush_rewrite_rules_maybe() {
-		if ( get_option( 'advanced_wp_table_flush_rewrite_rules_flag' ) ) {
-			flush_rewrite_rules();
-			delete_option( 'advanced_wp_table_flush_rewrite_rules_flag' );
+	// Init Freemius.
+	// @todo Remove this condition.
+	if ( 1 === 2 ) {
+		try {
+			awt_fs();
+		} catch ( Freemius_Exception $e ) {
+			// Display the error message and stop executing.
+			wp_die( esc_html( $e->getMessage() ) );
 		}
 	}
 
-	/**
-	 * Load frontend scripts.
-	 *
-	 * @since 1.0.0
-	 */
-	public function load_frontend_scripts() {
-		wp_register_style(
-			'advanced-wp-table-style',
-			plugin_dir_url( __FILE__ ) . 'assets/advanced-wp-table.css',
-			array(),
-			filemtime( plugin_dir_path( __FILE__ ) . 'assets/advanced-wp-table.css' )
-		);
-
-		if ( 'advanced-wp-table' === get_post_type() ) {
-			wp_enqueue_style( 'advanced-wp-table-style' );
-		}
-	}
-
-	/**
-	 * Load backend scripts.
-	 *
-	 * @param string $hook The hook identifier.
-	 *
-	 * @since 1.0.0
-	 */
-	public function load_backend_scripts( $hook ) {
-		if ( 'toplevel_page_advanced-wp-table' !== $hook ) {
-			return;
-		}
-
-		wp_enqueue_media();
-		wp_enqueue_script( 'media-upload' );
-		wp_enqueue_script( 'wp-edit-post' );
-		wp_enqueue_style( 'wp-edit-post' );
-
-		// Automatically load dependencies and version.
-		$asset_file = include plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
-
-		wp_enqueue_script(
-			'advanced-wp-table-backend-js',
-			plugin_dir_url( __FILE__ ) . 'build/index.js',
-			$asset_file['dependencies'],
-			$asset_file['version'],
-			true
-		);
-	}
-
-	/**
-	 * Register the shortcode.
-	 *
-	 * @param array $atts The array of options.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return mixed|void
-	 */
-	public function register_shortcode( $atts ) {
-		$id = isset( $atts['id'] ) ? $atts['id'] : 0;
-
-		if ( ! $id ) {
-			return;
-		}
-
-		wp_enqueue_style( 'advanced-wp-table-style' );
-
-		$post = get_post( $id );
-		setup_postdata( $post );
-
-		ob_start();
-		echo '<div class="advanced-wp-table-wrapper" id="advanced-wp-table-' . esc_attr( $id ) . '">';
-		the_content();
-		echo '</div>';
-		$content = ob_get_clean();
-
-		wp_reset_postdata();
-
-		return $content;
-	}
-
-	/**
-	 * Wraps our table inside unique id.
-	 *
-	 * @param string $content The post content.
-	 *
-	 * @since 1.0.1
-	 *
-	 * @return string
-	 */
-	public function wrap_table_output( $content ) {
-		if ( is_singular( 'advanced-wp-table' ) && in_the_loop() && is_main_query() ) {
-			$wrap = '';
-
-			$wrap .= '<div class="advanced-wp-table-wrapper" id="advanced-wp-table-' . get_the_ID() . '">';
-			$wrap .= $content;
-			$wrap .= '</div>';
-
-			$content = $wrap;
-		}
-
-		return $content;
-	}
-
-	/**
-	 * Should we run or not.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool
-	 */
-	private function should_we_run() {
-		if ( version_compare( get_bloginfo( 'version' ), '5.0', '<' ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Show admin notices.
-	 *
-	 * @since 1.0.0
-	 */
-	public function show_notices() {
-		if ( $this->should_we_run() ) {
-			return;
-		}
-
-		$class   = 'notice notice-info';
-		$message = __( 'Advanced WP Table plugin requires WordPress version 5.0 or greater.', 'advanced-wp-table' );
-
-		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
-	}
-
+	// Signal that SDK was initiated.
+	do_action( 'awt_fs_loaded' );
 }
 
-/**
- * Run when the plugin is activated.
- *
- * @since 1.0.1
- */
-function advanced_wp_table_activate() {
-	if ( ! get_option( 'advanced_wp_table_flush_rewrite_rules_flag' ) ) {
-		add_option( 'advanced_wp_table_flush_rewrite_rules_flag', true );
+// Include the main WooCommerce class.
+if ( ! class_exists( 'Advanced_WP_Table' ) ) {
+	require_once dirname( __FILE__ ) . '/includes/class-advanced-wp-table.php';
+}
+
+if ( ! function_exists( 'advanced_wp_table_run' ) ) {
+	/**
+	 * Run the class.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return \Advanced_WP_Table
+	 */
+	function advanced_wp_table_run() {
+		return Advanced_WP_Table::instance();
 	}
+
+	advanced_wp_table_run();
 }
-
-register_activation_hook( __FILE__, 'advanced_wp_table_activate' );
-
-/**
- * Run when the plugin is deactivated.
- *
- * @since 1.0.1
- */
-function advanced_wp_table_deactivate() {
-	delete_option( 'advanced_wp_table_flush_rewrite_rules_flag' );
-}
-
-register_deactivation_hook( __FILE__, 'advanced_wp_table_deactivate' );
-
-/**
- * Run the class.
- *
- * @since 1.0.0
- *
- * @return \Advanced_WP_Table
- */
-function advanced_wp_table_run() {
-	return new Advanced_WP_Table();
-}
-
-add_action( 'plugins_loaded', 'advanced_wp_table_run' );

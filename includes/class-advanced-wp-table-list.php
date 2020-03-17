@@ -1,24 +1,32 @@
 <?php
 /**
- * Class Advanced_WP_Table_Settings_Page
+ * Advanced WP Table list.
+ *
+ * @since   1.0.0
  *
  * @package Advanced_WP_Table
  */
 
 /**
- * Class Advanced_WP_Table_Settings_Page
+ * Class Advanced_WP_Table_Table_List
+ *
+ * @since 1.0.0
  */
-class Advanced_WP_Table_Settings_Page {
+class Advanced_WP_Table_Table_List {
 
 	/**
-	 * Start up
+	 * The constructor.
+	 *
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
 	}
 
 	/**
-	 * Add options page
+	 * Add options page.
+	 *
+	 * @since 1.0.0
 	 */
 	public function add_plugin_page() {
 		add_menu_page(
@@ -28,12 +36,14 @@ class Advanced_WP_Table_Settings_Page {
 			'advanced-wp-table',
 			array( $this, 'create_admin_page' ),
 			'dashicons-editor-table',
-			9
+			25
 		);
 	}
 
 	/**
-	 * Options page callback
+	 * Options page callback.
+	 *
+	 * @since 1.0.0
 	 */
 	public function create_admin_page() {
 		?>
@@ -45,4 +55,4 @@ class Advanced_WP_Table_Settings_Page {
 	}
 }
 
-new Advanced_WP_Table_Settings_Page();
+new Advanced_WP_Table_Table_List();
