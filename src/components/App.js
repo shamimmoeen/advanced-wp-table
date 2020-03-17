@@ -57,7 +57,7 @@ const App = () => {
 	}, [ table.post ] );
 
 	useEffect( () => {
-		apiFetch( { path: '/wp/v2/advanced-wp-table' } ).then( ( posts ) => {
+		apiFetch( { path: '/wp/v2/advanced-wp-table?per_page=99' } ).then( ( posts ) => {
 			setList( { loading: false, list: posts } );
 		} );
 	}, [] );
