@@ -1,0 +1,92 @@
+import _ from 'lodash';
+import { parseTableSize, updateTable, updateTableWithCellData } from '../../../utils/table';
+import { dismissToasts, toastError, toastSuccess } from '../../../utils/utils';
+import { StateContext } from '../../App';
+
+const { useContext } = wp.element;
+const { __ } = wp.i18n;
+
+const Buttons = () => {
+	const { state, dispatch } = useContext( StateContext );
+	const { tables, table, activeCell } = state;
+	const { i, j, content } = activeCell;
+
+	const onHandleSave = () => {
+		const oldTables = [ ...tables ];
+		const updatedTable = updateTableWithCellData( table, activeCell );
+
+		const newTables = oldTables.map( ( item ) => {
+			if ( item.id === updatedTable.id ) {
+				return updatedTable;
+			}
+
+			return item;
+		} );
+
+		dispatch( { type: 'SET_TABLE', payload: updatedTable } );
+		dispatch( { type: 'UPDATE_TABLES', payload: newTables } );
+		dispatch( { type: 'UNSET_ACTIVE_CELL' } );
+		dispatch( { type: 'SET_VIEW', payload: 'table' } );
+		toastSuccess( __( 'Successfully updated', 'advanced-wp-table' ) );
+
+		// eslint-disable-next-line camelcase
+		const { id, advanced_wp_table_data } = updatedTable;
+		const title = updatedTable.title.rendered;
+
+		updateTable( id, title, advanced_wp_table_data )
+			.catch( () => {
+				dismissToasts();
+				dispatch( { type: 'SET_TABLE', payload: table } );
+				dispatch( { type: 'UPDATE_TABLES', payload: oldTables } );
+				toastError( __( 'Oops, there was a problem when updating the table', 'advanced-wp-table' ) );
+			} );
+	};
+
+	const navigateToTable = () => {
+		dispatch( { type: 'UNSET_ACTIVE_CELL' } );
+		dispatch( { type: 'SET_VIEW', payload: 'table' } );
+	};
+
+	const isActiveCellChanged = () => {
+		const oldTable = _.find( state.tables, ( item ) => item.id === table.id );
+		const { advanced_wp_table_data: oldTableData } = parseTableSize( oldTable );
+		const oldContent = oldTableData.rows[ i ][ j ];
+
+		const isEqual = _.isEqual( oldContent, content );
+
+		return ! isEqual;
+	};
+
+	const onHandleCloseModal = () => {
+		if ( isActiveCellChanged() ) {
+			dispatch( {
+				type: 'SET_TABLE_CHANGED_DIALOG',
+				payload: {
+					status: true,
+					callbackLeave: navigateToTable,
+				},
+			} );
+		} else {
+			navigateToTable();
+		}
+	};
+
+	return (
+		<div className={ 'advanced-wp-table-editor-action-buttons' }>
+			<div>
+				<button
+					onClick={ onHandleSave }
+					className={ 'button button-primary button-large' }
+				>
+					{ __( 'Save Changes', 'advanced-wp-table' ) }
+				</button>
+				{ ` ` }
+				<button onClick={ onHandleCloseModal } className={ 'button button-large' }>
+					{ __( 'Close', 'advanced-wp-table' ) }
+				</button>
+			</div>
+		</div>
+	);
+};
+
+export default Buttons;

@@ -1,33 +1,177 @@
-const { Fragment, useState, useEffect } = wp.element;
-import apiFetch from '@wordpress/api-fetch';
 import { registerCoreBlocks } from '@wordpress/block-library';
 import { hot } from 'react-hot-loader/root';
-import List from './list/List';
-import Modal from './modal/Modal';
-import Buttons from './table/Buttons';
-import Table from './table/Table';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { getTables, parseTableSize } from '../utils/table';
+import { toastError } from '../utils/utils';
+import './App.scss';
+import EditCellModal from './EditCellModal/EditCellModal';
+import List from './List/List';
+import NewTable from './NewTable/NewTable';
+import Table from './Table/Table';
+import TableChangedDialog from './TableChangedDialog/TableChangedDialog';
+import TableDeleteDialog from './TableDeleteDialog/TableDeleteDialog';
 
-const defaultTable = {
-	new: false,
+const React = wp.element;
+const { useReducer, useEffect } = wp.element;
+
+export const StateContext = React.createContext();
+
+const newTableData = {
+	title: '',
+	sizeOfRows: 2,
+	sizeOfColumns: 2,
+};
+
+const tableChangedDialog = {
+	status: false,
+	callbackCancel: null,
+	callbackLeave: null,
+};
+
+const tableDeleteDialog = {
+	status: false,
 	id: null,
-	post: null,
-	newTableData: {
-		title: '',
-		rows: '2',
-		columns: '2',
-	},
-	newTableError: null,
-	isLoading: false,
+};
+
+const initialState = {
+	loading: true,
+	tablesLoading: true,
+	formLoading: false,
+	total: 0,
+	totalPages: 1,
+	perPage: 10,
+	offset: 0,
+	currentPage: 0,
+	tables: [],
+	table: {},
+	tableData: [],
+	activeCell: {},
+	tableChangedDialog,
+	tableDeleteDialog,
+	view: 'list',
+	newTableData,
+};
+
+const reducer = ( state, action ) => {
+	switch ( action.type ) {
+		case 'SET_VIEW':
+			return { ...state, view: action.payload };
+
+		case 'SET_LOADING':
+			return { ...state, loading: true };
+
+		case 'UNSET_LOADING':
+			return { ...state, loading: false };
+
+		case 'SET_TABLES_LOADING':
+			return { ...state, tablesLoading: true };
+
+		case 'UNSET_TABLES_LOADING':
+			return { ...state, tablesLoading: false };
+
+		case 'SET_FORM_LOADING':
+			return { ...state, formLoading: true };
+
+		case 'UNSET_FORM_LOADING':
+			return { ...state, formLoading: false };
+
+		case 'FETCH_TABLES':
+			const { total, totalPages, tables } = action.payload;
+
+			return { ...state, total, totalPages, tables };
+
+		case 'UPDATE_TABLES':
+			return { ...state, tables: action.payload };
+
+		case 'PAGINATE_TABLES':
+			return { ...state, offset: action.payload.offset, currentPage: action.payload.currentPage };
+
+		case 'SET_INPUT':
+			const data = { ...state.newTableData };
+			data[ action.payload.name ] = action.payload.value;
+
+			return { ...state, newTableData: data };
+
+		case 'CLEAR_NEW_TABLE_DATA':
+			return { ...state, newTableData };
+
+		case 'ADD_NEW_TABLE':
+			return { ...state, tables: [ action.payload, ...state.tables ] };
+
+		case 'SET_TABLE':
+			return { ...state, table: parseTableSize( action.payload ) };
+
+		case 'UNSET_TABLE':
+			return { ...state, table: {} };
+
+		case 'ON_DRAG_END_TABLE':
+			const { advanced_wp_table_data: tableData } = state.table;
+			const updatedTableData = { ...tableData, rows: action.payload };
+
+			return { ...state, table: { ...state.table, advanced_wp_table_data: updatedTableData } };
+
+		case 'SET_ACTIVE_CELL':
+			return { ...state, activeCell: action.payload };
+
+		case 'UNSET_ACTIVE_CELL':
+			return { ...state, activeCell: {} };
+
+		case 'SET_TABLE_CHANGED_DIALOG':
+			return { ...state, tableChangedDialog: action.payload };
+
+		case 'UNSET_TABLE_CHANGED_DIALOG':
+			return { ...state, tableChangedDialog };
+
+		case 'SET_TABLE_DELETE_DIALOG':
+			return { ...state, tableDeleteDialog: action.payload };
+
+		case 'UNSET_TABLE_DELETE_DIALOG':
+			return { ...state, tableDeleteDialog };
+
+		default:
+			return state;
+	}
 };
 
 const App = () => {
-	const [ data, setData ] = useState( [] );
-	const [ modalState, setModalState ] = useState( 0 );
-	const [ cellData, setCellData ] = useState( '' );
-	const [ list, setList ] = useState( { loading: true, list: [] } );
-	const [ table, setTable ] = useState( defaultTable );
-	const { size, rows } = data;
+	const [ state, dispatch ] = useReducer( reducer, initialState );
+	const { perPage, offset, view } = state;
 
+	const fetchTables = () => {
+		dispatch( { type: 'SET_TABLES_LOADING' } );
+
+		getTables( perPage, offset )
+			.then( ( response ) => {
+				dispatch( { type: 'FETCH_TABLES', payload: response } );
+			} )
+			.catch( ( err ) => toastError( err.message ) );
+
+		dispatch( { type: 'UNSET_TABLES_LOADING' } );
+	};
+
+	/**
+	 * Initially fetch the tables from the database.
+	 */
+	useEffect( () => {
+		fetchTables();
+		dispatch( { type: 'UNSET_LOADING' } );
+	}, [] );
+
+	/**
+	 * Fetch the tables when offset gets changed.
+	 */
+	useEffect( () => {
+		if ( state.loading ) {
+			return;
+		}
+
+		fetchTables();
+	}, [ offset ] );
+
+	/**
+	 * Register the gutenberg core blocks.
+	 */
 	useEffect( () => {
 		registerCoreBlocks();
 
@@ -43,407 +187,26 @@ const App = () => {
 		} );
 	}, [] );
 
-	useEffect( () => {
-		if ( ! table.post ) {
-			return;
-		}
-
-		const _size = {
-			rows: parseInt( table.post.advanced_wp_table_data.size.rows ),
-			columns: parseInt( table.post.advanced_wp_table_data.size.columns ),
-		};
-
-		setData( { ...table.post.advanced_wp_table_data, size: _size } );
-	}, [ table.post ] );
-
-	useEffect( () => {
-		apiFetch( { path: '/wp/v2/advanced-wp-table?per_page=99' } ).then( ( posts ) => {
-			setList( { loading: false, list: posts } );
-		} );
-	}, [] );
-
-	const handleAddRow = () => {
-		const tempSize = { ...size };
-		const tempRows = [ ...rows ];
-		const newRow = [];
-
-		for ( let i = 0; i < tempSize.columns; i++ ) {
-			newRow.push( '' );
-		}
-
-		const newData = [ ...tempRows, newRow ];
-		const newSize = { ...tempSize, rows: tempSize.rows + 1 };
-		const newTable = { size: newSize, rows: newData };
-
-		setData( newTable );
-	};
-
-	const handleAddColumn = () => {
-		const tempSize = { ...size };
-		const tempRows = [ ...rows ];
-		const newData = [];
-
-		tempRows.map( ( row ) => {
-			const newRow = [ ...row, '' ];
-			return newData.push( newRow );
-		} );
-
-		const newSize = { ...tempSize, columns: tempSize.columns + 1 };
-		const newTable = { size: newSize, rows: newData };
-
-		setData( newTable );
-	};
-
-	const handleDeleteColumn = ( j ) => {
-		const tempSize = { ...size };
-		const newRows = rows.map( ( row ) => row.filter( ( column, index ) => index !== j ) );
-
-		const newSize = { ...tempSize, columns: tempSize.columns - 1 };
-		const newTable = { size: newSize, rows: newRows };
-
-		setData( newTable );
-	};
-
-	const handleDeleteRow = ( i ) => {
-		const tempSize = { ...size };
-		const newRows = rows.filter( ( row, index ) => index !== i );
-
-		const newSize = { ...tempSize, rows: tempSize.rows - 1 };
-		const newTable = { size: newSize, rows: newRows };
-
-		setData( newTable );
-	};
-
-	const handleDuplicateRow = ( i ) => {
-		const tempSize = { ...size };
-		const newRows = [ ...rows ];
-		const newRowContent = newRows[ i ];
-		newRows.splice( i + 0, 0, newRowContent );
-
-		const newSize = { ...tempSize, rows: tempSize.rows + 1 };
-		const newTable = { size: newSize, rows: newRows };
-
-		setData( newTable );
-	};
-
-	const handleDragEnd = ( type, from, to, newData ) => {
-		const newTable = { ...data, rows: newData };
-
-		setData( newTable );
-	};
-
-	const handleOpenModal = ( i, j ) => {
-		const content = rows[ i ][ j ];
-		const _data = { i, j, content };
-		setModalState( ( prevState ) => ! prevState );
-		setCellData( _data );
-	};
-
-	const handleSetCellData = ( _data ) => {
-		const { i, j } = cellData;
-
-		const newRows = rows.map( ( row, rowIndex ) => {
-			if ( i === rowIndex ) {
-				row.map( ( column, columnIndex ) => {
-					if ( j === columnIndex ) {
-						return row[ j ] = _data;
-					}
-
-					return column;
-				} );
-			}
-
-			return row;
-		} );
-
-		setData( { ...data, rows: newRows } );
-		setModalState( ( prevState ) => ! prevState );
-	};
-
-	const handleCloseModal = () => {
-		setModalState( ( prevState ) => ! prevState );
-	};
-
-	const prepareData = () => {
-		let content = '';
-
-		content += '<div class="advanced-wp-table">';
-		content += '<div class="advanced-wp-table-body">';
-
-		rows.forEach( ( row ) => {
-			content += '<div class="advanced-wp-table-row">';
-
-			row.forEach( ( column ) => {
-				content += '<div class="advanced-wp-table-cell">';
-				content += column;
-				content += '</div>';
-			} );
-
-			content += '</div>';
-		} );
-
-		content += '</div>';
-		content += '</div>';
-
-		return content;
-	};
-
-	const handleSaveTable = () => {
-		const content = prepareData();
-		const advancedWPTableData = { size, rows };
-
-		setTable( { ...table, isLoading: true } );
-
-		// PUT
-		apiFetch( {
-			path: `/wp/v2/advanced-wp-table/${ table.id }`,
-			method: 'PUT',
-			data: { content, advanced_wp_table_data: advancedWPTableData },
-		} ).then( ( res ) => {
-			const newList = list.list.map( ( item ) => {
-				if ( item.id === res.id ) {
-					return res;
-				}
-
-				return item;
-			} );
-
-			setList( { ...list, list: newList } );
-			setTable( { ...table, isLoading: false } );
-		} ).catch( ( err ) => {
-			// eslint-disable-next-line no-console
-			console.log( err );
-		} );
-	};
-
-	const handleSetTable = ( item ) => {
-		setTable( { ...table, id: item.id, post: item } );
-	};
-
-	const handleNewTable = () => {
-		setTable( { ...defaultTable, new: true } );
-	};
-
-	const handleNewTableInput = ( e ) => {
-		const { newTableData } = table;
-		newTableData[ e.target.name ] = e.target.value;
-		setTable( { ...table, newTableData, newTableError: null } );
-	};
-
-	const validateNewTable = () => {
-		const { title, rows: noOfRows, columns: noOfColumns } = table.newTableData;
-		let error;
-
-		if ( ! title ) {
-			error = 'Title shouldn\'t be empty';
-		} else if ( parseInt( noOfRows ) < 1 ) {
-			error = 'No of rows should be greater than 0';
-		} else if ( parseInt( noOfColumns ) < 1 ) {
-			error = 'No of columns should be greater than 0';
-		}
-
-		if ( ! error ) {
-			return true;
-		}
-
-		return error;
-	};
-
-	const createNewTable = () => {
-		const { title, rows: noOfRows, columns: noOfColumns } = table.newTableData;
-		setTable( { ...table, isLoading: true } );
-
-		const tableSize = {
-			rows: noOfRows,
-			columns: noOfColumns,
-		};
-
-		const tableData = [];
-
-		for ( let i = 0; i < noOfRows; i++ ) {
-			const emptyRow = [];
-
-			for ( let j = 0; j < noOfColumns; j++ ) {
-				emptyRow.push( '' );
-			}
-
-			tableData.push( emptyRow );
-		}
-
-		// POST
-		apiFetch( {
-			path: '/wp/v2/advanced-wp-table',
-			method: 'POST',
-			data: { title, status: 'publish', advanced_wp_table_data: { size: tableSize, rows: tableData } },
-		} ).then( ( res ) => {
-			const newList = [ res, ...list.list ];
-			setList( { ...list, list: newList } );
-			setTable( { ...table, new: false, id: res.id, post: res, isLoading: false } );
-		} ).catch( ( err ) => {
-			// eslint-disable-next-line no-console
-			console.log( err );
-		} );
-	};
-
-	const handleNewTableSubmission = () => {
-		const validate = validateNewTable();
-
-		if ( true !== validate ) {
-			setTable( { ...table, newTableError: validate } );
-			return;
-		}
-
-		createNewTable();
-	};
-
-	const handleDeleteTable = ( id ) => {
-		// DELETE
-		apiFetch( {
-			path: `/wp/v2/advanced-wp-table/${ id }`,
-			method: 'DELETE',
-		} ).then( () => {
-			const newList = list.list.filter( ( item ) => id !== item.id );
-			setList( { ...list, list: newList } );
-		} ).catch( ( err ) => {
-			// eslint-disable-next-line no-console
-			console.log( err );
-		} );
-	};
-
-	const handleBackToTables = () => {
-		setTable( {
-			new: false,
-			id: null,
-			post: null,
-		} );
-	};
-
 	let content;
 
-	if ( table.new ) {
-		const { newTableError, isLoading } = table;
-		const { title, rows: noOfRows, columns: noOfColumns } = table.newTableData;
-
-		let buttonClasses = 'button button-primary advanced-wp-table-button-with-spinner';
-
-		if ( isLoading ) {
-			buttonClasses += ' advanced-wp-table-is-loading';
-		}
-
-		content = (
-			<Fragment>
-				<div className="advanced-wp-table-header">
-					<div className="advanced-wp-table-inner-header">
-						<h1>Add New Table</h1>
-					</div>
-				</div>
-				<div className={ 'advanced-wp-table-new-table-form' }>
-					<div className="advanced-wp-table-form-item">
-						<label htmlFor="title">Title</label>
-						<input
-							type="text"
-							id={ 'title' }
-							name={ 'title' }
-							placeholder={ 'Give a title' }
-							onChange={ handleNewTableInput }
-							value={ title }
-						/>
-					</div>
-					<div className="advanced-wp-table-form-item">
-						<label htmlFor="no-of-rows">How many rows?</label>
-						<input
-							type="number"
-							id={ 'no-of-rows' }
-							name={ 'rows' }
-							onChange={ handleNewTableInput }
-							value={ noOfRows }
-						/>
-					</div>
-					<div className="advanced-wp-table-form-item">
-						<label htmlFor="no-of-columns">How many columns?</label>
-						<input
-							type="number"
-							id={ 'no-of-columns' }
-							name={ 'columns' }
-							onChange={ handleNewTableInput }
-							value={ noOfColumns }
-						/>
-					</div>
-				</div>
-				<div className={ 'advanced-wp-table-new-table-form-buttons' }>
-					<button
-						className={ buttonClasses }
-						onClick={ handleNewTableSubmission }
-						disabled={ !! isLoading }
-					>
-						<span className="advanced-wp-table-spinner" />
-						Create
-					</button>
-					{ ` ` }
-					<button className={ 'button' } onClick={ handleBackToTables }>Cancel</button>
-				</div>
-				{ newTableError ? (
-					<div className={ 'notice notice-error' }><p>{ newTableError }</p></div>
-				) : '' }
-			</Fragment>
-		);
-	} else if ( ! table.id ) {
-		content = (
-			<Fragment>
-				<div className="advanced-wp-table-header">
-					<div className="advanced-wp-table-inner-header">
-						<h1>All Tables</h1>
-						<button
-							className={ 'button button-primary' }
-							onClick={ handleNewTable }
-						>
-							Add New
-						</button>
-					</div>
-				</div>
-				<List list={ list } onHandleSetTable={ handleSetTable } onHandleDeleteTable={ handleDeleteTable } />
-			</Fragment>
-		);
-	} else {
-		content = (
-			<Fragment>
-				<div className="advanced-wp-table-header">
-					<div className="advanced-wp-table-inner-header">
-						<h1>{ table.post.title.rendered }</h1>
-						<button
-							className={ 'button button-primary' }
-							onClick={ handleBackToTables }
-						>
-							<span className={ 'dashicons dashicons-controls-back' } /> Back to Tables
-						</button>
-					</div>
-				</div>
-				<Table
-					rows={ rows }
-					post={ table.post }
-					onDragEnd={ handleDragEnd }
-					onHandleOpenModal={ handleOpenModal }
-					onHandleDeleteColumn={ handleDeleteColumn }
-					onHandleDeleteRow={ handleDeleteRow }
-					onHandleDuplicateRow={ handleDuplicateRow }
-				/>
-				<Buttons
-					onAddRow={ handleAddRow }
-					onAddColumn={ handleAddColumn }
-					onSaveTable={ handleSaveTable }
-					isLoading={ table.isLoading }
-				/>
-				<Modal
-					modalState={ modalState }
-					cellData={ cellData }
-					onHandleSetCellData={ handleSetCellData }
-					onHandleCloseModal={ handleCloseModal }
-				/>
-			</Fragment>
-		);
+	if ( 'list' === view ) {
+		content = <List />;
+	} else if ( 'form' === view ) {
+		content = <NewTable />;
+	} else if ( 'table' === view ) {
+		content = <Table />;
+	} else if ( 'editCellModal' === view ) {
+		content = <EditCellModal />;
 	}
 
-	return content;
+	return (
+		<StateContext.Provider value={ { state, dispatch } }>
+			<ToastContainer className={ 'advanced-wp-table-toast' } />
+			<TableDeleteDialog />
+			<TableChangedDialog />
+			{ content }
+		</StateContext.Provider>
+	);
 };
 
 export default hot( App );

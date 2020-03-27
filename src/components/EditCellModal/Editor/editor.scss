@@ -1,0 +1,75 @@
+:root {
+	box-sizing: border-box;
+}
+
+:root *,
+:root *::before,
+:root *::after {
+	box-sizing: border-box;
+}
+
+.editor-styles-wrapper {
+	font-family: "Noto Serif", serif;
+	font-size: 16px;
+	line-height: 1.8;
+	color: #191e23;
+}
+
+.editor-styles-wrapper p {
+	font-size: inherit;
+	line-height: inherit;
+}
+
+.editor-styles-wrapper ul,
+.editor-styles-wrapper ol {
+	margin: 0;
+	padding: 0;
+}
+
+.editor-styles-wrapper ul li,
+.editor-styles-wrapper ol li {
+	margin-bottom: initial;
+}
+
+.editor-styles-wrapper ul {
+	list-style-type: disc;
+}
+
+.editor-styles-wrapper ol {
+	list-style-type: decimal;
+}
+
+.editor-styles-wrapper ul ul,
+.editor-styles-wrapper ol ul {
+	list-style-type: circle;
+}
+
+.editor-styles-wrapper .wp-block {
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.editor-styles-wrapper .wp-block[data-align="wide"] {
+	max-width: 1100px;
+}
+
+.editor-styles-wrapper .wp-block[data-align="full"] {
+	max-width: none;
+}
+
+.editor-styles-wrapper .block-editor-plain-text {
+	width: 100%;
+}
+
+/**
+ * Animations
+ */
+@keyframes edit-post__fade-in-animation {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

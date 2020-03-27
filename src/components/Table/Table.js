@@ -1,6 +1,10 @@
-const { useRef, useState, Fragment } = wp.element;
-import '../App.scss';
+import { createMarkup, offsetIndex } from '../../utils/utils';
+import { StateContext } from '../App';
 import Actions from './Actions';
+import Buttons from './Buttons';
+import Header from './Header';
+
+const { Fragment, useState, useRef, useContext } = wp.element;
 
 // tell direction after drag start, the first direction that reach 5px offset
 const DRAG_DIRECTION_NONE = '';
@@ -15,9 +19,11 @@ const defaultDragState = {
 	dropIndex: -1, // drag target
 };
 
-const Table = ( props ) => {
-	let { rows = [] } = props;
-	const { onDragEnd, onHandleOpenModal, onHandleDeleteColumn, onHandleDeleteRow, onHandleDuplicateRow } = props;
+const Table = () => {
+	const { state, dispatch } = useContext( StateContext );
+
+	let { rows = [] } = state.table.advanced_wp_table_data;
+
 	const [ dragState, setDragState ] = useState( { ...defaultDragState } );
 	const rowsEl = useRef( null ),
 		preview = useRef( null );
@@ -30,7 +36,7 @@ const Table = ( props ) => {
 		rows = offsetIndex( dragState.row, dragState.dropIndex, rows );
 	}
 
-	function setOpacity( i, j ) {
+	const setOpacity = ( i, j ) => {
 		let opacity = null;
 		const { direction, dropIndex } = dragState;
 
@@ -51,30 +57,12 @@ const Table = ( props ) => {
 		}
 
 		return opacity;
-	}
-
-	function offsetIndex( from, to, arr = [] ) {
-		if ( from < to ) {
-			const start = arr.slice( 0, from ),
-				between = arr.slice( from + 1, to + 1 ),
-				end = arr.slice( to + 1 );
-			return [ ...start, ...between, arr[ from ], ...end ];
-		}
-		if ( from > to ) {
-			const start = arr.slice( 0, to ),
-				between = arr.slice( to, from ),
-				end = arr.slice( from + 1 );
-			return [ ...start, arr[ from ], ...between, ...end ];
-		}
-		return arr;
-	}
-
-	function createMarkup( html ) {
-		return { __html: html };
-	}
+	};
 
 	return (
 		<Fragment>
+			<Header />
+			<Buttons />
 			<table className={ 'advanced-wp-table advanced-wp-table-post-item' }>
 				<tbody ref={ rowsEl }>{
 					rows.map( ( x = [], i ) => (
@@ -83,7 +71,6 @@ const Table = ( props ) => {
 								<td
 									key={ j }
 									style={ {
-										border: '1px solid black',
 										cursor: dragState.direction ? 'move' : 'grab',
 										opacity: setOpacity( i, j ),
 									} }
@@ -140,14 +127,7 @@ const Table = ( props ) => {
 										}
 									} }
 									onDragEnd={ () => {
-										onDragEnd(
-											dragState.direction,
-											dragState.direction === DRAG_DIRECTION_COLUMN ?
-												dragState.column :
-												dragState.row,
-											dragState.dropIndex,
-											rows,
-										);
+										dispatch( { type: 'ON_DRAG_END_TABLE', payload: rows } );
 										setDragState( { ...defaultDragState } );
 									} }
 								>
@@ -156,16 +136,7 @@ const Table = ( props ) => {
 											className={ 'advanced-wp-table-cell-content' }
 											dangerouslySetInnerHTML={ createMarkup( y ) }
 										/>
-										<Actions
-											onHandleOpenModal={ onHandleOpenModal }
-											onHandleDeleteColumn={ onHandleDeleteColumn }
-											onHandleDeleteRow={ onHandleDeleteRow }
-											onHandleDuplicateRow={ onHandleDuplicateRow }
-											x={ x }
-											y={ y }
-											i={ i }
-											j={ j }
-										/>
+										<Actions i={ i } j={ j } />
 									</div>
 								</td>
 							) ) }
@@ -182,6 +153,7 @@ const Table = ( props ) => {
 					overflow: 'hidden',
 				} }
 			/>
+			<Buttons />
 		</Fragment>
 	);
 };

@@ -25,13 +25,16 @@
   "author": "Mainul Hassan Main <shamim.moeen@gmail.com> (https://mainulhassan.info)",
   "license": "GPLv3",
   "devDependencies": {
+    "@wordpress/api-fetch": "^3.11.0",
     "@wordpress/block-library": "^2.14.5",
     "@wordpress/scripts": "^6.2.0",
+    "@wordpress/url": "^2.11.0",
     "css-loader": "^3.4.2",
     "eslint": "^6.8.0",
     "grunt": "~1.0.0",
     "grunt-wp-i18n": "~1.0.3",
     "grunt-wp-readme-to-markdown": "~2.0.1",
+    "lodash": "^4.17.15",
     "node-sass": "^4.13.1",
     "prettier": "^1.19.1",
     "prettier-eslint": "^9.0.1",
@@ -41,6 +44,9 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "react-hot-loader": "^4.12.20"
+    "@reach/dialog": "^0.9.1",
+    "react-hot-loader": "^4.12.20",
+    "react-paginate": "^6.3.2",
+    "react-toastify": "^5.5.0"
   }
 }
