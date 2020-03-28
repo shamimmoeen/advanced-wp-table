@@ -47,7 +47,10 @@ const Actions = ( { table } ) => {
 
 				dispatch( { type: 'UPDATE_TABLES', payload: newTables } );
 			} )
-			.catch( () => {
+			.catch( ( err ) => {
+				// eslint-disable-next-line no-console
+				console.log( err.message );
+
 				dismissToasts();
 				dispatch( { type: 'UPDATE_TABLES', payload: oldTables } );
 				toastError( __( 'Oops, there was a problem when duplicating the table', 'advanced-wp-table' ) );

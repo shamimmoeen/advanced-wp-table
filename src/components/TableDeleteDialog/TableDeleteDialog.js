@@ -26,7 +26,10 @@ const TableDeleteDialog = () => {
 		toastSuccess( __( 'Table deleted successfully', 'advanced-wp-table' ) );
 
 		deleteTable( id )
-			.catch( () => {
+			.catch( ( err ) => {
+				// eslint-disable-next-line no-console
+				console.log( err.message );
+
 				dismissToasts();
 				dispatch( { type: 'UPDATE_TABLES', payload: oldTables } );
 				toastError( __( 'Oops, there was a problem when deleting the table', 'advanced-wp-table' ) );

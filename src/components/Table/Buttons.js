@@ -30,7 +30,10 @@ const Buttons = () => {
 		const title = table.title.rendered;
 
 		updateTable( id, title, advanced_wp_table_data )
-			.catch( () => {
+			.catch( ( err ) => {
+				// eslint-disable-next-line no-console
+				console.log( err.message );
+
 				dismissToasts();
 				dispatch( { type: 'UPDATE_TABLES', payload: oldTables } );
 				toastError( __( 'Oops, there was a problem when updating the table', 'advanced-wp-table' ) );

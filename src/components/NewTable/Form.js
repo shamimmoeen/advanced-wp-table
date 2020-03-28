@@ -20,7 +20,6 @@ const Form = () => {
 		dismissToasts();
 	};
 
-	// @todo do primitive
 	const onHandleFormSubmission = ( e ) => {
 		e.preventDefault();
 
@@ -31,17 +30,26 @@ const Form = () => {
 			return;
 		}
 
+		dispatch( { type: 'SET_FORM_LOADING' } );
+
 		const parsedTableData = prepareTable( newTableData );
 
 		postTable( parsedTableData )
-			.then( ( table ) => {
-				dispatch( { type: 'SET_TABLE', payload: table } );
+			.then( ( newTable ) => {
+				dispatch( { type: 'UNSET_FORM_LOADING' } );
+				dispatch( { type: 'SET_TABLE', payload: newTable } );
 				dispatch( { type: 'SET_VIEW', payload: 'table' } );
 				dispatch( { type: 'CLEAR_NEW_TABLE_DATA' } );
-				dispatch( { type: 'ADD_NEW_TABLE', payload: table } );
+				dispatch( { type: 'ADD_NEW_TABLE', payload: newTable } );
 				toastSuccess( __( 'Table created successfully', 'advanced-wp-table' ) );
 			} )
-			.catch( ( err ) => toastError( err.message ) );
+			.catch( ( err ) => {
+				// eslint-disable-next-line no-console
+				console.log( err.message );
+
+				dispatch( { type: 'UNSET_FORM_LOADING' } );
+				toastError( __( 'Oops, there was a problem when creating the table', 'advanced-wp-table' ) );
+			} );
 	};
 
 	let formClasses = 'advanced-wp-table-new-table-form';
