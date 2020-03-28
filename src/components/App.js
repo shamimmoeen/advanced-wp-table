@@ -144,10 +144,12 @@ const App = () => {
 		getTables( perPage, offset )
 			.then( ( response ) => {
 				dispatch( { type: 'FETCH_TABLES', payload: response } );
+				dispatch( { type: 'UNSET_TABLES_LOADING' } );
 			} )
-			.catch( ( err ) => toastError( err.message ) );
-
-		dispatch( { type: 'UNSET_TABLES_LOADING' } );
+			.catch( ( err ) => {
+				toastError( err.message );
+				dispatch( { type: 'UNSET_TABLES_LOADING' } );
+			} );
 	};
 
 	/**

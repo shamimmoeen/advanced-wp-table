@@ -11,7 +11,7 @@ module.exports = {
 	},
 
 	devServer: {
-		open: true,
+		open: false,
 		hotOnly: true,
 		liveReload: false,
 		publicPath: '/',
