@@ -51,8 +51,10 @@ const Buttons = () => {
 		const oldTable = _.find( state.tables, ( item ) => item.id === table.id );
 		const { advanced_wp_table_data: oldTableData } = parseTableSize( oldTable );
 		const oldContent = oldTableData.rows[ i ][ j ];
+		// @todo Serialize content only if gutenberg active.
+		const newContent = wp.blocks.serialize( content );
 
-		const isEqual = _.isEqual( oldContent, content );
+		const isEqual = _.isEqual( oldContent, newContent );
 
 		return ! isEqual;
 	};
