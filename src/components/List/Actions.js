@@ -1,6 +1,5 @@
-import _ from 'lodash';
-import { duplicateTable } from '../../utils/table';
-import { dismissToasts, toastError, toastSuccess } from '../../utils/utils';
+import { postTable, prepareTableToDuplicate } from '../../utils/table';
+import { toastError, toastSuccess } from '../../utils/utils';
 import { StateContext } from '../App';
 
 const { useContext } = wp.element;
@@ -11,6 +10,7 @@ const Actions = ( { table } ) => {
 	const { state, dispatch } = stateContext;
 	const { tables } = state;
 	const { id } = table;
+	const total = parseInt( state.total );
 
 	const onHandleNavigateToTable = () => {
 		dispatch( { type: 'UNSET_TABLE_CHANGED' } );
@@ -20,25 +20,25 @@ const Actions = ( { table } ) => {
 
 	const onHandleDuplicateTable = () => {
 		const oldTables = [ ...tables ];
-		const targetTable = _.find( oldTables, ( item ) => id === item.id );
-
-		const tempId = `new${ targetTable.id }`;
-		const newTableTitle = `${ targetTable.title.rendered } (${ __( 'Duplicated', 'advanced-wp-table' ) })`;
-		const newTableData = targetTable.advanced_wp_table_data;
-		const tempTable = {
-			...targetTable,
-			id: tempId,
-			title: { ...targetTable.title, rendered: newTableTitle },
-		};
+		const tempTable = prepareTableToDuplicate( oldTables, id );
 		const tempTables = [ tempTable, ...oldTables ];
+		const newTableData = {
+			title: tempTable.title.rendered,
+			advanced_wp_table_data: tempTable.advanced_wp_table_data,
+		};
 
+		// Insert the temp table at the top of the tables list.
+		dispatch( { type: 'UPDATE_TOTAL', payload: total + 1 } );
 		dispatch( { type: 'UPDATE_TABLES', payload: tempTables } );
+
 		toastSuccess( __( 'Table duplicated successfully', 'advanced-wp-table' ) );
 
-		duplicateTable( newTableTitle, newTableData )
+		// Insert the table into database.
+		postTable( newTableData )
 			.then( ( newTable ) => {
+				// Replace the duplicated table with the temp table.
 				const newTables = tempTables.map( ( item ) => {
-					if ( tempId === item.id ) {
+					if ( tempTable.id === item.id ) {
 						return newTable;
 					}
 
@@ -46,12 +46,14 @@ const Actions = ( { table } ) => {
 				} );
 
 				dispatch( { type: 'UPDATE_TABLES', payload: newTables } );
+
+				// If we are not in the first page then paginate the tables to the first page.
+				dispatch( { type: 'PAGINATE_TABLES', payload: { offset: 0, currentPage: 0 } } );
 			} )
 			.catch( ( err ) => {
 				// eslint-disable-next-line no-console
 				console.log( err.message );
 
-				dismissToasts();
 				dispatch( { type: 'UPDATE_TABLES', payload: oldTables } );
 				toastError( __( 'Oops, there was a problem when duplicating the table', 'advanced-wp-table' ) );
 			} );

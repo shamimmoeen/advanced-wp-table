@@ -81,6 +81,9 @@ const reducer = ( state, action ) => {
 
 			return { ...state, total, totalPages, tables };
 
+		case 'UPDATE_TOTAL':
+			return { ...state, total: action.payload };
+
 		case 'UPDATE_TABLES':
 			return { ...state, tables: action.payload };
 
@@ -95,9 +98,6 @@ const reducer = ( state, action ) => {
 
 		case 'CLEAR_NEW_TABLE_DATA':
 			return { ...state, newTableData };
-
-		case 'ADD_NEW_TABLE':
-			return { ...state, tables: [ action.payload, ...state.tables ] };
 
 		case 'SET_TABLE':
 			return { ...state, table: parseTableSize( action.payload ) };

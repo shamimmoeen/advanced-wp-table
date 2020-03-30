@@ -7,7 +7,7 @@ const { __ } = wp.i18n;
 
 const Form = () => {
 	const { state, dispatch } = useContext( StateContext );
-	const { formLoading, newTableData } = state;
+	const { tables, formLoading, newTableData } = state;
 	const { title, sizeOfRows, sizeOfColumns } = newTableData;
 
 	const onHandleInputChange = ( e ) => {
@@ -32,22 +32,29 @@ const Form = () => {
 
 		dispatch( { type: 'SET_FORM_LOADING' } );
 
+		const oldTables = [ ...tables ];
 		const parsedTableData = prepareTable( newTableData );
 
 		postTable( parsedTableData )
 			.then( ( newTable ) => {
+				const newTables = [ newTable, ...oldTables ];
 				dispatch( { type: 'UNSET_FORM_LOADING' } );
 				dispatch( { type: 'SET_TABLE', payload: newTable } );
 				dispatch( { type: 'SET_VIEW', payload: 'table' } );
 				dispatch( { type: 'CLEAR_NEW_TABLE_DATA' } );
-				dispatch( { type: 'ADD_NEW_TABLE', payload: newTable } );
 				toastSuccess( __( 'Table created successfully', 'advanced-wp-table' ) );
+
+				dispatch( { type: 'UPDATE_TABLES', payload: newTables } );
+
+				// If we are not in the first page then paginate the tables to the first page.
+				dispatch( { type: 'PAGINATE_TABLES', payload: { offset: 0, currentPage: 0 } } );
 			} )
 			.catch( ( err ) => {
 				// eslint-disable-next-line no-console
 				console.log( err.message );
 
 				dispatch( { type: 'UNSET_FORM_LOADING' } );
+				dispatch( { type: 'UPDATE_TABLES', payload: oldTables } );
 				toastError( __( 'Oops, there was a problem when creating the table', 'advanced-wp-table' ) );
 			} );
 	};

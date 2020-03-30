@@ -1,4 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
+import _ from 'lodash';
 import { getApiEndpoint } from './utils';
 
 const { __ } = wp.i18n;
@@ -103,11 +104,6 @@ export async function deleteTable( id ) {
 }
 
 // eslint-disable-next-line camelcase
-export async function duplicateTable( title, advanced_wp_table_data ) {
-	return await postTable( { title, advanced_wp_table_data } );
-}
-
-// eslint-disable-next-line camelcase
 export async function updateTable( id, title, advanced_wp_table_data ) {
 	const options = {
 		path: getApiEndpoint() + '/' + id,
@@ -163,7 +159,19 @@ export function updateTableWithCellData( table, activeCell ) {
 	return { ...table, advanced_wp_table_data: { ...tableData, rows: newRows } };
 }
 
-export function _duplicateTable() {
+export function prepareTableToDuplicate( tables, targetTableId ) {
+	const targetTable = _.find( tables, ( item ) => targetTableId === item.id );
+	const tempId = `new${ targetTable.id }`;
+	const newTableTitle = `${ targetTable.title.rendered } (${ __( 'Duplicated', 'advanced-wp-table' ) })`;
+
+	return {
+		...targetTable,
+		id: tempId,
+		title: { ...targetTable.title, rendered: newTableTitle },
+	};
+}
+
+export function _deleteTable() {
 	return new Promise( ( resolve, reject ) => {
 		setTimeout( () => reject( 'error!' ), 2000 );
 	} );
