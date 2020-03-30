@@ -50,14 +50,11 @@ if ( ! function_exists( 'awt_fs' ) ) {
 	}
 
 	// Init Freemius.
-	// @todo Remove this condition.
-	if ( 1 === 2 ) {
-		try {
-			awt_fs();
-		} catch ( Freemius_Exception $e ) {
-			// Display the error message and stop executing.
-			wp_die( esc_html( $e->getMessage() ) );
-		}
+	try {
+		awt_fs();
+	} catch ( Freemius_Exception $e ) {
+		// Display the error message and stop executing.
+		wp_die( esc_html( $e->getMessage() ) );
 	}
 
 	// Signal that SDK was initiated.
