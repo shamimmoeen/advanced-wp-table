@@ -170,9 +170,3 @@ export function prepareTableToDuplicate( tables, targetTableId ) {
 		title: { ...targetTable.title, rendered: newTableTitle },
 	};
 }
-
-export function _deleteTable() {
-	return new Promise( ( resolve, reject ) => {
-		setTimeout( () => reject( 'error!' ), 2000 );
-	} );
-}

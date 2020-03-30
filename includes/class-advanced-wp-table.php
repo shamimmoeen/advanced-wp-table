@@ -47,7 +47,6 @@ class Advanced_WP_Table {
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_scripts' ) );
 		add_action( 'rest_api_init', array( $this, 'register_meta_api' ) );
 		add_shortcode( 'advanced_wp_table', array( $this, 'register_shortcode' ) );
-		add_filter( 'the_content', array( $this, 'wrap_table_output' ) );
 
 		$this->includes();
 	}
@@ -128,17 +127,15 @@ class Advanced_WP_Table {
 	/**
 	 * Register Post Type.
 	 *
-	 * @todo  We should make the post type private.
-	 *
 	 * @since 1.0.0
 	 */
 	public function register_post_type() {
 		$args = array(
-			'public'            => true,
-			'show_in_menu'      => true,
-			'show_in_nav_menus' => true,
-			'show_in_rest'      => true,
-			'label'             => __( 'Advanced WP Table', 'advanced-wp-table' ),
+			'public'       => false,
+			'has_archive'  => false,
+			'query_var'    => false,
+			'show_in_rest' => true,
+			'label'        => __( 'Advanced WP Table', 'advanced-wp-table' ),
 		);
 
 		register_post_type( 'advanced-wp-table', $args );
@@ -269,26 +266,13 @@ class Advanced_WP_Table {
 		// Automatically load dependencies and version.
 		$asset_file = require_once dirname( __DIR__ ) . '/build/index.asset.php';
 
-		// @todo Remove localhost related information.
-		if ( defined( 'WP_ENVIRONMENT' ) && 'development' === WP_ENVIRONMENT ) {
-			// Load scripts when in development.
-			wp_enqueue_script(
-				'advanced-wp-table-backend-js',
-				'http://localhost:8083/index.js',
-				$asset_file['dependencies'],
-				$asset_file['version'],
-				true
-			);
-		} else {
-			// Load scripts when in production.
-			wp_enqueue_script(
-				'advanced-wp-table-backend-js',
-				ADVANCED_WP_TABLE_URL . 'build/index.js',
-				$asset_file['dependencies'],
-				$asset_file['version'],
-				true
-			);
-		}
+		wp_enqueue_script(
+			'advanced-wp-table-backend-js',
+			ADVANCED_WP_TABLE_URL . 'build/index.js',
+			$asset_file['dependencies'],
+			$asset_file['version'],
+			true
+		);
 	}
 
 	/**
@@ -301,7 +285,7 @@ class Advanced_WP_Table {
 	 * @return mixed|void
 	 */
 	public function register_shortcode( $atts ) {
-		$id = isset( $atts['id'] ) ? $atts['id'] : 0;
+		$id = isset( $atts['id'] ) ? absint( $atts['id'] ) : 0;
 
 		if ( ! $id ) {
 			return;
@@ -309,41 +293,47 @@ class Advanced_WP_Table {
 
 		wp_enqueue_style( 'advanced-wp-table-style' );
 
-		$post = get_post( $id );
-		setup_postdata( $post );
+		/**
+		 * Add filter to enqueue scripts dynamically for developers.
+		 *
+		 * @param int $id The table id.
+		 */
+		do_action( 'advanced_wp_table_enqueue_scripts', $id );
+
+		$table = get_post_meta( $id, 'advanced_wp_table_data', true );
+		$rows  = isset( $table['rows'] ) ? $table['rows'] : '';
 
 		ob_start();
-		echo '<div class="advanced-wp-table-wrapper" id="advanced-wp-table-' . esc_attr( $id ) . '">';
-		the_content();
-		echo '</div>';
-		$content = ob_get_clean();
+		?>
 
-		wp_reset_postdata();
+		<?php if ( $rows ) : ?>
 
-		return $content;
-	}
+			<table class="advanced-wp-table-wrapper" id="advanced-wp-table-<?php echo get_the_ID(); ?>">
+				<?php foreach ( $rows as $row ) : ?>
+					<tr>
+						<?php foreach ( $row as $cell ) : ?>
+							<td>
+								<?php
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+								echo do_blocks( $cell );
+								?>
+							</td>
+						<?php endforeach; ?>
+					</tr>
+				<?php endforeach; ?>
+			</table>
 
-	/**
-	 * Wraps our table inside unique id.
-	 *
-	 * @param string $content The post content.
-	 *
-	 * @since 1.0.1
-	 *
-	 * @return string
-	 */
-	public function wrap_table_output( $content ) {
-		if ( is_singular( 'advanced-wp-table' ) && in_the_loop() && is_main_query() ) {
-			$wrap = '';
+		<?php endif; ?>
+		<?php
 
-			$wrap .= '<div class="advanced-wp-table-wrapper" id="advanced-wp-table-' . get_the_ID() . '">';
-			$wrap .= $content;
-			$wrap .= '</div>';
+		$output = ob_get_clean();
 
-			$content = $wrap;
-		}
+		/**
+		 * Add filter to alter the shortcode output for developers.
+		 */
+		$output = apply_filters( 'advanced_wp_table_output', $output, $id );
 
-		return $content;
+		return $output;
 	}
 
 	/**
