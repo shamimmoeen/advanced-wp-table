@@ -308,20 +308,22 @@ class Advanced_WP_Table {
 
 		<?php if ( $rows ) : ?>
 
-			<table class="advanced-wp-table-wrapper" id="advanced-wp-table-<?php echo get_the_ID(); ?>">
-				<?php foreach ( $rows as $row ) : ?>
-					<tr>
-						<?php foreach ( $row as $cell ) : ?>
-							<td>
-								<?php
-								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-								echo do_blocks( $cell );
-								?>
-							</td>
-						<?php endforeach; ?>
-					</tr>
-				<?php endforeach; ?>
-			</table>
+			<div class="advanced-wp-table-wrapper" id="advanced-wp-table-<?php echo get_the_ID(); ?>">
+				<table>
+					<?php foreach ( $rows as $row ) : ?>
+						<tr>
+							<?php foreach ( $row as $cell ) : ?>
+								<td>
+									<?php
+									// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+									echo do_blocks( $cell );
+									?>
+								</td>
+							<?php endforeach; ?>
+						</tr>
+					<?php endforeach; ?>
+				</table>
+			</div>
 
 		<?php endif; ?>
 		<?php

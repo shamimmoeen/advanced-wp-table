@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     Advanced WP Table
  * Plugin URI:      https://wordpress.org/plugins/advanced-wp-table
- * Description:     Create responsive tables using Gutenberg.
+ * Description:     An easy to use plugin to create tables in WordPress.
  * Author:          Mainul Hassan Main
  * Author URI:      https://mainulhassan.info
  * Text Domain:     advanced-wp-table
