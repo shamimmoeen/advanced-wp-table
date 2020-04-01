@@ -2,7 +2,7 @@
 **Contributors:** [shamimmoeen](https://profiles.wordpress.org/shamimmoeen)  
 **Tags:** advanced wp table, wp table, table, responsive table, gutenberg table  
 **Requires at least:** 5.0.0  
-**Tested up to:** 5.3.2  
+**Tested up to:** 5.4  
 **Requires PHP:** 5.6  
 **Stable tag:** 1.1.0  
 **License:** GPLv3  
@@ -51,10 +51,13 @@ You need to use shortcode. As an example, `[advanced_wp_table id=1]`. You should
 
 ### 1.1.0 ###
 
+* Add compatibility to WordPress 5.4.
+* Fix shortcode issue, put double quotes between the table id.
 * Add filter `advanced_wp_table_output` to alter the table markup dynamically.
 * Add filter `advanced_wp_table_enqueue_scripts` to load scripts dynamically.
 * Make post type private.
 * Integrate Freemius.
+* Blocks registered form other plugins can be used.
 * Add option to duplicate a table.
 * Add pagination in table list, update the design, show success, error messages.
 * Fix duplicate row issue.

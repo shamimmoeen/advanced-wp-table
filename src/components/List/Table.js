@@ -1,3 +1,4 @@
+import { getShortcode } from '../../utils/table';
 import { StateContext } from '../App';
 import Actions from './Actions';
 
@@ -38,7 +39,7 @@ const Table = () => {
 							</strong>
 							<Actions table={ table } />
 						</td>
-						<td>[advanced_wp_table id={ table.id }]</td>
+						<td>{ getShortcode( table.id ) }</td>
 					</tr>
 				) ) : (
 					<tr>

@@ -170,3 +170,7 @@ export function prepareTableToDuplicate( tables, targetTableId ) {
 		title: { ...targetTable.title, rendered: newTableTitle },
 	};
 }
+
+export function getShortcode( id ) {
+	return `[advanced_wp_table id="${ id }"]`;
+}
