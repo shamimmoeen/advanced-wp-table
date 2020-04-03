@@ -43,7 +43,7 @@ Yes, you can. There is a hook `advanced_wp_table_output`.
 
 = How can I show the table? =
 
-You need to use shortcode. As an example, `[advanced_wp_table id=1]`. You should replace the id value to the table id.
+You need to use shortcode. As an example, `[advanced_wp_table id="1"]`. You should replace the id value to the table id.
 
 == Screenshots ==
 

@@ -177,10 +177,8 @@ const App = () => {
 	useEffect( () => {
 		registerCoreBlocks();
 
-		const disAllowedBlocks = [
-			'core/freeform', // causes js not found issue when rendering
-			'core/shortcode', // causes block validation failed
-		];
+		// Since wp 5.4 core/freeform, core/shortcode block issues are fixed.
+		const disAllowedBlocks = [];
 
 		wp.blocks.getBlockTypes().forEach( ( blockType ) => {
 			if ( disAllowedBlocks.includes( blockType.name ) ) {

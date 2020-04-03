@@ -11,6 +11,7 @@ import { DropZoneProvider, Popover, SlotFillProvider } from '@wordpress/componen
 import '@wordpress/format-library';
 import { StateContext } from '../../App';
 import Buttons from './Buttons';
+
 import './editor.scss';
 import './style.scss';
 
@@ -20,9 +21,11 @@ const { __ } = wp.i18n;
 /**
  * Fix media upload permission error.
  *
+ * Change the key form __experimentalMediaUpload to mediaUpload since wp 5.4
+ *
  * @see https://github.com/WordPress/gutenberg/issues/18628
  */
-SETTINGS_DEFAULTS.__experimentalMediaUpload = wp.mediaUtils.uploadMedia;
+SETTINGS_DEFAULTS.mediaUpload = wp.mediaUtils.uploadMedia;
 
 SETTINGS_DEFAULTS.imageSizes = [
 	{ slug: 'thumbnail', name: __( 'Thumbnail', 'advanced-wp-table' ) },

@@ -250,13 +250,15 @@ class Advanced_WP_Table {
 			'after'
 		);
 
+		wp_tinymce_inline_scripts();
+		wp_enqueue_editor();
+
 		wp_enqueue_media();
 		wp_enqueue_script( 'media-upload' );
 		wp_enqueue_script( 'wp-edit-post' );
 
-		// phpcs:disable
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		do_action( 'enqueue_block_editor_assets' );
-		// phpcs:enable
 
 		wp_enqueue_script( 'wp-edit-site' );
 		wp_enqueue_script( 'wp-format-library' );

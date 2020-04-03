@@ -135,6 +135,8 @@ export function updateTableWithCellData( table, activeCell ) {
 	const { i, j, content } = activeCell;
 	// @todo Serialize content only if gutenberg active.
 	const serializedContent = wp.blocks.serialize( content );
+	console.log( 'before', content );
+	console.log( 'after', serializedContent );
 
 	const newRows = [];
 
