@@ -21,7 +21,7 @@ const { __ } = wp.i18n;
 /**
  * Fix media upload permission error.
  *
- * Change the key form __experimentalMediaUpload to mediaUpload since wp 5.4
+ * Change the key form __experimentalMediaUpload to mediaUpload since wp 5.4.
  *
  * @see https://github.com/WordPress/gutenberg/issues/18628
  */

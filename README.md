@@ -4,7 +4,7 @@
 **Requires at least:** 5.0.0  
 **Tested up to:** 5.4  
 **Requires PHP:** 5.6  
-**Stable tag:** 1.1.0  
+**Stable tag:** 1.2.0  
 **License:** GPLv3  
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
 
@@ -48,6 +48,12 @@ You need to use shortcode. As an example, `[advanced_wp_table id="1"]`. You shou
 ## Screenshots ##
 
 ## Changelog ##
+
+### 1.2.0 ###
+
+* Fix media upload issue in gutenberg editor following the new way comes in WordPress v5.4.
+* Re-register shortcode, freeform blocks as in WordPress v5.4 the issues are gone.
+* Put double quotes in shortcode used in FAQ.
 
 ### 1.1.0 ###
 
