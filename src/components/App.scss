@@ -124,7 +124,21 @@
 	margin: 1em 0;
 }
 
-@keyframes placeHolderShimmer {
+.advanced-wp-table-list {
+	.advanced-wp-table-shortcode,
+	.advanced-wp-table-shortcode:hover,
+	.advanced-wp-table-shortcode:focus,
+	.advanced-wp-table-shortcode:visited {
+		background: transparent;
+		border: none;
+		box-shadow: none;
+		margin: 0;
+		outline: none;
+		padding: 0;
+	}
+}
+
+@keyframes advanced-wp-table-placeholder {
 	0% {
 		background-position: -468px 0
 	}
@@ -137,7 +151,7 @@
 	animation-duration: 1s;
 	animation-fill-mode: forwards;
 	animation-iteration-count: infinite;
-	animation-name: placeHolderShimmer;
+	animation-name: advanced-wp-table-placeholder;
 	animation-timing-function: linear;
 	background: #f6f7f8;
 	background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
@@ -384,8 +398,8 @@
 }
 
 [data-reach-dialog-overlay] {
-	z-index: 999999;
 	background: rgba(0, 0, 0, 0.5) !important;
+	z-index: 999999;
 }
 
 .Toastify__toast-container {
@@ -393,8 +407,8 @@
 }
 
 [data-reach-dialog-content] {
-	max-width: 500px;
 	border-radius: 3px;
+	max-width: 500px;
 }
 
 .advanced-wp-table-alert-title {
@@ -419,8 +433,8 @@
 	.button-leave:focus {
 		background: $leave-button-color;
 		border-color: $leave-button-color;
-		color: #fff;
 		box-shadow: 0 0 0 1px #fff, 0 0 0 3px $leave-button-color;
+		color: #fff;
 		outline: 2px solid transparent;
 		outline-offset: 0;
 	}

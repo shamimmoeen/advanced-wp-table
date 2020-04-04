@@ -16,6 +16,11 @@ const Table = () => {
 		dispatch( { type: 'SET_VIEW', payload: 'table' } );
 	};
 
+	const handleShortcodeCopy = ( e ) => {
+		e.target.select();
+		document.execCommand( 'copy' );
+	};
+
 	return (
 		<table className={ 'wp-list-table widefat fixed striped posts advanced-wp-table-list' }>
 			<thead>
@@ -39,7 +44,15 @@ const Table = () => {
 							</strong>
 							<Actions table={ table } />
 						</td>
-						<td>{ getShortcode( table.id ) }</td>
+						<td>
+							<input
+								type="text"
+								className={ 'advanced-wp-table-shortcode' }
+								value={ getShortcode( table.id ) }
+								readOnly={ true }
+								onClick={ handleShortcodeCopy }
+							/>
+						</td>
 					</tr>
 				) ) : (
 					<tr>
