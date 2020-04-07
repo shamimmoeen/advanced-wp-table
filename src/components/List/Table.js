@@ -1,4 +1,4 @@
-import { getShortcode } from '../../utils/table';
+import { getShortcode, handleShortcodeCopy } from '../../utils/table';
 import { StateContext } from '../App';
 import Actions from './Actions';
 
@@ -14,11 +14,6 @@ const Table = () => {
 		dispatch( { type: 'UNSET_TABLE_CHANGED' } );
 		dispatch( { type: 'SET_TABLE', payload: table } );
 		dispatch( { type: 'SET_VIEW', payload: 'table' } );
-	};
-
-	const handleShortcodeCopy = ( e ) => {
-		e.target.select();
-		document.execCommand( 'copy' );
 	};
 
 	return (

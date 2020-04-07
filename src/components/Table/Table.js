@@ -62,7 +62,7 @@ const Table = () => {
 	return (
 		<Fragment>
 			<Header />
-			<Buttons />
+			{/*<Buttons />*/}
 			<table className={ 'advanced-wp-table advanced-wp-table-post-item' }>
 				<tbody ref={ rowsEl }>{
 					rows.map( ( x = [], i ) => (
@@ -153,7 +153,7 @@ const Table = () => {
 					overflow: 'hidden',
 				} }
 			/>
-			<Buttons />
+			{/*<Buttons />*/}
 		</Fragment>
 	);
 };

@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@reach/dialog": "^0.9.1",
+    "react-headroom": "^3.0.0",
     "react-hot-loader": "^4.12.20",
     "react-paginate": "^6.3.2",
     "react-toastify": "^5.5.0"

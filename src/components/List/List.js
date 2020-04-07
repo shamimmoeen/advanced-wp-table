@@ -5,7 +5,6 @@ import Table from './Table';
 import TableLoading from './TableLoading';
 
 const { Fragment, useContext } = wp.element;
-const { __ } = wp.i18n;
 
 const List = () => {
 	const stateContext = useContext( StateContext );

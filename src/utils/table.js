@@ -174,3 +174,8 @@ export function prepareTableToDuplicate( tables, targetTableId ) {
 export function getShortcode( id ) {
 	return `[advanced_wp_table id="${ id }"]`;
 }
+
+export function handleShortcodeCopy( e ) {
+	e.target.select();
+	document.execCommand( 'copy' );
+}

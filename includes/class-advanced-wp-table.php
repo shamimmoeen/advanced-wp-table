@@ -268,13 +268,26 @@ class Advanced_WP_Table {
 		// Automatically load dependencies and version.
 		$asset_file = require_once dirname( __DIR__ ) . '/build/index.asset.php';
 
-		wp_enqueue_script(
-			'advanced-wp-table-backend-js',
-			ADVANCED_WP_TABLE_URL . 'build/index.js',
-			$asset_file['dependencies'],
-			$asset_file['version'],
-			true
-		);
+		// @todo Remove localhost info.
+		if ( defined( 'WP_ENVIRONMENT' ) && 'development' === WP_ENVIRONMENT ) {
+			// Load scripts when in development.
+			wp_enqueue_script(
+				'wp-table-backend-js',
+				'http://localhost:8083/index.js',
+				$asset_file['dependencies'],
+				$asset_file['version'],
+				true
+			);
+		} else {
+			// Load scripts when in production.
+			wp_enqueue_script(
+				'wp-table-backend-js',
+				plugin_dir_url( __FILE__ ) . 'build/index.js',
+				$asset_file['dependencies'],
+				$asset_file['version'],
+				true
+			);
+		}
 	}
 
 	/**
