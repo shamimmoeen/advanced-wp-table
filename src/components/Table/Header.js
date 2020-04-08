@@ -1,9 +1,11 @@
 import _ from 'lodash';
-import { getShortcode, handleShortcodeCopy, parseTableSize } from '../../utils/table';
+import { getShortcode, parseTableSize, textToClipboard } from '../../utils/table';
+import { toastSuccess } from '../../utils/utils';
 import { StateContext } from '../App';
 
 const { Fragment, useContext, useEffect, useState, useRef } = wp.element;
 const { __ } = wp.i18n;
+const { Tooltip } = wp.components;
 
 const Header = () => {
 	const { state, dispatch } = useContext( StateContext );
@@ -11,6 +13,7 @@ const Header = () => {
 	const { rendered: title } = table.title;
 	const [ elmClass, setElmClass ] = useState( '' );
 	const [ isEditing, setEditing ] = useState( false );
+	const headerRef = useRef( null );
 	const editTitleRef = useRef( null );
 	const inputRef = useRef( null );
 	const navigateToListRef = useRef( null );
@@ -18,6 +21,12 @@ const Header = () => {
 	let lastScroll = 0;
 
 	const handleScroll = () => {
+		// @todo I am not sure why removeEventLister not working in the useEffect hook
+		if ( null === headerRef.current ) {
+			window.removeEventListener( 'scroll', () => handleScroll, false );
+			return;
+		}
+
 		const currentScroll = window.pageYOffset;
 
 		if ( 0 === currentScroll ) {
@@ -49,15 +58,6 @@ const Header = () => {
 	}, [ isEditing ] );
 
 	const closeEditTitle = ( e ) => {
-		if ( null === editTitleRef.current ) {
-			document.getElementById( 'wpwrap' ).removeEventListener( 'click', closeEditTitle );
-			return;
-		}
-
-		if ( navigateToListRef.current === e.target ) {
-			return;
-		}
-
 		if ( ! editTitleRef.current.contains( e.target ) ) {
 			setEditing( false );
 			document.getElementById( 'wpwrap' ).removeEventListener( 'click', closeEditTitle );
@@ -111,6 +111,16 @@ const Header = () => {
 		}
 	};
 
+	const handleShortcodeCopy = () => {
+		const shortcode = getShortcode( table.id );
+		textToClipboard( shortcode );
+		toastSuccess( __( 'Shortcode copied', 'advanced-wp-table' ) );
+	};
+
+	const handleSave = () => {
+		toastSuccess( __( 'Successfully updated', 'advanced-wp-table' ) );
+	};
+
 	let elmClasses = 'advanced-wp-table-fixed-header';
 
 	if ( elmClass ) {
@@ -119,7 +129,7 @@ const Header = () => {
 
 	return (
 		<div className={ 'advanced-wp-table-fixed-header-wrapper' }>
-			<div className={ `${ elmClasses }` }>
+			<div className={ `${ elmClasses }` } ref={ headerRef }>
 				<div className={ 'advanced-wp-table-header-navigate-to-list' }>
 					<button
 						className={ 'button' }
@@ -143,26 +153,36 @@ const Header = () => {
 						) : (
 							<Fragment>
 								<h1 className={ 'advanced-wp-table-title' }>{ title }</h1>
-								<span
+								<div
 									className={ 'advanced-wp-table-edit-title-toggle' }
 									role={ 'presentation' }
 									onClick={ handleToggleEditTitle }
 								>
-									<span className={ 'dashicons dashicons-edit' } />
-								</span>
+									<Tooltip
+										text={ __( 'Click to edit the title', 'advanced-wp-table' ) }
+										position={ 'bottom center' }
+									>
+										<div><span className={ 'dashicons dashicons-edit' } /></div>
+									</Tooltip>
+								</div>
 							</Fragment>
 						) }
 					</div>
 				</div>
 
 				<div className={ 'advanced-wp-table-header-actions' }>
-					<input
-						type="text"
-						className={ 'advanced-wp-table-shortcode' }
-						value={ getShortcode( table.id ) }
-						onClick={ handleShortcodeCopy }
-						readOnly={ true }
-					/>
+					<Tooltip
+						text={ __( 'Click to copy the shortcode', 'advanced-wp-table' ) }
+						position={ 'bottom center' }
+					>
+						<div
+							className={ 'advanced-wp-table-shortcode' }
+							role={ 'presentation' }
+							onClick={ handleShortcodeCopy }
+						>
+							<span className={ 'dashicons dashicons-clipboard' } />
+						</div>
+					</Tooltip>
 
 					<button
 						type={ 'button' }
@@ -174,8 +194,9 @@ const Header = () => {
 					<button
 						type={ 'button' }
 						className={ 'button button-primary' }
+						onClick={ handleSave }
 					>
-						{ __( 'Save Changes', 'advanced-wp-table' ) }
+						{ __( 'Save', 'advanced-wp-table' ) }
 					</button>
 				</div>
 			</div>

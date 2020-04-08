@@ -201,7 +201,10 @@ const App = () => {
 
 	return (
 		<StateContext.Provider value={ { state, dispatch } }>
-			<ToastContainer className={ 'advanced-wp-table-toast' } />
+			<ToastContainer
+				className={ 'advanced-wp-table-toast' }
+				autoClose={ 3000 }
+			/>
 			<TableDeleteDialog />
 			<TableChangedDialog />
 			{ content }

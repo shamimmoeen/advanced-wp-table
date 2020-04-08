@@ -175,7 +175,16 @@ export function getShortcode( id ) {
 	return `[advanced_wp_table id="${ id }"]`;
 }
 
-export function handleShortcodeCopy( e ) {
+export function copyShortcode( e ) {
 	e.target.select();
 	document.execCommand( 'copy' );
+}
+
+export function textToClipboard( text ) {
+	const dummy = document.createElement( 'textarea' );
+	document.body.appendChild( dummy );
+	dummy.value = text;
+	dummy.select();
+	document.execCommand( 'copy' );
+	document.body.removeChild( dummy );
 }

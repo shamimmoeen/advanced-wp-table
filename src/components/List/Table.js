@@ -1,4 +1,4 @@
-import { getShortcode, handleShortcodeCopy } from '../../utils/table';
+import { getShortcode, copyShortcode } from '../../utils/table';
 import { StateContext } from '../App';
 import Actions from './Actions';
 
@@ -45,7 +45,7 @@ const Table = () => {
 								className={ 'advanced-wp-table-shortcode' }
 								value={ getShortcode( table.id ) }
 								readOnly={ true }
-								onClick={ handleShortcodeCopy }
+								onClick={ copyShortcode }
 							/>
 						</td>
 					</tr>

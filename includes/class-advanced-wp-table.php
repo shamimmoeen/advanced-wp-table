@@ -282,7 +282,7 @@ class Advanced_WP_Table {
 			// Load scripts when in production.
 			wp_enqueue_script(
 				'wp-table-backend-js',
-				plugin_dir_url( __FILE__ ) . 'build/index.js',
+				ADVANCED_WP_TABLE_URL . 'build/index.js',
 				$asset_file['dependencies'],
 				$asset_file['version'],
 				true
