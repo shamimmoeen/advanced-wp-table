@@ -114,11 +114,11 @@ const Header = () => {
 	const handleShortcodeCopy = () => {
 		const shortcode = getShortcode( table.id );
 		textToClipboard( shortcode );
-		toastSuccess( __( 'Shortcode copied', 'advanced-wp-table' ) );
+		toastSuccess( __( 'Shortcode copied', 'advanced-wp-table' ), { position: 'bottom-right' } );
 	};
 
 	const handleSave = () => {
-		toastSuccess( __( 'Successfully updated', 'advanced-wp-table' ) );
+		toastSuccess( __( 'Successfully updated', 'advanced-wp-table' ), { position: 'bottom-right' } );
 	};
 
 	let elmClasses = 'advanced-wp-table-fixed-header';
