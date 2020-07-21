@@ -47,6 +47,7 @@ class Advanced_WP_Table {
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_scripts' ) );
 		add_action( 'rest_api_init', array( $this, 'register_meta_api' ) );
 		add_shortcode( 'advanced_wp_table', array( $this, 'register_shortcode' ) );
+		add_filter( 'admin_body_class', array( $this, 'add_admin_class' ) );
 
 		$this->includes();
 	}
@@ -101,7 +102,7 @@ class Advanced_WP_Table {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @return \Advanced_WP_Table
+	 * @return Advanced_WP_Table
 	 */
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
@@ -177,7 +178,8 @@ class Advanced_WP_Table {
 	 * @param array  $object     The object from the response.
 	 * @param string $field_name Name of field.
 	 *
-	 * @since 1.0.0
+	 * @since        1.0.0
+	 * @noinspection PhpUnused
 	 *
 	 * @return mixed
 	 */
@@ -192,7 +194,8 @@ class Advanced_WP_Table {
 	 * @param object $object     The object from the response.
 	 * @param string $field_name Name of field.
 	 *
-	 * @since 1.0.0
+	 * @since        1.0.0
+	 * @noinspection PhpUnused
 	 *
 	 * @return bool|int
 	 */
@@ -260,9 +263,9 @@ class Advanced_WP_Table {
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		do_action( 'enqueue_block_editor_assets' );
 
-		wp_enqueue_script( 'wp-edit-site' );
+		wp_enqueue_script( 'wp-edit-post' );
 		wp_enqueue_script( 'wp-format-library' );
-		wp_enqueue_style( 'wp-edit-site' );
+		wp_enqueue_style( 'wp-edit-post' );
 		wp_enqueue_style( 'wp-format-library' );
 
 		// Automatically load dependencies and version.
@@ -329,10 +332,7 @@ class Advanced_WP_Table {
 						<tr>
 							<?php foreach ( $row as $cell ) : ?>
 								<td>
-									<?php
-									// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-									echo do_blocks( $cell );
-									?>
+									<?php $this->render_cell( $cell ); ?>
 								</td>
 							<?php endforeach; ?>
 						</tr>
@@ -354,6 +354,19 @@ class Advanced_WP_Table {
 	}
 
 	/**
+	 * Renders the table cell.
+	 *
+	 * @param string $cell The cell string.
+	 */
+	private function render_cell( $cell ) {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		$content = $cell ? apply_filters( 'the_content', do_blocks( $cell ) ) : '';
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $content;
+	}
+
+	/**
 	 * Show admin notices.
 	 *
 	 * @since 1.0.0
@@ -367,6 +380,25 @@ class Advanced_WP_Table {
 		$message = __( 'Advanced WP Table plugin requires WordPress version 5.0 or greater.', 'advanced-wp-table' );
 
 		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+	}
+
+	/**
+	 * Adds class in admin body.
+	 *
+	 * @param string $classes The classes.
+	 *
+	 * @return mixed
+	 */
+	public function add_admin_class( $classes ) {
+		$current_screen = get_current_screen();
+		$page           = 'toplevel_page_advanced-wp-table';
+
+		if ( isset( $current_screen->base ) && $page === $current_screen->base ) {
+			$classes .= ' wp-embed-responsive';
+			$classes .= ' advanced-wp-table-admin';
+		}
+
+		return $classes;
 	}
 
 }

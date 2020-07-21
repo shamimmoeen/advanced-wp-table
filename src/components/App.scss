@@ -1,3 +1,7 @@
+.advanced-wp-table-admin #wpcontent {
+	background-color: #f1f1f1;
+}
+
 .advanced-wp-table-wrapper {
 	button {
 		&:focus {
@@ -456,6 +460,12 @@ $fixed_header_height: 50px;
 		align-items: self-start;
 		display: flex;
 		justify-content: space-between;
+		position: relative;
+		min-height: 2em;
+
+		.advanced-wp-table-cell-preview {
+			position: relative;
+		}
 	}
 
 	.advanced-wp-table-edit-cell {
@@ -480,23 +490,38 @@ $fixed_header_height: 50px;
 	}
 
 	.advanced-wp-table-cell-actions {
-		position: relative;
+		position: absolute;
+		right: 0;
+		top: 0;
+
+		@mixin show_dropdown {
+			opacity: 1;
+			visibility: visible;
+		}
 
 		.advanced-wp-table-actions-dropdown {
-			background-color: #6d6d6d;
-			border-radius: 0 0 3px 3px;
-			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
-			color: #fff;
 			cursor: initial;
 			opacity: 0;
-			padding: 10px;
 			position: absolute;
 			right: 0;
-			top: 100%;
+			top: 0;
 			transition: opacity 0.1s ease-in;
 			visibility: hidden;
 			width: 115px;
 			z-index: 1;
+			padding: 100% 0 0;
+
+			.advanced-wp-table-actions-dropdown-inner {
+				background-color: #6d6d6d;
+				border-radius: 0 0 3px 3px;
+				box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+				color: #fff;
+				padding: 10px;
+			}
+
+			&:hover {
+				@include show_dropdown;
+			}
 
 			.advanced-wp-table-action-item {
 				cursor: pointer;
@@ -510,8 +535,7 @@ $fixed_header_height: 50px;
 			}
 
 			.advanced-wp-table-actions-dropdown {
-				opacity: 1;
-				visibility: visible;
+				@include show_dropdown;
 			}
 		}
 	}

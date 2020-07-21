@@ -56,33 +56,35 @@ const Actions = ( { i, j } ) => {
 		<div className={ 'advanced-wp-table-cell-actions' }>
 			<span className={ 'dashicons dashicons-admin-generic advanced-wp-table-edit-cell' } />
 			<div className="advanced-wp-table-actions-dropdown">
-				<div
-					className="advanced-wp-table-action-item"
-					onClick={ onHandleOpenEditor }
-					role="presentation"
-				>
-					{ __( 'Edit', 'advanced-wp-table' ) }
-				</div>
-				<div
-					className="advanced-wp-table-action-item"
-					onClick={ onHandleDeleteColumn }
-					role="presentation"
-				>
-					{ __( 'Delete Column', 'advanced-wp-table' ) }
-				</div>
-				<div
-					className="advanced-wp-table-action-item"
-					onClick={ onHandleDeleteRow }
-					role="presentation"
-				>
-					{ __( 'Delete Row', 'advanced-wp-table' ) }
-				</div>
-				<div
-					className="advanced-wp-table-action-item"
-					onClick={ onHandleDuplicateRow }
-					role="presentation"
-				>
-					{ __( 'Duplicate Row', 'advanced-wp-table' ) }
+				<div className="advanced-wp-table-actions-dropdown-inner">
+					<div
+						className="advanced-wp-table-action-item"
+						onClick={ onHandleOpenEditor }
+						role="presentation"
+					>
+						{ __( 'Edit', 'advanced-wp-table' ) }
+					</div>
+					<div
+						className="advanced-wp-table-action-item"
+						onClick={ onHandleDeleteColumn }
+						role="presentation"
+					>
+						{ __( 'Delete Column', 'advanced-wp-table' ) }
+					</div>
+					<div
+						className="advanced-wp-table-action-item"
+						onClick={ onHandleDeleteRow }
+						role="presentation"
+					>
+						{ __( 'Delete Row', 'advanced-wp-table' ) }
+					</div>
+					<div
+						className="advanced-wp-table-action-item"
+						onClick={ onHandleDuplicateRow }
+						role="presentation"
+					>
+						{ __( 'Duplicate Row', 'advanced-wp-table' ) }
+					</div>
 				</div>
 			</div>
 		</div>

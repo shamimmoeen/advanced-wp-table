@@ -1,8 +1,9 @@
-import { createMarkup, offsetIndex } from '../../utils/utils';
+import { offsetIndex } from '../../utils/utils';
 import { StateContext } from '../App';
 import Actions from './Actions';
 import Buttons from './Buttons';
 import Header from './Header';
+import { BlockPreview } from "../BlockPreviewAWT";
 
 const { Fragment, useState, useRef, useContext } = wp.element;
 
@@ -59,10 +60,15 @@ const Table = () => {
 		return opacity;
 	};
 
+	const renderBlocksPreview = ( content ) => {
+		const parsed = wp.blocks.parse( content );
+		return <BlockPreview blocks={ parsed } />;
+	}
+
 	return (
 		<Fragment>
 			<Header />
-			{/*<Buttons />*/}
+			<Buttons />
 			<table className={ 'advanced-wp-table advanced-wp-table-post-item' }>
 				<tbody ref={ rowsEl }>{
 					rows.map( ( x = [], i ) => (
@@ -132,10 +138,7 @@ const Table = () => {
 									} }
 								>
 									<div className={ 'advanced-wp-table-cell-wrapper' }>
-										<div
-											className={ 'advanced-wp-table-cell-content' }
-											dangerouslySetInnerHTML={ createMarkup( y ) }
-										/>
+										{ renderBlocksPreview( y ) }
 										<Actions i={ i } j={ j } />
 									</div>
 								</td>
@@ -153,7 +156,7 @@ const Table = () => {
 					overflow: 'hidden',
 				} }
 			/>
-			{/*<Buttons />*/}
+			<Buttons />
 		</Fragment>
 	);
 };
