@@ -1,12 +1,13 @@
+import { Inserter, BlockNavigationDropdown, ToolSelector } from '@wordpress/block-editor';
 import _ from 'lodash';
 import { parseTableSize, updateTable, updateTableWithCellData } from '../../../utils/table';
 import { dismissToasts, toastError, toastSuccess } from '../../../utils/utils';
 import { StateContext } from '../../App';
 
-const { useContext } = wp.element;
+const { useContext, React } = wp.element;
 const { __ } = wp.i18n;
 
-const Buttons = () => {
+const Header = () => {
 	const { state, dispatch } = useContext( StateContext );
 	const { tables, table, activeCell } = state;
 	const { i, j, content } = activeCell;
@@ -77,8 +78,13 @@ const Buttons = () => {
 	};
 
 	return (
-		<div className={ 'advanced-wp-table-editor-action-buttons' }>
-			<div>
+		<div className={ 'advanced-wp-table-editor-header' }>
+			<div className={ 'advanced-wp-table-editor-toolbar' }>
+				<Inserter />
+				<ToolSelector />
+				<BlockNavigationDropdown />
+			</div>
+			<div className={ 'advanced-wp-table-editor-settings' }>
 				<button
 					onClick={ onHandleSave }
 					className={ 'button button-primary button-large' }
@@ -94,4 +100,4 @@ const Buttons = () => {
 	);
 };
 
-export default Buttons;
+export default Header;

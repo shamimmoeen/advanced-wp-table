@@ -29,7 +29,14 @@ $light-gray-500: #e2e4e7;
 			.components-drop-zone__provider {
 				display: flex;
 				flex: 1 1 auto;
+				flex-direction: column;
 				overflow-y: auto;
+
+				.advanced-wp-table-editor-area {
+					display: flex;
+					flex: 1 1 auto;
+					overflow-y: auto;
+				}
 
 				.editor-styles-wrapper {
 					overflow-y: auto;
@@ -42,13 +49,18 @@ $light-gray-500: #e2e4e7;
 		}
 	}
 
-	.advanced-wp-table-editor-action-buttons {
+	.advanced-wp-table-editor-header {
+		align-items: center;
 		background-color: #fff;
 		border-bottom: 1px solid $light-gray-500;
 		display: flex;
 		flex: 0 0 auto;
-		justify-content: flex-end;
+		justify-content: space-between;
 		padding: 15px;
+
+		.advanced-wp-table-editor-toolbar {
+			display: inline-flex;
+		}
 	}
 }
 

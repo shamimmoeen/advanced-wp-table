@@ -10,12 +10,12 @@ import {
 import { DropZoneProvider, Popover, SlotFillProvider } from '@wordpress/components';
 import '@wordpress/format-library';
 import { StateContext } from '../../App';
-import Buttons from './Buttons';
+import Header from './Header';
 
 import './editor.scss';
 import './style.scss';
 
-const { Fragment, useContext } = wp.element;
+const { useContext, React } = wp.element;
 const { __ } = wp.i18n;
 
 /**
@@ -44,15 +44,16 @@ const Editor = () => {
 	};
 
 	return (
-		<Fragment>
-			<Buttons />
-			<div className={ 'advanced-wp-table-editor' }>
-				<SlotFillProvider>
-					<DropZoneProvider>
-						<BlockEditorProvider
-							value={ blocks }
-							onInput={ onHandleChange }
-							onChange={ onHandleChange }>
+		<div className={ 'advanced-wp-table-editor' }>
+			<SlotFillProvider>
+				<DropZoneProvider>
+					<BlockEditorProvider
+						value={ blocks }
+						onInput={ onHandleChange }
+						onChange={ onHandleChange }
+					>
+						<Header />
+						<div className={ 'advanced-wp-table-editor-area' }>
 							<div className={ 'editor-styles-wrapper' }>
 								<div style={ { padding: '20px' } } />
 								<Popover.Slot name={ 'block-toolbar' } />
@@ -67,11 +68,11 @@ const Editor = () => {
 								<BlockInspector />
 							</div>
 							<Popover.Slot />
-						</BlockEditorProvider>
-					</DropZoneProvider>
-				</SlotFillProvider>
-			</div>
-		</Fragment>
+						</div>
+					</BlockEditorProvider>
+				</DropZoneProvider>
+			</SlotFillProvider>
+		</div>
 	);
 };
 
