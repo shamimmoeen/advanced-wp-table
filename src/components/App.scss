@@ -56,11 +56,17 @@ $fixed_header_height: 50px;
 	position: relative;
 	z-index: 3;
 
+	@mixin show_edit_icon {
+		opacity: 1;
+		visibility: visible;
+	}
+
 	.advanced-wp-table-header-title {
 		.advanced-wp-table-edit-title-toggle {
 			$size: 30px;
 
 			cursor: pointer;
+			position: relative;
 			margin-right: -#{$size + 10px};
 			opacity: 0;
 			padding: 0 10px;
@@ -74,15 +80,13 @@ $fixed_header_height: 50px;
 			}
 
 			&:hover {
-				opacity: 1;
-				visibility: visible;
+				@include show_edit_icon;
 			}
 		}
 
-		.advanced-wp-table-title:hover {
-			~ .advanced-wp-table-edit-title-toggle {
-				opacity: 1;
-				visibility: visible;
+		&:hover {
+			.advanced-wp-table-edit-title-toggle {
+				@include show_edit_icon;
 			}
 		}
 	}
