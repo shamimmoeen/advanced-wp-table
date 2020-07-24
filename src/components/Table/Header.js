@@ -2,8 +2,9 @@ import _ from 'lodash';
 import { getShortcode, parseTableSize, textToClipboard } from '../../utils/table';
 import { toastSuccess } from '../../utils/utils';
 import { StateContext } from '../App';
+import SaveButton from "./Header/SaveButton";
 
-const { Fragment, useContext, useEffect, useState, useRef } = wp.element;
+const { Fragment, useContext, useEffect, useState, useRef, React } = wp.element;
 const { __ } = wp.i18n;
 const { Tooltip } = wp.components;
 
@@ -117,10 +118,6 @@ const Header = () => {
 		toastSuccess( __( 'Shortcode copied', 'advanced-wp-table' ), { position: 'bottom-right' } );
 	};
 
-	const handleSave = () => {
-		toastSuccess( __( 'Successfully updated', 'advanced-wp-table' ), { position: 'bottom-right' } );
-	};
-
 	let elmClasses = 'advanced-wp-table-fixed-header';
 
 	if ( elmClass ) {
@@ -191,13 +188,7 @@ const Header = () => {
 						{ __( 'Preview', 'advanced-wp-table' ) }
 					</button>
 
-					<button
-						type={ 'button' }
-						className={ 'button button-primary' }
-						onClick={ handleSave }
-					>
-						{ __( 'Save', 'advanced-wp-table' ) }
-					</button>
+					<SaveButton />
 				</div>
 			</div>
 		</div>

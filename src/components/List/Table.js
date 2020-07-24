@@ -2,7 +2,7 @@ import { getShortcode, copyShortcode } from '../../utils/table';
 import { StateContext } from '../App';
 import Actions from './Actions';
 
-const { useContext } = wp.element;
+const { useContext, React } = wp.element;
 const { __ } = wp.i18n;
 
 const Table = () => {

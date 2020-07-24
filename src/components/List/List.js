@@ -4,7 +4,7 @@ import Pagination from './Pagination';
 import Table from './Table';
 import TableLoading from './TableLoading';
 
-const { Fragment, useContext } = wp.element;
+const { Fragment, useContext, React } = wp.element;
 
 const List = () => {
 	const stateContext = useContext( StateContext );
