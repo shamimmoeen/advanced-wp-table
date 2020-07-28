@@ -1,11 +1,10 @@
-import { offsetIndex } from '../../utils/utils';
+import { createMarkup, offsetIndex } from '../../utils/utils';
 import { StateContext } from '../App';
 import Actions from './Actions';
 import Buttons from './Buttons';
 import Header from './Header';
-import { BlockPreview } from "../BlockPreviewAWT";
 
-const { Fragment, useState, useRef, useContext } = wp.element;
+const { Fragment, useState, useRef, useContext, React } = wp.element;
 
 // tell direction after drag start, the first direction that reach 5px offset
 const DRAG_DIRECTION_NONE = '';
@@ -60,10 +59,28 @@ const Table = () => {
 		return opacity;
 	};
 
-	const renderBlocksPreview = ( content ) => {
+	const renderBlocks = ( content ) => {
+		let html = '<div class="entry"><div class="entry-content">';
 		const parsed = wp.blocks.parse( content );
-		return <BlockPreview blocks={ parsed } />;
-	}
+
+		parsed.map( block => {
+			const blockType = wp.blocks.getBlockType( block.name );
+
+			if ( 'embed' === blockType.category ) {
+			}
+
+			if ( 'embed' !== blockType.category ) {
+				const blockContent = wp.blocks.getBlockContent( block );
+				return html += blockContent;
+			}
+
+			return html;
+		} );
+
+		html += '</div></div>';
+
+		return html;
+	};
 
 	return (
 		<Fragment>
@@ -138,7 +155,9 @@ const Table = () => {
 									} }
 								>
 									<div className={ 'advanced-wp-table-cell-wrapper' }>
-										{ renderBlocksPreview( y ) }
+										<div
+											dangerouslySetInnerHTML={ createMarkup( renderBlocks( y ) ) }
+										/>
 										<Actions i={ i } j={ j } />
 									</div>
 								</td>

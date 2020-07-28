@@ -511,7 +511,7 @@ $fixed_header_height: 50px;
 			top: 0;
 			transition: opacity 0.1s ease-in;
 			visibility: hidden;
-			width: 115px;
+			width: 130px;
 			z-index: 1;
 			padding: 100% 0 0;
 
@@ -529,6 +529,10 @@ $fixed_header_height: 50px;
 
 			.advanced-wp-table-action-item {
 				cursor: pointer;
+
+				&:hover {
+					color: #ddd;
+				}
 			}
 		}
 

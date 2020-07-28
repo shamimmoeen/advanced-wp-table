@@ -1,7 +1,7 @@
 import { dismissToasts } from '../../utils/utils';
 import { StateContext } from '../App';
 
-const { useContext } = wp.element;
+const { useContext, React } = wp.element;
 const { __ } = wp.i18n;
 
 const Actions = ( { i, j } ) => {
@@ -63,6 +63,20 @@ const Actions = ( { i, j } ) => {
 						role="presentation"
 					>
 						{ __( 'Edit', 'advanced-wp-table' ) }
+					</div>
+					<div
+						className="advanced-wp-table-action-item"
+						onClick={ onHandleOpenEditor }
+						role="presentation"
+					>
+						{ __( 'Copy Cell', 'advanced-wp-table' ) }
+					</div>
+					<div
+						className="advanced-wp-table-action-item"
+						onClick={ onHandleOpenEditor }
+						role="presentation"
+					>
+						{ __( 'Paste Cell', 'advanced-wp-table' ) }
 					</div>
 					<div
 						className="advanced-wp-table-action-item"
