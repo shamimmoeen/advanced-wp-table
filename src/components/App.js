@@ -34,6 +34,13 @@ const tableDeleteDialog = {
 	id: null,
 };
 
+/* eslint-disable-next-line camelcase */
+const awt_params = window.awt_params || {
+	preview_page_url: '',
+};
+
+const previewPageUrl = awt_params.preview_page_url;
+
 const initialState = {
 	loading: true,
 	tablesLoading: true,
@@ -43,6 +50,7 @@ const initialState = {
 	perPage: 10,
 	offset: 0,
 	currentPage: 0,
+	previewPageUrl,
 	tables: [],
 	table: {},
 	tableData: [],

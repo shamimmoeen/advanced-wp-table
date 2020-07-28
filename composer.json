@@ -1,0 +1,20 @@
+{
+  "name": "shamimmoeen/advanced-wp-table-pro",
+  "description": "The Ultimate WordPress Table Plugin",
+  "minimum-stability": "stable",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Mainul Hassan Main",
+      "email": "shamim.moeen@gmail.com"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "7.*"
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit --testdox",
+    "test-with-coverage": "./vendor/bin/phpunit --coverage-html reports/",
+    "test-with-result": "./vendor/bin/phpunit --testdox-html tests.html"
+  }
+}

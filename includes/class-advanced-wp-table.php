@@ -24,32 +24,20 @@ class Advanced_WP_Table {
 	protected static $instance = null;
 
 	/**
-	 * Advanced_WP_Table version.
-	 *
-	 * @var string
-	 */
-	public $version = '1.1.0';
-
-	/**
 	 * Advanced_WP_Table constructor.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct() {
 		$this->defines();
-
-		register_activation_hook( __FILE__, array( $this, 'install' ) );
-		register_deactivation_hook( __FILE__, array( $this, 'uninstall' ) );
+		$this->includes();
 
 		add_action( 'admin_notices', array( $this, 'show_notices' ) );
 		add_action( 'init', array( $this, 'register_post_type' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_backend_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_scripts' ) );
-		add_action( 'rest_api_init', array( $this, 'register_meta_api' ) );
-		add_shortcode( 'advanced_wp_table', array( $this, 'register_shortcode' ) );
-		add_filter( 'admin_body_class', array( $this, 'add_admin_class' ) );
 
-		$this->includes();
+		new Advanced_WP_Table_Backend_Scripts();
+		new Advanced_WP_Table_Frontend_Scripts();
+		new Advanced_WP_Table_Rest_Meta();
 	}
 
 	/**
@@ -65,6 +53,14 @@ class Advanced_WP_Table {
 		if ( ! defined( 'ADVANCED_WP_TABLE_URL' ) ) {
 			define( 'ADVANCED_WP_TABLE_URL', plugin_dir_url( dirname( __FILE__ ) ) );
 		}
+
+		if ( ! defined( 'ADVANCED_WP_TABLE_LIST_PAGE_HOOK' ) ) {
+			define( 'ADVANCED_WP_TABLE_LIST_PAGE_HOOK', 'toplevel_page_advanced-wp-table' );
+		}
+
+		if ( ! defined( 'ADVANCED_WP_TABLE_PREVIEW_PAGE_SLUG' ) ) {
+			define( 'ADVANCED_WP_TABLE_PREVIEW_PAGE_SLUG', 'advanced-wp-table' );
+		}
 	}
 
 	/**
@@ -77,7 +73,13 @@ class Advanced_WP_Table {
 			return;
 		}
 
-		require_once dirname( __FILE__ ) . '/class-advanced-wp-table-list.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-advanced-wp-table-backend-scripts.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-advanced-wp-table-frontend-scripts.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-advanced-wp-table-list.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-advanced-wp-table-post-type.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-advanced-wp-table-preview-shortcode.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-advanced-wp-table-rest-meta.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-advanced-wp-table-shortcode.php';
 	}
 
 	/**
@@ -113,257 +115,13 @@ class Advanced_WP_Table {
 	}
 
 	/**
-	 * Runs when the plugin is activated.
-	 *
-	 * @since 1.1.0
-	 */
-	public function install() {
-		// Register the post type 'advanced-wp-table'.
-		$this->register_post_type();
-
-		// Clear the permalinks after the post type has been registered.
-		flush_rewrite_rules();
-	}
-
-	/**
 	 * Register Post Type.
 	 *
 	 * @since 1.0.0
 	 */
 	public function register_post_type() {
-		$args = array(
-			'public'       => false,
-			'has_archive'  => false,
-			'query_var'    => false,
-			'show_in_rest' => true,
-			'label'        => __( 'Advanced WP Table', 'advanced-wp-table' ),
-		);
-
-		register_post_type( 'advanced-wp-table', $args );
-	}
-
-	/**
-	 * Runs when the plugin is deactivated.
-	 *
-	 * @since 1.1.0
-	 */
-	public function uninstall() {
-		// Unregister the post type, so the rules are no longer in memory.
-		unregister_post_type( 'advanced-wp-table' );
-
-		// Clear the permalinks to remove our post type's rules from the database.
-		flush_rewrite_rules();
-	}
-
-	/**
-	 * Add the meta field to REST API responses for CPT advanced-wp-table read and write.
-	 *
-	 * @since 1.0.0
-	 */
-	public function register_meta_api() {
-		register_rest_field(
-			'advanced-wp-table',
-			'advanced_wp_table_data',
-			array(
-				'get_callback'    => array( $this, 'get_meta' ),
-				'update_callback' => array( $this, 'update_meta' ),
-				'schema'          => null,
-			)
-		);
-	}
-
-	/**
-	 * Handler for getting custom field data.
-	 *
-	 * @param array  $object     The object from the response.
-	 * @param string $field_name Name of field.
-	 *
-	 * @since        1.0.0
-	 * @noinspection PhpUnused
-	 *
-	 * @return mixed
-	 */
-	public function get_meta( $object, $field_name ) {
-		return get_post_meta( $object['id'], $field_name, true );
-	}
-
-	/**
-	 * Handler for updating custom field data.
-	 *
-	 * @param mixed  $value      The value of the field.
-	 * @param object $object     The object from the response.
-	 * @param string $field_name Name of field.
-	 *
-	 * @since        1.0.0
-	 * @noinspection PhpUnused
-	 *
-	 * @return bool|int
-	 */
-	public function update_meta( $value, $object, $field_name ) {
-		return update_post_meta( $object->ID, $field_name, $value );
-	}
-
-	/**
-	 * Load frontend scripts.
-	 *
-	 * @since 1.0.0
-	 */
-	public function load_frontend_scripts() {
-		wp_register_style(
-			'advanced-wp-table-style',
-			ADVANCED_WP_TABLE_URL . 'assets/advanced-wp-table.css',
-			array(),
-			filemtime( ADVANCED_WP_TABLE_PATH . 'assets/advanced-wp-table.css' )
-		);
-
-		if ( 'advanced-wp-table' === get_post_type() ) {
-			wp_enqueue_style( 'advanced-wp-table-style' );
-		}
-	}
-
-	/**
-	 * Load backend scripts.
-	 *
-	 * @param string $hook The current admin page.
-	 *
-	 * @since 1.0.0
-	 */
-	public function load_backend_scripts( $hook ) {
-		if ( 'toplevel_page_advanced-wp-table' !== $hook ) {
-			return;
-		}
-
-		global $post;
-
-		wp_add_inline_script(
-			'wp-blocks',
-			sprintf(
-				'wp.blocks.unstable__bootstrapServerSideBlockDefinitions( %s );',
-				wp_json_encode( get_block_editor_server_block_settings() )
-			),
-			'after'
-		);
-
-		wp_add_inline_script(
-			'wp-blocks',
-			sprintf(
-				'wp.blocks.setCategories( %s );',
-				wp_json_encode( get_block_categories( $post ) )
-			),
-			'after'
-		);
-
-		wp_tinymce_inline_scripts();
-		wp_enqueue_editor();
-
-		wp_enqueue_media();
-		wp_enqueue_script( 'media-upload' );
-		wp_enqueue_script( 'wp-edit-post' );
-
-		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-		do_action( 'enqueue_block_editor_assets' );
-
-		wp_enqueue_script( 'wp-edit-post' );
-		wp_enqueue_script( 'wp-format-library' );
-		wp_enqueue_style( 'wp-edit-post' );
-		wp_enqueue_style( 'wp-format-library' );
-
-		// Automatically load dependencies and version.
-		$asset_file = require_once dirname( __DIR__ ) . '/build/index.asset.php';
-
-		// @todo Remove localhost info.
-		if ( defined( 'WP_ENVIRONMENT' ) && 'development' === WP_ENVIRONMENT ) {
-			// Load scripts when in development.
-			wp_enqueue_script(
-				'wp-table-backend-js',
-				'http://localhost:8083/index.js',
-				$asset_file['dependencies'],
-				$asset_file['version'],
-				true
-			);
-		} else {
-			// Load scripts when in production.
-			wp_enqueue_script(
-				'wp-table-backend-js',
-				ADVANCED_WP_TABLE_URL . 'build/index.js',
-				$asset_file['dependencies'],
-				$asset_file['version'],
-				true
-			);
-		}
-	}
-
-	/**
-	 * Register the shortcode.
-	 *
-	 * @param array $atts The array of options.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return mixed|void
-	 */
-	public function register_shortcode( $atts ) {
-		$id = isset( $atts['id'] ) ? absint( $atts['id'] ) : 0;
-
-		if ( ! $id ) {
-			return;
-		}
-
-		wp_enqueue_style( 'advanced-wp-table-style' );
-
-		/**
-		 * Add filter to enqueue scripts dynamically for developers.
-		 *
-		 * @param int $id The table id.
-		 */
-		do_action( 'advanced_wp_table_enqueue_scripts', $id );
-
-		$table = get_post_meta( $id, 'advanced_wp_table_data', true );
-		$rows  = isset( $table['rows'] ) ? $table['rows'] : '';
-
-		ob_start();
-		?>
-
-		<?php if ( $rows ) : ?>
-
-			<div class="advanced-wp-table-wrapper" id="advanced-wp-table-<?php echo get_the_ID(); ?>">
-				<table>
-					<?php foreach ( $rows as $row ) : ?>
-						<tr>
-							<?php foreach ( $row as $cell ) : ?>
-								<td>
-									<?php $this->render_cell( $cell ); ?>
-								</td>
-							<?php endforeach; ?>
-						</tr>
-					<?php endforeach; ?>
-				</table>
-			</div>
-
-		<?php endif; ?>
-		<?php
-
-		$output = ob_get_clean();
-
-		/**
-		 * Add filter to alter the shortcode output for developers.
-		 */
-		$output = apply_filters( 'advanced_wp_table_output', $output, $id );
-
-		return $output;
-	}
-
-	/**
-	 * Renders the table cell.
-	 *
-	 * @param string $cell The cell string.
-	 */
-	private function render_cell( $cell ) {
-		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-		$content = $cell ? apply_filters( 'the_content', do_blocks( $cell ) ) : '';
-
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo $content;
+		$advanced_WP_table_post_type = new Advanced_WP_Table_Post_Type();
+		$advanced_WP_table_post_type->register_post_type();
 	}
 
 	/**
@@ -377,28 +135,12 @@ class Advanced_WP_Table {
 		}
 
 		$class   = 'notice notice-info';
-		$message = __( 'Advanced WP Table plugin requires WordPress version 5.0 or greater.', 'advanced-wp-table' );
+		$message = __(
+			'Advanced WP Table plugin requires WordPress version 5.0 or greater.',
+			'advanced-wp-table'
+		);
 
 		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
-	}
-
-	/**
-	 * Adds class in admin body.
-	 *
-	 * @param string $classes The classes.
-	 *
-	 * @return mixed
-	 */
-	public function add_admin_class( $classes ) {
-		$current_screen = get_current_screen();
-		$page           = 'toplevel_page_advanced-wp-table';
-
-		if ( isset( $current_screen->base ) && $page === $current_screen->base ) {
-			$classes .= ' wp-embed-responsive';
-			$classes .= ' advanced-wp-table-admin';
-		}
-
-		return $classes;
 	}
 
 }

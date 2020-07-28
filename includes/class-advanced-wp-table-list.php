@@ -21,6 +21,7 @@ class Advanced_WP_Table_Table_List {
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+		add_filter( 'admin_body_class', array( $this, 'add_admin_class' ) );
 	}
 
 	/**
@@ -53,6 +54,26 @@ class Advanced_WP_Table_Table_List {
 		</div>
 		<?php
 	}
+
+	/**
+	 * Adds class in admin body.
+	 *
+	 * @param string $classes The classes.
+	 *
+	 * @return mixed
+	 */
+	public function add_admin_class( $classes ) {
+		$current_screen = get_current_screen();
+		$page           = ADVANCED_WP_TABLE_LIST_PAGE_HOOK;
+
+		if ( isset( $current_screen->base ) && $page === $current_screen->base ) {
+			$classes .= ' wp-embed-responsive';
+			$classes .= ' advanced-wp-table-admin';
+		}
+
+		return $classes;
+	}
+
 }
 
 new Advanced_WP_Table_Table_List();

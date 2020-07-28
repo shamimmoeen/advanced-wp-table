@@ -1,16 +1,18 @@
-import { postTable, prepareTableToDuplicate } from '../../utils/table';
+import { getTablePreviewUrl, postTable, prepareTableToDuplicate } from '../../utils/table';
 import { toastError, toastSuccess } from '../../utils/utils';
 import { StateContext } from '../App';
 
-const { useContext } = wp.element;
+const { useContext, React } = wp.element;
 const { __ } = wp.i18n;
 
 const Actions = ( { table } ) => {
 	const stateContext = useContext( StateContext );
 	const { state, dispatch } = stateContext;
-	const { tables } = state;
+	const { tables, previewPageUrl } = state;
 	const { id } = table;
 	const total = parseInt( state.total );
+
+	const tablePreviewUrl = getTablePreviewUrl( previewPageUrl, id );
 
 	const onHandleNavigateToTable = () => {
 		dispatch( { type: 'UNSET_TABLE_CHANGED' } );
@@ -80,6 +82,16 @@ const Actions = ( { table } ) => {
 				>
 					{ __( 'Edit', 'advanced-wp-table' ) }
 				</button>
+			</span>
+			{ ` | ` }
+			<span className={ 'preview-table-btn' }>
+				<a
+					href={ tablePreviewUrl }
+					target={ '_blank' }
+					rel={ 'noreferrer' }
+				>
+					{ __( 'Preview', 'advanced-wp-table' ) }
+				</a>
 			</span>
 			{ ` | ` }
 			<span className={ 'duplicate' }>

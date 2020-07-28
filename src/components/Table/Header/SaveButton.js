@@ -1,6 +1,6 @@
 import { updateTable } from '../../../utils/table';
 import { dismissToasts, toastError, toastSuccess } from '../../../utils/utils';
-import {StateContext} from "../../App";
+import { StateContext } from '../../App';
 
 const { useContext, React } = wp.element;
 const { __ } = wp.i18n;

@@ -188,3 +188,7 @@ export function textToClipboard( text ) {
 	document.execCommand( 'copy' );
 	document.body.removeChild( dummy );
 }
+
+export function getTablePreviewUrl( tablePageUrl, tableId ) {
+	return `${ tablePageUrl }?id=${ tableId }`;
+}

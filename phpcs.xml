@@ -7,6 +7,8 @@
 	<exclude-pattern>/vendor/</exclude-pattern>
 	<exclude-pattern>/node_modules/</exclude-pattern>
 	<exclude-pattern>/freemius/</exclude-pattern>
+	<!--  Exclude the PHPUnit Tests directory.  -->
+	<exclude-pattern>/tests/*</exclude-pattern>
 
 	<!-- How to scan -->
 	<!-- Usage instructions: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage -->
