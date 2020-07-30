@@ -25,9 +25,10 @@
   "author": "Mainul Hassan Main <shamim.moeen@gmail.com> (https://mainulhassan.info)",
   "license": "GPLv3",
   "devDependencies": {
-    "@wordpress/api-fetch": "^3.11.0",
+    "@wordpress/api-fetch": "^3.18.0",
     "@wordpress/base-styles": "^2.0.1",
     "@wordpress/block-library": "^2.14.5",
+    "@wordpress/core-data": "^2.20.3",
     "@wordpress/scripts": "^6.2.0",
     "@wordpress/server-side-render": "^1.16.1",
     "@wordpress/url": "^2.11.0",

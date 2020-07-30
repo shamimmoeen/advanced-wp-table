@@ -1,8 +1,9 @@
-import { createMarkup, offsetIndex } from '../../utils/utils';
+import { offsetIndex } from '../../utils/utils';
 import { StateContext } from '../App';
 import Actions from './Actions';
 import Buttons from './Buttons';
 import Header from './Header';
+import TableCell from '../TableCell/TableCell';
 
 const { Fragment, useState, useRef, useContext, React } = wp.element;
 
@@ -57,29 +58,6 @@ const Table = () => {
 		}
 
 		return opacity;
-	};
-
-	const renderBlocks = ( content ) => {
-		let html = '<div class="entry"><div class="entry-content">';
-		const parsed = wp.blocks.parse( content );
-
-		parsed.map( block => {
-			const blockType = wp.blocks.getBlockType( block.name );
-
-			if ( 'embed' === blockType.category ) {
-			}
-
-			if ( 'embed' !== blockType.category ) {
-				const blockContent = wp.blocks.getBlockContent( block );
-				return html += blockContent;
-			}
-
-			return html;
-		} );
-
-		html += '</div></div>';
-
-		return html;
 	};
 
 	return (
@@ -155,9 +133,7 @@ const Table = () => {
 									} }
 								>
 									<div className={ 'advanced-wp-table-cell-wrapper' }>
-										<div
-											dangerouslySetInnerHTML={ createMarkup( renderBlocks( y ) ) }
-										/>
+										<TableCell content={ y } />
 										<Actions i={ i } j={ j } />
 									</div>
 								</td>

@@ -467,8 +467,48 @@ $fixed_header_height: 50px;
 		position: relative;
 		min-height: 2em;
 
-		.advanced-wp-table-cell-preview {
-			position: relative;
+		.entry,
+		.entry-content,
+		.editor-styles-wrapper,
+		.editor-styles-wrapper > div {
+			flex: 1;
+		}
+
+		.editor-styles-wrapper {
+			.wp-block-cover-image {
+				color: #fff;
+			}
+
+			.wp-block-gallery {
+				img {
+					height: auto;
+				}
+			}
+
+			ul,
+			ol {
+				margin-bottom: 28px;
+				padding: 0 0 0 1.3em;
+				margin-left: 1.3em;
+			}
+
+			a.wp-block-button__link:not(.has-background) {
+				color: #ffffff;
+				background-color: #666666;
+			}
+
+			code {
+				background: transparent;
+			}
+
+			.wp-block-table {
+				margin: 0 0 1.5em;
+
+				&.has-fixed-layout {
+					table-layout: fixed;
+					width: 100%;
+				}
+			}
 		}
 	}
 
