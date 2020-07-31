@@ -468,6 +468,11 @@ $fixed_header_height: 50px;
 		min-height: 2em;
 
 		.entry,
+		.entry-content {
+			display: flex;
+		}
+
+		.entry,
 		.entry-content,
 		.editor-styles-wrapper,
 		.editor-styles-wrapper > div {
@@ -475,6 +480,8 @@ $fixed_header_height: 50px;
 		}
 
 		.editor-styles-wrapper {
+			background-color: transparent;
+
 			.wp-block-cover-image {
 				color: #fff;
 			}
