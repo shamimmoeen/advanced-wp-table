@@ -1,6 +1,6 @@
 import { offsetIndex } from '../../utils/utils';
 import { StateContext } from '../App';
-import Actions from './Actions';
+import Actions from './Actions/Actions';
 import Buttons from './Buttons';
 import Header from './Header';
 import TableCell from '../TableCell/TableCell';

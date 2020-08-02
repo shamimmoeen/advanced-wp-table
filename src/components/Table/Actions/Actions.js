@@ -1,5 +1,6 @@
-import { dismissToasts } from '../../utils/utils';
-import { StateContext } from '../App';
+import { dismissToasts } from '../../../utils/utils';
+import { StateContext } from '../../App';
+import Edit from './Edit';
 
 const { useContext, React } = wp.element;
 const { __ } = wp.i18n;
@@ -57,13 +58,7 @@ const Actions = ( { i, j } ) => {
 			<span className={ 'dashicons dashicons-admin-generic advanced-wp-table-edit-cell' } />
 			<div className="advanced-wp-table-actions-dropdown">
 				<div className="advanced-wp-table-actions-dropdown-inner">
-					<div
-						className="advanced-wp-table-action-item"
-						onClick={ onHandleOpenEditor }
-						role="presentation"
-					>
-						{ __( 'Edit', 'advanced-wp-table' ) }
-					</div>
+					<Edit i={ i } j={ j } />
 					<div
 						className="advanced-wp-table-action-item"
 						onClick={ onHandleOpenEditor }

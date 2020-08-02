@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('lodash', 'wp-api-fetch', 'wp-block-editor', 'wp-block-library', 'wp-blocks', 'wp-components', 'wp-element', 'wp-format-library', 'wp-i18n', 'wp-polyfill', 'wp-server-side-render', 'wp-url'), 'version' => '989f2383986d7517819571d2395e5a5c');
+<?php return array('dependencies' => array('lodash', 'wp-api-fetch', 'wp-block-editor', 'wp-block-library', 'wp-blocks', 'wp-components', 'wp-element', 'wp-format-library', 'wp-i18n', 'wp-polyfill', 'wp-server-side-render', 'wp-url'), 'version' => 'c4b0a7ab1e558f8a408d93e1555a4bf5');
