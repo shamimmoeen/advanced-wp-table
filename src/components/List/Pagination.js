@@ -1,8 +1,7 @@
+import React, { useContext } from 'react';
+import { __ } from '@wordpress/i18n';
 import ReactPaginate from 'react-paginate';
 import { StateContext } from '../App';
-
-const { useContext } = wp.element;
-const { __ } = wp.i18n;
 
 const Pagination = () => {
 	const { state, dispatch } = useContext( StateContext );

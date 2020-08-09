@@ -1,11 +1,10 @@
+import React, { useState, useRef, useContext, Fragment } from 'react';
 import { offsetIndex } from '../../utils/utils';
 import { StateContext } from '../App';
 import Actions from './Actions/Actions';
 import Buttons from './Buttons';
 import Header from './Header';
 import TableCell from '../TableCell/TableCell';
-
-const { Fragment, useState, useRef, useContext, React } = wp.element;
 
 // tell direction after drag start, the first direction that reach 5px offset
 const DRAG_DIRECTION_NONE = '';

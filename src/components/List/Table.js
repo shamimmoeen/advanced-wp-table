@@ -1,9 +1,8 @@
+import React, { useContext } from 'react';
+import { __ } from '@wordpress/i18n';
 import { getShortcode, copyShortcode } from '../../utils/table';
 import { StateContext } from '../App';
 import Actions from './Actions';
-
-const { useContext, React } = wp.element;
-const { __ } = wp.i18n;
 
 const Table = () => {
 	const stateContext = useContext( StateContext );

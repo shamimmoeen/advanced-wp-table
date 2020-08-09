@@ -1,11 +1,10 @@
+import React, { useContext } from 'react';
+import { __ } from '@wordpress/i18n';
 import { Inserter, BlockNavigationDropdown, ToolSelector } from '@wordpress/block-editor';
 import _ from 'lodash';
 import { parseTableSize, updateTable, updateTableWithCellData } from '../../../utils/table';
 import { dismissToasts, toastError, toastSuccess } from '../../../utils/utils';
 import { StateContext } from '../../App';
-
-const { useContext, React } = wp.element;
-const { __ } = wp.i18n;
 
 const Header = () => {
 	const { state, dispatch } = useContext( StateContext );

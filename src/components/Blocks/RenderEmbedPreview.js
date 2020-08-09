@@ -1,9 +1,8 @@
+import React, { useState, useEffect } from 'react';
 import { getEmbedPreview } from '../../utils/blocks';
 import { Placeholder } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import EmbedPreview from '../EmbedPreviewAWT/embed-preview';
-
-const { useState, useEffect, React } = wp.element;
 
 const RenderEmbedPreview = ( { block } ) => {
 	const [ preview, setPreview ] = useState( '' );

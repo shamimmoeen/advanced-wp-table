@@ -1,10 +1,9 @@
+import React, { useContext, Fragment } from 'react';
+import { __ } from '@wordpress/i18n';
 import { Dialog } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 
 import { StateContext } from '../App';
-
-const { Fragment, useContext } = wp.element;
-const { __ } = wp.i18n;
 
 const TableChangedDialog = () => {
 	const { state, dispatch } = useContext( StateContext );

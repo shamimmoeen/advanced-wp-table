@@ -1,9 +1,8 @@
+import React, { useContext } from 'react';
+import { __ } from '@wordpress/i18n';
 import { dismissToasts } from '../../../utils/utils';
 import { StateContext } from '../../App';
 import Edit from './Edit';
-
-const { useContext, React } = wp.element;
-const { __ } = wp.i18n;
 
 const Actions = ( { i, j } ) => {
 	const { state, dispatch } = useContext( StateContext );

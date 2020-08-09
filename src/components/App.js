@@ -1,4 +1,7 @@
+import React from 'react';
+import { createContext, useReducer, useEffect } from '@wordpress/element';
 import { registerCoreBlocks } from '@wordpress/block-library';
+import { getBlockTypes, unregisterBlockType } from '@wordpress/blocks';
 import { hot } from 'react-hot-loader/root';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,11 +14,6 @@ import NewTable from './NewTable/NewTable';
 import Table from './Table/Table';
 import TableChangedDialog from './TableChangedDialog/TableChangedDialog';
 import TableDeleteDialog from './TableDeleteDialog/TableDeleteDialog';
-
-const React = wp.element;
-const { useReducer, useEffect } = wp.element;
-
-export const StateContext = React.createContext();
 
 const newTableData = {
 	title: '',
@@ -41,7 +39,7 @@ const awt_params = window.awt_params || {
 
 const previewPageUrl = awt_params.preview_page_url;
 
-const initialState = {
+export const initialState = {
 	loading: true,
 	tablesLoading: true,
 	formLoading: false,
@@ -61,7 +59,9 @@ const initialState = {
 	newTableData,
 };
 
-const reducer = ( state, action ) => {
+export const StateContext = createContext( initialState );
+
+export const reducer = ( state, action ) => {
 	switch ( action.type ) {
 		case 'SET_VIEW':
 			return { ...state, view: action.payload };
@@ -188,9 +188,9 @@ const App = () => {
 		// Since wp 5.4 core/freeform, core/shortcode block issues are fixed.
 		const disAllowedBlocks = [];
 
-		wp.blocks.getBlockTypes().forEach( ( blockType ) => {
+		getBlockTypes().forEach( ( blockType ) => {
 			if ( disAllowedBlocks.includes( blockType.name ) ) {
-				wp.blocks.unregisterBlockType( blockType.name );
+				unregisterBlockType( blockType.name );
 			}
 		} );
 	}, [] );

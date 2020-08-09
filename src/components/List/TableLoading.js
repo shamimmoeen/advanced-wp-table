@@ -1,7 +1,6 @@
+import React, { useContext } from 'react';
+import { __ } from '@wordpress/i18n';
 import { StateContext } from '../App';
-
-const { useContext } = wp.element;
-const { __ } = wp.i18n;
 
 const TableLoading = () => {
 	const stateContext = useContext( StateContext );

@@ -1,7 +1,6 @@
+import React from 'react';
 import { getBlocks } from '../../utils/blocks';
 import RenderBlock from '../Blocks/RenderBlock';
-
-const { React } = wp.element;
 
 const TableCell = ( { content } ) => {
 	return (

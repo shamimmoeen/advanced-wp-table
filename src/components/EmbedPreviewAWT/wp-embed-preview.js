@@ -1,3 +1,5 @@
+import React from 'react';
+
 /**
  * WordPress dependencies
  */
@@ -8,7 +10,6 @@ import { Component, createRef } from '@wordpress/element';
  */
 
 const { FocusEvent } = window;
-const { React } = wp.element;
 
 class WpEmbedPreview extends Component {
 	constructor() {

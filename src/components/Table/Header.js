@@ -1,13 +1,12 @@
+import React, { Fragment, useContext, useEffect, useState, useRef } from 'react';
+import { __ } from '@wordpress/i18n';
+import { Tooltip } from '@wordpress/components';
 import _ from 'lodash';
 import { parseTableSize } from '../../utils/table';
 import { StateContext } from '../App';
 import SaveButton from './Header/SaveButton';
 import PreviewButton from './Header/PreviewButton';
 import CopyShortcodeButton from './Header/CopyShortcodeButton';
-
-const { Fragment, useContext, useEffect, useState, useRef, React } = wp.element;
-const { __ } = wp.i18n;
-const { Tooltip } = wp.components;
 
 const Header = () => {
 	const { state, dispatch } = useContext( StateContext );

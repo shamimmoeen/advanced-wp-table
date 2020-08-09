@@ -1,9 +1,8 @@
+import React, { useContext } from 'react';
+import { __ } from '@wordpress/i18n';
 import { getTablePreviewUrl, postTable, prepareTableToDuplicate } from '../../utils/table';
 import { toastError, toastSuccess } from '../../utils/utils';
 import { StateContext } from '../App';
-
-const { useContext, React } = wp.element;
-const { __ } = wp.i18n;
 
 const Actions = ( { table } ) => {
 	const stateContext = useContext( StateContext );

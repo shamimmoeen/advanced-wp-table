@@ -1,8 +1,7 @@
+import React from 'react';
 import { createMarkup } from '../../utils/utils';
 import ServerSideRender from '@wordpress/server-side-render';
 import RenderEmbedPreview from './RenderEmbedPreview';
-
-const { React } = wp.element;
 
 const RenderBlock = ( { block } ) => {
 	const blockType = wp.blocks.getBlockType( block.name );

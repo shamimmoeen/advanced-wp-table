@@ -1,7 +1,6 @@
+import React, { Fragment } from 'react';
 import Form from './Form';
 import Header from './Header';
-
-const { Fragment } = wp.element;
 
 const NewTable = () => {
 	return (

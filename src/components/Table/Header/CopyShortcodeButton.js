@@ -1,10 +1,9 @@
+import React, { useContext } from 'react';
+import { __ } from '@wordpress/i18n';
+import { Tooltip } from '@wordpress/components';
 import { getShortcode, textToClipboard } from '../../../utils/table';
 import { toastSuccess } from '../../../utils/utils';
 import { StateContext } from '../../App';
-
-const { useContext, React } = wp.element;
-const { __ } = wp.i18n;
-const { Tooltip } = wp.components;
 
 const CopyShortcodeButton = () => {
 	const { state } = useContext( StateContext );

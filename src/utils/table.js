@@ -1,8 +1,7 @@
 import apiFetch from '@wordpress/api-fetch';
 import _ from 'lodash';
 import { getApiEndpoint } from './utils';
-
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
 export async function getTables( perPage, offset ) {
 	const options = {

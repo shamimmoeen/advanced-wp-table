@@ -1,3 +1,5 @@
+import React, { useContext } from 'react';
+import { __ } from '@wordpress/i18n';
 import {
 	BlockEditorKeyboardShortcuts,
 	BlockEditorProvider,
@@ -8,15 +10,13 @@ import {
 	WritingFlow,
 } from '@wordpress/block-editor';
 import { DropZoneProvider, Popover, SlotFillProvider } from '@wordpress/components';
+import { uploadMedia } from '@wordpress/media-utils';
 import '@wordpress/format-library';
 import { StateContext } from '../../App';
 import Header from './Header';
 
 import './editor.scss';
 import './style.scss';
-
-const { useContext, React } = wp.element;
-const { __ } = wp.i18n;
 
 /**
  * Fix media upload permission error.
@@ -25,7 +25,7 @@ const { __ } = wp.i18n;
  *
  * @see https://github.com/WordPress/gutenberg/issues/18628
  */
-SETTINGS_DEFAULTS.mediaUpload = wp.mediaUtils.uploadMedia;
+SETTINGS_DEFAULTS.mediaUpload = uploadMedia;
 
 SETTINGS_DEFAULTS.imageSizes = [
 	{ slug: 'thumbnail', name: __( 'Thumbnail', 'advanced-wp-table' ) },
@@ -40,7 +40,10 @@ const Editor = () => {
 	const { content: blocks } = activeCell;
 
 	const onHandleChange = ( updatedBlocks ) => {
-		dispatch( { type: 'SET_ACTIVE_CELL', payload: { ...activeCell, content: updatedBlocks } } );
+		dispatch( {
+			type: 'SET_ACTIVE_CELL',
+			payload: { ...activeCell, content: updatedBlocks }
+		} );
 	};
 
 	return (
