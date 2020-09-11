@@ -1,8 +1,9 @@
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
+import { parse } from '@wordpress/blocks';
 
 export function getBlocks( content ) {
-	return  wp.blocks.parse( content );
+	return  parse( content );
 }
 
 export async function getEmbedPreview( url ) {

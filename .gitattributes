@@ -1,3 +1,4 @@
+.idea/ export-ignore
 assets/advanced-wp-table.scss export-ignore
 assets/advanced-wp-table.css.map export-ignore
 github/ export-ignore

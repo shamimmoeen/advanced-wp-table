@@ -1,0 +1,74 @@
+import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Tooltip } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+
+import { setTable } from '../../../store/reducers/table';
+
+const Title = () => {
+	const dispatch = useDispatch();
+	const tableState = useSelector( state => state.table );
+	const { table } = tableState;
+	const { rendered: title } = table.title;
+	const [ isEditing, setEditing ] = useState( false );
+	const editTitleRef = useRef( null );
+	const inputRef = useRef( null );
+
+	useEffect( () => {
+		if ( isEditing ) {
+			inputRef.current.focus();
+		}
+	}, [ isEditing ] );
+
+	const closeEditTitle = ( e ) => {
+		if ( ! editTitleRef.current.contains( e.target ) ) {
+			setEditing( false );
+			document.getElementById( 'wpwrap' ).removeEventListener( 'click', closeEditTitle );
+		}
+	};
+
+	const handleToggleEditTitle = () => {
+		setEditing( true );
+		document.getElementById( 'wpwrap' ).addEventListener( 'click', closeEditTitle );
+	};
+
+	const handleChange = ( e ) => {
+		const newTable = { ...table, title: { ...table.title, rendered: e.target.value } };
+		dispatch( setTable( newTable ) );
+	};
+
+	return (
+		<div className={ 'advanced-wp-table-header-title' }>
+			<div className={ 'advanced-wp-table-edit-title-wrapper' } ref={ editTitleRef }>
+				{ isEditing ? (
+					<input
+						type="text"
+						ref={ inputRef }
+						value={ title }
+						onChange={ handleChange }
+						aria-label={ 'table-title' }
+					/>
+				) : (
+					<Fragment>
+						<h1 className={ 'advanced-wp-table-title' }>{ title }</h1>
+						<div
+							className={ 'advanced-wp-table-edit-title-toggle' }
+							role={ 'presentation' }
+							onClick={ handleToggleEditTitle }
+							data-testid={ 'toggle-edit-mode' }
+						>
+							<Tooltip
+								text={ __( 'Click to edit the title', 'advanced-wp-table' ) }
+								position={ 'bottom center' }
+							>
+								<div><span className={ 'dashicons dashicons-edit' } /></div>
+							</Tooltip>
+						</div>
+					</Fragment>
+				) }
+			</div>
+		</div>
+	);
+};
+
+export default Title;

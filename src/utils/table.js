@@ -2,23 +2,24 @@ import apiFetch from '@wordpress/api-fetch';
 import _ from 'lodash';
 import { getApiEndpoint } from './utils';
 import { __ } from '@wordpress/i18n';
+import { addQueryArgs } from '@wordpress/url';
+import { serialize } from '@wordpress/blocks';
 
 export async function getTables( perPage, offset ) {
 	const options = {
-		path: wp.url.addQueryArgs( getApiEndpoint(), { per_page: perPage, offset } ),
+		path: addQueryArgs( getApiEndpoint(), { per_page: perPage, offset } ),
 		parse: false,
 	};
 
 	try {
 		const response = await apiFetch( options );
-		const total = response.headers && response.headers.get( 'X-WP-Total' );
-		const totalPages = response.headers && response.headers.get( 'X-WP-TotalPages' );
+		const total = response.headers && parseInt( response.headers.get( 'X-WP-Total' ) );
+		const totalPages = response.headers && parseInt( response.headers.get( 'X-WP-TotalPages' ) );
 		const tables = await response.json();
 
 		return { total, totalPages, tables };
-	} catch ( response ) {
-		const err = await response.json();
-		throw new Error( err.message );
+	} catch ( err ) {
+		return await err.json();
 	}
 }
 
@@ -72,7 +73,7 @@ export async function postTable( { title, advanced_wp_table_data } ) {
 	try {
 		return await apiFetch( options );
 	} catch ( err ) {
-		throw new Error( err.message );
+		return await err.json();
 	}
 }
 
@@ -85,7 +86,7 @@ export async function getTable( id ) {
 	try {
 		return await apiFetch( options );
 	} catch ( err ) {
-		throw new Error( err.message );
+		return await err.json();
 	}
 }
 
@@ -98,7 +99,7 @@ export async function deleteTable( id ) {
 	try {
 		return await apiFetch( options );
 	} catch ( err ) {
-		throw new Error( err.message );
+		return await err.json();
 	}
 }
 
@@ -113,7 +114,7 @@ export async function updateTable( id, title, advanced_wp_table_data ) {
 	try {
 		return await apiFetch( options );
 	} catch ( err ) {
-		throw new Error( err.message );
+		return await err.json();
 	}
 }
 
@@ -133,7 +134,7 @@ export function updateTableWithCellData( table, activeCell ) {
 	const tempRows = [ ...tableData.rows ];
 	const { i, j, content } = activeCell;
 	// @todo Serialize content only if gutenberg active.
-	const serializedContent = wp.blocks.serialize( content );
+	const serializedContent = serialize( content );
 
 	const newRows = [];
 

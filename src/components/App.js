@@ -32,7 +32,8 @@ const tableDeleteDialog = {
 	id: null,
 };
 
-/* eslint-disable-next-line camelcase */
+/* eslint-disable camelcase, no-undef */
+// noinspection JSUnresolvedVariable
 const awt_params = window.awt_params || {
 	preview_page_url: '',
 };
@@ -186,7 +187,7 @@ const App = () => {
 		registerCoreBlocks();
 
 		// Since wp 5.4 core/freeform, core/shortcode block issues are fixed.
-		const disAllowedBlocks = [];
+		const disAllowedBlocks = [ '' ];
 
 		getBlockTypes().forEach( ( blockType ) => {
 			if ( disAllowedBlocks.includes( blockType.name ) ) {
