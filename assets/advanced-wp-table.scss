@@ -1,5 +1,17 @@
 $color__border: #ddd;
 
+.advanced-wp-table-wrapper {
+	table {
+		table-layout: fixed;
+		width: 100%;
+
+		td {
+			vertical-align: top;
+			text-align: left;
+		}
+	}
+}
+
 @media (min-width: 768px) {
 	.advanced-wp-table {
 		display: table;

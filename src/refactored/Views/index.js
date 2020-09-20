@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux';
 import Table from './Table';
 import Tables from './Tables';
 import AddTable from './AddTable';
-import { ADD_TABLE, TABLE } from '../../utils/views';
+import Editor from './Editor';
+import { ADD_TABLE, TABLE, EDITOR } from '../../utils/views';
 
 const Views = () => {
 	const view = useSelector( state => state.ui.view );
@@ -15,6 +16,8 @@ const Views = () => {
 		content = <AddTable />;
 	} else if ( TABLE === view ) {
 		content = <Table />;
+	} else if ( EDITOR === view ) {
+		content = <Editor />;
 	} else {
 		content = <Tables />;
 	}

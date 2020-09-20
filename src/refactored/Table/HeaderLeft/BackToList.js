@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import _ from 'lodash';
 
-import { setTableChangedDialog } from '../../../store/reducers/dialogs';
+import { setTableChangedDialog, unsetTableChangedDialog } from '../../../store/reducers/dialogs';
 import { unsetTable } from '../../../store/reducers/table';
 import { setView } from '../../../store/reducers/ui';
 import { parseTableSize } from '../../../utils/table';
@@ -16,8 +16,8 @@ const BackToList = () => {
 	const navigateToListRef = useRef( null );
 
 	const navigateToList = () => {
-		dispatch( unsetTable() );
 		dispatch( setView( 'list' ) );
+		dispatch( unsetTable() );
 	};
 
 	const isTableChanged = () => {
@@ -38,9 +38,22 @@ const BackToList = () => {
 		return ! isEqual;
 	};
 
+	const callbackCancel = () => {
+		dispatch( unsetTableChangedDialog() );
+	};
+
+	const callbackLeave = () => {
+		dispatch( unsetTableChangedDialog() );
+		dispatch( setView( 'list' ) );
+		dispatch( unsetTable() );
+	};
+
 	const onHandleNavigateToList = () => {
 		if ( isTableChanged() || isTitleChanged() ) {
-			dispatch( setTableChangedDialog() );
+			dispatch( setTableChangedDialog( {
+				callbackCancel,
+				callbackLeave,
+			} ) );
 		} else {
 			navigateToList();
 		}

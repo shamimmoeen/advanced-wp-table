@@ -10,12 +10,19 @@ const previewPageUrl = awt_params.preview_page_url;
 
 export const globals = {
 	previewPageUrl,
+	cellContent: window.localStorage.getItem( 'cellContent' ),
 };
 
 const slice = createSlice( {
 	name: 'globals',
 	initialState: globals,
-	reducers: {},
+	reducers: {
+		setCellContent: ( state, action ) => {
+			state.cellContent = action.payload;
+		},
+	},
 } );
+
+export const { setCellContent } = slice.actions;
 
 export default slice.reducer;

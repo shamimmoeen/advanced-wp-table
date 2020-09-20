@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { Fragment } from '@wordpress/element';
+import { registerCoreBlocks } from '@wordpress/block-library';
+import { getBlockTypes, unregisterBlockType } from '@wordpress/blocks';
 import { ToastContainer } from 'react-toastify';
 import { hot } from 'react-hot-loader/root';
 import { useDispatch, useSelector } from 'react-redux';
@@ -56,6 +58,19 @@ const App = () => {
 
 		fetchTables();
 	}, [ offset, total ] );
+
+	/**
+	 * Register the gutenberg core blocks.
+	 */
+	useEffect( () => {
+		registerCoreBlocks();
+
+		return () => {
+			getBlockTypes().forEach( ( blockType ) => {
+				unregisterBlockType( blockType.name );
+			} );
+		};
+	}, [] );
 
 	return (
 		<Fragment>

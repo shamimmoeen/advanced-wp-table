@@ -39,11 +39,8 @@ const AddColumn = () => {
 				role={ 'presentation' }
 				onClick={ onHandleAddColumn }
 			>
-				<Icon
-					path={ mdiTableColumnPlusAfter }
-					size={ 1 }
-					color={ '#555' }
-				/>
+				<span className="dashicons dashicons-table-col-before" />
+				{ /*<Icon path={ mdiTableColumnPlusAfter } size={ 1 } color={ '#555' } />*/ }
 			</div>
 		</Tooltip>
 	);

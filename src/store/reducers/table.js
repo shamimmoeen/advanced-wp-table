@@ -3,6 +3,7 @@ import { parseTableSize } from '../../utils/table';
 
 export const table = {
 	table: {},
+	activeCell: {},
 };
 
 const slice = createSlice( {
@@ -15,9 +16,15 @@ const slice = createSlice( {
 		unsetTable: ( state ) => {
 			state.table = {};
 		},
+		setActiveCell: ( state, action ) => {
+			state.activeCell = action.payload;
+		},
+		unsetActiveCell: ( state ) => {
+			state.activeCell = {};
+		},
 	},
 } );
 
-export const { setTable, unsetTable } = slice.actions;
+export const { setTable, unsetTable, setActiveCell, unsetActiveCell } = slice.actions;
 
 export default slice.reducer;

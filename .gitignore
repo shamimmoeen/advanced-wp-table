@@ -9,3 +9,4 @@ coverage/
 *.tar.gz
 *.zip
 bak.*
+assets/.sass-cache/

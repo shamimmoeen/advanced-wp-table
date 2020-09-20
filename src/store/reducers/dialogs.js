@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const tableChangedDialog = {
 	show: false,
+	callbackCancel: null,
+	callbackLeave: null,
 };
 
 const tableDeleteDialog = {
@@ -18,8 +20,10 @@ const slice = createSlice( {
 	name: 'dialogs',
 	initialState: dialogs,
 	reducers: {
-		setTableChangedDialog: ( state ) => {
+		setTableChangedDialog: ( state, action ) => {
 			state.tableChangedDialog.show = true;
+			state.tableChangedDialog.callbackCancel = action.payload.callbackCancel;
+			state.tableChangedDialog.callbackLeave = action.payload.callbackLeave;
 		},
 		unsetTableChangedDialog: ( state ) => {
 			state.tableChangedDialog = tableChangedDialog;

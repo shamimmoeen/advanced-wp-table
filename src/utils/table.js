@@ -192,3 +192,16 @@ export function textToClipboard( text ) {
 export function getTablePreviewUrl( tablePageUrl, tableId ) {
 	return `${ tablePageUrl }?id=${ tableId }`;
 }
+
+export function isActiveCellChanged( tables, table, activeCell ) {
+	const { i, j, content } = activeCell;
+	const oldTable = _.find( tables, ( item ) => item.id === table.id );
+	const { advanced_wp_table_data: oldTableData } = parseTableSize( oldTable );
+	const oldContent = oldTableData.rows[ i ][ j ];
+	// @todo Serialize content only if gutenberg active.
+	const newContent = serialize( content );
+
+	const isEqual = _.isEqual( oldContent, newContent );
+
+	return ! isEqual;
+}

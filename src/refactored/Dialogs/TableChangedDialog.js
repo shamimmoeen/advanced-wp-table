@@ -1,26 +1,19 @@
 import React, { Fragment } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { Dialog } from '@reach/dialog';
-
 import '@reach/dialog/styles.css';
-import { unsetTableChangedDialog } from '../../store/reducers/dialogs';
-import { unsetTable } from '../../store/reducers/table';
-import { setView } from '../../store/reducers/ui';
 
 const TableChangedDialog = () => {
-	const dispatch = useDispatch();
 	const dialogState = useSelector( state => state.dialogs.tableChangedDialog );
-	const { show } = dialogState;
+	const { show, callbackCancel, callbackLeave } = dialogState;
 
 	const onHandleCancel = () => {
-		dispatch( unsetTableChangedDialog() );
+		callbackCancel();
 	};
 
 	const onHandleLeave = () => {
-		dispatch( unsetTableChangedDialog() );
-		dispatch( setView( 'list' ) );
-		dispatch( unsetTable() );
+		callbackLeave();
 	};
 
 	return (

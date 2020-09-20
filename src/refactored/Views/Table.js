@@ -1,8 +1,8 @@
 import React, { useState, useRef, Fragment } from 'react';
 import { offsetIndex } from '../../utils/utils';
-import Actions from '../Table/Actions/Actions';
+import Actions from '../Table/Actions/';
 import Header from '../Table/Header';
-import TableCell from '../TableCell/TableCell';
+import TableCell from '../Table/TableCell';
 import { useDispatch, useSelector } from 'react-redux';
 
 // tell direction after drag start, the first direction that reach 5px offset
@@ -132,7 +132,7 @@ const Table = () => {
 								>
 									<div className={ 'advanced-wp-table-cell-wrapper' }>
 										<TableCell content={ y } />
-										<Actions i={ i } j={ j } />
+										<Actions i={ i } j={ j } y={ y } />
 									</div>
 								</td>
 							) ) }

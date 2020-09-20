@@ -40,12 +40,8 @@ const AddRow = () => {
 				role={ 'presentation' }
 				onClick={ onHandleAddRow }
 			>
-				<Icon
-					path={ mdiTableColumnPlusAfter }
-					size={ 1 }
-					rotate={ 90 }
-					color={ '#555' }
-				/>
+				<span className="dashicons dashicons-table-row-before" />
+				{ /*<Icon path={ mdiTableColumnPlusAfter } size={ 1 } rotate={ 90 } color={ '#555' } />*/ }
 			</div>
 		</Tooltip>
 	);

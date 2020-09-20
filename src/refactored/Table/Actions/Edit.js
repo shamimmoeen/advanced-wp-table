@@ -1,8 +1,12 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { parse } from '@wordpress/blocks';
+
 import { dismissToasts } from '../../../utils/utils';
-import { useDispatch, useSelector } from 'react-redux';
+import { EDITOR } from '../../../utils/views';
+import { setView } from '../../../store/reducers/ui';
+import { setActiveCell } from '../../../store/reducers/table';
 
 const Edit = ( { i, j } ) => {
 	const dispatch = useDispatch();
@@ -16,8 +20,8 @@ const Edit = ( { i, j } ) => {
 		// @todo Parse content only if gutenberg active.
 		content = parse( content );
 		const activeCell = { i, j, content };
-		dispatch( { type: 'SET_ACTIVE_CELL', payload: activeCell } );
-		dispatch( { type: 'SET_VIEW', payload: 'editCellModal' } );
+		dispatch( setView( EDITOR ) );
+		dispatch( setActiveCell( activeCell ) );
 	};
 
 	return (
