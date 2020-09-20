@@ -1,26 +1,16 @@
-import React, { Fragment, useContext, useEffect, useState, useRef } from 'react';
-import { __ } from '@wordpress/i18n';
-import { Tooltip } from '@wordpress/components';
-import _ from 'lodash';
-import { parseTableSize } from '../../utils/table';
-import { StateContext } from '../App';
-import SaveButton from './Header/SaveButton';
-import PreviewButton from './Header/PreviewButton';
-import CopyShortcodeButton from './Header/CopyShortcodeButton';
+import React, { useEffect, useState, useRef } from 'react';
+
+import HeaderRight from './HeaderRight';
+import HeaderLeft from './HeaderLeft';
+import HeaderMiddle from './HeaderMiddle';
 
 const Header = () => {
-	const { state, dispatch } = useContext( StateContext );
-	const { table } = state;
-	const { rendered: title } = table.title;
 	const [ elmClass, setElmClass ] = useState( '' );
-	const [ isEditing, setEditing ] = useState( false );
 	const headerRef = useRef( null );
-	const editTitleRef = useRef( null );
-	const inputRef = useRef( null );
-	const navigateToListRef = useRef( null );
 
 	let lastScroll = 0;
 
+	/* istanbul ignore next */
 	const handleScroll = () => {
 		// @todo I am not sure why removeEventLister not working in the useEffect hook
 		if ( null === headerRef.current ) {
@@ -44,6 +34,7 @@ const Header = () => {
 		lastScroll = currentScroll;
 	};
 
+	/* istanbul ignore next */
 	useEffect( () => {
 		window.addEventListener( 'scroll', handleScroll );
 
@@ -52,68 +43,9 @@ const Header = () => {
 		};
 	}, [] );
 
-	useEffect( () => {
-		if ( isEditing ) {
-			inputRef.current.focus();
-		}
-	}, [ isEditing ] );
-
-	const closeEditTitle = ( e ) => {
-		if ( ! editTitleRef.current.contains( e.target ) ) {
-			setEditing( false );
-			document.getElementById( 'wpwrap' ).removeEventListener( 'click', closeEditTitle );
-		}
-	};
-
-	const handleToggleEditTitle = () => {
-		setEditing( true );
-		document.getElementById( 'wpwrap' ).addEventListener( 'click', closeEditTitle );
-	};
-
-	const handleChange = ( e ) => {
-		const newTable = { ...table, title: { ...table.title, rendered: e.target.value } };
-		dispatch( { type: 'SET_TABLE', payload: newTable } );
-	};
-
-	const navigateToList = () => {
-		dispatch( { type: 'UNSET_TABLE' } );
-		dispatch( { type: 'SET_VIEW', payload: 'list' } );
-	};
-
-	const isTableChanged = () => {
-		const oldTable = _.find( state.tables, ( item ) => item.id === table.id );
-		const { advanced_wp_table_data: oldTableData } = parseTableSize( oldTable );
-		const { advanced_wp_table_data: newTableData } = table;
-		const isEqual = _.isEqual( oldTableData, newTableData );
-
-		return ! isEqual;
-	};
-
-	const isTitleChanged = () => {
-		const oldTable = _.find( state.tables, ( item ) => item.id === table.id );
-		const oldTitle = oldTable.title.rendered;
-		const newTitle = table.title.rendered;
-		const isEqual = _.isEqual( oldTitle, newTitle );
-
-		return ! isEqual;
-	};
-
-	const onHandleNavigateToList = () => {
-		if ( isTableChanged() || isTitleChanged() ) {
-			dispatch( {
-				type: 'SET_TABLE_CHANGED_DIALOG',
-				payload: {
-					status: true,
-					callbackLeave: navigateToList,
-				},
-			} );
-		} else {
-			navigateToList();
-		}
-	};
-
 	let elmClasses = 'advanced-wp-table-fixed-header';
 
+	/* istanbul ignore next */
 	if ( elmClass ) {
 		elmClasses = `advanced-wp-table-fixed-header ${ elmClass }`;
 	}
@@ -121,51 +53,9 @@ const Header = () => {
 	return (
 		<div className={ 'advanced-wp-table-fixed-header-wrapper' }>
 			<div className={ `${ elmClasses }` } ref={ headerRef }>
-				<div className={ 'advanced-wp-table-header-navigate-to-list' }>
-					<button
-						className={ 'button' }
-						ref={ navigateToListRef }
-						onClick={ onHandleNavigateToList }
-					>
-						<span className={ 'dashicons dashicons-controls-back' } />
-						{ __( 'Back to Tables', 'advanced-wp-table' ) }
-					</button>
-				</div>
-
-				<div className={ 'advanced-wp-table-header-title' }>
-					<div className={ 'advanced-wp-table-edit-title-wrapper' } ref={ editTitleRef }>
-						{ isEditing ? (
-							<input
-								type="text"
-								ref={ inputRef }
-								value={ title }
-								onChange={ handleChange }
-							/>
-						) : (
-							<Fragment>
-								<h1 className={ 'advanced-wp-table-title' }>{ title }</h1>
-								<div
-									className={ 'advanced-wp-table-edit-title-toggle' }
-									role={ 'presentation' }
-									onClick={ handleToggleEditTitle }
-								>
-									<Tooltip
-										text={ __( 'Click to edit the title', 'advanced-wp-table' ) }
-										position={ 'bottom center' }
-									>
-										<div><span className={ 'dashicons dashicons-edit' } /></div>
-									</Tooltip>
-								</div>
-							</Fragment>
-						) }
-					</div>
-				</div>
-
-				<div className={ 'advanced-wp-table-header-actions' }>
-					<CopyShortcodeButton />
-					<PreviewButton />
-					<SaveButton />
-				</div>
+				<HeaderLeft />
+				<HeaderMiddle />
+				<HeaderRight />
 			</div>
 		</div>
 	);
