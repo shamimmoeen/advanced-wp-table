@@ -75,6 +75,51 @@ describe( 'Table/HeaderMiddle/Title', function () {
 		screen.getByTestId( 'toggle-edit-mode' );
 	} );
 
+	it( 'should close the title edit mode', function () {
+		const wrapper = document.createElement( 'div' );
+		wrapper.setAttribute( 'id', 'wpwrap' );
+
+		const { container } = render( <Header />, updatedState, {
+			container: document.body.appendChild( wrapper ),
+		} );
+
+		// Check keyUp event for the shift button
+		fireEvent.click( screen.getByTestId( 'toggle-edit-mode' ) );
+		screen.getByDisplayValue( 'Table 1' );
+
+		fireEvent.keyUp( container, {
+			key: 'Shift',
+			code: 'Shift',
+			keyCode: 16,
+			charCode: 16
+		} );
+
+		expect( screen.queryByTestId( 'toggle-edit-mode' ) ).toBeNull();
+
+		// Check keyUp event for the escape button
+		fireEvent.keyUp( container, {
+			key: 'Escape',
+			code: 'Escape',
+			keyCode: 27,
+			charCode: 27
+		} );
+
+		expect( screen.getByTestId( 'toggle-edit-mode' ) ).toBeInTheDocument();
+
+		// Check keyUp event for the enter button
+		fireEvent.click( screen.getByTestId( 'toggle-edit-mode' ) );
+		screen.getByDisplayValue( 'Table 1' );
+
+		fireEvent.keyUp( container, {
+			key: 'Enter',
+			code: 'Enter',
+			keyCode: 13,
+			charCode: 13
+		} );
+
+		expect( screen.getByTestId( 'toggle-edit-mode' ) ).toBeInTheDocument();
+	} );
+
 	it( 'should change the title', async function () {
 		editTableTitle();
 
@@ -104,5 +149,29 @@ describe( 'Table/HeaderMiddle/Title', function () {
 
 		expect( screen.queryByText( /The changes you made will be lost if you leave this./ ) )
 			.toBeNull();
+	} );
+
+	it( 'should throw error if title is empty', function () {
+		fetchMock.mockResponse( JSON.stringify( tables ) );
+
+		const wrapper = document.createElement( 'div' );
+		wrapper.setAttribute( 'id', 'wpwrap' );
+
+		render( <App />, updatedState, {
+			container: document.body.appendChild( wrapper ),
+		} );
+
+		fireEvent.click( screen.getByTestId( 'toggle-edit-mode' ) );
+
+		fireEvent.change(
+			screen.getByLabelText( 'table-title' ),
+			{ target: { value: '' } }
+		);
+
+		fireEvent.click( document.getElementById( 'wpwrap' ) );
+		expect( screen.queryByTestId( 'toggle-edit-mode' ) ).toBeNull();
+
+		fireEvent.click( screen.getByText( 'Back to Tables' ) );
+		expect( screen.queryByTestId( 'toggle-edit-mode' ) ).toBeNull();
 	} );
 } );

@@ -4,6 +4,7 @@ import { Tooltip } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 import { setTable } from '../../../store/reducers/table';
+import { toastError } from '../../../utils/utils';
 
 const Title = () => {
 	const dispatch = useDispatch();
@@ -20,16 +21,45 @@ const Title = () => {
 		}
 	}, [ isEditing ] );
 
+	useEffect( () => {
+		if ( ! isEditing ) {
+			if ( ! title.length ) {
+				toastError( __( 'Title is required', 'advanced-wp-table' ) );
+				registerEvents();
+			}
+		}
+	}, [ isEditing ] );
+
 	const closeEditTitle = ( e ) => {
 		if ( ! editTitleRef.current.contains( e.target ) ) {
-			setEditing( false );
-			document.getElementById( 'wpwrap' ).removeEventListener( 'click', closeEditTitle );
+			unregisterEvents();
 		}
 	};
 
-	const handleToggleEditTitle = () => {
+	const closeEditTitleFromEscEnterPress = ( e ) => {
+		if ( e.key === 'Escape' || e.key === 'Enter' ) {
+			unregisterEvents();
+		}
+	};
+
+	const unregisterEvents = () => {
+		setEditing( false );
+		document.getElementById( 'wpwrap' )
+			.removeEventListener( 'click', closeEditTitle );
+		document.getElementById( 'wpwrap' )
+			.removeEventListener( 'keyup', closeEditTitleFromEscEnterPress );
+	};
+
+	const registerEvents = () => {
 		setEditing( true );
-		document.getElementById( 'wpwrap' ).addEventListener( 'click', closeEditTitle );
+		document.getElementById( 'wpwrap' )
+			.addEventListener( 'click', closeEditTitle );
+		document.getElementById( 'wpwrap' )
+			.addEventListener( 'keyup', closeEditTitleFromEscEnterPress );
+	};
+
+	const handleToggleEditTitle = () => {
+		registerEvents();
 	};
 
 	const handleChange = ( e ) => {
@@ -40,7 +70,7 @@ const Title = () => {
 	return (
 		<div className={ 'advanced-wp-table-header-title' }>
 			<div className={ 'advanced-wp-table-edit-title-wrapper' } ref={ editTitleRef }>
-				{ isEditing ? (
+				{ isEditing || ! title.length ? (
 					<input
 						type="text"
 						ref={ inputRef }
