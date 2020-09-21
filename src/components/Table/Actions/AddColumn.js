@@ -1,8 +1,30 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
+import { useDispatch, useSelector } from 'react-redux';
 
-const AddColumn = () => {
+import { setTable } from '../../../store/reducers/table';
+
+const AddColumn = ( { j } ) => {
+	const dispatch = useDispatch();
+	const { table } = useSelector( state => state.table );
+	const { advanced_wp_table_data: tableData } = table;
+	const { size, rows } = tableData;
+
 	const onHandleAddColumn = () => {
+		const tempSize = { ...size };
+		const tempRows = [ ...rows ];
+		const newRows = [];
+
+		tempRows.map( ( row ) => {
+			const newRow = [ ...row ];
+			newRow.splice( j + 1, 0, '' );
+			return newRows.push( newRow );
+		} );
+
+		const newSize = { ...tempSize, columns: tempSize.columns + 1 };
+		const updatedTable = { ...table, advanced_wp_table_data: { size: newSize, rows: newRows } };
+
+		dispatch( setTable( updatedTable ) );
 	};
 
 	return (

@@ -160,4 +160,24 @@ describe( 'Table/Actions', function () {
 		fireEvent.click( pasteCellButtons[ 0 ] );
 		expect( screen.queryAllByText( 'Hello World!!' ).length ).toBe( 0 );
 	} );
+
+	it( 'should add row', function () {
+		const { container } = render( <Table />, updatedState );
+
+		const addRowButtons = screen.getAllByText( 'Add Row' );
+		fireEvent.click( addRowButtons[ 2 ] );
+
+		const rows = container.querySelectorAll( 'tr' );
+		expect( rows.length ).toBe( 3 );
+	} );
+
+	it( 'should add column', function () {
+		const { container } = render( <Table />, updatedState );
+
+		const addColumnButtons = screen.getAllByText( 'Add Column' );
+		fireEvent.click( addColumnButtons[ 2 ] );
+
+		const columns = container.querySelectorAll( '[class="advanced-wp-table-cell-wrapper"]' );
+		expect( columns.length ).toBe( 6 );
+	} );
 } );

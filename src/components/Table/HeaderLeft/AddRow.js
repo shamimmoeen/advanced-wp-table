@@ -27,7 +27,6 @@ const AddRow = () => {
 		const updatedTable = { ...table, advanced_wp_table_data: { size: newSize, rows: newRows } };
 
 		dispatch( setTable( updatedTable ) );
-		dispatch( { type: 'SET_TABLE', payload: updatedTable } );
 	};
 
 	return (
