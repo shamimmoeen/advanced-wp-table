@@ -24,18 +24,14 @@ export async function getTables( perPage, offset ) {
 }
 
 export function validateTable( tableData ) {
-	const { title, sizeOfRows, sizeOfColumns } = tableData;
+	const { title } = tableData;
 
 	if ( ! title ) {
 		throw new Error( __( 'Title is required', 'advanced-wp-table' ) );
 	}
 
-	if ( parseInt( sizeOfRows ) < 1 ) {
-		throw new Error( __( 'Size of rows must be greater than 0', 'advanced-wp-table' ) );
-	}
-
-	if ( parseInt( sizeOfColumns ) < 1 ) {
-		throw new Error( __( 'Size of columns must be greater than 0', 'advanced-wp-table' ) );
+	if ( title.length > 40 ) {
+		throw new Error( __( 'The title must be less than 40 characters', 'advanced-wp-table' ) );
 	}
 }
 

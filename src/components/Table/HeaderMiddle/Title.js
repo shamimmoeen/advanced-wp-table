@@ -4,7 +4,6 @@ import { Tooltip } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 import { setTable } from '../../../store/reducers/table';
-import { toastError } from '../../../utils/utils';
 
 const Title = () => {
 	const dispatch = useDispatch();
@@ -18,15 +17,6 @@ const Title = () => {
 	useEffect( () => {
 		if ( isEditing ) {
 			inputRef.current.focus();
-		}
-	}, [ isEditing ] );
-
-	useEffect( () => {
-		if ( ! isEditing ) {
-			if ( ! title.length ) {
-				toastError( __( 'Title is required', 'advanced-wp-table' ) );
-				registerEvents();
-			}
 		}
 	}, [ isEditing ] );
 
@@ -68,35 +58,38 @@ const Title = () => {
 	};
 
 	return (
-		<div className={ 'advanced-wp-table-header-title' }>
-			<div className={ 'advanced-wp-table-edit-title-wrapper' } ref={ editTitleRef }>
-				{ isEditing || ! title.length ? (
-					<input
-						type="text"
-						ref={ inputRef }
-						value={ title }
-						onChange={ handleChange }
-						aria-label={ 'table-title' }
-					/>
-				) : (
-					<Fragment>
-						<h1 className={ 'advanced-wp-table-title' }>{ title }</h1>
-						<div
-							className={ 'advanced-wp-table-edit-title-toggle' }
-							role={ 'presentation' }
-							onClick={ handleToggleEditTitle }
-							data-testid={ 'toggle-edit-mode' }
+		<div className={ 'advanced-wp-table-edit-title-wrapper' } ref={ editTitleRef }>
+			{ isEditing ? (
+				<input
+					type="text"
+					ref={ inputRef }
+					value={ title }
+					onChange={ handleChange }
+					aria-label={ 'table-title' }
+				/>
+			) : (
+				<Fragment>
+					<h1
+						className={ 'advanced-wp-table-title' }
+						onDoubleClick={ handleToggleEditTitle }
+					>
+						{ title }
+					</h1>
+					<div
+						className={ 'advanced-wp-table-edit-title-toggle' }
+						role={ 'presentation' }
+						onClick={ handleToggleEditTitle }
+						data-testid={ 'toggle-edit-mode' }
+					>
+						<Tooltip
+							text={ __( 'Click to edit the title', 'advanced-wp-table' ) }
+							position={ 'bottom center' }
 						>
-							<Tooltip
-								text={ __( 'Click to edit the title', 'advanced-wp-table' ) }
-								position={ 'bottom center' }
-							>
-								<div><span className={ 'dashicons dashicons-edit' } /></div>
-							</Tooltip>
-						</div>
-					</Fragment>
-				) }
-			</div>
+							<div><span className={ 'dashicons dashicons-edit' } /></div>
+						</Tooltip>
+					</div>
+				</Fragment>
+			) }
 		</div>
 	);
 };

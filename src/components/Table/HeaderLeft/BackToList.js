@@ -7,15 +7,12 @@ import { setTableChangedDialog, unsetTableChangedDialog } from '../../../store/r
 import { unsetTable } from '../../../store/reducers/table';
 import { setView } from '../../../store/reducers/ui';
 import { parseTableSize } from '../../../utils/table';
-import { TABLE } from '../../../utils/views';
 
 const BackToList = () => {
 	const dispatch = useDispatch();
 	const { tables } = useSelector( state => state.tables );
 	const tableState = useSelector( state => state.table );
-	const { view } = useSelector( state => state.ui );
 	const { table } = tableState;
-	const { rendered: title } = table.title;
 	const navigateToListRef = useRef( null );
 
 	const navigateToList = () => {
@@ -52,11 +49,6 @@ const BackToList = () => {
 	};
 
 	const onHandleNavigateToList = () => {
-		// Don't navigate to list if table title is empty.
-		if ( view === TABLE && ! title.length ) {
-			return;
-		}
-
 		if ( isTableChanged() || isTitleChanged() ) {
 			dispatch( setTableChangedDialog( {
 				callbackCancel,

@@ -10,6 +10,7 @@ import {
 } from '../../../utils/test-utils';
 import App from '../../App';
 import initialState from '../../../store/initialState';
+import { TABLE } from '../../../utils/views';
 
 fetchMock.enableMocks();
 
@@ -24,6 +25,58 @@ const tables = [
 describe( 'Table/HeaderRight/SaveButton', function () {
 	beforeEach( () => {
 		fetchMock.resetMocks();
+	} );
+
+	it( 'should throw title required error', async function () {
+		const table = fakeTable( 1, '' );
+
+		const updatedState = {
+			...initialState,
+			tables: {
+				...initialState.tables,
+				tables: [ table ]
+			},
+			table: {
+				table
+			},
+			ui: {
+				...initialState.ui,
+				view: TABLE,
+			}
+		};
+
+		render( <App />, updatedState );
+
+		expect( screen.getByText( 'Save' ) ).toBeInTheDocument();
+		fireEvent.click( screen.getByText( 'Save' ) );
+
+		await screen.findByText( /Title is required/i );
+	} );
+
+	it( 'should throw error if title exceeds the allowed length', async function () {
+		const table = fakeTable( 1, Array( 42 ).join( 'a' ) );
+
+		const updatedState = {
+			...initialState,
+			tables: {
+				...initialState.tables,
+				tables: [ table ]
+			},
+			table: {
+				table
+			},
+			ui: {
+				...initialState.ui,
+				view: TABLE,
+			}
+		};
+
+		render( <App />, updatedState );
+
+		expect( screen.getByText( 'Save' ) ).toBeInTheDocument();
+		fireEvent.click( screen.getByText( 'Save' ) );
+
+		await screen.findByText( /The title must be less than/i );
 	} );
 
 	it( 'should save the table', async function () {
@@ -58,7 +111,7 @@ describe( 'Table/HeaderRight/SaveButton', function () {
 			.toBeNull();
 	} );
 
-	it( 'should throw error if table updated failed', async function () {
+	it( 'should throw error if table update failed', async function () {
 		fetchMock
 			.mockResponseOnce(
 				JSON.stringify( tables ),

@@ -6,6 +6,7 @@ import { fakeTable, fireEvent, render, screen } from '../../../utils/test-utils'
 import App from '../../App';
 import Header from '../Header';
 import initialState from '../../../store/initialState';
+import { TABLE } from '../../../utils/views';
 
 fetchMock.enableMocks();
 
@@ -28,7 +29,7 @@ const updatedState = {
 	},
 	ui: {
 		...initialState.ui,
-		view: 'table',
+		view: TABLE,
 	}
 };
 
@@ -75,7 +76,7 @@ describe( 'Table/HeaderMiddle/Title', function () {
 		screen.getByTestId( 'toggle-edit-mode' );
 	} );
 
-	it( 'should close the title edit mode', function () {
+	it( 'should not close the title edit mode if shift key pressed', function () {
 		const wrapper = document.createElement( 'div' );
 		wrapper.setAttribute( 'id', 'wpwrap' );
 
@@ -83,7 +84,6 @@ describe( 'Table/HeaderMiddle/Title', function () {
 			container: document.body.appendChild( wrapper ),
 		} );
 
-		// Check keyUp event for the shift button
 		fireEvent.click( screen.getByTestId( 'toggle-edit-mode' ) );
 		screen.getByDisplayValue( 'Table 1' );
 
@@ -95,8 +95,19 @@ describe( 'Table/HeaderMiddle/Title', function () {
 		} );
 
 		expect( screen.queryByTestId( 'toggle-edit-mode' ) ).toBeNull();
+	} );
 
-		// Check keyUp event for the escape button
+	it( 'should close the title edit mode if esc key pressed', function () {
+		const wrapper = document.createElement( 'div' );
+		wrapper.setAttribute( 'id', 'wpwrap' );
+
+		const { container } = render( <Header />, updatedState, {
+			container: document.body.appendChild( wrapper ),
+		} );
+
+		fireEvent.click( screen.getByTestId( 'toggle-edit-mode' ) );
+		screen.getByDisplayValue( 'Table 1' );
+
 		fireEvent.keyUp( container, {
 			key: 'Escape',
 			code: 'Escape',
@@ -105,8 +116,16 @@ describe( 'Table/HeaderMiddle/Title', function () {
 		} );
 
 		expect( screen.getByTestId( 'toggle-edit-mode' ) ).toBeInTheDocument();
+	} );
 
-		// Check keyUp event for the enter button
+	it( 'should close the title edit mode if enter key pressed', function () {
+		const wrapper = document.createElement( 'div' );
+		wrapper.setAttribute( 'id', 'wpwrap' );
+
+		const { container } = render( <Header />, updatedState, {
+			container: document.body.appendChild( wrapper ),
+		} );
+
 		fireEvent.click( screen.getByTestId( 'toggle-edit-mode' ) );
 		screen.getByDisplayValue( 'Table 1' );
 
@@ -149,29 +168,5 @@ describe( 'Table/HeaderMiddle/Title', function () {
 
 		expect( screen.queryByText( /The changes you made will be lost if you leave this./ ) )
 			.toBeNull();
-	} );
-
-	it( 'should throw error if title is empty', function () {
-		fetchMock.mockResponse( JSON.stringify( tables ) );
-
-		const wrapper = document.createElement( 'div' );
-		wrapper.setAttribute( 'id', 'wpwrap' );
-
-		render( <App />, updatedState, {
-			container: document.body.appendChild( wrapper ),
-		} );
-
-		fireEvent.click( screen.getByTestId( 'toggle-edit-mode' ) );
-
-		fireEvent.change(
-			screen.getByLabelText( 'table-title' ),
-			{ target: { value: '' } }
-		);
-
-		fireEvent.click( document.getElementById( 'wpwrap' ) );
-		expect( screen.queryByTestId( 'toggle-edit-mode' ) ).toBeNull();
-
-		fireEvent.click( screen.getByText( 'Back to Tables' ) );
-		expect( screen.queryByTestId( 'toggle-edit-mode' ) ).toBeNull();
 	} );
 } );

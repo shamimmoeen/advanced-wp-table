@@ -123,48 +123,4 @@ describe( 'Views/AddTable', function () {
 		fireEvent.click( screen.getByText( 'Create' ) );
 		screen.findByText( 'Title is required' );
 	} );
-
-	it( 'should throw invalid row size message', function () {
-		const newState = {
-			...appState,
-			addTable: {
-				...appState.addTable,
-				title: 'Hello World',
-				sizeOfRows: 2,
-				sizeOfColumns: 2,
-			}
-		};
-
-		render( <App />, newState );
-
-		fireEvent.change( screen.getByPlaceholderText( /Size of rows/i ), {
-			target: { value: -1 }
-		} );
-
-		fireEvent.click( screen.getByText( 'Create' ) );
-
-		screen.findByText( 'Size of rows must be greater than 0' );
-	} );
-
-	it( 'should throw invalid column size message', function () {
-		const newState = {
-			...appState,
-			addTable: {
-				...appState.addTable,
-				title: 'Hello World',
-				sizeOfRows: 2,
-				sizeOfColumns: 2,
-			}
-		};
-
-		render( <App />, newState );
-
-		fireEvent.change( screen.getByPlaceholderText( /Size of columns/i ), {
-			target: { value: -1 }
-		} );
-
-		fireEvent.click( screen.getByText( 'Create' ) );
-
-		screen.findByText( 'Size of columns must be greater than 0' );
-	} );
 } );

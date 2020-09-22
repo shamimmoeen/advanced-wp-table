@@ -73,7 +73,7 @@ $fixed_header_height: 50px;
 		visibility: visible;
 	}
 
-	.advanced-wp-table-header-title {
+	.advanced-wp-table-edit-title-wrapper {
 		.advanced-wp-table-edit-title-toggle {
 			$size: 30px;
 
@@ -148,7 +148,7 @@ $fixed_header_height: 50px;
 		}
 	}
 
-	.advanced-wp-table-header-title {
+	.advanced-wp-table-header-middle {
 		min-width: 0;
 
 		.advanced-wp-table-edit-title-wrapper {

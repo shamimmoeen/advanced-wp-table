@@ -1,8 +1,9 @@
 import React from 'react';
-import { __ } from '@wordpress/i18n';
-import { updateTable } from '../../../utils/table';
-import { dismissToasts, toastError, toastSuccess } from '../../../utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
+import { __ } from '@wordpress/i18n';
+
+import { updateTable, validateTable } from '../../../utils/table';
+import { dismissToasts, toastError, toastSuccess } from '../../../utils/utils';
 import { setTables } from '../../../store/reducers/tables';
 
 const SaveButton = () => {
@@ -11,6 +12,17 @@ const SaveButton = () => {
 	const { table } = useSelector( state => state.table );
 
 	const onHandleSaveTable = () => {
+		// eslint-disable-next-line camelcase
+		const { id, advanced_wp_table_data } = table;
+		const title = table.title.rendered;
+
+		try {
+			validateTable( { title } );
+		} catch ( err ) {
+			toastError( err.message );
+			return;
+		}
+
 		const oldTables = [ ...tables ];
 
 		const newTables = oldTables.map( ( item ) => {
@@ -23,10 +35,6 @@ const SaveButton = () => {
 
 		dispatch( setTables( newTables ) );
 		toastSuccess( __( 'Successfully updated', 'advanced-wp-table' ) );
-
-		// eslint-disable-next-line camelcase
-		const { id, advanced_wp_table_data } = table;
-		const title = table.title.rendered;
 
 		updateTable( id, title, advanced_wp_table_data )
 			.catch( () => {
