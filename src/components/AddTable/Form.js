@@ -84,6 +84,7 @@ const Form = () => {
 						type="number"
 						id={ 'no-of-rows' }
 						name={ 'sizeOfRows' }
+						placeholder={ __( 'Size of rows', 'advanced-wp-table' ) }
 						onChange={ onHandleInputChange }
 						value={ sizeOfRows }
 					/>
@@ -96,6 +97,7 @@ const Form = () => {
 						type="number"
 						id={ 'no-of-columns' }
 						name={ 'sizeOfColumns' }
+						placeholder={ __( 'Size of columns', 'advanced-wp-table' ) }
 						onChange={ onHandleInputChange }
 						value={ sizeOfColumns }
 					/>

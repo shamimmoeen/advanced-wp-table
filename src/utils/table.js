@@ -27,15 +27,15 @@ export function validateTable( tableData ) {
 	const { title, sizeOfRows, sizeOfColumns } = tableData;
 
 	if ( ! title ) {
-		throw new Error( __( 'Title shouldn\'t be empty', 'advanced-wp-table' ) );
+		throw new Error( __( 'Title is required', 'advanced-wp-table' ) );
 	}
 
 	if ( parseInt( sizeOfRows ) < 1 ) {
-		throw new Error( __( 'Size of rows should be greater than 0', 'advanced-wp-table' ) );
+		throw new Error( __( 'Size of rows must be greater than 0', 'advanced-wp-table' ) );
 	}
 
 	if ( parseInt( sizeOfColumns ) < 1 ) {
-		throw new Error( __( 'Size of columns should be greater than 0', 'advanced-wp-table' ) );
+		throw new Error( __( 'Size of columns must be greater than 0', 'advanced-wp-table' ) );
 	}
 }
 
