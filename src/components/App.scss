@@ -190,15 +190,6 @@ $fixed_header_height: 50px;
 			cursor: pointer;
 			display: inline-flex;
 			height: 30px;
-
-			$size: 24px;
-
-			.dashicons,
-			.dashicons:before {
-				width: $size;
-				height: $size;
-				font-size: $size;
-			}
 		}
 	}
 
