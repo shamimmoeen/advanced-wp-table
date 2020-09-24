@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
+import classNames from 'classnames';
 
 import { setCellContent } from '../../../store/reducers/globals';
 
-const CopyCell = ( { i, j } ) => {
+const CopyCell = ( { i, j, y } ) => {
 	const dispatch = useDispatch();
 	const { table } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
@@ -17,9 +18,17 @@ const CopyCell = ( { i, j } ) => {
 		window.localStorage.setItem( 'cellContent', newCellContent );
 	};
 
+	const copyCellClasses = classNames(
+		'advanced-wp-table-action-item',
+		'copy-cell-btn',
+		{
+			'advanced-wp-table-action-item-disabled': ! y
+		}
+	);
+
 	return (
 		<div
-			className="advanced-wp-table-action-item"
+			className={ copyCellClasses }
 			onClick={ onHandleCopyCell }
 			role="presentation"
 		>

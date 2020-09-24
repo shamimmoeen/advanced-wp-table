@@ -1,12 +1,11 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
-import _ from 'lodash';
 
 import { setTableChangedDialog, unsetTableChangedDialog } from '../../../store/reducers/dialogs';
 import { unsetTable } from '../../../store/reducers/table';
 import { setView } from '../../../store/reducers/ui';
-import { parseTableSize } from '../../../utils/table';
+import { isTableChanged, isTitleChanged } from '../../../utils/table';
 
 const BackToList = () => {
 	const dispatch = useDispatch();
@@ -20,24 +19,6 @@ const BackToList = () => {
 		dispatch( unsetTable() );
 	};
 
-	const isTableChanged = () => {
-		const oldTable = _.find( tables, ( item ) => item.id === table.id );
-		const { advanced_wp_table_data: oldTableData } = parseTableSize( oldTable );
-		const { advanced_wp_table_data: newTableData } = table;
-		const isEqual = _.isEqual( oldTableData, newTableData );
-
-		return ! isEqual;
-	};
-
-	const isTitleChanged = () => {
-		const oldTable = _.find( tables, ( item ) => item.id === table.id );
-		const oldTitle = oldTable.title.rendered;
-		const newTitle = table.title.rendered;
-		const isEqual = _.isEqual( oldTitle, newTitle );
-
-		return ! isEqual;
-	};
-
 	const callbackCancel = () => {
 		dispatch( unsetTableChangedDialog() );
 	};
@@ -49,7 +30,7 @@ const BackToList = () => {
 	};
 
 	const onHandleNavigateToList = () => {
-		if ( isTableChanged() || isTitleChanged() ) {
+		if ( isTableChanged( tables, table ) || isTitleChanged( tables, table ) ) {
 			dispatch( setTableChangedDialog( {
 				callbackCancel,
 				callbackLeave,

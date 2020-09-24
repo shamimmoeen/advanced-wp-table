@@ -30,17 +30,54 @@ const updatedState = {
 	}
 };
 
+const table = {
+	id: 1,
+	title: { rendered: 'Table title' },
+	advanced_wp_table_data: {
+		size: {
+			rows: 0,
+			columns: 0,
+		},
+		rows: []
+	}
+};
+
+const state = {
+	...initialState,
+	tables: {
+		...initialState.tables,
+		tables: [ table ]
+	},
+	table: {
+		table
+	},
+	ui: {
+		...initialState.ui,
+		view: 'table',
+	}
+};
+
 describe( 'Table/HeaderLeft/AddRow', function () {
 	it( 'should show the icon', function () {
 		render( <Table />, updatedState );
 		screen.getByLabelText( 'Add Row' );
 	} );
 
-	it( 'should add new column', function () {
+	it( 'should add new row', function () {
 		const { container } = render( <Table />, updatedState );
 		fireEvent.click( screen.getByLabelText( 'Add Row' ) );
 		const rows = container.querySelectorAll( 'tr' );
 		expect( rows.length ).toBe( 3 );
+	} );
+
+	it( 'should add new row for column 0', function () {
+		const { container } = render( <Table />, state );
+		const prevRows = container.querySelectorAll( 'tr' );
+		expect( prevRows.length ).toBe( 0 );
+
+		fireEvent.click( screen.getByLabelText( 'Add Row' ) );
+		const rows = container.querySelectorAll( 'tr' );
+		expect( rows.length ).toBe( 1 );
 	} );
 } );
 
@@ -55,5 +92,15 @@ describe( 'Table/HeaderLeft/AddColumn', function () {
 		fireEvent.click( screen.getByLabelText( 'Add Column' ) );
 		const columns = container.querySelectorAll( '[class="advanced-wp-table-cell-wrapper"]' );
 		expect( columns.length ).toBe( 6 );
+	} );
+
+	it( 'should not add new column for row 0', function () {
+		const { container } = render( <Table />, state );
+		const prevRows = container.querySelectorAll( 'tr' );
+		expect( prevRows.length ).toBe( 0 );
+
+		fireEvent.click( screen.getByLabelText( 'Add Column' ) );
+		const rows = container.querySelectorAll( 'tr' );
+		expect( rows.length ).toBe( 0 );
 	} );
 } );

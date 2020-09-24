@@ -2,8 +2,6 @@ import React from 'react';
 import { Tooltip } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelector } from 'react-redux';
-import Icon from '@mdi/react';
-import { mdiTableColumnPlusAfter } from '@mdi/js';
 
 import { setTable } from '../../../store/reducers/table';
 
@@ -15,15 +13,16 @@ const AddRow = () => {
 
 	const onHandleAddRow = () => {
 		const tempSize = { ...size };
+		const columnSize = tempSize.columns ? tempSize.columns : 1;
 		const tempRows = [ ...rows ];
 		const newRow = [];
 
-		for ( let i = 0; i < tempSize.columns; i++ ) {
+		for ( let i = 0; i < columnSize; i++ ) {
 			newRow.push( '' );
 		}
 
 		const newRows = [ ...tempRows, newRow ];
-		const newSize = { ...tempSize, rows: tempSize.rows + 1 };
+		const newSize = { ...tempSize, rows: tempSize.rows + 1, columns: columnSize };
 		const updatedTable = { ...table, advanced_wp_table_data: { size: newSize, rows: newRows } };
 
 		dispatch( setTable( updatedTable ) );
@@ -40,7 +39,6 @@ const AddRow = () => {
 				onClick={ onHandleAddRow }
 			>
 				<span className="dashicons dashicons-table-row-before" />
-				{ /*<Icon path={ mdiTableColumnPlusAfter } size={ 1 } rotate={ 90 } color={ '#555' } />*/ }
 			</div>
 		</Tooltip>
 	);

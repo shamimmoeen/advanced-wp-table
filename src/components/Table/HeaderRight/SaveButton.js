@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 
 import { updateTable, validateTable } from '../../../utils/table';
-import { dismissToasts, toastError, toastSuccess } from '../../../utils/utils';
+import { toastError, toastSuccess } from '../../../utils/utils';
 import { setTables } from '../../../store/reducers/tables';
 
 const SaveButton = () => {
@@ -38,8 +38,8 @@ const SaveButton = () => {
 
 		updateTable( id, title, advanced_wp_table_data )
 			.catch( () => {
-				dismissToasts();
 				dispatch( setTables( oldTables ) );
+
 				toastError( __( 'Oops, there was a problem when updating the table', 'advanced-wp-table' ) );
 			} );
 	};

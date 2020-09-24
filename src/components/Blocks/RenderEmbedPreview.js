@@ -3,6 +3,7 @@ import { getEmbedPreview } from '../../utils/blocks';
 import { Placeholder } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import EmbedPreview from '../EmbedPreviewAWT/embed-preview';
+import { toastError } from '../../utils/utils';
 
 const RenderEmbedPreview = ( { block } ) => {
 	const [ preview, setPreview ] = useState( '' );
@@ -10,8 +11,7 @@ const RenderEmbedPreview = ( { block } ) => {
 	useEffect( () => {
 		getEmbedPreview( block.attributes.url )
 			.then( res => setPreview( res ) )
-			// eslint-disable-next-line no-console
-			.catch( err => console.log( err.message ) );
+			.catch( ( err ) => toastError( err.message ) );
 	}, [] );
 
 	let html;

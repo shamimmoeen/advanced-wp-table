@@ -36,6 +36,8 @@ const App = () => {
 				dispatch( unsetTablesLoading() );
 			} )
 			.catch( err => {
+				dispatch( unsetTablesLoading() );
+
 				toastError( err.message );
 			} );
 	};
@@ -49,7 +51,7 @@ const App = () => {
 	}, [] );
 
 	/**
-	 * Fetch the tables when offset gets changed.
+	 * Fetch the tables when offset or total gets changed.
 	 */
 	useEffect( () => {
 		if ( loading ) {

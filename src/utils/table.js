@@ -19,7 +19,7 @@ export async function getTables( perPage, offset ) {
 
 		return { total, totalPages, tables };
 	} catch ( err ) {
-		return await err.json();
+		throw await err.json();
 	}
 }
 
@@ -59,59 +59,43 @@ export function prepareTable( tableData ) {
 }
 
 // eslint-disable-next-line camelcase
-export async function postTable( { title, advanced_wp_table_data } ) {
+export function postTable( { title, advanced_wp_table_data } ) {
 	const options = {
 		path: getApiEndpoint(),
 		method: 'POST',
 		data: { title, status: 'publish', advanced_wp_table_data },
 	};
 
-	try {
-		return await apiFetch( options );
-	} catch ( err ) {
-		return await err.json();
-	}
+	return apiFetch( options );
 }
 
-export async function getTable( id ) {
+export function getTable( id ) {
 	const options = {
 		path: getApiEndpoint() + '/' + id,
 		method: 'GET',
 	};
 
-	try {
-		return await apiFetch( options );
-	} catch ( err ) {
-		return await err.json();
-	}
+	return apiFetch( options );
 }
 
-export async function deleteTable( id ) {
+export function deleteTable( id ) {
 	const options = {
 		path: getApiEndpoint() + '/' + id,
 		method: 'DELETE',
 	};
 
-	try {
-		return await apiFetch( options );
-	} catch ( err ) {
-		return await err.json();
-	}
+	return apiFetch( options );
 }
 
 // eslint-disable-next-line camelcase
-export async function updateTable( id, title, advanced_wp_table_data ) {
+export function updateTable( id, title, advanced_wp_table_data ) {
 	const options = {
 		path: getApiEndpoint() + '/' + id,
 		method: 'PUT',
 		data: { title, advanced_wp_table_data },
 	};
 
-	try {
-		return await apiFetch( options );
-	} catch ( err ) {
-		return await err.json();
-	}
+	return apiFetch( options );
 }
 
 export function parseTableSize( table ) {
@@ -191,13 +175,45 @@ export function getTablePreviewUrl( tablePageUrl, tableId ) {
 
 export function isActiveCellChanged( tables, table, activeCell ) {
 	const { i, j, content } = activeCell;
-	const oldTable = _.find( tables, ( item ) => item.id === table.id );
-	const { advanced_wp_table_data: oldTableData } = parseTableSize( oldTable );
-	const oldContent = oldTableData.rows[ i ][ j ];
+
 	// @todo Serialize content only if gutenberg active.
 	const newContent = serialize( content );
 
+	if ( ! newContent ) {
+		return false;
+	}
+
+	const oldTable = _.find( tables, ( item ) => item.id === table.id );
+	const { advanced_wp_table_data: oldTableData } = parseTableSize( oldTable );
+
+	if ( undefined === oldTableData[ i ] ) {
+		return true;
+	}
+
+	if ( undefined === oldTableData[ i ][ j ] ) {
+		return true;
+	}
+
+	const oldContent = oldTableData.rows[ i ][ j ];
 	const isEqual = _.isEqual( oldContent, newContent );
+
+	return ! isEqual;
+}
+
+export function isTableChanged( tables, table ) {
+	const oldTable = _.find( tables, ( item ) => item.id === table.id );
+	const { advanced_wp_table_data: oldTableData } = parseTableSize( oldTable );
+	const { advanced_wp_table_data: newTableData } = table;
+	const isEqual = _.isEqual( oldTableData, newTableData );
+
+	return ! isEqual;
+}
+
+export function isTitleChanged( tables, table ) {
+	const oldTable = _.find( tables, ( item ) => item.id === table.id );
+	const oldTitle = oldTable.title.rendered;
+	const newTitle = table.title.rendered;
+	const isEqual = _.isEqual( oldTitle, newTitle );
 
 	return ! isEqual;
 }

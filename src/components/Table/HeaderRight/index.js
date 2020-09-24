@@ -7,7 +7,9 @@ import SaveButton from './SaveButton';
 const HeaderRight = () => {
 	return (
 		<div className={ 'advanced-wp-table-header-right' }>
-			<CopyShortcodeButton />
+			<div className={ 'advanced-wp-table-button-group' }>
+				<CopyShortcodeButton />
+			</div>
 			<PreviewButton />
 			<SaveButton />
 		</div>

@@ -19,7 +19,7 @@ const Actions = ( { i, j, y } ) => {
 				<div className="advanced-wp-table-actions-dropdown-inner">
 					<Edit i={ i } j={ j } />
 					<hr />
-					<CopyCell i={ i } j={ j } />
+					<CopyCell i={ i } j={ j } y={ y } />
 					<PasteCell i={ i } j={ j } />
 					<ClearCell i={ i } j={ j } y={ y } />
 					<hr />

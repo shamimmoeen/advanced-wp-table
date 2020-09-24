@@ -4,7 +4,7 @@ import { __ } from '@wordpress/i18n';
 import { Inserter, BlockNavigationDropdown, ToolSelector } from '@wordpress/block-editor';
 
 import { isActiveCellChanged, updateTable, updateTableWithCellData } from '../../utils/table';
-import { dismissToasts, toastError, toastSuccess } from '../../utils/utils';
+import { toastError, toastSuccess } from '../../utils/utils';
 import { TABLE } from '../../utils/views';
 import { setView } from '../../store/reducers/ui';
 import { setTable, unsetActiveCell } from '../../store/reducers/table';
@@ -42,8 +42,6 @@ const Header = () => {
 
 		updateTable( id, title, advanced_wp_table_data )
 			.catch( () => {
-				dismissToasts();
-
 				dispatch( setTable( table ) );
 				dispatch( setTables( oldTables ) );
 

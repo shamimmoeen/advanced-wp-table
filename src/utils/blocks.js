@@ -3,15 +3,11 @@ import { addQueryArgs } from '@wordpress/url';
 import { parse } from '@wordpress/blocks';
 
 export function getBlocks( content ) {
-	return  parse( content );
+	return parse( content );
 }
 
-export async function getEmbedPreview( url ) {
-	const data = { path: addQueryArgs( '/oembed/1.0/proxy', { url } ) };
+export function getEmbedPreview( url ) {
+	const options = { path: addQueryArgs( '/oembed/1.0/proxy', { url } ) };
 
-	try {
-		return await apiFetch( data );
-	} catch ( err ) {
-		throw new Error( err.message );
-	}
+	return apiFetch( options );
 }

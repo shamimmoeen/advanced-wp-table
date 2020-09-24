@@ -37,7 +37,7 @@ const ClearCell = ( { i, j, y } ) => {
 		'advanced-wp-table-action-item',
 		'clear-cell-btn',
 		{
-			'disabled': ! y
+			'advanced-wp-table-action-item-disabled': ! y
 		}
 	);
 

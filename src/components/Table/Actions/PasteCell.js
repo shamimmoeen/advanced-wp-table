@@ -38,7 +38,7 @@ const PasteCell = ( { i, j } ) => {
 		'advanced-wp-table-action-item',
 		'paste-cell-btn',
 		{
-			'disabled': ! cellContent
+			'advanced-wp-table-action-item-disabled': ! cellContent
 		}
 	);
 

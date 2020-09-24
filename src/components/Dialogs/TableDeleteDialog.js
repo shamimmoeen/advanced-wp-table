@@ -9,7 +9,7 @@ import { deleteTable } from '../../utils/table';
 import { toastError, toastSuccess } from '../../utils/utils';
 import { unsetTableDeleteDialog } from '../../store/reducers/dialogs';
 import { setTotal } from '../../store/reducers/tables';
-import { setTablesLoading } from '../../store/reducers/ui';
+import { setTablesLoading, unsetTablesLoading } from '../../store/reducers/ui';
 
 const TableDeleteDialog = () => {
 	const dispatch = useDispatch();
@@ -37,6 +37,8 @@ const TableDeleteDialog = () => {
 				dispatch( setTotal( total - 1 ) );
 			} )
 			.catch( () => {
+				dispatch( unsetTablesLoading() );
+
 				toastError( __( 'Oops, there was a problem when deleting the table', 'advanced-wp-table' ) );
 			} );
 	};

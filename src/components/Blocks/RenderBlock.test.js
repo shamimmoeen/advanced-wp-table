@@ -128,7 +128,6 @@ describe( 'Blocks/RenderBlock', function () {
 		blockUtils.getEmbedPreview = jest.fn( () => Promise.reject( new Error( 'Server offline' ) ) );
 
 		global.console.info = jest.fn();
-		global.console.log = jest.fn();
 
 		render( <App />, stateWithYoutubeEmbed );
 

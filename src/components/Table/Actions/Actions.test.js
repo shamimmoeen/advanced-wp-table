@@ -63,6 +63,8 @@ const state = {
 	}
 };
 
+const actionItemDisabledClass = 'advanced-wp-table-action-item-disabled';
+
 describe( 'Table/Actions', function () {
 	it( 'should open the gutenberg editor', function () {
 		const { container } = render( <App />, updatedState );
@@ -179,5 +181,35 @@ describe( 'Table/Actions', function () {
 
 		const columns = container.querySelectorAll( '[class="advanced-wp-table-cell-wrapper"]' );
 		expect( columns.length ).toBe( 6 );
+	} );
+
+	it( 'should be disabled the copy cell buttons', function () {
+		render( <Table />, updatedState );
+
+		const buttons = screen.getAllByText( 'Copy Cell' );
+		expect( buttons[ 0 ] ).toHaveClass( actionItemDisabledClass );
+		expect( buttons[ 1 ] ).toHaveClass( actionItemDisabledClass );
+		expect( buttons[ 2 ] ).toHaveClass( actionItemDisabledClass );
+		expect( buttons[ 3 ] ).toHaveClass( actionItemDisabledClass );
+	} );
+
+	it( 'should be disabled the paste cell buttons', function () {
+		render( <Table />, updatedState );
+
+		const buttons = screen.getAllByText( 'Paste Cell' );
+		expect( buttons[ 0 ] ).toHaveClass( actionItemDisabledClass );
+		expect( buttons[ 1 ] ).toHaveClass( actionItemDisabledClass );
+		expect( buttons[ 2 ] ).toHaveClass( actionItemDisabledClass );
+		expect( buttons[ 3 ] ).toHaveClass( actionItemDisabledClass );
+	} );
+
+	it( 'should be disabled the clear cell buttons', function () {
+		render( <Table />, updatedState );
+
+		const buttons = screen.getAllByText( 'Clear Cell' );
+		expect( buttons[ 0 ] ).toHaveClass( actionItemDisabledClass );
+		expect( buttons[ 1 ] ).toHaveClass( actionItemDisabledClass );
+		expect( buttons[ 2 ] ).toHaveClass( actionItemDisabledClass );
+		expect( buttons[ 3 ] ).toHaveClass( actionItemDisabledClass );
 	} );
 } );

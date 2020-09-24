@@ -2,8 +2,7 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { Tooltip } from '@wordpress/components';
 import { useDispatch, useSelector } from 'react-redux';
-import Icon from '@mdi/react';
-import { mdiTableColumnPlusAfter } from '@mdi/js';
+import classNames from 'classnames';
 
 import { setTable } from '../../../store/reducers/table';
 
@@ -12,8 +11,13 @@ const AddColumn = () => {
 	const { table } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
 	const { size, rows } = tableData;
+	const disabled = !! size.rows;
 
 	const onHandleAddColumn = () => {
+		if ( ! size.rows ) {
+			return;
+		}
+
 		const tempSize = { ...size };
 		const tempRows = [ ...rows ];
 		const newRows = [];
@@ -35,12 +39,12 @@ const AddColumn = () => {
 			position={ 'bottom center' }
 		>
 			<div
+				className={ classNames( { 'advanced-wp-table-button-disabled': ! disabled } ) }
 				aria-label={ 'Add Column' }
 				role={ 'presentation' }
 				onClick={ onHandleAddColumn }
 			>
 				<span className="dashicons dashicons-table-col-before" />
-				{ /*<Icon path={ mdiTableColumnPlusAfter } size={ 1 } color={ '#555' } />*/ }
 			</div>
 		</Tooltip>
 	);

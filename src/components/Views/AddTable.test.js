@@ -123,4 +123,24 @@ describe( 'Views/AddTable', function () {
 		fireEvent.click( screen.getByText( 'Create' ) );
 		screen.findByText( 'Title is required' );
 	} );
+
+	it( 'should set the sizeOfRows to 0', function () {
+		render( <App />, appState );
+
+		fireEvent.change( screen.getByPlaceholderText( /Size of rows/i ), {
+			target: { value: -1 }
+		} );
+
+		expect( screen.getByPlaceholderText( /Size of rows/i ).value ).toBe( '0' );
+	} );
+
+	it( 'should set the sizeOfColumns to 0', function () {
+		render( <App />, appState );
+
+		fireEvent.change( screen.getByPlaceholderText( /Size of columns/i ), {
+			target: { value: -1 }
+		} );
+
+		expect( screen.getByPlaceholderText( /Size of columns/i ).value ).toBe( '0' );
+	} );
 } );

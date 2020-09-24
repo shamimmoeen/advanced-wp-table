@@ -5,10 +5,10 @@ import { getTablePreviewUrl, postTable, prepareTableToDuplicate } from '../../ut
 import { toastError, toastSuccess } from '../../utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTable } from '../../store/reducers/table';
-import { setTablesLoading, setView } from '../../store/reducers/ui';
+import { setTablesLoading, setView, unsetTablesLoading } from '../../store/reducers/ui';
 import { TABLE } from '../../utils/views';
 import { setTableDeleteDialog } from '../../store/reducers/dialogs';
-import { setTables, setTotal, setTotalPages } from '../../store/reducers/tables';
+import { setTotal } from '../../store/reducers/tables';
 
 const Actions = ( { table } ) => {
 	const tablesState = useSelector( state => state.tables );
@@ -42,6 +42,8 @@ const Actions = ( { table } ) => {
 				dispatch( setTotal( total + 1 ) );
 			} )
 			.catch( () => {
+				dispatch( unsetTablesLoading() );
+
 				toastError( __( 'Oops, there was a problem when duplicating the table', 'advanced-wp-table' ) );
 			} );
 	};

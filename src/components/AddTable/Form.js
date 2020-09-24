@@ -19,7 +19,18 @@ const Form = () => {
 	const { title, sizeOfRows, sizeOfColumns } = newTableData;
 
 	const onHandleInputChange = ( e ) => {
-		dispatch( setInput( { name: e.target.name, value: e.target.value } ) );
+		const name = e.target.name;
+		let value = e.target.value;
+
+		if ( 'sizeOfRows' === name && value < 0 ) {
+			value = 0;
+		}
+
+		if ( 'sizeOfColumns' === name && value < 0 ) {
+			value = 0;
+		}
+
+		dispatch( setInput( { name, value } ) );
 	};
 
 	const onHandleCancelSubmission = () => {
