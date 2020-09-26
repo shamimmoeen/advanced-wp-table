@@ -7,6 +7,8 @@ import App from './App';
 import reducer from '../store/reducer';
 import initialState from '../store/initialState';
 
+// TODO: Test more specifically, check loading state at first, then remove the loading state
+
 describe( 'App', () => {
 	const getWrapper = ( mockStore = createStore( reducer, initialState ) ) =>
 		render(

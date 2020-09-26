@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
+import _ from 'lodash';
 
 import { postTable, prepareTable, validateTable } from '../../utils/table';
 import { dismissToasts, toastError, toastSuccess } from '../../utils/utils';
@@ -8,14 +9,14 @@ import { clearInput, setInput } from '../../store/reducers/add-table';
 import { setFormLoading, setView, unsetFormLoading } from '../../store/reducers/ui';
 import { TABLE, TABLES } from '../../utils/views';
 import { setTable } from '../../store/reducers/table';
-import { setTotal } from '../../store/reducers/tables';
+import { setCache, setTables, setTotal, setTotalPages } from '../../store/reducers/tables';
 
 const Form = () => {
 	const dispatch = useDispatch();
 	const tablesState = useSelector( state => state.tables );
 	const formLoading = useSelector( state => state.ui.formLoading );
 	const newTableData = useSelector( state => state.addTable );
-	const { total } = tablesState;
+	const { total, perPage, cache } = tablesState;
 	const { title, sizeOfRows, sizeOfColumns } = newTableData;
 
 	const onHandleInputChange = ( e ) => {
@@ -52,11 +53,24 @@ const Form = () => {
 
 		postTable( prepareTable( newTableData ) )
 			.then( ( newTable ) => {
-				dispatch( unsetFormLoading() );
+				const newTotal = total + 1;
+				const newTotalPages = Math.ceil( newTotal / perPage );
+
+				const newCache = [ newTable, ...cache ];
+				const chunked = _.chunk( newCache, perPage );
+				const tables = chunked[ 0 ];
+
+				dispatch( setTotal( newTotal ) );
+				dispatch( setTotalPages( newTotalPages ) );
+				dispatch( setTables( tables ) );
+				dispatch( setCache( newCache ) );
+
 				dispatch( setTable( newTable ) );
-				dispatch( setView( TABLE ) );
-				dispatch( setTotal( total + 1 ) );
+
+				dispatch( unsetFormLoading() );
 				dispatch( clearInput() );
+
+				dispatch( setView( TABLE ) );
 
 				toastSuccess( __( 'Table created successfully', 'advanced-wp-table' ) );
 			} )

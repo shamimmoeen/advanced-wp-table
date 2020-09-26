@@ -14,7 +14,7 @@
     "start:wp": "wp-scripts start",
     "test:e2e": "wp-scripts test-e2e",
     "test:unit": "wp-scripts test-unit-js",
-    "test:unit-watch": "wp-scripts test-unit-js --watch",
+    "test:unit-watch": "DEBUG_PRINT_LIMIT=10000 wp-scripts test-unit-js --watch",
     "test:with-coverage": "wp-scripts test-unit-js --collectCoverage"
   },
   "keywords": [

@@ -7,10 +7,11 @@ export const tables = {
 	offset: 0,
 	currentPage: 0,
 	tables: [],
+	cache: [],
 };
 
 const slice = createSlice( {
-	name: 'list',
+	name: 'tables',
 	initialState: tables,
 	reducers: {
 		setTotal: ( state, action ) => {
@@ -19,16 +20,28 @@ const slice = createSlice( {
 		setTotalPages: ( state, action ) => {
 			state.totalPages = action.payload;
 		},
+		setOffset: ( state, action ) => {
+			state.offset = action.payload;
+		},
+		setCurrentPage: ( state, action ) => {
+			state.currentPage = action.payload;
+		},
 		setTables: ( state, action ) => {
 			state.tables = action.payload;
 		},
-		paginateTables: ( state, action ) => {
-			state.offset = action.payload.offset;
-			state.currentPage = action.payload.currentPage;
+		setCache: ( state, action ) => {
+			state.cache = action.payload;
 		},
 	},
 } );
 
-export const { setTotal, setTotalPages, setTables, paginateTables } = slice.actions;
+export const {
+	setTotal,
+	setTotalPages,
+	setOffset,
+	setCurrentPage,
+	setTables,
+	setCache
+} = slice.actions;
 
 export default slice.reducer;

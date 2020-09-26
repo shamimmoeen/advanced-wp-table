@@ -1,12 +1,15 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import ServerSideRender from '@wordpress/server-side-render';
+import fetchMock from 'jest-fetch-mock';
 
-import { render, act, screen } from '../../utils/test-utils';
+import { act, render, screen } from '../../utils/test-utils';
 import initialState from '../../store/initialState';
 import App from '../App';
+import prettyFormat from 'pretty-format';
 
 jest.mock( '@wordpress/server-side-render' );
+
+fetchMock.enableMocks();
 
 const blockUtils = require( '../../utils/blocks' );
 
@@ -87,12 +90,14 @@ const stateWithYoutubeEmbed = {
 };
 
 describe( 'Blocks/RenderBlock', function () {
-	it( 'should render the calendar widget', function () {
-		global.console.info = jest.fn();
+	it.only( 'should render the calendar widget', function () {
+		fetchMock.mockResponse( JSON.stringify( [ calendarTable ] ) );
+
+		// global.console.info = jest.fn();
 
 		render( <App />, stateWithCalendar );
 
-		expect( ServerSideRender ).toHaveBeenCalled();
+		// expect( ServerSideRender ).toHaveBeenCalled();
 	} );
 
 	it( 'should render the youtube embed widget', async function () {

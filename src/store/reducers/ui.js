@@ -4,7 +4,6 @@ import { TABLES } from '../../utils/views';
 
 export const ui = {
 	view: TABLES,
-	loading: true,
 	tablesLoading: true,
 	formLoading: false,
 };
@@ -15,9 +14,6 @@ const slice = createSlice( {
 	reducers: {
 		setView: ( state, action ) => {
 			state.view = action.payload;
-		},
-		unsetLoading: ( state ) => {
-			state.loading = false;
 		},
 		setTablesLoading: ( state ) => {
 			state.tablesLoading = true;
@@ -36,8 +32,6 @@ const slice = createSlice( {
 
 export const {
 	setView,
-	setLoading,
-	unsetLoading,
 	setTablesLoading,
 	unsetTablesLoading,
 	setFormLoading,

@@ -1,26 +1,22 @@
 import React from 'react';
 import fetchMock from 'jest-fetch-mock';
+import '@testing-library/jest-dom';
 
-import { fakeTable, render, screen, fireEvent } from '../../utils/test-utils';
+import { fakeTable, fireEvent, render, screen } from '../../utils/test-utils';
 import App from '../App';
 import initialState from '../../store/initialState';
+import _ from 'lodash';
 
 fetchMock.enableMocks();
 
-const tables = [
-	fakeTable( 1, 'Table 1' ),
-	fakeTable( 2, 'Table 2' ),
-	fakeTable( 3, 'Table 3' ),
-	fakeTable( 4, 'Table 4' ),
-	fakeTable( 5, 'Table 5' ),
-	fakeTable( 6, 'Table 6' ),
-	fakeTable( 7, 'Table 7' ),
-	fakeTable( 8, 'Table 8' ),
-	fakeTable( 9, 'Table 9' ),
-	fakeTable( 10, 'Table 10' ),
-	fakeTable( 11, 'Table 11' ),
-	fakeTable( 12, 'Table 12' ),
-];
+const _tables = [];
+
+for ( let i = 1; i <= 12; i++ ) {
+	_tables.push( fakeTable( i, `Table ${ i }` ) );
+}
+
+// ORDER BY id, DESC
+const tables = _.reverse( _tables );
 
 describe( 'Tables/Pagination', function () {
 	beforeEach( () => {
@@ -39,25 +35,50 @@ describe( 'Tables/Pagination', function () {
 				responseInit
 			],
 			[
-				JSON.stringify( tables.slice( 0, 10 ) ),
-				responseInit
-			],
-			[
 				JSON.stringify( tables.slice( 10 ) ),
 				responseInit
-			]
+			],
 		);
 
-		render( <App />, initialState );
+		const { container } = render( <App />, initialState );
+
+		await screen.findByText( 'Table 12' );
+		expect( screen.getByText( 'Table 10' ) ).toBeInTheDocument();
+		expect( screen.queryByText( 'Table 1' ) ).not.toBeInTheDocument();
+
+		// Go to second page
+		const page2Nodes = screen.getAllByRole( 'button', { name: 'Page 2' } );
+		fireEvent.click( page2Nodes[ 0 ] );
+
+		expect( container.querySelectorAll( '.title-loading' ).length ).toBeGreaterThan( 0 );
+		expect( container.querySelectorAll( '.actions-loading' ).length ).toBeGreaterThan( 0 );
+		expect( container.querySelectorAll( '.shortcode-loading' ).length ).toBeGreaterThan( 0 );
 
 		await screen.findByText( 'Table 1' );
-		screen.getByText( 'Table 10' );
+		expect( screen.getByText( 'Table 2' ) ).toBeInTheDocument();
+		expect( screen.queryByText( 'Table 11' ) ).not.toBeInTheDocument();
 
-		const nodes = screen.getAllByRole( 'button', { name: 'Page 2' } );
+		// Go to first page
+		const page1Nodes = screen.getAllByRole( 'button', { name: 'Page 1' } );
+		fireEvent.click( page1Nodes[ 0 ] );
 
-		fireEvent.click( nodes[ 0 ] );
+		expect( container.querySelectorAll( '.title-loading' ).length ).toBe( 0 );
+		expect( container.querySelectorAll( '.actions-loading' ).length ).toBe( 0 );
+		expect( container.querySelectorAll( '.shortcode-loading' ).length ).toBe( 0 );
 
-		await screen.findByText( 'Table 11' );
-		screen.getByText( 'Table 12' );
+		expect( screen.getByText( 'Table 12' ) ).toBeInTheDocument();
+		expect( screen.getByText( 'Table 10' ) ).toBeInTheDocument();
+		expect( screen.queryByText( 'Table 1' ) ).not.toBeInTheDocument();
+
+		// Go to second page
+		fireEvent.click( page2Nodes[ 0 ] );
+
+		expect( container.querySelectorAll( '.title-loading' ).length ).toBe( 0 );
+		expect( container.querySelectorAll( '.actions-loading' ).length ).toBe( 0 );
+		expect( container.querySelectorAll( '.shortcode-loading' ).length ).toBe( 0 );
+
+		expect( screen.getByText( 'Table 2' ) ).toBeInTheDocument();
+		expect( screen.getByText( 'Table 1' ) ).toBeInTheDocument();
+		expect( screen.queryByText( 'Table 12' ) ).not.toBeInTheDocument();
 	} );
 } );
