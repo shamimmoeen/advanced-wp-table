@@ -2,12 +2,7 @@ import React from 'react';
 import fetchMock from 'jest-fetch-mock';
 import '@testing-library/jest-dom';
 
-import {
-	render,
-	fakeTable,
-	fireEvent,
-	screen
-} from '../../../utils/test-utils';
+import { fakeTable, fireEvent, render, screen } from '../../../utils/test-utils';
 import App from '../../App';
 import initialState from '../../../store/initialState';
 import { TABLE } from '../../../utils/views';
@@ -113,10 +108,6 @@ describe( 'Table/HeaderRight/SaveButton', function () {
 
 	it( 'should throw error if table update failed', async function () {
 		fetchMock
-			.mockResponseOnce(
-				JSON.stringify( tables ),
-				{ headers: { 'X-WP-Total': 2, 'X-WP-TotalPages': 1 } }
-			)
 			.mockResponseOnce(
 				JSON.stringify( tables ),
 				{ headers: { 'X-WP-Total': 2, 'X-WP-TotalPages': 1 } }

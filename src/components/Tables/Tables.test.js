@@ -1,7 +1,8 @@
 import React from 'react';
 import fetchMock from 'jest-fetch-mock';
+import '@testing-library/jest-dom';
 
-import { render, fakeTable, screen, fireEvent } from '../../utils/test-utils';
+import { fakeTable, fireEvent, render, screen } from '../../utils/test-utils';
 import initialState from '../../store/initialState';
 import App from '../App';
 
@@ -44,5 +45,19 @@ describe( 'Tables/Tables', function () {
 		fireEvent.click( screen.getByDisplayValue( '[advanced_wp_table id="1"]' ) );
 
 		expect( document.execCommand ).toHaveBeenCalledWith( 'copy' );
+	} );
+
+	it( 'should show the no tables message', async function () {
+		const responseInit = {
+			status: 200,
+			headers: { 'X-WP-Total': 0, 'X-WP-TotalPages': 0 }
+		};
+
+		fetch.mockResponseOnce( JSON.stringify( [] ), responseInit );
+
+		render( <App />, initialState );
+
+		await screen.findByText( 'No tables found.' );
+		expect( screen.getByText( 'No tables found.' ) ).toBeInTheDocument();
 	} );
 } );

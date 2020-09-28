@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
-import { Inserter, BlockNavigationDropdown, ToolSelector } from '@wordpress/block-editor';
+import { BlockNavigationDropdown, Inserter, ToolSelector } from '@wordpress/block-editor';
 
 import { isActiveCellChanged, updateTable, updateTableWithCellData } from '../../utils/table';
 import { toastError, toastSuccess } from '../../utils/utils';
@@ -9,11 +9,11 @@ import { TABLE } from '../../utils/views';
 import { setView } from '../../store/reducers/ui';
 import { setTable, unsetActiveCell } from '../../store/reducers/table';
 import { setTableChangedDialog, unsetTableChangedDialog } from '../../store/reducers/dialogs';
-import { setTables } from '../../store/reducers/tables';
+import { setCache, setTables } from '../../store/reducers/tables';
 
 const Header = () => {
 	const dispatch = useDispatch();
-	const tables = useSelector( state => state.tables.tables );
+	const { tables, cache } = useSelector( state => state.tables );
 	const tableState = useSelector( state => state.table );
 	const { table, activeCell } = tableState;
 
@@ -29,8 +29,19 @@ const Header = () => {
 			return item;
 		} );
 
+		const oldCache = [ ...cache ];
+
+		const newCache = oldCache.map( ( item ) => {
+			if ( item.id === updatedTable.id ) {
+				return updatedTable;
+			}
+
+			return item;
+		} );
+
 		dispatch( setTable( updatedTable ) );
 		dispatch( setTables( newTables ) );
+		dispatch( setCache( newCache ) );
 		dispatch( unsetActiveCell() );
 		dispatch( setView( TABLE ) );
 
@@ -44,6 +55,7 @@ const Header = () => {
 			.catch( () => {
 				dispatch( setTable( table ) );
 				dispatch( setTables( oldTables ) );
+				dispatch( setCache( oldCache ) );
 
 				toastError( __( 'Oops, there was a problem when updating the table', 'advanced-wp-table' ) );
 			} );

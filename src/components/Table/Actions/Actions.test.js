@@ -1,10 +1,14 @@
 import React from 'react';
 import '@testing-library/jest-dom';
+import fetchMock from 'jest-fetch-mock';
 
-import { fakeTable, render, screen, fireEvent } from '../../../utils/test-utils';
+import { fakeTable, fireEvent, render, screen } from '../../../utils/test-utils';
 import initialState from '../../../store/initialState';
 import Table from '../../Views/Table';
 import App from '../../App';
+import { TABLE } from '../../../utils/views';
+
+fetchMock.enableMocks();
 
 const fakeTable1 = fakeTable( 1, 'Table 1' );
 
@@ -48,6 +52,8 @@ const table = {
 	}
 };
 
+const tablesWithContent = [ table ];
+
 const state = {
 	...initialState,
 	tables: {
@@ -59,13 +65,17 @@ const state = {
 	},
 	ui: {
 		...initialState.ui,
-		view: 'table',
+		view: TABLE,
 	}
 };
 
 const actionItemDisabledClass = 'advanced-wp-table-action-item-disabled';
 
 describe( 'Table/Actions', function () {
+	beforeEach( () => {
+		fetchMock.resetMocks();
+	} );
+
 	it( 'should open the gutenberg editor', function () {
 		const { container } = render( <App />, updatedState );
 		screen.getByLabelText( 'Add Row' );
@@ -97,10 +107,24 @@ describe( 'Table/Actions', function () {
 		expect( rows.length ).toBe( 1 );
 	} );
 
-	it( 'should duplicate row', function () {
+	it( 'should duplicate row', async function () {
+		fetchMock.mockResponses(
+			[
+				JSON.stringify( tablesWithContent ),
+				{
+					headers: {
+						'X-WP-Total': 1,
+						'X-WP-TotalPages': 1,
+					}
+				}
+			],
+		);
+
 		global.console.info = jest.fn();
 
 		const { container } = render( <App />, state );
+
+		await screen.findByText( 'Hello World!!' );
 
 		screen.getByText( 'Hello World!!' );
 
@@ -113,10 +137,24 @@ describe( 'Table/Actions', function () {
 		expect( screen.getAllByText( 'Hello World!!' ).length ).toBe( 2 );
 	} );
 
-	it( 'should duplicate column', function () {
+	it( 'should duplicate column', async function () {
+		fetchMock.mockResponses(
+			[
+				JSON.stringify( tablesWithContent ),
+				{
+					headers: {
+						'X-WP-Total': 1,
+						'X-WP-TotalPages': 1,
+					}
+				}
+			],
+		);
+
 		global.console.info = jest.fn();
 
 		const { container } = render( <App />, state );
+
+		await screen.findByText( 'Hello World!!' );
 
 		screen.getByText( 'Hello World!!' );
 
@@ -133,9 +171,23 @@ describe( 'Table/Actions', function () {
 	} );
 
 	it( 'should copy and paste the cell content', async function () {
+		fetchMock.mockResponses(
+			[
+				JSON.stringify( tablesWithContent ),
+				{
+					headers: {
+						'X-WP-Total': 1,
+						'X-WP-TotalPages': 1,
+					}
+				}
+			],
+		);
+
 		global.console.info = jest.fn();
 
 		render( <App />, state );
+
+		await screen.findByText( 'Hello World!!' );
 
 		const pasteCellButtons = screen.getAllByText( 'Paste Cell' );
 		fireEvent.click( pasteCellButtons[ 1 ] );
@@ -151,9 +203,23 @@ describe( 'Table/Actions', function () {
 	} );
 
 	it( 'should clear the cell content', async function () {
+		fetchMock.mockResponses(
+			[
+				JSON.stringify( tablesWithContent ),
+				{
+					headers: {
+						'X-WP-Total': 1,
+						'X-WP-TotalPages': 1,
+					}
+				}
+			],
+		);
+
 		global.console.info = jest.fn();
 
 		render( <App />, state );
+
+		await screen.findByText( 'Hello World!!' );
 
 		const pasteCellButtons = screen.getAllByText( 'Clear Cell' );
 		fireEvent.click( pasteCellButtons[ 1 ] );

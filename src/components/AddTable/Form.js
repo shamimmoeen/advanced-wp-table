@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import _ from 'lodash';
 
@@ -9,7 +9,7 @@ import { clearInput, setInput } from '../../store/reducers/add-table';
 import { setFormLoading, setView, unsetFormLoading } from '../../store/reducers/ui';
 import { TABLE, TABLES } from '../../utils/views';
 import { setTable } from '../../store/reducers/table';
-import { setCache, setTables, setTotal, setTotalPages } from '../../store/reducers/tables';
+import { setCache, setCurrentPage, setOffset, setTables, setTotal, setTotalPages } from '../../store/reducers/tables';
 
 const Form = () => {
 	const dispatch = useDispatch();
@@ -60,17 +60,21 @@ const Form = () => {
 				const chunked = _.chunk( newCache, perPage );
 				const tables = chunked[ 0 ];
 
-				dispatch( setTotal( newTotal ) );
-				dispatch( setTotalPages( newTotalPages ) );
-				dispatch( setTables( tables ) );
-				dispatch( setCache( newCache ) );
+				batch( () => {
+					dispatch( setTotal( newTotal ) );
+					dispatch( setTotalPages( newTotalPages ) );
+					dispatch( setOffset( 0 ) );
+					dispatch( setCurrentPage( 0 ) );
+					dispatch( setTables( tables ) );
+					dispatch( setCache( tables ) );
 
-				dispatch( setTable( newTable ) );
+					dispatch( setTable( newTable ) );
 
-				dispatch( unsetFormLoading() );
-				dispatch( clearInput() );
+					dispatch( unsetFormLoading() );
+					dispatch( clearInput() );
 
-				dispatch( setView( TABLE ) );
+					dispatch( setView( TABLE ) );
+				} );
 
 				toastSuccess( __( 'Table created successfully', 'advanced-wp-table' ) );
 			} )

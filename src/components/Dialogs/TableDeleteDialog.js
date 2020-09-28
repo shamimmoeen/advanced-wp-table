@@ -1,21 +1,20 @@
 import React, { Fragment } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { Dialog } from '@reach/dialog';
 
 import '@reach/dialog/styles.css';
 
-import { deleteTable } from '../../utils/table';
+import { deleteTable, getTables } from '../../utils/table';
 import { toastError, toastSuccess } from '../../utils/utils';
 import { unsetTableDeleteDialog } from '../../store/reducers/dialogs';
-import { setTotal } from '../../store/reducers/tables';
 import { setTablesLoading, unsetTablesLoading } from '../../store/reducers/ui';
+import { setCache, setCurrentPage, setOffset, setTables, setTotal, setTotalPages } from '../../store/reducers/tables';
 
 const TableDeleteDialog = () => {
 	const dispatch = useDispatch();
-	const tablesState = useSelector( state => state.tables );
+	const { perPage } = useSelector( state => state.tables );
 	const dialogState = useSelector( state => state.dialogs.tableDeleteDialog );
-	const { total } = tablesState;
 	const { show, id } = dialogState;
 
 	const onHandleCancel = () => {
@@ -34,7 +33,23 @@ const TableDeleteDialog = () => {
 
 		deleteTable( id )
 			.then( () => {
-				dispatch( setTotal( total - 1 ) );
+				getTables( perPage, 0 )
+					.then( res => {
+						batch( () => {
+							dispatch( setTotal( res.total ) );
+							dispatch( setTotalPages( res.totalPages ) );
+							dispatch( setOffset( 0 ) );
+							dispatch( setCurrentPage( 0 ) );
+							dispatch( setTables( res.tables ) );
+							dispatch( setCache( res.tables ) );
+							dispatch( unsetTablesLoading() );
+						} );
+					} )
+					.catch( err => {
+						dispatch( unsetTablesLoading() );
+
+						toastError( err.message );
+					} );
 			} )
 			.catch( () => {
 				dispatch( unsetTablesLoading() );

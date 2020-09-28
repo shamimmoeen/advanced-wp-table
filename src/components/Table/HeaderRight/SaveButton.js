@@ -4,11 +4,11 @@ import { __ } from '@wordpress/i18n';
 
 import { updateTable, validateTable } from '../../../utils/table';
 import { toastError, toastSuccess } from '../../../utils/utils';
-import { setTables } from '../../../store/reducers/tables';
+import { setCache, setTables } from '../../../store/reducers/tables';
 
 const SaveButton = () => {
 	const dispatch = useDispatch();
-	const { tables } = useSelector( state => state.tables );
+	const { tables, cache } = useSelector( state => state.tables );
 	const { table } = useSelector( state => state.table );
 
 	const onHandleSaveTable = () => {
@@ -33,12 +33,24 @@ const SaveButton = () => {
 			return item;
 		} );
 
+		const oldCache = [ ...cache ];
+
+		const newCache = oldCache.map( ( item ) => {
+			if ( item.id === table.id ) {
+				return table;
+			}
+
+			return item;
+		} );
+
 		dispatch( setTables( newTables ) );
+		dispatch( setCache( newCache ) );
 		toastSuccess( __( 'Successfully updated', 'advanced-wp-table' ) );
 
 		updateTable( id, title, advanced_wp_table_data )
 			.catch( () => {
 				dispatch( setTables( oldTables ) );
+				dispatch( setCache( oldCache ) );
 
 				toastError( __( 'Oops, there was a problem when updating the table', 'advanced-wp-table' ) );
 			} );

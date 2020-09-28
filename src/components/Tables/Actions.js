@@ -1,18 +1,19 @@
 import React from 'react';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
+import _ from 'lodash';
 
 import { getTablePreviewUrl, postTable, prepareTableToDuplicate } from '../../utils/table';
 import { toastError, toastSuccess } from '../../utils/utils';
-import { useDispatch, useSelector } from 'react-redux';
 import { setTable } from '../../store/reducers/table';
 import { setTablesLoading, setView, unsetTablesLoading } from '../../store/reducers/ui';
 import { TABLE } from '../../utils/views';
 import { setTableDeleteDialog } from '../../store/reducers/dialogs';
-import { setTotal } from '../../store/reducers/tables';
+import { setCache, setCurrentPage, setOffset, setTables, setTotal, setTotalPages } from '../../store/reducers/tables';
 
 const Actions = ( { table } ) => {
 	const tablesState = useSelector( state => state.tables );
-	const { tables, total } = tablesState;
+	const { perPage, total, tables, cache } = tablesState;
 	const { previewPageUrl } = useSelector( state => state.globals );
 	const { id } = table;
 	const tablePreviewUrl = getTablePreviewUrl( previewPageUrl, id );
@@ -38,8 +39,24 @@ const Actions = ( { table } ) => {
 
 		// Insert the table into database.
 		postTable( newTableData )
-			.then( () => {
-				dispatch( setTotal( total + 1 ) );
+			.then( ( newTable ) => {
+				const newTotal = total + 1;
+				const newTotalPages = Math.ceil( newTotal / perPage );
+
+				const newCache = [ newTable, ...cache ];
+				const chunked = _.chunk( newCache, perPage );
+				const newTables = chunked[ 0 ];
+
+				batch( () => {
+					dispatch( setTotal( newTotal ) );
+					dispatch( setTotalPages( newTotalPages ) );
+					dispatch( setOffset( 0 ) );
+					dispatch( setCurrentPage( 0 ) );
+					dispatch( setTables( newTables ) );
+					dispatch( setCache( newTables ) );
+
+					dispatch( unsetTablesLoading() );
+				} );
 			} )
 			.catch( () => {
 				dispatch( unsetTablesLoading() );

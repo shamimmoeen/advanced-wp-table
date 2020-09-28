@@ -86,10 +86,12 @@ describe( 'Views/AddTable', function () {
 		expect( screen.getByText( 'All Tables' ) ).toBeInTheDocument();
 		expect( screen.getByText( newTableTitle ) ).toBeInTheDocument();
 
-		expect( screen.queryByText( 'Table 1' ) ).toBeInTheDocument();
+		for ( let i = 1; i < 6; i++ ) {
+			expect( screen.getByText( `Table ${ i }` ) ).toBeInTheDocument();
+		}
 	} );
 
-	it( 'should be able to go back after create the table  when total tables is 10', async function () {
+	it( 'should be able to go back after create the table when total tables is 10', async function () {
 		const _testTables = [];
 
 		for ( let i = 1; i <= 10; i++ ) {
@@ -114,10 +116,24 @@ describe( 'Views/AddTable', function () {
 			[
 				JSON.stringify( fakeTable( 11, newTableTitle ) )
 			],
+			[
+				JSON.stringify( [ _.last( testTables ) ] ),
+				{
+					headers: {
+						'X-WP-Total': 11,
+						'X-WP-TotalPages': 2,
+					}
+				}
+			],
 		);
 
 		render( <App />, initialState );
 		await screen.findByText( 'Add New' );
+
+		for ( let i = 1; i < 11; i++ ) {
+			expect( screen.getByText( `Table ${ i }` ) ).toBeInTheDocument();
+		}
+
 		fireEvent.click( screen.getByText( 'Add New' ) );
 
 		screen.getByPlaceholderText( /give a title/i );
@@ -133,17 +149,27 @@ describe( 'Views/AddTable', function () {
 		expect( screen.getByText( 'Back to Tables' ) ).toBeInTheDocument();
 		fireEvent.click( screen.getByText( 'Back to Tables' ) );
 
-		expect( screen.getByText( 'All Tables' ) ).toBeInTheDocument();
-		expect( screen.getByText( newTableTitle ) ).toBeInTheDocument();
+		for ( let i = 10; i > 1; i-- ) {
+			expect( screen.getByText( `Table ${ i }` ) ).toBeInTheDocument();
+		}
 
+		expect( screen.getByText( newTableTitle ) ).toBeInTheDocument();
 		expect( screen.queryByText( 'Table 1' ) ).not.toBeInTheDocument();
 
 		// Go to second page
 		const nodes = screen.getAllByRole( 'button', { name: 'Page 2' } );
 		expect( nodes.length ).toBe( 2 );
+		fireEvent.click( nodes[ 0 ] );
+
+		expect( screen.queryByText( 'Table 1' ) ).not.toBeInTheDocument();
+		await screen.findByText( 'Table 1' );
+		for ( let i = 2; i < 11; i++ ) {
+			expect( screen.queryByText( `Table ${ i }` ) ).not.toBeInTheDocument();
+		}
+		expect( screen.getByText( 'Table 1' ) ).toBeInTheDocument();
 	} );
 
-	it( 'should be able to go back after create the table  when total tables is 15', async function () {
+	it( 'should be able to go back after create the table when total tables is 15', async function () {
 		const _testTables = [];
 
 		for ( let i = 1; i <= 15; i++ ) {
@@ -157,7 +183,16 @@ describe( 'Views/AddTable', function () {
 
 		fetchMock.mockResponses(
 			[
-				JSON.stringify( testTables ),
+				JSON.stringify( _.slice( testTables, 0, 10 ) ),
+				{
+					headers: {
+						'X-WP-Total': 15,
+						'X-WP-TotalPages': 2,
+					}
+				}
+			],
+			[
+				JSON.stringify( _.slice( testTables, 10 ) ),
 				{
 					headers: {
 						'X-WP-Total': 15,
@@ -173,9 +208,23 @@ describe( 'Views/AddTable', function () {
 		render( <App />, initialState );
 		await screen.findByText( 'Add New' );
 
+		for ( let i = 15; i > 5; i-- ) {
+			expect( screen.getByText( `Table ${ i }` ) ).toBeInTheDocument();
+		}
+
 		// Go to second page
 		const nodes = screen.getAllByRole( 'button', { name: 'Page 2' } );
 		fireEvent.click( nodes[ 0 ] );
+
+		await screen.findByText( 'Table 5' );
+
+		for ( let i = 1; i < 6; i++ ) {
+			expect( screen.getByText( `Table ${ i }` ) ).toBeInTheDocument();
+		}
+
+		for ( let i = 15; i > 5; i-- ) {
+			expect( screen.queryByText( `Table ${ i }` ) ).not.toBeInTheDocument();
+		}
 
 		fireEvent.click( screen.getByText( 'Add New' ) );
 
@@ -192,10 +241,21 @@ describe( 'Views/AddTable', function () {
 		expect( screen.getByText( 'Back to Tables' ) ).toBeInTheDocument();
 		fireEvent.click( screen.getByText( 'Back to Tables' ) );
 
-		expect( screen.getByText( 'All Tables' ) ).toBeInTheDocument();
-		expect( screen.getByText( newTableTitle ) ).toBeInTheDocument();
+		// Check if are in first page
+		const page1Nodes = screen.getAllByRole( 'button', { name: 'Page 1 is your current page' } );
+		expect( page1Nodes.length ).toBe( 2 );
 
-		expect( screen.queryByText( 'Table 1' ) ).not.toBeInTheDocument();
+		expect( screen.getAllByText( /16 items/i ).length ).toBe( 2 );
+		expect( screen.getByText( 'All Tables' ) ).toBeInTheDocument();
+
+		expect( screen.getByText( newTableTitle ) ).toBeInTheDocument();
+		for ( let i = 15; i > 6; i-- ) {
+			expect( screen.getByText( `Table ${ i }` ) ).toBeInTheDocument();
+		}
+
+		for ( let i = 1; i < 7; i++ ) {
+			expect( screen.queryByText( `Table ${ i }` ) ).not.toBeInTheDocument();
+		}
 	} );
 
 	it( 'should handle exception in creating new table', async function () {

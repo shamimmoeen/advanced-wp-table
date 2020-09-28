@@ -1,11 +1,11 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import fetchMock from 'jest-fetch-mock';
+import ServerSideRender from '@wordpress/server-side-render';
 
 import { act, render, screen } from '../../utils/test-utils';
 import initialState from '../../store/initialState';
 import App from '../App';
-import prettyFormat from 'pretty-format';
 
 jest.mock( '@wordpress/server-side-render' );
 
@@ -14,6 +14,7 @@ fetchMock.enableMocks();
 const blockUtils = require( '../../utils/blocks' );
 
 const calendarContent = '<!-- wp:calendar /-->';
+const demoContent = '<!-- wp:paragraph --><p>Hello World!!</p><!-- /wp:paragraph -->';
 
 const calendarTable = {
 	id: 1,
@@ -26,7 +27,7 @@ const calendarTable = {
 		rows: [
 			[
 				calendarContent,
-				'',
+				demoContent,
 			],
 			[
 				'',
@@ -64,7 +65,7 @@ const youtubeEmbedTable = {
 		rows: [
 			[
 				youtubeEmbedContent,
-				'',
+				demoContent,
 			],
 			[
 				'',
@@ -90,14 +91,16 @@ const stateWithYoutubeEmbed = {
 };
 
 describe( 'Blocks/RenderBlock', function () {
-	it.only( 'should render the calendar widget', function () {
+	it( 'should render the calendar widget', async function () {
 		fetchMock.mockResponse( JSON.stringify( [ calendarTable ] ) );
 
-		// global.console.info = jest.fn();
+		global.console.info = jest.fn();
 
 		render( <App />, stateWithCalendar );
 
-		// expect( ServerSideRender ).toHaveBeenCalled();
+		await screen.findByText( 'Hello World!!' );
+
+		expect( ServerSideRender ).toHaveBeenCalled();
 	} );
 
 	it( 'should render the youtube embed widget', async function () {
@@ -123,6 +126,8 @@ describe( 'Blocks/RenderBlock', function () {
 
 		const { container } = render( <App />, stateWithYoutubeEmbed );
 
+		await screen.findByText( 'Hello World!!' );
+
 		await act( () => promise );
 
 		const editor = container.querySelector( '.wp-block-embed' );
@@ -135,6 +140,8 @@ describe( 'Blocks/RenderBlock', function () {
 		global.console.info = jest.fn();
 
 		render( <App />, stateWithYoutubeEmbed );
+
+		await screen.findByText( 'Hello World!!' );
 
 		expect( screen.getByText( 'Loading...' ) ).toBeInTheDocument();
 	} );

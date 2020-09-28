@@ -21,10 +21,12 @@ const Pagination = () => {
 		dispatch( setOffset( offset ) );
 		dispatch( setCurrentPage( selected ) );
 
+		// todo: after adding a new table, second page doesn't show all the remaining tables
 		const chunked = _.chunk( cache, perPage );
 		const cachedTables = chunked[ selected ];
 
 		if ( undefined !== cachedTables ) {
+			// todo save to cache
 			dispatch( setTables( cachedTables ) );
 			return;
 		}
