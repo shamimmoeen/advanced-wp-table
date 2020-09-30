@@ -4,6 +4,7 @@ export const addTable = {
 	title: '',
 	sizeOfRows: 2,
 	sizeOfColumns: 2,
+	type: 'layout',
 };
 
 const slice = createSlice( {
@@ -17,6 +18,7 @@ const slice = createSlice( {
 			state.title = addTable.title;
 			state.sizeOfRows = addTable.sizeOfRows;
 			state.sizeOfColumns = addTable.sizeOfColumns;
+			state.type = addTable.type;
 		}
 	},
 } );

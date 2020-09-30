@@ -80,10 +80,6 @@ describe( 'Table/HeaderRight/SaveButton', function () {
 				JSON.stringify( tables ),
 				{ headers: { 'X-WP-Total': 2, 'X-WP-TotalPages': 1 } }
 			)
-			.mockResponseOnce(
-				JSON.stringify( tables ),
-				{ headers: { 'X-WP-Total': 2, 'X-WP-TotalPages': 1 } }
-			)
 			.mockResponseOnce( JSON.stringify( 'Table updated successfully' ) );
 
 		render( <App />, initialState );

@@ -16,6 +16,9 @@ const TablesLoading = () => {
 					<div className={ 'advanced-wp-table-liner-loading actions-loading' } />
 				</td>
 				<td>
+					<div className={ 'advanced-wp-table-liner-loading type-loading' } />
+				</td>
+				<td>
 					<div className={ 'advanced-wp-table-liner-loading shortcode-loading' } />
 				</td>
 			</tr>,
@@ -27,6 +30,7 @@ const TablesLoading = () => {
 			<thead>
 				<tr>
 					<td className={ 'title' }>{ __( 'Title', 'advanced-wp-table' ) }</td>
+					<td className={ 'type' }>{ __( 'Type', 'advanced-wp-table' ) }</td>
 					<td className={ 'shortcode' }>{ __( 'Shortcode', 'advanced-wp-table' ) }</td>
 				</tr>
 			</thead>
@@ -36,6 +40,7 @@ const TablesLoading = () => {
 			<tfoot>
 				<tr>
 					<td>{ __( 'Title', 'advanced-wp-table' ) }</td>
+					<td>{ __( 'Type', 'advanced-wp-table' ) }</td>
 					<td>{ __( 'Shortcode', 'advanced-wp-table' ) }</td>
 				</tr>
 			</tfoot>

@@ -130,6 +130,7 @@ describe( 'Tables/Pagination', function () {
 					rows: 0,
 					columns: 0,
 				},
+				type: 'layout',
 				rows: []
 			}
 		};
@@ -142,6 +143,7 @@ describe( 'Tables/Pagination', function () {
 					rows: 1,
 					columns: 0,
 				},
+				type: 'layout',
 				rows: [
 					[]
 				]
@@ -278,6 +280,7 @@ describe( 'Tables/Pagination', function () {
 					rows: 1,
 					columns: 1,
 				},
+				type: 'layout',
 				rows: [
 					[
 						''
@@ -294,6 +297,7 @@ describe( 'Tables/Pagination', function () {
 					rows: 1,
 					columns: 2,
 				},
+				type: 'layout',
 				rows: [
 					[
 						'',
@@ -437,6 +441,7 @@ describe( 'Tables/Pagination', function () {
 					rows: 1,
 					columns: 1,
 				},
+				type: 'layout',
 				rows: [
 					[
 						''
@@ -453,6 +458,7 @@ describe( 'Tables/Pagination', function () {
 					rows: 1,
 					columns: 2,
 				},
+				type: 'layout',
 				rows: [
 					[
 						'',
@@ -609,6 +615,7 @@ describe( 'Tables/Pagination', function () {
 					rows: 2,
 					columns: 2,
 				},
+				type: 'layout',
 				rows: [
 					[
 						content,
@@ -630,6 +637,7 @@ describe( 'Tables/Pagination', function () {
 					rows: 2,
 					columns: 2,
 				},
+				type: 'layout',
 				rows: [
 					[
 						updatedContent,

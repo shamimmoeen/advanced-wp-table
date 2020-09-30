@@ -24,7 +24,7 @@ export async function getTables( perPage, offset ) {
 }
 
 export function validateTable( tableData ) {
-	const { title } = tableData;
+	const { title, type } = tableData;
 
 	if ( ! title ) {
 		throw new Error( __( 'Title is required', 'advanced-wp-table' ) );
@@ -33,10 +33,20 @@ export function validateTable( tableData ) {
 	if ( title.length > 40 ) {
 		throw new Error( __( 'The title must be less than 40 characters', 'advanced-wp-table' ) );
 	}
+
+	if ( ! type ) {
+		throw new Error( __( 'Type is required', 'advanced-wp-table' ) );
+	}
+
+	const availableTypes = [ 'layout', 'data' ];
+
+	if ( -1 === availableTypes.indexOf( type ) ) {
+		throw new Error( __( 'Invalid type', 'advanced-wp-table' ) );
+	}
 }
 
 export function prepareTable( tableData ) {
-	const { title, sizeOfRows, sizeOfColumns } = tableData;
+	const { title, sizeOfRows, sizeOfColumns, type } = tableData;
 
 	const tableSize = {
 		rows: sizeOfRows,
@@ -55,7 +65,7 @@ export function prepareTable( tableData ) {
 		tableRows.push( emptyRow );
 	}
 
-	return { title, advanced_wp_table_data: { size: tableSize, rows: tableRows } };
+	return { title, advanced_wp_table_data: { rows: tableRows, size: tableSize, type } };
 }
 
 // eslint-disable-next-line camelcase
@@ -216,4 +226,15 @@ export function isTitleChanged( tables, table ) {
 	const isEqual = _.isEqual( oldTitle, newTitle );
 
 	return ! isEqual;
+}
+
+export function getType( table ) {
+	const { advanced_wp_table_data: tableData } = table;
+	const { type } = tableData;
+
+	if ( 'data' === type ) {
+		return __( 'Data Table', 'advanced-wp-table' );
+	}
+
+	return __( 'Layout Table', 'advanced-wp-table' );
 }

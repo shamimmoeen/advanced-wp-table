@@ -10,8 +10,7 @@ import { isTableChanged, isTitleChanged } from '../../../utils/table';
 const BackToList = () => {
 	const dispatch = useDispatch();
 	const { tables } = useSelector( state => state.tables );
-	const tableState = useSelector( state => state.table );
-	const { table } = tableState;
+	const { table } = useSelector( state => state.table );
 	const navigateToListRef = useRef( null );
 
 	const navigateToList = () => {

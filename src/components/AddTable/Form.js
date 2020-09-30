@@ -2,6 +2,7 @@ import React from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import _ from 'lodash';
+import { Tooltip } from '@wordpress/components';
 
 import { postTable, prepareTable, validateTable } from '../../utils/table';
 import { dismissToasts, toastError, toastSuccess } from '../../utils/utils';
@@ -17,7 +18,7 @@ const Form = () => {
 	const formLoading = useSelector( state => state.ui.formLoading );
 	const newTableData = useSelector( state => state.addTable );
 	const { total, perPage, cache } = tablesState;
-	const { title, sizeOfRows, sizeOfColumns } = newTableData;
+	const { title, sizeOfRows, sizeOfColumns, type } = newTableData;
 
 	const onHandleInputChange = ( e ) => {
 		const name = e.target.name;
@@ -130,6 +131,49 @@ const Form = () => {
 						onChange={ onHandleInputChange }
 						value={ sizeOfColumns }
 					/>
+				</div>
+			</div>
+			<div className="advanced-wp-table-form-item">
+				<label htmlFor="layout-table">{ __( 'Type?', 'advanced-wp-table' ) }</label>
+				<div className={ 'advanced-wp-table-form-input-wrapper advanced-wp-table-form-checkbox-wrapper' }>
+					<div>
+						<input
+							type="radio"
+							name="type"
+							id="layout-table"
+							value={ 'layout' }
+							checked={ 'layout' === type }
+							onChange={ onHandleInputChange }
+						/>
+						<label htmlFor={ 'layout-table' }>
+							{ __( 'Layout Table', 'advanced-wp-table' ) }
+						</label>
+						<Tooltip
+							text={ __( 'In layout table you can use gutenberg editor.', 'advanced-wp-table' ) }
+							position={ 'top center' }
+						>
+							<span className={ 'dashicons dashicons-editor-help' } />
+						</Tooltip>
+					</div>
+					<div>
+						<input
+							type="radio"
+							name="type"
+							id="data-table"
+							value={ 'data' }
+							checked={ 'data' === type }
+							onChange={ onHandleInputChange }
+						/>
+						<label htmlFor={ 'data-table' }>
+							{ __( 'Data Table', 'advanced-wp-table' ) }
+						</label>
+						<Tooltip
+							text={ __( 'Data Table is normally used to show data. You can use basic markups.', 'advanced-wp-table' ) }
+							position={ 'top center' }
+						>
+							<span className={ 'dashicons dashicons-editor-help' } />
+						</Tooltip>
+					</div>
 				</div>
 			</div>
 

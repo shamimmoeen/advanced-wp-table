@@ -1,6 +1,6 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { getShortcode, copyShortcode } from '../../utils/table';
+import { copyShortcode, getShortcode, getType } from '../../utils/table';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTable } from '../../store/reducers/table';
 import { setView } from '../../store/reducers/ui';
@@ -24,6 +24,7 @@ const Tables = () => {
 			<thead>
 				<tr>
 					<td className={ 'title' }>{ __( 'Title', 'advanced-wp-table' ) }</td>
+					<td className={ 'type' }>{ __( 'Type', 'advanced-wp-table' ) }</td>
 					<td className={ 'shortcode' }>{ __( 'Shortcode', 'advanced-wp-table' ) }</td>
 				</tr>
 			</thead>
@@ -42,6 +43,7 @@ const Tables = () => {
 							</strong>
 							<Actions table={ table } />
 						</td>
+						<td>{ getType( table ) }</td>
 						<td>
 							<input
 								type="text"
@@ -54,13 +56,14 @@ const Tables = () => {
 					</tr>
 				) ) : (
 					<tr>
-						<td colSpan={ 2 }>{ __( 'No tables found.', 'advanced-wp-table' ) }</td>
+						<td colSpan={ 3 }>{ __( 'No tables found.', 'advanced-wp-table' ) }</td>
 					</tr>
 				) }
 			</tbody>
 			<tfoot>
 				<tr>
 					<td>{ __( 'Title', 'advanced-wp-table' ) }</td>
+					<td>{ __( 'Type', 'advanced-wp-table' ) }</td>
 					<td>{ __( 'Shortcode', 'advanced-wp-table' ) }</td>
 				</tr>
 			</tfoot>

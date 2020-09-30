@@ -28,15 +28,60 @@ describe( 'Views/AddTable', function () {
 		expect( screen.getByDisplayValue( 'table 1' ) ).toBeInTheDocument();
 	} );
 
-	it( 'should create a new table', async function () {
-		fetchMock.mockResponse( JSON.stringify( fakeTable( 1, 'table 1' ) ) );
+	it( 'should have the table type option', function () {
+		render( <AddTable />, initialState );
 
-		render( <App />, appState );
+		expect( screen.getByLabelText( /layout table/i ) ).toBeInTheDocument();
+		expect( screen.getByLabelText( /data table/i ) ).toBeInTheDocument();
+
+		fireEvent.click( screen.getByLabelText( /data table/i ) );
+		expect( screen.getByRole( 'radio', { name: 'Data Table', checked: true } ) ).toBeInTheDocument();
+	} );
+
+	it( 'should create a new table', async function () {
+		const fakeTable1 = fakeTable( 1, 'Table 1' );
+		const fakeTable2 = fakeTable( 2, 'New Table', 'data' );
+
+		const initialTables = [ fakeTable1 ];
+		const afterTables = [ fakeTable1, fakeTable2 ];
+
+		fetchMock.mockResponses(
+			[
+				JSON.stringify( initialTables ),
+				{
+					headers: {
+						'X-WP-Total': 1,
+						'X-WP-TotalPages': 1,
+					}
+				}
+			],
+			[
+				JSON.stringify( fakeTable2 )
+			],
+			[
+				JSON.stringify( afterTables ),
+				{
+					headers: {
+						'X-WP-Total': 2,
+						'X-WP-TotalPages': 1,
+					}
+				}
+			]
+		);
+
+		render( <App />, initialState );
+		fireEvent.click( await screen.findByText( /add new/i ) );
 		fireEvent.change( screen.getByPlaceholderText( /give a title/i ), {
-			target: { value: 'table 1' }
+			target: { value: 'New Table' }
 		} );
+		fireEvent.click( screen.getByLabelText( /data table/i ) );
 		fireEvent.click( screen.getByText( 'Create' ) );
-		await screen.findByText( 'table 1' );
+		await screen.findByText( 'New Table' );
+
+		fireEvent.click( screen.getByText( /back to tables/i ) );
+		await screen.findByText( 'New Table' );
+
+		expect( screen.getByText( /data table/i ) ).toBeInTheDocument();
 	} );
 
 	it( 'should be able to go back after create the table when total tables is 5', async function () {

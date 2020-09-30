@@ -368,6 +368,11 @@ $fixed_header_height: 50px;
 		width: 100%;
 	}
 
+	&.type-loading {
+		width: 100%;
+		max-width: 100px;
+	}
+
 	&.shortcode-loading {
 		max-width: 250px;
 		width: 100%;
@@ -428,12 +433,34 @@ $fixed_header_height: 50px;
 
 		.advanced-wp-table-form-input-wrapper {
 			flex: 1.2;
+
+			.dashicons {
+				align-items: center;
+				color: gray;
+				display: inline-flex;
+				font-size: 16px;
+				justify-content: center;
+
+				> span {
+					font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+				}
+			}
 		}
 
 		input {
 			&[type=number] {
 				width: 60px;
 			}
+		}
+	}
+
+	.advanced-wp-table-form-checkbox-wrapper {
+		input[type="radio"] {
+			margin: 0 8px 0 0;
+		}
+
+		label {
+			font-weight: normal;
 		}
 	}
 

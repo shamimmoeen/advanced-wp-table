@@ -22,15 +22,11 @@ export * from '@testing-library/react';
 // override render method
 export { render };
 
-export function fakeTable( id, title ) {
+export function fakeTable( id, title, type = 'layout' ) {
 	return {
 		id,
 		title: { rendered: title },
 		advanced_wp_table_data: {
-			size: {
-				rows: 2,
-				columns: 2,
-			},
 			rows: [
 				[
 					'',
@@ -40,7 +36,12 @@ export function fakeTable( id, title ) {
 					'',
 					'',
 				],
-			]
+			],
+			size: {
+				rows: 2,
+				columns: 2,
+			},
+			type,
 		}
 	};
 }

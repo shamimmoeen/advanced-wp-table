@@ -12,12 +12,12 @@ const SaveButton = () => {
 	const { table } = useSelector( state => state.table );
 
 	const onHandleSaveTable = () => {
-		// eslint-disable-next-line camelcase
-		const { id, advanced_wp_table_data } = table;
+		const { id, advanced_wp_table_data: tableData } = table;
+		const { type } = tableData;
 		const title = table.title.rendered;
 
 		try {
-			validateTable( { title } );
+			validateTable( { title, type } );
 		} catch ( err ) {
 			toastError( err.message );
 			return;
@@ -47,7 +47,7 @@ const SaveButton = () => {
 		dispatch( setCache( newCache ) );
 		toastSuccess( __( 'Successfully updated', 'advanced-wp-table' ) );
 
-		updateTable( id, title, advanced_wp_table_data )
+		updateTable( id, title, tableData )
 			.catch( () => {
 				dispatch( setTables( oldTables ) );
 				dispatch( setCache( oldCache ) );
