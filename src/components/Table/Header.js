@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import HeaderRight from './HeaderRight';
 import HeaderLeft from './HeaderLeft';
 import HeaderMiddle from './HeaderMiddle';
+import TableToolBar from './TableToolBar';
+import CellToolBar from './CellToolBar';
 
 const Header = () => {
 	const [ elmClass, setElmClass ] = useState( '' );
@@ -55,6 +57,8 @@ const Header = () => {
 			<div className={ `${ elmClasses }` } ref={ headerRef }>
 				<HeaderLeft />
 				<HeaderMiddle />
+				<TableToolBar />
+				<CellToolBar />
 				<HeaderRight />
 			</div>
 		</div>

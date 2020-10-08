@@ -17,7 +17,8 @@ const DuplicateRow = ( { i } ) => {
 		newRows.splice( i, 0, newRowContent );
 
 		const newSize = { ...tempSize, rows: tempSize.rows + 1 };
-		const updatedTable = { ...table, advanced_wp_table_data: { size: newSize, rows: newRows } };
+		const newData = { ...tableData, size: newSize, rows: newRows };
+		const updatedTable = { ...table, advanced_wp_table_data: newData };
 
 		dispatch( setTable( updatedTable ) );
 	};

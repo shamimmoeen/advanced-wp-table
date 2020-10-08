@@ -22,7 +22,8 @@ const DuplicateColumn = ( { j } ) => {
 		} );
 
 		const newSize = { ...tempSize, columns: tempSize.columns + 1 };
-		const updatedTable = { ...table, advanced_wp_table_data: { size: newSize, rows: newContent } };
+		const newData = { ...tableData, size: newSize, rows: newContent };
+		const updatedTable = { ...table, advanced_wp_table_data: newData };
 
 		dispatch( setTable( updatedTable ) );
 	};

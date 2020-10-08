@@ -15,7 +15,8 @@ const DeleteRow = ( { i } ) => {
 		const newRows = rows.filter( ( row, index ) => index !== i );
 
 		const newSize = { ...tempSize, rows: tempSize.rows - 1 };
-		const updatedTable = { ...table, advanced_wp_table_data: { size: newSize, rows: newRows } };
+		const newData = { ...tableData, size: newSize, rows: newRows };
+		const updatedTable = { ...table, advanced_wp_table_data: newData };
 
 		dispatch( setTable( updatedTable ) );
 	};

@@ -9,7 +9,7 @@ const ClearCell = ( { i, j, y } ) => {
 	const dispatch = useDispatch();
 	const { table } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
-	const { size, rows } = tableData;
+	const { rows } = tableData;
 
 	const onHandleClearCell = () => {
 		if ( ! y ) {
@@ -28,7 +28,8 @@ const ClearCell = ( { i, j, y } ) => {
 			} );
 		} );
 
-		const updatedTable = { ...table, advanced_wp_table_data: { size, rows: newRowsAfterClearCell } };
+		const newData = { ...tableData, rows: newRowsAfterClearCell };
+		const updatedTable = { ...table, advanced_wp_table_data: newData };
 
 		dispatch( setTable( updatedTable ) );
 	};

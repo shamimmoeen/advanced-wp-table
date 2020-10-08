@@ -5,6 +5,7 @@ import fetchMock from 'jest-fetch-mock';
 import { render, screen } from '../../utils/test-utils';
 import initialState from '../../store/initialState';
 import App from '../App';
+import { TABLE } from '../../utils/views';
 
 fetchMock.enableMocks();
 
@@ -46,7 +47,7 @@ const updatedState = {
 	},
 	ui: {
 		...initialState.ui,
-		view: 'table',
+		view: TABLE,
 	}
 };
 
@@ -75,5 +76,55 @@ describe( 'Table/TableCell', function () {
 		await screen.findByText( 'Hello World!!' );
 
 		screen.getByText( 'Hello World!!' );
+	} );
+
+	it( 'should render the data table', function () {
+		const dataTable = {
+			id: 1,
+			title: { rendered: 'Table 1' },
+			advanced_wp_table_data: {
+				size: {
+					rows: 2,
+					columns: 2,
+				},
+				type: 'data',
+				rows: [
+					[
+						'1',
+						'2',
+					],
+					[
+						'3',
+						'4',
+					],
+				]
+			}
+		};
+
+		const dataTables = [
+			fakeTable1,
+		];
+
+		const dataTableState = {
+			...initialState,
+			tables: {
+				...initialState.tables,
+				tables: dataTables
+			},
+			table: {
+				table: dataTable
+			},
+			ui: {
+				...initialState.ui,
+				view: TABLE,
+			}
+		};
+
+		render( <App />, dataTableState );
+
+		expect( screen.getByText( '1' ) ).toBeInTheDocument();
+		expect( screen.getByText( '2' ) ).toBeInTheDocument();
+		expect( screen.getByText( '3' ) ).toBeInTheDocument();
+		expect( screen.getByText( '4' ) ).toBeInTheDocument();
 	} );
 } );

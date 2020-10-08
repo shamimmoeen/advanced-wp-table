@@ -10,7 +10,7 @@ const PasteCell = ( { i, j } ) => {
 	const { table } = useSelector( state => state.table );
 	const { cellContent } = useSelector( state => state.globals );
 	const { advanced_wp_table_data: tableData } = table;
-	const { size, rows } = tableData;
+	const { rows } = tableData;
 
 	const onHandlePasteCell = () => {
 		if ( ! cellContent ) {
@@ -29,7 +29,8 @@ const PasteCell = ( { i, j } ) => {
 			} );
 		} );
 
-		const updatedTable = { ...table, advanced_wp_table_data: { size, rows: withCellContent } };
+		const newData = { ...tableData, rows: withCellContent };
+		const updatedTable = { ...table, advanced_wp_table_data: newData };
 
 		dispatch( setTable( updatedTable ) );
 	};

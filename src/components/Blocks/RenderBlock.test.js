@@ -24,6 +24,7 @@ const calendarTable = {
 			rows: 2,
 			columns: 2,
 		},
+		type: 'layout',
 		rows: [
 			[
 				calendarContent,
@@ -62,6 +63,7 @@ const youtubeEmbedTable = {
 			rows: 2,
 			columns: 2,
 		},
+		type: 'layout',
 		rows: [
 			[
 				youtubeEmbedContent,

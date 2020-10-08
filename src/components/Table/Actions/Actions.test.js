@@ -39,6 +39,7 @@ const table = {
 			rows: 2,
 			columns: 2,
 		},
+		type: 'layout',
 		rows: [
 			[
 				content,
@@ -87,24 +88,34 @@ describe( 'Table/Actions', function () {
 		expect( editor ).not.toBeNull();
 	} );
 
-	it( 'should delete column', function () {
-		const { container } = render( <Table />, updatedState );
+	it( 'should delete column', async function () {
+		fetchMock.mockResponse( JSON.stringify( tables ) );
+
+		const { container } = render( <App />, updatedState );
 
 		const buttons = screen.getAllByText( 'Delete Column' );
 		fireEvent.click( buttons[ 0 ] );
 
 		const columns = container.querySelectorAll( '[class="advanced-wp-table-cell-wrapper"]' );
 		expect( columns.length ).toBe( 2 );
+
+		fireEvent.click( screen.getByText( 'Save' ) );
+		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
 	} );
 
-	it( 'should delete row', function () {
-		const { container } = render( <Table />, updatedState );
+	it( 'should delete row', async function () {
+		fetchMock.mockResponse( JSON.stringify( tables ) );
+
+		const { container } = render( <App />, updatedState );
 
 		const buttons = screen.getAllByText( 'Delete Row' );
 		fireEvent.click( buttons[ 0 ] );
 
 		const rows = container.querySelectorAll( 'tr' );
 		expect( rows.length ).toBe( 1 );
+
+		fireEvent.click( screen.getByText( 'Save' ) );
+		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
 	} );
 
 	it( 'should duplicate row', async function () {
@@ -135,6 +146,9 @@ describe( 'Table/Actions', function () {
 		expect( rows.length ).toBe( 3 );
 
 		expect( screen.getAllByText( 'Hello World!!' ).length ).toBe( 2 );
+
+		fireEvent.click( screen.getByText( 'Save' ) );
+		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
 	} );
 
 	it( 'should duplicate column', async function () {
@@ -168,6 +182,9 @@ describe( 'Table/Actions', function () {
 		expect( columns.length ).toBe( 6 );
 
 		expect( screen.getAllByText( 'Hello World!!' ).length ).toBe( 2 );
+
+		fireEvent.click( screen.getByText( 'Save' ) );
+		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
 	} );
 
 	it( 'should copy and paste the cell content', async function () {
@@ -200,6 +217,9 @@ describe( 'Table/Actions', function () {
 		fireEvent.click( pasteCellButtons[ 1 ] );
 
 		expect( screen.getAllByText( 'Hello World!!' ).length ).toBe( 2 );
+
+		fireEvent.click( screen.getByText( 'Save' ) );
+		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
 	} );
 
 	it( 'should clear the cell content', async function () {
@@ -227,26 +247,39 @@ describe( 'Table/Actions', function () {
 
 		fireEvent.click( pasteCellButtons[ 0 ] );
 		expect( screen.queryAllByText( 'Hello World!!' ).length ).toBe( 0 );
+
+		fireEvent.click( screen.getByText( 'Save' ) );
+		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
 	} );
 
-	it( 'should add row', function () {
-		const { container } = render( <Table />, updatedState );
+	it( 'should add row', async function () {
+		fetchMock.mockResponse( JSON.stringify( tables ) );
+
+		const { container } = render( <App />, updatedState );
 
 		const addRowButtons = screen.getAllByText( 'Add Row' );
 		fireEvent.click( addRowButtons[ 2 ] );
 
 		const rows = container.querySelectorAll( 'tr' );
 		expect( rows.length ).toBe( 3 );
+
+		fireEvent.click( screen.getByText( 'Save' ) );
+		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
 	} );
 
-	it( 'should add column', function () {
-		const { container } = render( <Table />, updatedState );
+	it( 'should add column', async function () {
+		fetchMock.mockResponse( JSON.stringify( tables ) );
+
+		const { container } = render( <App />, updatedState );
 
 		const addColumnButtons = screen.getAllByText( 'Add Column' );
 		fireEvent.click( addColumnButtons[ 2 ] );
 
 		const columns = container.querySelectorAll( '[class="advanced-wp-table-cell-wrapper"]' );
 		expect( columns.length ).toBe( 6 );
+
+		fireEvent.click( screen.getByText( 'Save' ) );
+		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
 	} );
 
 	it( 'should be disabled the copy cell buttons', function () {

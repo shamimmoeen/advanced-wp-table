@@ -58,7 +58,7 @@ const Title = () => {
 	};
 
 	return (
-		<div className={ 'advanced-wp-table-edit-title-wrapper' } ref={ editTitleRef }>
+		<div className={ 'advanced-wp-table-edit-title-wrapper advanced-wp-table-header-with-separator' } ref={ editTitleRef }>
 			{ isEditing ? (
 				<input
 					type="text"

@@ -15,7 +15,8 @@ const DeleteColumn = ( { j } ) => {
 		const newRows = rows.map( ( row ) => row.filter( ( column, index ) => index !== j ) );
 
 		const newSize = { ...tempSize, columns: tempSize.columns - 1 };
-		const updatedTable = { ...table, advanced_wp_table_data: { size: newSize, rows: newRows } };
+		const newData = { ...tableData, size: newSize, rows: newRows };
+		const updatedTable = { ...table, advanced_wp_table_data: newData };
 
 		dispatch( setTable( updatedTable ) );
 	};

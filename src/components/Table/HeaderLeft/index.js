@@ -1,8 +1,6 @@
 import React from 'react';
 
 import BackToList from './BackToList';
-import AddRow from './AddRow';
-import AddColumn from './AddColumn';
 import GoToPrevTable from './GoToPrevTable';
 import GoToNextTable from './GoToNextTable';
 
@@ -18,11 +16,6 @@ const HeaderLeft = () => {
 					<GoToPrevTable />
 					<GoToNextTable />
 				</div>
-			</div>
-
-			<div className={ 'advanced-wp-table-button-group' }>
-				<AddRow />
-				<AddColumn />
 			</div>
 		</div>
 	);
