@@ -1,17 +1,17 @@
 import React from 'react';
 
-import CopyShortcodeButton from './CopyShortcodeButton';
-import PreviewButton from './PreviewButton';
-import SaveButton from './SaveButton';
+import CopyShortcode from './Button/CopyShortcode';
+import Preview from './Button/Preview';
+import Save from './Button/Save';
+import Settings from './Button/Settings';
 
 const HeaderRight = () => {
 	return (
 		<div className={ 'advanced-wp-table-header-right' }>
-			<div className={ 'advanced-wp-table-button-group' }>
-				<CopyShortcodeButton />
-			</div>
-			<PreviewButton />
-			<SaveButton />
+			<CopyShortcode />
+			<Preview />
+			<Save />
+			<Settings />
 		</div>
 	);
 };

@@ -2,11 +2,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 
-import { updateTable, validateTable } from '../../../utils/table';
-import { toastError, toastSuccess } from '../../../utils/utils';
-import { setCache, setTables } from '../../../store/reducers/tables';
+import { updateTable, validateTable } from '../../../../utils/table';
+import { toastError, toastSuccess } from '../../../../utils/utils';
+import { setCache, setTables } from '../../../../store/reducers/tables';
+import { Button } from '@wordpress/components';
 
-const SaveButton = () => {
+const Save = () => {
 	const dispatch = useDispatch();
 	const { tables, cache } = useSelector( state => state.tables );
 	const { table } = useSelector( state => state.table );
@@ -57,14 +58,13 @@ const SaveButton = () => {
 	};
 
 	return (
-		<button
-			type={ 'button' }
-			className={ 'button button-primary' }
+		<Button
+			isPrimary
 			onClick={ onHandleSaveTable }
 		>
 			{ __( 'Save', 'advanced-wp-table' ) }
-		</button>
+		</Button>
 	);
 };
 
-export default SaveButton;
+export default Save;

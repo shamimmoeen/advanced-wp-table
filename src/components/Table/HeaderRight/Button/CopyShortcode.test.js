@@ -7,10 +7,10 @@ import {
 	fakeTable,
 	fireEvent,
 	screen,
-} from '../../../utils/test-utils';
-import initialState from '../../../store/initialState';
-import { TABLE } from '../../../utils/views';
-import App from '../../App';
+} from '../../../../utils/test-utils';
+import initialState from '../../../../store/initialState';
+import { TABLE } from '../../../../utils/views';
+import App from '../../../App';
 
 fetchMock.enableMocks();
 

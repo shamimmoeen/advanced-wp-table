@@ -1,11 +1,14 @@
 import React from 'react';
-import { __ } from '@wordpress/i18n';
-import { Tooltip } from '@wordpress/components';
-import { getShortcode, textToClipboard } from '../../../utils/table';
-import { toastSuccess } from '../../../utils/utils';
 import { useSelector } from 'react-redux';
+import { __ } from '@wordpress/i18n';
+import Icon from '@mdi/react';
+import { mdiClipboardOutline } from '@mdi/js';
+import { Button, Tooltip } from '@wordpress/components';
 
-const CopyShortcodeButton = () => {
+import { getShortcode, textToClipboard } from '../../../../utils/table';
+import { toastSuccess } from '../../../../utils/utils';
+
+const CopyShortcode = () => {
 	const { table } = useSelector( state => state.table );
 
 	const handleShortcodeCopy = () => {
@@ -19,15 +22,14 @@ const CopyShortcodeButton = () => {
 			text={ __( 'Click to copy the shortcode', 'advanced-wp-table' ) }
 			position={ 'bottom center' }
 		>
-			<div
-				className={ 'advanced-wp-table-shortcode' }
-				role={ 'presentation' }
+			<Button
+				className={ 'has-icon' }
 				onClick={ handleShortcodeCopy }
 			>
-				<span className={ 'dashicons dashicons-clipboard' } />
-			</div>
+				<Icon path={ mdiClipboardOutline } size={ '20px' } />
+			</Button>
 		</Tooltip>
 	);
 };
 
-export default CopyShortcodeButton;
+export default CopyShortcode;

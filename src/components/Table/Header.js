@@ -3,8 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import HeaderRight from './HeaderRight';
 import HeaderLeft from './HeaderLeft';
 import HeaderMiddle from './HeaderMiddle';
-import TableToolBar from './TableToolBar';
-import CellToolBar from './CellToolBar';
+import TableToolbar from './Toolbar';
 
 const Header = () => {
 	const [ elmClass, setElmClass ] = useState( '' );
@@ -52,13 +51,15 @@ const Header = () => {
 		elmClasses = `advanced-wp-table-fixed-header ${ elmClass }`;
 	}
 
+	const cellToolbar = 'advanced-wp-table-cell-toolbar';
+
 	return (
 		<div className={ 'advanced-wp-table-fixed-header-wrapper' }>
 			<div className={ `${ elmClasses }` } ref={ headerRef }>
 				<HeaderLeft />
 				<HeaderMiddle />
-				<TableToolBar />
-				<CellToolBar />
+				<TableToolbar />
+				<div id={ cellToolbar } className={ cellToolbar } />
 				<HeaderRight />
 			</div>
 		</div>

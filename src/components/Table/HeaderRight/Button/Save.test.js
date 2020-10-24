@@ -2,10 +2,10 @@ import React from 'react';
 import fetchMock from 'jest-fetch-mock';
 import '@testing-library/jest-dom';
 
-import { fakeTable, fireEvent, render, screen } from '../../../utils/test-utils';
-import App from '../../App';
-import initialState from '../../../store/initialState';
-import { TABLE } from '../../../utils/views';
+import { fakeTable, fireEvent, render, screen } from '../../../../utils/test-utils';
+import App from '../../../App';
+import initialState from '../../../../store/initialState';
+import { TABLE } from '../../../../utils/views';
 
 fetchMock.enableMocks();
 
@@ -17,7 +17,7 @@ const tables = [
 	fakeTable2,
 ];
 
-describe( 'Table/HeaderRight/SaveButton', function () {
+describe( 'Table/HeaderRight/Save', function () {
 	beforeEach( () => {
 		fetchMock.resetMocks();
 	} );

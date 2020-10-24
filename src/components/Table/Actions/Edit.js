@@ -12,16 +12,29 @@ const Edit = ( { i, j } ) => {
 	const dispatch = useDispatch();
 	const { table } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
-	const { rows } = tableData;
+	const { rows, type } = tableData;
 
-	const onHandleOpenEditor = () => {
+	const openGutenbergEditor = () => {
 		dismissToasts();
 		let content = rows[ i ][ j ];
-		// @todo Parse content only if gutenberg active.
 		content = parse( content );
 		const activeCell = { i, j, content };
 		dispatch( setView( EDITOR ) );
 		dispatch( setActiveCell( activeCell ) );
+	};
+
+	const openDraftJsEditor = () => {
+		const content = rows[ i ][ j ];
+		const activeCell = { i, j, content };
+		dispatch( setActiveCell( activeCell ) );
+	};
+
+	const onHandleOpenEditor = () => {
+		if ( 'layout' === type ) {
+			openGutenbergEditor();
+		} else {
+			openDraftJsEditor();
+		}
 	};
 
 	return (

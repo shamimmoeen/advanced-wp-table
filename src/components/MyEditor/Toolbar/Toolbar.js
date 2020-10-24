@@ -1,16 +1,16 @@
 import React from 'react';
-import { Toolbar, ToolbarButton } from '@wordpress/components';
+import { Toolbar as ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { alignLeft, formatBold, formatItalic, link } from '@wordpress/icons';
 
-function MyToolbar() {
+function Toolbar() {
 	return (
-		<Toolbar label="Options">
+		<ToolbarGroup label="Options">
 			<ToolbarButton icon={ formatBold } label="Bold" onClick={ () => console.log( 'bold' ) } />
 			<ToolbarButton icon={ formatItalic } label="Italic" />
 			<ToolbarButton icon={ link } label="Link" />
 			<ToolbarButton icon={ alignLeft } label="Align Left" />
-		</Toolbar>
+		</ToolbarGroup>
 	);
 }
 
-export default MyToolbar;
+export default Toolbar;

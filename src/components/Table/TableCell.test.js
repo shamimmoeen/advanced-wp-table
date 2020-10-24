@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import fetchMock from 'jest-fetch-mock';
 
-import { render, screen } from '../../utils/test-utils';
+import { fireEvent, render, screen } from '../../utils/test-utils';
 import initialState from '../../store/initialState';
 import App from '../App';
 import { TABLE } from '../../utils/views';
@@ -112,7 +112,8 @@ describe( 'Table/TableCell', function () {
 				tables: dataTables
 			},
 			table: {
-				table: dataTable
+				table: dataTable,
+				activeCell: {},
 			},
 			ui: {
 				...initialState.ui,
@@ -126,5 +127,53 @@ describe( 'Table/TableCell', function () {
 		expect( screen.getByText( '2' ) ).toBeInTheDocument();
 		expect( screen.getByText( '3' ) ).toBeInTheDocument();
 		expect( screen.getByText( '4' ) ).toBeInTheDocument();
+	} );
+
+	it( 'should open the draft-js editor', async function () {
+		const dataTable = {
+			id: 1,
+			title: { rendered: 'Table 1' },
+			advanced_wp_table_data: {
+				size: {
+					rows: 1,
+					columns: 1,
+				},
+				type: 'data',
+				rows: [
+					[
+						'hello world',
+					],
+				]
+			}
+		};
+
+		const dataTables = [
+			dataTable,
+		];
+
+		fetchMock.mockResponses(
+			[
+				JSON.stringify( dataTables ),
+				{
+					headers: {
+						'X-WP-Total': 1,
+						'X-WP-TotalPages': 1,
+					}
+				}
+			],
+		);
+
+		global.console.warn = jest.fn();
+
+		render( <App />, initialState );
+
+		await screen.findByText( 'Table 1' );
+		fireEvent.click( screen.getByText( 'Table 1' ) );
+
+		fireEvent.click( screen.getByText( 'Edit' ) );
+
+		await screen.queryByText( /hello world/i );
+
+		expect( screen.getByText( /hello world/i ) ).toBeInTheDocument();
 	} );
 } );

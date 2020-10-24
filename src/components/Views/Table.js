@@ -1,9 +1,9 @@
-import React, { useState, useRef, Fragment } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { offsetIndex } from '../../utils/utils';
-import Actions from '../Table/Actions/';
 import Header from '../Table/Header';
 import TableCell from '../Table/TableCell';
-import { useDispatch, useSelector } from 'react-redux';
 
 // tell direction after drag start, the first direction that reach 5px offset
 const DRAG_DIRECTION_NONE = '';
@@ -19,13 +19,15 @@ const defaultDragState = {
 };
 
 const Table = () => {
-	const tableState = useSelector( state => state.table );
 	const dispatch = useDispatch();
+	const { table } = useSelector( state => state.table );
+	const { advanced_wp_table_data: tableData } = table;
 
-	let { rows = [] } = tableState.table.advanced_wp_table_data;
+	let { rows = [] } = tableData;
 
 	const [ dragState, setDragState ] = useState( { ...defaultDragState } );
 	const rowsEl = useRef( null ),
+		rowsRef = useRef( [] ),
 		preview = useRef( null );
 
 	if ( dragState.direction === DRAG_DIRECTION_COLUMN ) {
@@ -59,18 +61,24 @@ const Table = () => {
 		return opacity;
 	};
 
+	// https://stackoverflow.com/a/56063129/2647905
+	useEffect( () => {
+		rowsRef.current = rowsRef.current.slice( 0, rows.length );
+	}, [ rows ] );
+
 	return (
 		<Fragment>
 			<Header />
 			<table className={ 'advanced-wp-table advanced-wp-table-post-item' }>
 				<tbody ref={ rowsEl }>{
 					rows.map( ( x = [], i ) => (
-						<tr key={ i }>
+						<tr key={ i } ref={ el => rowsRef.current[ i ] = el }>
 							{ x.map( ( y, j ) => (
 								<td
+									className={ 'advanced-wp-table-cell' }
 									key={ j }
 									style={ {
-										cursor: dragState.direction ? 'move' : 'grab',
+										cursor: dragState.direction ? 'move' : 'initial',
 										opacity: setOpacity( i, j ),
 									} }
 									draggable="true"
@@ -130,10 +138,7 @@ const Table = () => {
 										setDragState( { ...defaultDragState } );
 									} }
 								>
-									<div className={ 'advanced-wp-table-cell-wrapper' }>
-										<TableCell content={ y } />
-										<Actions i={ i } j={ j } y={ y } />
-									</div>
+									<TableCell i={ i } j={ j } content={ y } rowsRef={ rowsRef } />
 								</td>
 							) ) }
 						</tr>

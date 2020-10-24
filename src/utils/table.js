@@ -123,8 +123,15 @@ export function updateTableWithCellData( table, activeCell ) {
 	const { advanced_wp_table_data: tableData } = table;
 	const tempRows = [ ...tableData.rows ];
 	const { i, j, content } = activeCell;
-	// @todo Serialize content only if gutenberg active.
-	const serializedContent = serialize( content );
+	const { type } = tableData;
+	let serializedContent;
+
+	if ( 'layout' === type ) {
+		// @todo Serialize content only if gutenberg active.
+		serializedContent = serialize( content );
+	} else {
+		serializedContent = content;
+	}
 
 	const newRows = [];
 
