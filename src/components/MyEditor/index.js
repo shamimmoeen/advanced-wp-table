@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Editor from 'draft-js-plugins-editor';
-import { EditorState } from 'draft-js';
+import { EditorState, RichUtils } from 'draft-js';
 import { useDispatch, useSelector } from 'react-redux';
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
@@ -23,6 +23,17 @@ const MyEditor = ( { handleDraftJsEditorBlur, handleDraftJsEditorFocus } ) => {
 
 	const handleChange = ( newEditorState ) => {
 		setEditorState( newEditorState );
+	};
+
+	const handleKeyCommand = command => {
+		const newEditorState = RichUtils.handleKeyCommand( editorState, command );
+
+		if ( newEditorState ) {
+			setEditorState( newEditorState );
+			return 'handled';
+		}
+
+		return 'not-handled';
 	};
 
 	useEffect( () => {
@@ -58,7 +69,7 @@ const MyEditor = ( { handleDraftJsEditorBlur, handleDraftJsEditorFocus } ) => {
 				className={ 'advanced-wp-table-draft-js-toolbar' }
 				ref={ toolbarRef }
 			>
-				<Toolbar />
+				<Toolbar editorState={ editorState } handleChange={ handleChange } />
 			</div>
 			<div className={ 'advanced-wp-table-draft-js-editor' }>
 				<Editor
@@ -66,6 +77,7 @@ const MyEditor = ( { handleDraftJsEditorBlur, handleDraftJsEditorFocus } ) => {
 					onFocus={ handleDraftJsEditorFocus }
 					editorState={ editorState }
 					onChange={ handleChange }
+					handleKeyCommand={ handleKeyCommand }
 					ref={ editorRef }
 				/>
 			</div>

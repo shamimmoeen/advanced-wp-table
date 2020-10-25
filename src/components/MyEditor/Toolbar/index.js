@@ -24,26 +24,27 @@ import {
 } from '@mdi/js';
 import { Tooltip } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { RichUtils } from 'draft-js';
 
-const ToolBar = () => {
+const ToolBar = ( { editorState, handleChange } ) => {
 	const handleBold = ( e ) => {
 		e.preventDefault();
-		console.log( 'handle bold' );
+		handleChange( RichUtils.toggleInlineStyle( editorState, 'BOLD' ) );
 	};
 
 	const handleItalic = ( e ) => {
 		e.preventDefault();
-		console.log( 'handle italic' );
+		handleChange( RichUtils.toggleInlineStyle( editorState, 'ITALIC' ) );
 	};
 
 	const handleUnderline = ( e ) => {
 		e.preventDefault();
-		console.log( 'handle underline' );
+		handleChange( RichUtils.toggleInlineStyle( editorState, 'UNDERLINE' ) );
 	};
 
 	const handleStrikethrough = ( e ) => {
 		e.preventDefault();
-		console.log( 'handle strikethrough' );
+		handleChange( RichUtils.toggleInlineStyle( editorState, 'UNDERLINE' ) );
 	};
 
 	const handleSubscript = ( e ) => {
