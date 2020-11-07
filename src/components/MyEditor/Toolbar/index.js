@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React from 'react';
+import React, { forwardRef } from 'react';
 import Icon from '@mdi/react';
 import {
 	mdiCodeTags,
@@ -26,7 +26,7 @@ import { Tooltip } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { RichUtils } from 'draft-js';
 
-const ToolBar = ( { editorState, handleChange } ) => {
+const ToolBar = ( { editorState, handleChange }, ref ) => {
 	const handleBold = ( e ) => {
 		e.preventDefault();
 		handleChange( RichUtils.toggleInlineStyle( editorState, 'BOLD' ) );
@@ -201,7 +201,7 @@ const ToolBar = ( { editorState, handleChange } ) => {
 	];
 
 	return (
-		<div className={ 'advanced-wp-table-cell-toolbar-bound' }>
+		<div className={ 'advanced-wp-table-cell-toolbar-bound' } ref={ ref }>
 			<div className={ 'advanced-wp-table-button-group advanced-wp-table-format-button-group' }>
 				{ buttons.map( button => (
 					<Tooltip
@@ -222,4 +222,4 @@ const ToolBar = ( { editorState, handleChange } ) => {
 	);
 };
 
-export default ToolBar;
+export default forwardRef( ToolBar );

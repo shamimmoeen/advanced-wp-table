@@ -4,6 +4,7 @@ import { parseTableSize } from '../../utils/table';
 export const table = {
 	table: {},
 	activeCell: {},
+	visibleEditorToolbar: false,
 };
 
 const slice = createSlice( {
@@ -22,9 +23,15 @@ const slice = createSlice( {
 		unsetActiveCell: ( state ) => {
 			state.activeCell = {};
 		},
+		showEditorToolbar: ( state ) => {
+			state.visibleEditorToolbar = true;
+		},
+		hideEditorToolbar: ( state ) => {
+			state.visibleEditorToolbar = false;
+		},
 	},
 } );
 
-export const { setTable, unsetTable, setActiveCell, unsetActiveCell } = slice.actions;
+export const { setTable, unsetTable, setActiveCell, unsetActiveCell, showEditorToolbar, hideEditorToolbar } = slice.actions;
 
 export default slice.reducer;

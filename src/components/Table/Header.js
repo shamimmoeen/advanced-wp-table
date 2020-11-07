@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
 
 import HeaderRight from './HeaderRight';
 import HeaderLeft from './HeaderLeft';
 import HeaderMiddle from './HeaderMiddle';
-import TableToolbar from './Toolbar';
 
-const Header = () => {
+const Header = ( { staticToolbar }, ref ) => {
 	const [ elmClass, setElmClass ] = useState( '' );
 	const headerRef = useRef( null );
 
@@ -51,19 +50,15 @@ const Header = () => {
 		elmClasses = `advanced-wp-table-fixed-header ${ elmClass }`;
 	}
 
-	const cellToolbar = 'advanced-wp-table-cell-toolbar';
-
 	return (
 		<div className={ 'advanced-wp-table-fixed-header-wrapper' }>
 			<div className={ `${ elmClasses }` } ref={ headerRef }>
 				<HeaderLeft />
-				<HeaderMiddle />
-				<TableToolbar />
-				<div id={ cellToolbar } className={ cellToolbar } />
+				<HeaderMiddle staticToolbar={ staticToolbar } ref={ ref } />
 				<HeaderRight />
 			</div>
 		</div>
 	);
 };
 
-export default Header;
+export default forwardRef( Header );

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-import { setTable } from '../../../store/reducers/table';
+import { setTable } from '../../../../store/reducers/table';
 
 const Title = () => {
 	const dispatch = useDispatch();
@@ -16,11 +16,13 @@ const Title = () => {
 
 	useEffect( () => {
 		if ( isEditing ) {
+			// noinspection JSUnresolvedFunction
 			inputRef.current.focus();
 		}
 	}, [ isEditing ] );
 
 	const closeEditTitle = ( e ) => {
+		// noinspection JSUnresolvedFunction
 		if ( ! editTitleRef.current.contains( e.target ) ) {
 			unregisterEvents();
 		}
@@ -58,7 +60,7 @@ const Title = () => {
 	};
 
 	return (
-		<div className={ 'advanced-wp-table-edit-title-wrapper advanced-wp-table-header-with-separator' } ref={ editTitleRef }>
+		<div className={ 'advanced-wp-table-edit-title-wrapper' } ref={ editTitleRef }>
 			{ isEditing ? (
 				<input
 					type="text"
