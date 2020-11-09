@@ -4,7 +4,7 @@ import HeaderRight from './HeaderRight';
 import HeaderLeft from './HeaderLeft';
 import HeaderMiddle from './HeaderMiddle';
 
-const Header = ( { staticToolbar }, ref ) => {
+const Header = ( props, ref ) => {
 	const [ elmClass, setElmClass ] = useState( '' );
 	const headerRef = useRef( null );
 
@@ -54,7 +54,7 @@ const Header = ( { staticToolbar }, ref ) => {
 		<div className={ 'advanced-wp-table-fixed-header-wrapper' }>
 			<div className={ `${ elmClasses }` } ref={ headerRef }>
 				<HeaderLeft />
-				<HeaderMiddle staticToolbar={ staticToolbar } ref={ ref } />
+				<HeaderMiddle ref={ ref } />
 				<HeaderRight />
 			</div>
 		</div>

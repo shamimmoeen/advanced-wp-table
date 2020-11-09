@@ -1,62 +1,27 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
-import Editor from 'draft-js-plugins-editor';
-import { convertFromHTML, EditorState, RichUtils, ContentState } from 'draft-js';
 import { useDispatch, useSelector } from 'react-redux';
-import { stateFromHTML } from 'draft-js-import-html';
-import { stateToHTML } from 'draft-js-export-html';
-import { stateFromElement } from 'draft-js-import-element';
+import ReactQuill from 'react-quill';
 import _ from 'lodash';
 
-import { updateTableWithCellData } from '../../utils/table';
-import {
-	hideEditorToolbar,
-	setActiveCell,
-	setTable,
-	showEditorToolbar,
-	unsetActiveCell
-} from '../../store/reducers/table';
+import { modules, formats } from './EditorToolbar';
+import 'react-quill/dist/quill.snow.css';
+import { hideEditorToolbar, showEditorToolbar, unsetActiveCell } from '../../store/reducers/table';
 
-const options = {
-	inlineStyles: {
-		// Override default element (`strong`).
-		BOLD: { element: 'b' },
-		ITALIC: {
-			// Add custom attributes. You can also use React-style `className`.
-			attributes: { class: 'foo' },
-			// Use camel-case. Units (`px`) will be added where necessary.
-			style: { fontSize: 12 }
-		},
-		// Use a custom inline style. Default element is `span`.
-		RED: { style: { color: '#900' } },
-		SUBSCRIPT: { element: 'sub' },
-		SUPERSCRIPT: { element: 'sup' },
-		STRIKETHROUGH: { element: 'del' },
-	},
-};
-
-const MyEditor = ( { currentRow, rowsRef, staticToolbar }, ref ) => {
+const MyEditor = ( { currentRow, rowsRef }, ref ) => {
 	const dispatch = useDispatch();
-	const { table } = useSelector( state => state.table );
-	const plugins = [ staticToolbar ];
-
 	const { activeCell, visibleEditorToolbar } = useSelector( state => state.table );
 	const { content } = activeCell;
 
-	const contentState = stateFromHTML( content, {
-		elementStyles: {
-			// Support `<sup>` (superscript) inline element:
-			'sub': 'SUBSCRIPT',
-			'sup': 'SUPERSCRIPT',
-			'del': 'STRIKETHROUGH',
-		},
-	} );
-
-	const [ editorState, setEditorState ] = useState( EditorState.createWithContent( contentState ) );
+	const [ editorContent, setEditorContent ] = useState( content );
 	const editorWrapperRef = useRef( null );
 	const editorRef = useRef( null );
 
 	const [ cellHeight, setCellHeight ] = useState( 0 );
 	const [ classNames, setClassNames ] = useState( [ 'advanced-wp-table-draft-js-editor' ] );
+
+	const handleChange = ( newContent ) => {
+		setEditorContent( newContent );
+	};
 
 	const handleDraftJsEditorFocus = () => {
 		if ( ! _.includes( classNames, 'focused' ) ) {
@@ -68,31 +33,6 @@ const MyEditor = ( { currentRow, rowsRef, staticToolbar }, ref ) => {
 		}
 	};
 
-	const handleChange = ( newEditorState ) => {
-		setEditorState( newEditorState );
-	};
-
-	const handleKeyCommand = command => {
-		const newEditorState = RichUtils.handleKeyCommand( editorState, command );
-
-		if ( newEditorState ) {
-			setEditorState( newEditorState );
-			return 'handled';
-		}
-
-		return 'not-handled';
-	};
-
-	useEffect( () => {
-		const newContentState = editorState.getCurrentContent();
-		const newContent = stateToHTML( newContentState, options );
-		const updatedCell = { ...activeCell, content: newContent };
-		const updatedTable = updateTableWithCellData( table, updatedCell );
-
-		dispatch( setActiveCell( updatedCell ) );
-		dispatch( setTable( updatedTable ) );
-	}, [ editorState ] );
-
 	useEffect( () => {
 		if ( editorRef ) {
 			// noinspection JSUnresolvedVariable
@@ -101,8 +41,7 @@ const MyEditor = ( { currentRow, rowsRef, staticToolbar }, ref ) => {
 
 		dispatch( showEditorToolbar() );
 
-		// https://stackoverflow.com/a/54946868/2647905
-		setEditorState( EditorState.moveFocusToEnd( editorState ) );
+		// TODO: move cursor to the end.
 	}, [] );
 
 	const blurEditor = () => {
@@ -137,18 +76,12 @@ const MyEditor = ( { currentRow, rowsRef, staticToolbar }, ref ) => {
 
 	return (
 		<div className={ wrapperClasses } style={ wrapperStyle } ref={ editorWrapperRef }>
-			<Editor
-				customStyleMap={ {
-					SUBSCRIPT: { fontSize: 'smaller', verticalAlign: 'sub' },
-					SUPERSCRIPT: { fontSize: 'smaller', verticalAlign: 'super' },
-					STRIKETHROUGH: { textDecoration: 'line-through' },
-				} }
-				onFocus={ handleDraftJsEditorFocus }
-				editorState={ editorState }
+			<ReactQuill
+				value={ editorContent }
 				onChange={ handleChange }
-				handleKeyCommand={ handleKeyCommand }
-				plugins={ plugins }
 				ref={ editorRef }
+				modules={ modules }
+				formats={ formats }
 			/>
 		</div>
 	);

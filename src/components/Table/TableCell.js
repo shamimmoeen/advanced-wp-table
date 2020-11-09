@@ -8,7 +8,7 @@ import { createMarkup } from '../../utils/utils';
 import MyEditor from '../../components/MyEditor/index';
 import Actions from './Actions';
 
-const TableCell = ( { i: currentRow, j: currentColumn, content, rowsRef, staticToolbar }, ref ) => {
+const TableCell = ( { i: currentRow, j: currentColumn, content, rowsRef }, ref ) => {
 	const { table, activeCell } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
 	const { type } = tableData;
@@ -34,7 +34,6 @@ const TableCell = ( { i: currentRow, j: currentColumn, content, rowsRef, staticT
 				cellContent = <MyEditor
 					currentRow={ currentRow }
 					rowsRef={ rowsRef }
-					staticToolbar={ staticToolbar }
 					ref={ ref }
 				/>;
 			} else {

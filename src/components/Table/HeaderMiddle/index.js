@@ -2,24 +2,22 @@ import React, { forwardRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import Title from './Title/Title';
-import EditorToolbar from './EditorToolbar';
-// import Toolbar from '../../MyEditor/Toolbar';
+import MyEditorToolbar from '../../MyEditor/EditorToolbar';
 
-const HeaderMiddle = ( { staticToolbar }, ref ) => {
+const HeaderMiddle = ( props, ref ) => {
 	const { visibleEditorToolbar } = useSelector( state => state.table );
 
 	let content;
 
 	if ( visibleEditorToolbar ) {
-		content = <EditorToolbar staticToolbar={ staticToolbar } ref={ ref } />;
-		// content = <Toolbar staticToolbar={ staticToolbar } ref={ ref } />
+		content = <MyEditorToolbar ref={ ref } />;
 	} else {
 		content = <Title />;
 	}
 
 	return (
 		<div className={ 'advanced-wp-table-header-middle' }>
-			{ content }
+			<MyEditorToolbar ref={ ref } />
 		</div>
 	);
 };

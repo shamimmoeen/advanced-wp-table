@@ -1,12 +1,9 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import createToolbarPlugin from 'draft-js-static-toolbar-plugin';
 
 import { offsetIndex } from '../../utils/utils';
 import Header from '../Table/Header';
 import TableCell from '../Table/TableCell';
-
-const staticToolbarPlugin = createToolbarPlugin();
 
 // tell direction after drag start, the first direction that reach 5px offset
 const DRAG_DIRECTION_NONE = '';
@@ -72,7 +69,7 @@ const Table = () => {
 
 	return (
 		<Fragment>
-			<Header staticToolbar={ staticToolbarPlugin } ref={ toolbarRef } />
+			<Header ref={ toolbarRef } />
 			<table className={ 'advanced-wp-table advanced-wp-table-post-item' }>
 				<tbody ref={ rowsEl }>{
 					rows.map( ( x = [], i ) => (
@@ -147,7 +144,6 @@ const Table = () => {
 										j={ j }
 										content={ y }
 										rowsRef={ rowsRef }
-										staticToolbar={ staticToolbarPlugin }
 										ref={ toolbarRef }
 									/>
 								</td>
