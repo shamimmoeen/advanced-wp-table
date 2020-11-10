@@ -15,7 +15,7 @@ const TableCell = ( { i: currentRow, j: currentColumn, content, rowsRef }, ref )
 
 	let cellContent;
 
-	const getDraftJsContent = () => {
+	const getQuillContent = () => {
 		return (
 			<div
 				className={ 'advanced-wp-table-cell-content' }
@@ -26,7 +26,7 @@ const TableCell = ( { i: currentRow, j: currentColumn, content, rowsRef }, ref )
 
 	if ( 'data' === type ) {
 		if ( _.isEmpty( activeCell ) ) {
-			cellContent = getDraftJsContent();
+			cellContent = getQuillContent();
 		} else {
 			const { i, j } = activeCell;
 
@@ -37,7 +37,7 @@ const TableCell = ( { i: currentRow, j: currentColumn, content, rowsRef }, ref )
 					ref={ ref }
 				/>;
 			} else {
-				cellContent = getDraftJsContent();
+				cellContent = getQuillContent();
 			}
 		}
 	} else {

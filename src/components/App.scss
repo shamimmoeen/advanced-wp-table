@@ -94,6 +94,16 @@ $fixed_header_height: 50px;
 			}
 		}
 	}
+
+	&.editor-toolbar-active {
+		.advanced-wp-table-header-left {
+			flex: 1;
+		}
+
+		.advanced-wp-table-header-right {
+			flex: 0;
+		}
+	}
 }
 
 .advanced-wp-table-fixed-header {
@@ -580,21 +590,14 @@ $fixed_header_height: 50px;
 	}
 
 	.advanced-wp-table-cell-wrapper {
-		$min_height: 34px;
+		$min_height: 62px;
 
 		display: flex;
 		justify-content: space-between;
 		min-height: $min_height;
 		padding: 8px;
 
-		.advanced-wp-table-cell-content {
-			> p {
-				line-height: unset;
-				margin: 0;
-			}
-		}
-
-		.advanced-wp-table-draft-js-editor {
+		.advanced-wp-table-quill-editor {
 			display: flex;
 			flex: 1;
 			margin: -8px;
@@ -607,26 +610,23 @@ $fixed_header_height: 50px;
 				box-shadow: 0 0 0 1.5px var(--wp-admin-theme-color), inset 0 0 0 1px #fff;
 			}
 
-			.DraftEditor-root {
-				display: flex;
-				flex: 1;
-				position: relative;
-
-				.DraftEditor-editorContainer {
-					display: flex;
-					flex: 1;
-					position: relative;
-					z-index: 1;
-
-					.public-DraftEditor-content {
-						width: 100%;
-					}
-				}
-			}
-
 			.advanced-wp-table-editor-toolbar {
 				> div {
 					z-index: 9;
+				}
+			}
+
+			.quill {
+				display: flex;
+				flex: 1;
+
+				.ql-container {
+					display: flex;
+					flex: 1;
+
+					.ql-editor {
+						width: 100%;
+					}
 				}
 			}
 		}

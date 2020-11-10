@@ -1,4 +1,5 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import HeaderRight from './HeaderRight';
 import HeaderLeft from './HeaderLeft';
@@ -7,6 +8,21 @@ import HeaderMiddle from './HeaderMiddle';
 const Header = ( props, ref ) => {
 	const [ elmClass, setElmClass ] = useState( '' );
 	const headerRef = useRef( null );
+
+	const { visibleEditorToolbar } = useSelector( state => state.table );
+	const [ classNames, setClassNames ] = useState( [ 'advanced-wp-table-fixed-header-wrapper' ] );
+
+	useEffect( () => {
+		let newClassNames;
+
+		if ( visibleEditorToolbar ) {
+			newClassNames = [ ...classNames, 'editor-toolbar-active' ];
+		} else {
+			newClassNames = classNames.filter( item => item !== 'editor-toolbar-active' );
+		}
+
+		setClassNames( newClassNames );
+	}, [ visibleEditorToolbar ] );
 
 	let lastScroll = 0;
 
@@ -43,6 +59,8 @@ const Header = ( props, ref ) => {
 		};
 	}, [] );
 
+	const wrapperClasses = classNames.join( ' ' );
+
 	let elmClasses = 'advanced-wp-table-fixed-header';
 
 	/* istanbul ignore next */
@@ -51,10 +69,10 @@ const Header = ( props, ref ) => {
 	}
 
 	return (
-		<div className={ 'advanced-wp-table-fixed-header-wrapper' }>
-			<div className={ `${ elmClasses }` } ref={ headerRef }>
-				<HeaderLeft />
-				<HeaderMiddle ref={ ref } />
+		<div className={ wrapperClasses }>
+			<div className={ elmClasses } ref={ headerRef }>
+				<HeaderLeft ref={ ref } />
+				<HeaderMiddle />
 				<HeaderRight />
 			</div>
 		</div>

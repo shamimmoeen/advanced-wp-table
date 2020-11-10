@@ -6,7 +6,7 @@ import { parse } from '@wordpress/blocks';
 import { dismissToasts } from '../../../utils/utils';
 import { EDITOR } from '../../../utils/views';
 import { setView } from '../../../store/reducers/ui';
-import { setActiveCell } from '../../../store/reducers/table';
+import { setActiveCell, showEditorToolbar } from '../../../store/reducers/table';
 
 const Edit = ( { i, j } ) => {
 	const dispatch = useDispatch();
@@ -23,17 +23,18 @@ const Edit = ( { i, j } ) => {
 		dispatch( setActiveCell( activeCell ) );
 	};
 
-	const openDraftJsEditor = () => {
+	const openQuillEditor = () => {
 		const content = rows[ i ][ j ];
 		const activeCell = { i, j, content };
 		dispatch( setActiveCell( activeCell ) );
+		dispatch( showEditorToolbar() );
 	};
 
 	const onHandleOpenEditor = () => {
 		if ( 'layout' === type ) {
 			openGutenbergEditor();
 		} else {
-			openDraftJsEditor();
+			openQuillEditor();
 		}
 	};
 

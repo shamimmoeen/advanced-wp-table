@@ -1,0 +1,49 @@
+.ql-clipboard {
+	display: none;
+}
+
+#toolbar {
+	&.ql-toolbar {
+		align-items: center;
+		display: flex;
+		font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+		padding-left: 14px;
+
+		.ql-formats {
+			display: flex;
+
+			button {
+				border: 1px solid #ddd;
+				margin: 0 6px 0 0;
+			}
+
+			.ql-item {
+				display: flex;
+
+				.ql-picker {
+					margin: 0 6px 0 0;
+					position: relative;
+
+					.ql-picker-label {
+						border: 1px solid #dddddd;
+
+						&:focus {
+							outline: none;
+						}
+					}
+
+					.ql-picker-options {
+						border: 1px solid #cccccc;
+						box-shadow: rgba(0, 0, 0, 0.2) 0 2px 8px;
+
+						.ql-picker-item {
+							&:focus {
+								outline: none;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

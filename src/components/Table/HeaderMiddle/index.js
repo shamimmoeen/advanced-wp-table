@@ -1,25 +1,22 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import Title from './Title/Title';
-import MyEditorToolbar from '../../MyEditor/EditorToolbar';
 
-const HeaderMiddle = ( props, ref ) => {
+const HeaderMiddle = () => {
 	const { visibleEditorToolbar } = useSelector( state => state.table );
 
-	let content;
+	let content = '';
 
-	if ( visibleEditorToolbar ) {
-		content = <MyEditorToolbar ref={ ref } />;
-	} else {
-		content = <Title />;
+	if ( ! visibleEditorToolbar ) {
+		content = (
+			<div className={ 'advanced-wp-table-header-middle' }>
+				<Title />
+			</div>
+		)
 	}
 
-	return (
-		<div className={ 'advanced-wp-table-header-middle' }>
-			<MyEditorToolbar ref={ ref } />
-		</div>
-	);
+	return content;
 };
 
-export default forwardRef( HeaderMiddle );
+export default HeaderMiddle;

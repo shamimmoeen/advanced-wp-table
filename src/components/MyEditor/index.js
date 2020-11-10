@@ -4,12 +4,14 @@ import ReactQuill from 'react-quill';
 import _ from 'lodash';
 
 import { modules, formats } from './EditorToolbar';
-import 'react-quill/dist/quill.snow.css';
-import { hideEditorToolbar, showEditorToolbar, unsetActiveCell } from '../../store/reducers/table';
+import './style.scss';
+import './toolbar.scss';
+import { hideEditorToolbar, setActiveCell, setTable, unsetActiveCell } from '../../store/reducers/table';
+import { updateTableWithCellData } from '../../utils/table';
 
 const MyEditor = ( { currentRow, rowsRef }, ref ) => {
 	const dispatch = useDispatch();
-	const { activeCell, visibleEditorToolbar } = useSelector( state => state.table );
+	const { table, activeCell, visibleEditorToolbar } = useSelector( state => state.table );
 	const { content } = activeCell;
 
 	const [ editorContent, setEditorContent ] = useState( content );
@@ -17,7 +19,7 @@ const MyEditor = ( { currentRow, rowsRef }, ref ) => {
 	const editorRef = useRef( null );
 
 	const [ cellHeight, setCellHeight ] = useState( 0 );
-	const [ classNames, setClassNames ] = useState( [ 'advanced-wp-table-draft-js-editor' ] );
+	const [ classNames, setClassNames ] = useState( [ 'advanced-wp-table-quill-editor' ] );
 
 	const handleChange = ( newContent ) => {
 		setEditorContent( newContent );
@@ -39,10 +41,16 @@ const MyEditor = ( { currentRow, rowsRef }, ref ) => {
 			editorRef.current.editor.focus();
 		}
 
-		dispatch( showEditorToolbar() );
-
 		// TODO: move cursor to the end.
 	}, [] );
+
+	useEffect( () => {
+		const updatedCell = { ...activeCell, content: editorContent };
+		const updatedTable = updateTableWithCellData( table, updatedCell );
+
+		dispatch( setActiveCell( updatedCell ) );
+		dispatch( setTable( updatedTable ) );
+	}, [ editorContent ] );
 
 	const blurEditor = () => {
 		document.getElementById( 'wpwrap' )
@@ -79,6 +87,7 @@ const MyEditor = ( { currentRow, rowsRef }, ref ) => {
 			<ReactQuill
 				value={ editorContent }
 				onChange={ handleChange }
+				onFocus={ handleDraftJsEditorFocus }
 				ref={ editorRef }
 				modules={ modules }
 				formats={ formats }
