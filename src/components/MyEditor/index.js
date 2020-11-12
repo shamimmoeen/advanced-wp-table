@@ -45,13 +45,13 @@ const MyEditor = ( { currentRow, rowsRef }, ref ) => {
 		// TODO: move cursor to the end.
 	}, [] );
 
-	// useEffect( () => {
-	// 	const updatedCell = { ...activeCell, content: editorContent };
-	// 	const updatedTable = updateTableWithCellData( table, updatedCell );
-	//
-	// 	dispatch( setActiveCell( updatedCell ) );
-	// 	dispatch( setTable( updatedTable ) );
-	// }, [ editorContent ] );
+	useEffect( () => {
+		const updatedCell = { ...activeCell, content: editorContent };
+		const updatedTable = updateTableWithCellData( table, updatedCell );
+
+		dispatch( setActiveCell( updatedCell ) );
+		dispatch( setTable( updatedTable ) );
+	}, [ editorContent ] );
 
 	const blurEditor = () => {
 		document.getElementById( 'wpwrap' )
