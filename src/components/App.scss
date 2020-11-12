@@ -590,12 +590,21 @@ $fixed_header_height: 50px;
 	}
 
 	.advanced-wp-table-cell-wrapper {
-		$min_height: 62px;
+		$min_height: 34px;
 
 		display: flex;
 		justify-content: space-between;
 		min-height: $min_height;
 		padding: 8px;
+
+		.advanced-wp-table-cell-content {
+			display: flex;
+			flex: 1;
+
+			.ql-editor {
+				width: 100%;
+			}
+		}
 
 		.advanced-wp-table-quill-editor {
 			display: flex;

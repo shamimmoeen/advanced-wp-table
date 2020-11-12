@@ -17,10 +17,12 @@ const TableCell = ( { i: currentRow, j: currentColumn, content, rowsRef }, ref )
 
 	const getQuillContent = () => {
 		return (
-			<div
-				className={ 'advanced-wp-table-cell-content' }
-				dangerouslySetInnerHTML={ createMarkup( content ) }
-			/>
+			<div className={ 'advanced-wp-table-cell-content ql-snow' }>
+				<div
+					className={ 'ql-editor' }
+					dangerouslySetInnerHTML={ createMarkup( content ) }
+				/>
+			</div>
 		);
 	};
 

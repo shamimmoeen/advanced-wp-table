@@ -4,10 +4,11 @@ import ReactQuill from 'react-quill';
 import _ from 'lodash';
 
 import { modules, formats } from './EditorToolbar';
-import './style.scss';
-import './toolbar.scss';
 import { hideEditorToolbar, setActiveCell, setTable, unsetActiveCell } from '../../store/reducers/table';
 import { updateTableWithCellData } from '../../utils/table';
+import './style.scss';
+import './quill.css';
+import './snow.css';
 
 const MyEditor = ( { currentRow, rowsRef }, ref ) => {
 	const dispatch = useDispatch();
@@ -44,13 +45,13 @@ const MyEditor = ( { currentRow, rowsRef }, ref ) => {
 		// TODO: move cursor to the end.
 	}, [] );
 
-	useEffect( () => {
-		const updatedCell = { ...activeCell, content: editorContent };
-		const updatedTable = updateTableWithCellData( table, updatedCell );
-
-		dispatch( setActiveCell( updatedCell ) );
-		dispatch( setTable( updatedTable ) );
-	}, [ editorContent ] );
+	// useEffect( () => {
+	// 	const updatedCell = { ...activeCell, content: editorContent };
+	// 	const updatedTable = updateTableWithCellData( table, updatedCell );
+	//
+	// 	dispatch( setActiveCell( updatedCell ) );
+	// 	dispatch( setTable( updatedTable ) );
+	// }, [ editorContent ] );
 
 	const blurEditor = () => {
 		document.getElementById( 'wpwrap' )
