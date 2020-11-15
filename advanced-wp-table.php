@@ -13,6 +13,50 @@
  * @package         Advanced_WP_Table
  */
 
+/**
+ * The minimum wordpress version required to run this plugin.
+ */
+define( 'AWT_REQUIRED_WP_VERSION', '5.5' );
+
+/**
+ * The current version of advanced wp table plugin.
+ */
+define( 'ADVANCED_WP_TABLE_VERSION', '1.3.0' );
+
+/**
+ * Function to check whether we run the plugin or not.
+ *
+ * @return bool
+ */
+function awt_should_we_run() {
+	if ( version_compare( get_bloginfo( 'version' ), AWT_REQUIRED_WP_VERSION, '<' ) ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * The admin notice template.
+ */
+function awt_show_notices() {
+	$class   = 'notice notice-info';
+	$message = sprintf(
+		__(
+			'Advanced WP Table plugin requires WordPress version %s or greater.',
+			'advanced-wp-table'
+		),
+		AWT_REQUIRED_WP_VERSION
+	);
+
+	printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+}
+
+if ( ! awt_should_we_run() ) {
+	add_action( 'admin_notices', 'awt_show_notices' );
+	return;
+}
+
 if ( ! function_exists( 'awt_fs' ) ) {
 	/**
 	 * Create a helper function for easy SDK access.
@@ -63,11 +107,6 @@ if ( ! function_exists( 'awt_fs' ) ) {
 	// Signal that SDK was initiated.
 	do_action( 'awt_fs_loaded' );
 }
-
-/**
- * The current version of advanced wp table plugin.
- */
-define( 'ADVANCED_WP_TABLE_VERSION', '1.3.0' );
 
 /**
  * The code that runs during plugin activation.
