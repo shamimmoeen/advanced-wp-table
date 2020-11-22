@@ -126,11 +126,11 @@ export function updateTableWithCellData( table, activeCell ) {
 	const { type } = tableData;
 	let serializedContent;
 
-	if ( 'layout' === type ) {
-		// @todo Serialize content only if gutenberg active.
-		serializedContent = serialize( content );
-	} else {
+	// @todo Serialize content only if gutenberg active.
+	if ( 'data' === type ) {
 		serializedContent = content;
+	} else {
+		serializedContent = serialize( content );
 	}
 
 	const newRows = [];

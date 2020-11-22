@@ -23,7 +23,7 @@ const CopyShortcode = () => {
 			position={ 'bottom center' }
 		>
 			<Button
-				className={ 'has-icon' }
+				className={ 'has-icon copy-shortcode' }
 				onClick={ handleShortcodeCopy }
 			>
 				<Icon path={ mdiClipboardOutline } size={ '20px' } />

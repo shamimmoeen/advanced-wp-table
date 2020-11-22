@@ -42,8 +42,8 @@ document.execCommand = jest.fn();
 describe( 'Table/HeaderRight/CopyShortCodeButton', function () {
 	it( 'should copy the shortcode', function () {
 		const { container } = render( <App />, updatedState );
-		expect( container.querySelector( '.dashicons-clipboard' ) ).toBeInTheDocument();
-		fireEvent.click( container.querySelector( '.dashicons-clipboard' ) );
+		expect( container.querySelector( '.copy-shortcode' ) ).toBeInTheDocument();
+		fireEvent.click( container.querySelector( '.copy-shortcode' ) );
 		expect( document.execCommand ).toHaveBeenCalledWith( 'copy' );
 		screen.findByText( 'Shortcode copied' );
 	} );

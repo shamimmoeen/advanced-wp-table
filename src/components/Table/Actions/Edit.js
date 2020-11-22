@@ -19,8 +19,8 @@ const Edit = ( { i, j } ) => {
 		let content = rows[ i ][ j ];
 		content = parse( content );
 		const activeCell = { i, j, content };
-		dispatch( setView( EDITOR ) );
 		dispatch( setActiveCell( activeCell ) );
+		dispatch( setView( EDITOR ) );
 	};
 
 	const openQuillEditor = () => {
@@ -31,10 +31,10 @@ const Edit = ( { i, j } ) => {
 	};
 
 	const onHandleOpenEditor = () => {
-		if ( 'layout' === type ) {
-			openGutenbergEditor();
-		} else {
+		if ( 'data' === type ) {
 			openQuillEditor();
+		} else {
+			openGutenbergEditor();
 		}
 	};
 
