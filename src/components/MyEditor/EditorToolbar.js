@@ -29,7 +29,7 @@ export const formats = [
 ];
 
 // Quill Toolbar component
-export const MyEditorToolbar = ( props, ref ) => {
+export const EditorToolbar = ( props, ref ) => {
 	return (
 		<div id="toolbar" ref={ ref }>
 			<span className="ql-formats">
@@ -82,4 +82,4 @@ export const MyEditorToolbar = ( props, ref ) => {
 	);
 };
 
-export default forwardRef( MyEditorToolbar );
+export default forwardRef( EditorToolbar );

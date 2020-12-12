@@ -6,7 +6,7 @@ import GoToPrevTable from './GoToPrevTable';
 import GoToNextTable from './GoToNextTable';
 import AddRow from './AddRow';
 import AddColumn from './AddColumn';
-import MyEditorToolbar from '../../MyEditor/EditorToolbar';
+import EditorToolbar from '../../MyEditor/EditorToolbar';
 
 const HeaderLeft = ( props, ref ) => {
 	const { visibleEditorToolbar } = useSelector( state => state.table );
@@ -14,7 +14,7 @@ const HeaderLeft = ( props, ref ) => {
 	let editorToolbar = '';
 
 	if ( visibleEditorToolbar ) {
-		editorToolbar = <MyEditorToolbar ref={ ref } />;
+		editorToolbar = <EditorToolbar ref={ ref } />;
 	}
 
 	return (
