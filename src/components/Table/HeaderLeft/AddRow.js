@@ -31,11 +31,11 @@ const AddRow = () => {
 
 	return (
 		<Tooltip
-			text={ __( 'Click to add row at the end', 'advanced-wp-table' ) }
+			text={ __( 'Add row', 'advanced-wp-table' ) }
 			position={ 'bottom center' }
 		>
 			<div
-				aria-label={ 'Add Row' }
+				aria-label={ 'Add row' }
 				role={ 'presentation' }
 				onClick={ onHandleAddRow }
 			>

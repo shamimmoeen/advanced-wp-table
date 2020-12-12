@@ -84,7 +84,7 @@ const Title = () => {
 						data-testid={ 'toggle-edit-mode' }
 					>
 						<Tooltip
-							text={ __( 'Click to edit the title', 'advanced-wp-table' ) }
+							text={ __( 'Edit the title', 'advanced-wp-table' ) }
 							position={ 'bottom center' }
 						>
 							<div><span className={ 'dashicons dashicons-edit' } /></div>

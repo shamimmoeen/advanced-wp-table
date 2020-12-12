@@ -19,7 +19,7 @@ const CopyShortcode = () => {
 
 	return (
 		<Tooltip
-			text={ __( 'Click to copy the shortcode', 'advanced-wp-table' ) }
+			text={ __( 'Copy the shortcode', 'advanced-wp-table' ) }
 			position={ 'bottom center' }
 		>
 			<Button

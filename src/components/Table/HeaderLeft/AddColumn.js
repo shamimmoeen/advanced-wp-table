@@ -36,12 +36,12 @@ const AddColumn = () => {
 
 	return (
 		<Tooltip
-			text={ __( 'Click to add column at the end', 'advanced-wp-table' ) }
+			text={ __( 'Add column', 'advanced-wp-table' ) }
 			position={ 'bottom center' }
 		>
 			<div
 				className={ classNames( { 'advanced-wp-table-button-disabled': ! disabled } ) }
-				aria-label={ 'Add Column' }
+				aria-label={ 'Add column' }
 				role={ 'presentation' }
 				onClick={ onHandleAddColumn }
 			>
