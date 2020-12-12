@@ -188,7 +188,18 @@ $fixed_header_height: 50px;
 			position: absolute;
 			right: 1px;
 			top: 0;
+			transition: opacity .4s ease-out;
 			width: 1px;
+		}
+	}
+
+	.advanced-wp-table-header-with-separator {
+		&:not(.editor-toolbar-active) {
+			&:last-child {
+				&:after {
+					opacity: 0;
+				}
+			}
 		}
 	}
 
