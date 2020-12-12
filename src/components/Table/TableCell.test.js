@@ -54,6 +54,37 @@ const updatedState = {
 describe( 'Table/TableCell', function () {
 	beforeEach( () => {
 		fetchMock.resetMocks();
+
+		// https://github.com/jsdom/jsdom/issues/3002
+		document.createRange = () => {
+			const range = new Range();
+
+			range.getBoundingClientRect = () => {
+				return {
+					x: 0,
+					y: 0,
+					bottom: 0,
+					height: 0,
+					left: 0,
+					right: 0,
+					top: 0,
+					width: 0,
+					toJSON: () => {
+					}
+				};
+			};
+
+			range.getClientRects = () => {
+				return {
+					item: ( index ) => null,
+					length: 0,
+					* [ Symbol.iterator ]() {
+					}
+				};
+			};
+
+			return range;
+		};
 	} );
 
 	it( 'should render the gutenberg blocks', async function () {
@@ -165,14 +196,19 @@ describe( 'Table/TableCell', function () {
 
 		global.console.warn = jest.fn();
 
-		render( <App />, initialState );
+		const wrapper = document.createElement( 'div' );
+		wrapper.setAttribute( 'id', 'wpwrap' );
+
+		render( <App />, initialState, {
+			container: document.body.appendChild( wrapper ),
+		} );
 
 		await screen.findByText( 'Table 1' );
 		fireEvent.click( screen.getByText( 'Table 1' ) );
 
 		fireEvent.click( screen.getByText( 'Edit' ) );
 
-		await screen.queryByText( /hello world/i );
+		expect( screen.getByTestId( 'quill-editor' ) ).toBeInTheDocument();
 
 		expect( screen.getByText( /hello world/i ) ).toBeInTheDocument();
 	} );

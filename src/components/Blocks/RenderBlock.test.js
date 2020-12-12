@@ -105,7 +105,7 @@ describe( 'Blocks/RenderBlock', function () {
 		expect( ServerSideRender ).toHaveBeenCalled();
 	} );
 
-	it( 'should render the youtube embed widget', async function () {
+	it.skip( 'should render the youtube embed widget', async function () {
 		const promise = Promise.resolve( {
 			author_name: 'pongkhiraaj',
 			author_url: 'https://www.youtube.com/user/pongkhiraaj',

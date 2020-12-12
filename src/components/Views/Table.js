@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { offsetIndex } from '../../utils/utils';
 import Header from '../Table/Header';
 import TableCell from '../Table/TableCell';
-import EditorToolbar from '../MyEditor/EditorToolbar';
 
 // tell direction after drag start, the first direction that reach 5px offset
 const DRAG_DIRECTION_NONE = '';

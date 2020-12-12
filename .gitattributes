@@ -24,6 +24,7 @@ phpunit.xml export-ignore
 README.md export-ignore
 webpack.config.js export-ignore
 
+package-lock.json -diff
 composer.lock -diff
 yarn.lock -diff
 build/*.js -diff
