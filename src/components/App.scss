@@ -8,6 +8,14 @@
 	}
 }
 
+.advanced-wp-table-wrapper {
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+}
+
 .advanced-wp-table-header {
 	.advanced-wp-table-header-inner {
 		align-items: center;
@@ -46,12 +54,6 @@ $fixed_header_height: 50px;
 	margin: -23px -20px 23px -22px;
 	position: relative;
 	z-index: 3;
-
-	*,
-	*::before,
-	*::after {
-		box-sizing: border-box;
-	}
 
 	@mixin show_edit_icon {
 		opacity: 1;
