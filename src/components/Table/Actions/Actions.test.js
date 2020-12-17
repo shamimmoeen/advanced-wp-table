@@ -79,7 +79,7 @@ describe( 'Table/Actions', function () {
 
 	it( 'should open the gutenberg editor', function () {
 		const { container } = render( <App />, updatedState );
-		screen.getByLabelText( 'Add Row' );
+		screen.getByLabelText( 'Add row' );
 
 		const nodes = screen.getAllByText( 'Edit' );
 		fireEvent.click( nodes[ 0 ] );

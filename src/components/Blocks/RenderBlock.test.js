@@ -92,7 +92,7 @@ const stateWithYoutubeEmbed = {
 	}
 };
 
-describe( 'Blocks/RenderBlock', function () {
+describe.skip( 'Blocks/RenderBlock', function () {
 	it( 'should render the calendar widget', async function () {
 		fetchMock.mockResponse( JSON.stringify( [ calendarTable ] ) );
 
@@ -105,7 +105,7 @@ describe( 'Blocks/RenderBlock', function () {
 		expect( ServerSideRender ).toHaveBeenCalled();
 	} );
 
-	it.skip( 'should render the youtube embed widget', async function () {
+	it( 'should render the youtube embed widget', async function () {
 		const promise = Promise.resolve( {
 			author_name: 'pongkhiraaj',
 			author_url: 'https://www.youtube.com/user/pongkhiraaj',

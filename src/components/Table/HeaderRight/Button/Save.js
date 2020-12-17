@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
+import _ from 'lodash';
 
 import { updateTable, validateTable } from '../../../../utils/table';
 import { toastError, toastSuccess } from '../../../../utils/utils';
@@ -14,8 +15,12 @@ const Save = () => {
 
 	const onHandleSaveTable = () => {
 		const { id, advanced_wp_table_data: tableData } = table;
-		const { type } = tableData;
+		let { type } = tableData;
 		const title = table.title.rendered;
+
+		if ( _.isNil( type ) ) {
+			type = 'layout';
+		}
 
 		try {
 			validateTable( { title, type } );

@@ -232,7 +232,7 @@ describe( 'Tables/Pagination', function () {
 
 		// Add row
 		fireEvent.click( screen.getByText( newTableTitle ) );
-		fireEvent.click( screen.getByLabelText( 'Add Row' ) );
+		fireEvent.click( screen.getByLabelText( 'Add row' ) );
 		expect( container.querySelectorAll( 'tr' ).length ).toBe( 1 );
 		fireEvent.click( screen.getByText( 'Save' ) );
 		await screen.findByText( /successfully updated/i );
@@ -390,7 +390,7 @@ describe( 'Tables/Pagination', function () {
 
 		// Add Column
 		fireEvent.click( screen.getByText( newTableTitle ) );
-		fireEvent.click( screen.getByLabelText( 'Add Column' ) );
+		fireEvent.click( screen.getByLabelText( 'Add column' ) );
 		expect( container.querySelectorAll( 'tr' ).length ).toBe( 1 );
 		expect( container.querySelectorAll( '.advanced-wp-table-cell-wrapper' ).length ).toBe( 2 );
 		fireEvent.click( screen.getByText( 'Save' ) );

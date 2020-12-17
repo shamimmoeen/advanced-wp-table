@@ -51,7 +51,7 @@ describe( 'GutenbergEditor/Header', function () {
 			);
 
 		render( <App />, updatedState );
-		screen.getByLabelText( 'Add Row' );
+		screen.getByLabelText( 'Add row' );
 
 		const nodes = screen.getAllByText( 'Edit' );
 		fireEvent.click( nodes[ 0 ] );
@@ -77,7 +77,7 @@ describe( 'GutenbergEditor/Header', function () {
 			);
 
 		render( <App />, updatedState );
-		screen.getByLabelText( 'Add Row' );
+		screen.getByLabelText( 'Add row' );
 
 		const nodes = screen.getAllByText( 'Edit' );
 		fireEvent.click( nodes[ 0 ] );
@@ -92,7 +92,7 @@ describe( 'GutenbergEditor/Header', function () {
 
 	it( 'should close the gutenberg editor', function () {
 		const { container } = render( <App />, updatedState );
-		screen.getByLabelText( 'Add Row' );
+		screen.getByLabelText( 'Add row' );
 
 		const nodes = screen.getAllByText( 'Edit' );
 		fireEvent.click( nodes[ 0 ] );
@@ -108,7 +108,7 @@ describe( 'GutenbergEditor/Header', function () {
 		tableUtils.isActiveCellChanged = jest.fn( () => ({}) );
 
 		render( <App />, updatedState );
-		screen.getByLabelText( 'Add Row' );
+		screen.getByLabelText( 'Add row' );
 
 		const nodes = screen.getAllByText( 'Edit' );
 		fireEvent.click( nodes[ 0 ] );
@@ -124,7 +124,7 @@ describe( 'GutenbergEditor/Header', function () {
 		tableUtils.isActiveCellChanged = jest.fn( () => ({}) );
 
 		render( <App />, updatedState );
-		screen.getByLabelText( 'Add Row' );
+		screen.getByLabelText( 'Add row' );
 
 		const nodes = screen.getAllByText( 'Edit' );
 		fireEvent.click( nodes[ 0 ] );
@@ -145,7 +145,7 @@ describe( 'GutenbergEditor/Header', function () {
 		tableUtils.isActiveCellChanged = jest.fn( () => ({}) );
 
 		const { container } = render( <App />, updatedState );
-		screen.getByLabelText( 'Add Row' );
+		screen.getByLabelText( 'Add row' );
 
 		const nodes = screen.getAllByText( 'Edit' );
 		fireEvent.click( nodes[ 0 ] );

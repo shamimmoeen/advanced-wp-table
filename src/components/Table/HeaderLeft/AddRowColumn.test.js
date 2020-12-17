@@ -60,12 +60,12 @@ const state = {
 describe( 'Table/HeaderLeft/AddRow', function () {
 	it( 'should show the icon', function () {
 		render( <Table />, updatedState );
-		screen.getByLabelText( 'Add Row' );
+		screen.getByLabelText( 'Add row' );
 	} );
 
 	it( 'should add new row', function () {
 		const { container } = render( <Table />, updatedState );
-		fireEvent.click( screen.getByLabelText( 'Add Row' ) );
+		fireEvent.click( screen.getByLabelText( 'Add row' ) );
 		const rows = container.querySelectorAll( 'tr' );
 		expect( rows.length ).toBe( 3 );
 	} );
@@ -75,7 +75,7 @@ describe( 'Table/HeaderLeft/AddRow', function () {
 		const prevRows = container.querySelectorAll( 'tr' );
 		expect( prevRows.length ).toBe( 0 );
 
-		fireEvent.click( screen.getByLabelText( 'Add Row' ) );
+		fireEvent.click( screen.getByLabelText( 'Add row' ) );
 		const rows = container.querySelectorAll( 'tr' );
 		expect( rows.length ).toBe( 1 );
 	} );
@@ -84,12 +84,12 @@ describe( 'Table/HeaderLeft/AddRow', function () {
 describe( 'Table/HeaderLeft/AddColumn', function () {
 	it( 'should show the icon', function () {
 		render( <Table />, updatedState );
-		screen.getByLabelText( 'Add Column' );
+		screen.getByLabelText( 'Add column' );
 	} );
 
 	it( 'should add new column', function () {
 		const { container } = render( <Table />, updatedState );
-		fireEvent.click( screen.getByLabelText( 'Add Column' ) );
+		fireEvent.click( screen.getByLabelText( 'Add column' ) );
 		const columns = container.querySelectorAll( '[class="advanced-wp-table-cell-wrapper"]' );
 		expect( columns.length ).toBe( 6 );
 	} );
@@ -99,7 +99,7 @@ describe( 'Table/HeaderLeft/AddColumn', function () {
 		const prevRows = container.querySelectorAll( 'tr' );
 		expect( prevRows.length ).toBe( 0 );
 
-		fireEvent.click( screen.getByLabelText( 'Add Column' ) );
+		fireEvent.click( screen.getByLabelText( 'Add column' ) );
 		const rows = container.querySelectorAll( 'tr' );
 		expect( rows.length ).toBe( 0 );
 	} );

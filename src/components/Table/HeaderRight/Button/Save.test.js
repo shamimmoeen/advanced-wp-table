@@ -88,7 +88,7 @@ describe( 'Table/HeaderRight/Save', function () {
 		expect( screen.getByText( 'Table 1' ) ).toBeInTheDocument();
 		fireEvent.click( screen.getByText( 'Table 1' ) );
 
-		fireEvent.click( screen.getByLabelText( 'Add Column' ) );
+		fireEvent.click( screen.getByLabelText( 'Add column' ) );
 
 		expect( screen.getByText( 'Save' ) ).toBeInTheDocument();
 		fireEvent.click( screen.getByText( 'Save' ) );
@@ -116,7 +116,7 @@ describe( 'Table/HeaderRight/Save', function () {
 		expect( screen.getByText( 'Table 1' ) ).toBeInTheDocument();
 		fireEvent.click( screen.getByText( 'Table 1' ) );
 
-		fireEvent.click( screen.getByLabelText( 'Add Column' ) );
+		fireEvent.click( screen.getByLabelText( 'Add column' ) );
 
 		expect( screen.getByText( 'Save' ) ).toBeInTheDocument();
 		fireEvent.click( screen.getByText( 'Save' ) );

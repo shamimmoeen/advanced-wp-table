@@ -68,7 +68,7 @@ describe( 'Table/HeaderLeft/GoToPrevTable', function () {
 
 		const { container } = render( <App />, state );
 
-		fireEvent.click( screen.getByLabelText( 'Add Row' ) );
+		fireEvent.click( screen.getByLabelText( 'Add row' ) );
 
 		const rows = container.querySelectorAll( 'tr' );
 		expect( rows.length ).toBe( 3 );
@@ -84,7 +84,7 @@ describe( 'Table/HeaderLeft/GoToPrevTable', function () {
 
 		render( <App />, state );
 
-		fireEvent.click( screen.getByLabelText( 'Add Row' ) );
+		fireEvent.click( screen.getByLabelText( 'Add row' ) );
 		fireEvent.click( screen.getByLabelText( 'Go to previous table' ) );
 
 		screen.getByText( /The changes you made will be lost if you leave this./i );
@@ -98,7 +98,7 @@ describe( 'Table/HeaderLeft/GoToPrevTable', function () {
 
 		render( <App />, state );
 
-		fireEvent.click( screen.getByLabelText( 'Add Row' ) );
+		fireEvent.click( screen.getByLabelText( 'Add row' ) );
 		fireEvent.click( screen.getByLabelText( 'Go to previous table' ) );
 
 		screen.getByText( /The changes you made will be lost if you leave this./i );
@@ -145,7 +145,7 @@ describe( 'Table/HeaderLeft/GoToNextTable', function () {
 	it( 'should show the table changed dialog', function () {
 		const { container } = render( <App />, updatedState );
 
-		fireEvent.click( screen.getByLabelText( 'Add Row' ) );
+		fireEvent.click( screen.getByLabelText( 'Add row' ) );
 
 		const rows = container.querySelectorAll( 'tr' );
 		expect( rows.length ).toBe( 3 );
@@ -159,7 +159,7 @@ describe( 'Table/HeaderLeft/GoToNextTable', function () {
 	it( 'should discard the changes if leaving', async function () {
 		render( <App />, updatedState );
 
-		fireEvent.click( screen.getByLabelText( 'Add Row' ) );
+		fireEvent.click( screen.getByLabelText( 'Add row' ) );
 		fireEvent.click( screen.getByLabelText( 'Go to next table' ) );
 
 		screen.getByText( /The changes you made will be lost if you leave this./i );
@@ -171,7 +171,7 @@ describe( 'Table/HeaderLeft/GoToNextTable', function () {
 	it( 'should hide the dialog if pressed the cancel button', function () {
 		render( <App />, updatedState );
 
-		fireEvent.click( screen.getByLabelText( 'Add Row' ) );
+		fireEvent.click( screen.getByLabelText( 'Add row' ) );
 		fireEvent.click( screen.getByLabelText( 'Go to next table' ) );
 
 		screen.getByText( /The changes you made will be lost if you leave this./i );
