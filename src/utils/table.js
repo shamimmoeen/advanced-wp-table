@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { getApiEndpoint } from './utils';
 import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
-import { serialize } from '@wordpress/blocks';
+import { parse, serialize } from '@wordpress/blocks';
 
 export async function getTables( perPage, offset ) {
 	const options = {
@@ -190,29 +190,20 @@ export function getTablePreviewUrl( tablePageUrl, tableId ) {
 	return `${ tablePageUrl }?id=${ tableId }`;
 }
 
-export function isActiveCellChanged( tables, table, activeCell ) {
+/**
+ * Check if blocks were changed.
+ *
+ * @param table
+ * @param activeCell
+ * @returns {boolean}
+ */
+export function isActiveCellChanged( table, activeCell ) {
 	const { i, j, content } = activeCell;
 
-	// @todo Serialize content only if gutenberg active.
 	const newContent = serialize( content );
-
-	if ( ! newContent ) {
-		return false;
-	}
-
-	const oldTable = _.find( tables, ( item ) => item.id === table.id );
-	const { advanced_wp_table_data: oldTableData } = parseTableSize( oldTable );
-
-	if ( undefined === oldTableData[ i ] ) {
-		return true;
-	}
-
-	if ( undefined === oldTableData[ i ][ j ] ) {
-		return true;
-	}
-
-	const oldContent = oldTableData.rows[ i ][ j ];
-	const isEqual = _.isEqual( oldContent, newContent );
+	const oldBlocks = table.advanced_wp_table_data.rows[i][j];
+	const oldContent = serialize( parse( oldBlocks ) );
+	const isEqual = _.isEqual( newContent, oldContent );
 
 	return ! isEqual;
 }

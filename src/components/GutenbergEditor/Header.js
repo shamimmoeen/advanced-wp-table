@@ -77,7 +77,7 @@ const Header = () => {
 	};
 
 	const onHandleCloseModal = () => {
-		if ( isActiveCellChanged( tables, table, activeCell ) ) {
+		if ( isActiveCellChanged( table, activeCell ) ) {
 			dispatch( setTableChangedDialog( {
 				callbackCancel,
 				callbackLeave,
