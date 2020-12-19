@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { offsetIndex } from '../../utils/utils';
 import Header from '../Table/Header';
 import TableCell from '../Table/TableCell';
+import { setIsChanged, unsetIsChanged } from '../../store/reducers/table';
+import { isTableChanged } from '../../utils/table';
 
 // tell direction after drag start, the first direction that reach 5px offset
 const DRAG_DIRECTION_NONE = '';
@@ -20,9 +22,18 @@ const defaultDragState = {
 
 const Table = () => {
 	const dispatch = useDispatch();
-	const { table } = useSelector( state => state.table );
+	const { tables } = useSelector( state => state.tables );
+	const { table, activeCell } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
 	const toolbarRef = useRef( null );
+
+	useEffect( () => {
+		if ( isTableChanged( tables, table ) ) {
+			dispatch( setIsChanged() );
+		} else {
+			dispatch( unsetIsChanged() );
+		}
+	}, [ table ] );
 
 	let { rows = [] } = tableData;
 

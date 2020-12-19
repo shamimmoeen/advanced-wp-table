@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import { setTable } from '../../../store/reducers/table';
 import { setTableChangedDialog, unsetTableChangedDialog } from '../../../store/reducers/dialogs';
-import { isTableChanged, isTitleChanged } from '../../../utils/table';
+import { isTableChanged } from '../../../utils/table';
 
 const GoToNextTable = () => {
 	const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const GoToNextTable = () => {
 
 	const onHandleGoToNextTable = () => {
 		if ( nextTable ) {
-			if ( isTableChanged( tables, table ) || isTitleChanged( tables, table ) ) {
+			if ( isTableChanged( tables, table ) ) {
 				dispatch( setTableChangedDialog( {
 					callbackCancel,
 					callbackLeave,

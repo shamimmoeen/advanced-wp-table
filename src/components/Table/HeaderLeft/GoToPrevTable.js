@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 import { setTable } from '../../../store/reducers/table';
 import { setTableChangedDialog, unsetTableChangedDialog } from '../../../store/reducers/dialogs';
-import { isTableChanged, isTitleChanged } from '../../../utils/table';
+import { isTableChanged } from '../../../utils/table';
 
 const GoToPrevTable = () => {
 	const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const GoToPrevTable = () => {
 
 	const onHandleGoToPrevTable = () => {
 		if ( prevTable ) {
-			if ( isTableChanged( tables, table ) || isTitleChanged( tables, table ) ) {
+			if ( isTableChanged( tables, table ) ) {
 				dispatch( setTableChangedDialog( {
 					callbackCancel,
 					callbackLeave,

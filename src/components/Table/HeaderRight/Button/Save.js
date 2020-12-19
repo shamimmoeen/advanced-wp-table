@@ -11,7 +11,7 @@ import { Button } from '@wordpress/components';
 const Save = () => {
 	const dispatch = useDispatch();
 	const { tables, cache } = useSelector( state => state.tables );
-	const { table } = useSelector( state => state.table );
+	const { table, isChanged } = useSelector( state => state.table );
 	const [ btnBusy, setBtnBusy ] = useState( false );
 
 	const onHandleSaveTable = () => {
@@ -82,6 +82,7 @@ const Save = () => {
 			onClick={ onHandleSaveTable }
 			isBusy={ btnBusy }
 			aria-disabled={ btnBusy }
+			disabled={ ! isChanged }
 		>
 			{ btnTitle }
 		</Button>

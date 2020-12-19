@@ -201,7 +201,7 @@ export function isActiveCellChanged( table, activeCell ) {
 	const { i, j, content } = activeCell;
 
 	const newContent = serialize( content );
-	const oldBlocks = table.advanced_wp_table_data.rows[i][j];
+	const oldBlocks = table.advanced_wp_table_data.rows[ i ][ j ];
 	const oldContent = serialize( parse( oldBlocks ) );
 	const isEqual = _.isEqual( newContent, oldContent );
 
@@ -212,18 +212,16 @@ export function isTableChanged( tables, table ) {
 	const oldTable = _.find( tables, ( item ) => item.id === table.id );
 	const { advanced_wp_table_data: oldTableData } = parseTableSize( oldTable );
 	const { advanced_wp_table_data: newTableData } = table;
-	const isEqual = _.isEqual( oldTableData, newTableData );
+	const changed = ! _.isEqual( oldTableData, newTableData );
 
-	return ! isEqual;
-}
+	if ( changed ) {
+		return true;
+	}
 
-export function isTitleChanged( tables, table ) {
-	const oldTable = _.find( tables, ( item ) => item.id === table.id );
 	const oldTitle = oldTable.title.rendered;
 	const newTitle = table.title.rendered;
-	const isEqual = _.isEqual( oldTitle, newTitle );
 
-	return ! isEqual;
+	return ! _.isEqual( oldTitle, newTitle );
 }
 
 export function getType( table ) {

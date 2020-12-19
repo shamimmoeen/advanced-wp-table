@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { setTableChangedDialog, unsetTableChangedDialog } from '../../../store/reducers/dialogs';
 import { unsetTable } from '../../../store/reducers/table';
 import { setView } from '../../../store/reducers/ui';
-import { isTableChanged, isTitleChanged } from '../../../utils/table';
+import { isTableChanged } from '../../../utils/table';
 
 const BackToList = () => {
 	const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const BackToList = () => {
 	};
 
 	const onHandleNavigateToList = () => {
-		if ( isTableChanged( tables, table ) || isTitleChanged( tables, table ) ) {
+		if ( isTableChanged( tables, table ) ) {
 			dispatch( setTableChangedDialog( {
 				callbackCancel,
 				callbackLeave,
