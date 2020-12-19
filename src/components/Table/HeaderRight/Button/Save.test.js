@@ -23,7 +23,7 @@ describe( 'Table/HeaderRight/Save', function () {
 	} );
 
 	it( 'should throw title required error', async function () {
-		const table = fakeTable( 1, '' );
+		const table = fakeTable( 1, 'Table 1' );
 
 		const updatedState = {
 			...initialState,
@@ -40,7 +40,20 @@ describe( 'Table/HeaderRight/Save', function () {
 			}
 		};
 
-		render( <App />, updatedState );
+		const wrapper = document.createElement( 'div' );
+		wrapper.setAttribute( 'id', 'wpwrap' );
+
+		render( <App />, updatedState, {
+			container: document.body.appendChild( wrapper ),
+		} );
+
+		fireEvent.click( screen.getByTestId( 'toggle-edit-mode' ) );
+		screen.getByDisplayValue( 'Table 1' );
+
+		fireEvent.change(
+			screen.getByLabelText( 'table-title' ),
+			{ target: { value: '' } }
+		);
 
 		expect( screen.getByText( 'Save' ) ).toBeInTheDocument();
 		fireEvent.click( screen.getByText( 'Save' ) );
@@ -49,7 +62,7 @@ describe( 'Table/HeaderRight/Save', function () {
 	} );
 
 	it( 'should throw error if title exceeds the allowed length', async function () {
-		const table = fakeTable( 1, Array( 42 ).join( 'a' ) );
+		const table = fakeTable( 1, 'Table 1' );
 
 		const updatedState = {
 			...initialState,
@@ -66,7 +79,20 @@ describe( 'Table/HeaderRight/Save', function () {
 			}
 		};
 
-		render( <App />, updatedState );
+		const wrapper = document.createElement( 'div' );
+		wrapper.setAttribute( 'id', 'wpwrap' );
+
+		render( <App />, updatedState, {
+			container: document.body.appendChild( wrapper ),
+		} );
+
+		fireEvent.click( screen.getByTestId( 'toggle-edit-mode' ) );
+		screen.getByDisplayValue( 'Table 1' );
+
+		fireEvent.change(
+			screen.getByLabelText( 'table-title' ),
+			{ target: { value: Array( 42 ).join( 'a' ) } }
+		);
 
 		expect( screen.getByText( 'Save' ) ).toBeInTheDocument();
 		fireEvent.click( screen.getByText( 'Save' ) );
