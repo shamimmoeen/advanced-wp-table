@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import _ from 'lodash';
 
 import { updateTable, validateTable } from '../../../../utils/table';
-import { toastError, toastSuccess } from '../../../../utils/utils';
+import { toastError } from '../../../../utils/utils';
 import { setCache, setTables } from '../../../../store/reducers/tables';
 import { Button } from '@wordpress/components';
 
@@ -12,8 +12,13 @@ const Save = () => {
 	const dispatch = useDispatch();
 	const { tables, cache } = useSelector( state => state.tables );
 	const { table } = useSelector( state => state.table );
+	const [ btnBusy, setBtnBusy ] = useState( false );
 
 	const onHandleSaveTable = () => {
+		if ( btnBusy ) {
+			return;
+		}
+
 		const { id, advanced_wp_table_data: tableData } = table;
 		let { type } = tableData;
 		const title = table.title.rendered;
@@ -28,6 +33,8 @@ const Save = () => {
 			toastError( err.message );
 			return;
 		}
+
+		setBtnBusy( true );
 
 		const oldTables = [ ...tables ];
 
@@ -51,23 +58,32 @@ const Save = () => {
 
 		dispatch( setTables( newTables ) );
 		dispatch( setCache( newCache ) );
-		toastSuccess( __( 'Successfully updated', 'advanced-wp-table' ) );
 
 		updateTable( id, title, tableData )
+			.then( () => setBtnBusy( false ) )
 			.catch( () => {
 				dispatch( setTables( oldTables ) );
 				dispatch( setCache( oldCache ) );
+				setBtnBusy( false );
 
 				toastError( __( 'Oops, there was a problem when updating the table', 'advanced-wp-table' ) );
 			} );
 	};
 
+	let btnTitle = __( 'Save', 'advanced-wp-table' );
+
+	if ( btnBusy ) {
+		btnTitle = __( 'Saving...', 'advanced-wp-table' );
+	}
+
 	return (
 		<Button
 			isPrimary
 			onClick={ onHandleSaveTable }
+			isBusy={ btnBusy }
+			aria-disabled={ btnBusy }
 		>
-			{ __( 'Save', 'advanced-wp-table' ) }
+			{ btnTitle }
 		</Button>
 	);
 };

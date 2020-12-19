@@ -92,8 +92,8 @@ describe( 'Table/HeaderRight/Save', function () {
 
 		expect( screen.getByText( 'Save' ) ).toBeInTheDocument();
 		fireEvent.click( screen.getByText( 'Save' ) );
-
-		await screen.findByText( 'Successfully updated' );
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 
 		expect( screen.getByText( 'Back to Tables' ) ).toBeInTheDocument();
 		fireEvent.click( screen.getByText( 'Back to Tables' ) );
@@ -120,8 +120,9 @@ describe( 'Table/HeaderRight/Save', function () {
 
 		expect( screen.getByText( 'Save' ) ).toBeInTheDocument();
 		fireEvent.click( screen.getByText( 'Save' ) );
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 
-		await screen.findByText( 'Successfully updated' );
 		await screen.findByText( 'Oops, there was a problem when updating the table' );
 
 		expect( screen.getByText( 'Back to Tables' ) ).toBeInTheDocument();

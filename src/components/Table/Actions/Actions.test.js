@@ -100,7 +100,8 @@ describe( 'Table/Actions', function () {
 		expect( columns.length ).toBe( 2 );
 
 		fireEvent.click( screen.getByText( 'Save' ) );
-		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 	} );
 
 	it( 'should delete row', async function () {
@@ -115,7 +116,8 @@ describe( 'Table/Actions', function () {
 		expect( rows.length ).toBe( 1 );
 
 		fireEvent.click( screen.getByText( 'Save' ) );
-		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 	} );
 
 	it( 'should duplicate row', async function () {
@@ -148,7 +150,8 @@ describe( 'Table/Actions', function () {
 		expect( screen.getAllByText( 'Hello World!!' ).length ).toBe( 2 );
 
 		fireEvent.click( screen.getByText( 'Save' ) );
-		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 	} );
 
 	it( 'should duplicate column', async function () {
@@ -184,7 +187,8 @@ describe( 'Table/Actions', function () {
 		expect( screen.getAllByText( 'Hello World!!' ).length ).toBe( 2 );
 
 		fireEvent.click( screen.getByText( 'Save' ) );
-		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 	} );
 
 	it( 'should copy and paste the cell content', async function () {
@@ -219,7 +223,8 @@ describe( 'Table/Actions', function () {
 		expect( screen.getAllByText( 'Hello World!!' ).length ).toBe( 2 );
 
 		fireEvent.click( screen.getByText( 'Save' ) );
-		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 	} );
 
 	it( 'should clear the cell content', async function () {
@@ -249,7 +254,8 @@ describe( 'Table/Actions', function () {
 		expect( screen.queryAllByText( 'Hello World!!' ).length ).toBe( 0 );
 
 		fireEvent.click( screen.getByText( 'Save' ) );
-		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 	} );
 
 	it( 'should add row', async function () {
@@ -264,7 +270,8 @@ describe( 'Table/Actions', function () {
 		expect( rows.length ).toBe( 3 );
 
 		fireEvent.click( screen.getByText( 'Save' ) );
-		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 	} );
 
 	it( 'should add column', async function () {
@@ -279,7 +286,8 @@ describe( 'Table/Actions', function () {
 		expect( columns.length ).toBe( 6 );
 
 		fireEvent.click( screen.getByText( 'Save' ) );
-		expect( await screen.findByText( /successfully updated/i ) ).toBeInTheDocument();
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 	} );
 
 	it( 'should be disabled the copy cell buttons', function () {

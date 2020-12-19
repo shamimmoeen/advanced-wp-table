@@ -235,7 +235,8 @@ describe( 'Tables/Pagination', function () {
 		fireEvent.click( screen.getByLabelText( 'Add row' ) );
 		expect( container.querySelectorAll( 'tr' ).length ).toBe( 1 );
 		fireEvent.click( screen.getByText( 'Save' ) );
-		await screen.findByText( /successfully updated/i );
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 
 		// back to list
 		fireEvent.click( screen.getByText( /back to tables/i ) );
@@ -394,7 +395,8 @@ describe( 'Tables/Pagination', function () {
 		expect( container.querySelectorAll( 'tr' ).length ).toBe( 1 );
 		expect( container.querySelectorAll( '.advanced-wp-table-cell-wrapper' ).length ).toBe( 2 );
 		fireEvent.click( screen.getByText( 'Save' ) );
-		await screen.findByText( /successfully updated/i );
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 
 		// back to list
 		fireEvent.click( screen.getByText( /back to tables/i ) );
@@ -566,7 +568,8 @@ describe( 'Tables/Pagination', function () {
 		expect( container.querySelectorAll( 'tr' ).length ).toBe( 1 );
 		expect( container.querySelectorAll( '.advanced-wp-table-cell-wrapper' ).length ).toBe( 1 );
 		fireEvent.click( screen.getByText( 'Save' ) );
-		await screen.findByText( /successfully updated/i );
+		expect( screen.getByText( 'Saving...' ) ).toBeInTheDocument();
+		await screen.findByText( /save/i );
 
 		// back to list
 		fireEvent.click( screen.getByText( /back to tables/i ) );
