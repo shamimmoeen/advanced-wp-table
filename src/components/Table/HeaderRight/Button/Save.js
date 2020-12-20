@@ -7,6 +7,7 @@ import { updateTable, validateTable } from '../../../../utils/table';
 import { toastError } from '../../../../utils/utils';
 import { setCache, setTables } from '../../../../store/reducers/tables';
 import { Button } from '@wordpress/components';
+import { unsetIsBlocksChanged, unsetIsChanged } from '../../../../store/reducers/table';
 
 const Save = () => {
 	const dispatch = useDispatch();
@@ -60,7 +61,11 @@ const Save = () => {
 		dispatch( setCache( newCache ) );
 
 		updateTable( id, title, tableData )
-			.then( () => setBtnBusy( false ) )
+			.then( () => {
+				dispatch( unsetIsChanged() );
+				dispatch( unsetIsBlocksChanged() );
+				setBtnBusy( false );
+			} )
 			.catch( () => {
 				dispatch( setTables( oldTables ) );
 				dispatch( setCache( oldCache ) );

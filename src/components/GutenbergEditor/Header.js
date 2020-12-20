@@ -10,7 +10,13 @@ import { isActiveCellChanged, updateTable, updateTableWithCellData } from '../..
 import { toastError } from '../../utils/utils';
 import { TABLE } from '../../utils/views';
 import { setView } from '../../store/reducers/ui';
-import { setIsBlocksChanged, setTable, unsetActiveCell, unsetIsBlocksChanged } from '../../store/reducers/table';
+import {
+	setIsBlocksChanged,
+	setTable,
+	unsetActiveCell,
+	unsetIsBlocksChanged,
+	unsetIsChanged
+} from '../../store/reducers/table';
 import { setTableChangedDialog, unsetTableChangedDialog } from '../../store/reducers/dialogs';
 import { setCache, setTables } from '../../store/reducers/tables';
 
@@ -66,6 +72,8 @@ const Header = () => {
 				dispatch( setTable( updatedTable ) );
 				dispatch( setTables( newTables ) );
 				dispatch( setCache( newCache ) );
+				dispatch( unsetIsChanged() );
+				dispatch( unsetIsBlocksChanged() );
 				setBtnBusy( false );
 			} )
 			.catch( () => {

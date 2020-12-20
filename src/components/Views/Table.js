@@ -23,7 +23,7 @@ const defaultDragState = {
 const Table = () => {
 	const dispatch = useDispatch();
 	const { tables } = useSelector( state => state.tables );
-	const { table, activeCell } = useSelector( state => state.table );
+	const { table } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
 	const toolbarRef = useRef( null );
 
