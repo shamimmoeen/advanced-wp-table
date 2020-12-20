@@ -140,6 +140,7 @@ const Header = () => {
 					onClick={ onHandleCloseModal }
 					isDestructive
 					data-testid={ 'close-btn' }
+					disabled={ btnBusy }
 				>
 					<Icon path={ mdiCloseCircle } size={ '20px' } />
 				</Button>

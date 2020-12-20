@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import _ from 'lodash';
@@ -9,11 +9,10 @@ import { setCache, setTables } from '../../../../store/reducers/tables';
 import { Button } from '@wordpress/components';
 import { unsetIsBlocksChanged, unsetIsChanged } from '../../../../store/reducers/table';
 
-const Save = () => {
+const Save = ( { btnBusy, onSetBtnBusy: setBtnBusy } ) => {
 	const dispatch = useDispatch();
 	const { tables, cache } = useSelector( state => state.tables );
 	const { table, isChanged } = useSelector( state => state.table );
-	const [ btnBusy, setBtnBusy ] = useState( false );
 
 	const onHandleSaveTable = () => {
 		if ( btnBusy ) {

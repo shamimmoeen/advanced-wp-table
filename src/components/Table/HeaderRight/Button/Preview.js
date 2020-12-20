@@ -4,7 +4,7 @@ import { getTablePreviewUrl } from '../../../../utils/table';
 import { useSelector } from 'react-redux';
 import { Button } from '@wordpress/components';
 
-const Preview = () => {
+const Preview = ( { btnBusy } ) => {
 	const { table } = useSelector( state => state.table );
 	const { previewPageUrl } = useSelector( state => state.globals );
 
@@ -17,6 +17,7 @@ const Preview = () => {
 				href={ tablePreviewUrl }
 				target={ '_blank' }
 				rel={ 'noreferrer' }
+				disabled={ btnBusy }
 			>
 				{ __( 'Preview', 'advanced-wp-table' ) }
 			</Button>
