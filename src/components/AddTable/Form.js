@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import _ from 'lodash';
@@ -14,6 +14,7 @@ import { setCache, setCurrentPage, setOffset, setTables, setTotal, setTotalPages
 
 const Form = () => {
 	const dispatch = useDispatch();
+	const titleRef = useRef();
 	const tablesState = useSelector( state => state.tables );
 	const formLoading = useSelector( state => state.ui.formLoading );
 	const newTableData = useSelector( state => state.addTable );
@@ -86,6 +87,12 @@ const Form = () => {
 			} );
 	};
 
+	useEffect( () => {
+		if ( titleRef ) {
+			titleRef.current.focus();
+		}
+	}, [] );
+
 	let formClasses = 'advanced-wp-table-new-table-form';
 
 	if ( formLoading ) {
@@ -104,6 +111,7 @@ const Form = () => {
 						placeholder={ __( 'Give a title', 'advanced-wp-table' ) }
 						onChange={ onHandleInputChange }
 						value={ title }
+						ref={ titleRef }
 					/>
 				</div>
 			</div>
