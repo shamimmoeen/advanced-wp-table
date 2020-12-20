@@ -2,8 +2,11 @@
 	#wpcontent {
 		background-color: #f1f1f1;
 
-		.update-nag {
-			display: none;
+		.notice-error,
+		.notice-warning,
+		.notice-success,
+		.notice-info {
+			display: none !important;
 		}
 	}
 }
