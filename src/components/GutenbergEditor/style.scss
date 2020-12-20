@@ -61,6 +61,15 @@ $light-gray-500: #e2e4e7;
 		.advanced-wp-table-editor-toolbar {
 			display: inline-flex;
 		}
+
+		.advanced-wp-table-editor-settings {
+			display: inline-flex;
+
+			.close-btn {
+				margin-left: 8px;
+				box-shadow: none;
+			}
+		}
 	}
 }
 

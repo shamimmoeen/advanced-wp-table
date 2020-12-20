@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { BlockNavigationDropdown, Inserter, ToolSelector } from '@wordpress/block-editor';
+import { Button } from '@wordpress/components';
+import Icon from '@mdi/react';
+import { mdiCloseCircle } from '@mdi/js';
 
 import { isActiveCellChanged, updateTable, updateTableWithCellData } from '../../utils/table';
-import { toastError, toastSuccess } from '../../utils/utils';
+import { toastError } from '../../utils/utils';
 import { TABLE } from '../../utils/views';
 import { setView } from '../../store/reducers/ui';
-import { setTable, unsetActiveCell } from '../../store/reducers/table';
+import { setIsBlocksChanged, setTable, unsetActiveCell, unsetIsBlocksChanged } from '../../store/reducers/table';
 import { setTableChangedDialog, unsetTableChangedDialog } from '../../store/reducers/dialogs';
 import { setCache, setTables } from '../../store/reducers/tables';
 
@@ -15,9 +18,24 @@ const Header = () => {
 	const dispatch = useDispatch();
 	const { tables, cache } = useSelector( state => state.tables );
 	const tableState = useSelector( state => state.table );
-	const { table, activeCell } = tableState;
+	const { table, activeCell, isBlocksChanged } = tableState;
+	const [ btnBusy, setBtnBusy ] = useState( false );
+
+	useEffect( () => {
+		if ( isActiveCellChanged( table, activeCell ) ) {
+			dispatch( setIsBlocksChanged() );
+		} else {
+			dispatch( unsetIsBlocksChanged() );
+		}
+	}, [ activeCell ] );
 
 	const onHandleSave = () => {
+		if ( btnBusy ) {
+			return;
+		}
+
+		setBtnBusy( true );
+
 		const oldTables = [ ...tables ];
 		const updatedTable = updateTableWithCellData( table, activeCell );
 
@@ -39,23 +57,22 @@ const Header = () => {
 			return item;
 		} );
 
-		dispatch( setTable( updatedTable ) );
-		dispatch( setTables( newTables ) );
-		dispatch( setCache( newCache ) );
-		dispatch( unsetActiveCell() );
-		dispatch( setView( TABLE ) );
-
-		toastSuccess( __( 'Successfully updated', 'advanced-wp-table' ) );
-
 		// eslint-disable-next-line camelcase
 		const { id, advanced_wp_table_data } = updatedTable;
 		const title = updatedTable.title.rendered;
 
 		updateTable( id, title, advanced_wp_table_data )
+			.then( () => {
+				dispatch( setTable( updatedTable ) );
+				dispatch( setTables( newTables ) );
+				dispatch( setCache( newCache ) );
+				setBtnBusy( false );
+			} )
 			.catch( () => {
 				dispatch( setTable( table ) );
 				dispatch( setTables( oldTables ) );
 				dispatch( setCache( oldCache ) );
+				setBtnBusy( false );
 
 				toastError( __( 'Oops, there was a problem when updating the table', 'advanced-wp-table' ) );
 			} );
@@ -87,6 +104,12 @@ const Header = () => {
 		}
 	};
 
+	let btnTitle = __( 'Save', 'advanced-wp-table' );
+
+	if ( btnBusy ) {
+		btnTitle = __( 'Saving...', 'advanced-wp-table' );
+	}
+
 	return (
 		<div className={ 'advanced-wp-table-editor-header' }>
 			<div className={ 'advanced-wp-table-editor-toolbar' }>
@@ -95,16 +118,23 @@ const Header = () => {
 				<BlockNavigationDropdown />
 			</div>
 			<div className={ 'advanced-wp-table-editor-settings' }>
-				<button
+				<Button
+					isPrimary
 					onClick={ onHandleSave }
-					className={ 'button button-primary button-large' }
+					isBusy={ btnBusy }
+					aria-disabled={ btnBusy }
+					disabled={ ! isBlocksChanged }
 				>
-					{ __( 'Save Changes', 'advanced-wp-table' ) }
-				</button>
-				{ ` ` }
-				<button onClick={ onHandleCloseModal } className={ 'button button-large' }>
-					{ __( 'Close', 'advanced-wp-table' ) }
-				</button>
+					{ btnTitle }
+				</Button>
+				<Button
+					className={ 'has-icon close-btn' }
+					onClick={ onHandleCloseModal }
+					isDestructive
+					data-testid={ 'close-btn' }
+				>
+					<Icon path={ mdiCloseCircle } size={ '20px' } />
+				</Button>
 			</div>
 		</div>
 	);

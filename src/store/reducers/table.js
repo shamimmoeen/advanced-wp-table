@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { parseTableSize } from '../../utils/table';
 
+// todo: isChanged, isBlocksChanged can be moved to component state
+
 export const table = {
 	table: {},
 	activeCell: {},
 	visibleEditorToolbar: false,
 	isChanged: false,
+	isBlocksChanged: false,
 };
 
 const slice = createSlice( {
@@ -36,6 +39,12 @@ const slice = createSlice( {
 		unsetIsChanged: ( state ) => {
 			state.isChanged = false;
 		},
+		setIsBlocksChanged: ( state ) => {
+			state.isBlocksChanged = true;
+		},
+		unsetIsBlocksChanged: ( state ) => {
+			state.isBlocksChanged = false;
+		},
 	},
 } );
 
@@ -47,7 +56,9 @@ export const {
 	showEditorToolbar,
 	hideEditorToolbar,
 	setIsChanged,
-	unsetIsChanged
+	unsetIsChanged,
+	setIsBlocksChanged,
+	unsetIsBlocksChanged
 } = slice.actions;
 
 export default slice.reducer;
