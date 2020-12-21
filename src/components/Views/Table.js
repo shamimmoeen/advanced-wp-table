@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { offsetIndex } from '../../utils/utils';
 import Header from '../Table/Header';
 import TableCell from '../Table/TableCell';
-import { setIsChanged, unsetIsChanged } from '../../store/reducers/table';
+import { setIsChanged, setTable, unsetIsChanged } from '../../store/reducers/table';
 import { isTableChanged } from '../../utils/table';
 
 // tell direction after drag start, the first direction that reach 5px offset
@@ -78,6 +78,18 @@ const Table = () => {
 		rowsRef.current = rowsRef.current.slice( 0, rows.length );
 	}, [ rows ] );
 
+	const updateRows = ( rows ) => {
+		const updatedTable = {
+			...table,
+			advanced_wp_table_data: {
+				...table.advanced_wp_table_data,
+				rows
+			}
+		};
+
+		dispatch( setTable( updatedTable ) );
+	};
+
 	return (
 		<Fragment>
 			<Header ref={ toolbarRef } />
@@ -146,7 +158,7 @@ const Table = () => {
 										}
 									} }
 									onDragEnd={ () => {
-										dispatch( { type: 'ON_DRAG_END_TABLE', payload: rows } );
+										updateRows( rows );
 										setDragState( { ...defaultDragState } );
 									} }
 								>
