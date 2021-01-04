@@ -7,6 +7,7 @@ import RenderBlock from '../Blocks/RenderBlock';
 import { createMarkup } from '../../utils/utils';
 import MyEditor from '../../components/MyEditor/index';
 import Actions from './Actions';
+import RenderBlocks from '../Blocks/RenderBlocks';
 
 const TableCell = ( { i: currentRow, j: currentColumn, content, rowsRef }, ref ) => {
 	const { table, activeCell } = useSelector( state => state.table );
@@ -47,9 +48,10 @@ const TableCell = ( { i: currentRow, j: currentColumn, content, rowsRef }, ref )
 			<div className={ 'entry' }>
 				<div className={ 'entry-content' }>
 					<div className={ 'editor-styles-wrapper' }>
-						{ getBlocks( content ).map( ( block, index ) => {
-							return <RenderBlock key={ index } block={ block } />;
-						} ) }
+						{/*{ getBlocks( content ).map( ( block, index ) => {*/}
+						{/*	return <RenderBlock key={ index } block={ block } />;*/}
+						{/*} ) }*/}
+						<RenderBlocks content={ content } />
 					</div>
 				</div>
 			</div>
