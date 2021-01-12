@@ -1,21 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import Icon from '@mdi/react';
-import { mdiClipboardOutline } from '@mdi/js';
+import { mdiCheckCircle, mdiClipboardOutline } from '@mdi/js';
 import { Button, Tooltip } from '@wordpress/components';
 
 import { getShortcode, textToClipboard } from '../../../../utils/table';
-import { toastSuccess } from '../../../../utils/utils';
 
 const CopyShortcode = () => {
 	const { table } = useSelector( state => state.table );
+	const [ loading, setLoading ] = useState( false );
 
 	const handleShortcodeCopy = () => {
+		if ( loading ) {
+			return;
+		}
+
+		setLoading( true );
 		const shortcode = getShortcode( table.id );
 		textToClipboard( shortcode );
-		toastSuccess( __( 'Shortcode copied', 'advanced-wp-table' ), { position: 'bottom-right' } );
+
+		setTimeout( () => {
+			setLoading( false );
+		}, 1500 );
 	};
+
+	let button;
+
+	if ( loading ) {
+		button = <Icon className={ 'isLoading' } path={ mdiCheckCircle } size={ '20px' } />;
+	} else {
+		button = <Icon path={ mdiClipboardOutline } size={ '20px' } />;
+	}
 
 	return (
 		<Tooltip
@@ -26,7 +42,7 @@ const CopyShortcode = () => {
 				className={ 'has-icon copy-shortcode' }
 				onClick={ handleShortcodeCopy }
 			>
-				<Icon path={ mdiClipboardOutline } size={ '20px' } />
+				{ button }
 			</Button>
 		</Tooltip>
 	);
