@@ -253,6 +253,10 @@ $fixed_header_height: 50px;
 		}
 
 		.copy-shortcode {
+			&.isLoading {
+				cursor: none;
+			}
+
 			.isLoading {
 				color: var(--wp-admin-theme-color);
 			}

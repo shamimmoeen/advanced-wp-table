@@ -27,8 +27,17 @@ const CopyShortcode = () => {
 
 	let button;
 
+	let buttonClasses = 'has-icon copy-shortcode';
+
 	if ( loading ) {
-		button = <Icon className={ 'isLoading' } path={ mdiCheckCircle } size={ '20px' } />;
+		button = <Icon
+			className={ 'isLoading' }
+			path={ mdiCheckCircle }
+			size={ '20px' }
+			data-testid={'copy-shortcode-loading'}
+		/>;
+
+		buttonClasses = 'has-icon copy-shortcode isLoading'
 	} else {
 		button = <Icon path={ mdiClipboardOutline } size={ '20px' } />;
 	}
@@ -39,7 +48,7 @@ const CopyShortcode = () => {
 			position={ 'bottom center' }
 		>
 			<Button
-				className={ 'has-icon copy-shortcode' }
+				className={ buttonClasses }
 				onClick={ handleShortcodeCopy }
 			>
 				{ button }

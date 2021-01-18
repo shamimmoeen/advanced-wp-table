@@ -7,6 +7,7 @@ import {
 	fakeTable,
 	fireEvent,
 	screen,
+	waitForElementToBeRemoved
 } from '../../../../utils/test-utils';
 import initialState from '../../../../store/initialState';
 import { TABLE } from '../../../../utils/views';
@@ -40,11 +41,12 @@ const updatedState = {
 document.execCommand = jest.fn();
 
 describe( 'Table/HeaderRight/CopyShortCodeButton', function () {
-	it( 'should copy the shortcode', function () {
+	it( 'should copy the shortcode', async function () {
 		const { container } = render( <App />, updatedState );
 		expect( container.querySelector( '.copy-shortcode' ) ).toBeInTheDocument();
 		fireEvent.click( container.querySelector( '.copy-shortcode' ) );
 		expect( document.execCommand ).toHaveBeenCalledWith( 'copy' );
-		screen.findByText( 'Shortcode copied' );
+		screen.getByTestId( 'copy-shortcode-loading' );
+		await waitForElementToBeRemoved( () => screen.getByTestId( 'copy-shortcode-loading' ) );
 	} );
 } );
