@@ -61,7 +61,7 @@ const TableDeleteDialog = () => {
 	return (
 		<Fragment>
 			{ show && (
-				<Dialog aria-label={ 'Delete Table?' }>
+				<Dialog aria-label={ 'Delete Table?' } onDismiss={ onHandleCancel }>
 					<p className={ 'advanced-wp-table-alert-title' }>
 						{ __( 'Delete Table?', 'advanced-wp-table' ) }
 					</p>

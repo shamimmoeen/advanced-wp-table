@@ -19,7 +19,7 @@ const TableChangedDialog = () => {
 	return (
 		<Fragment>
 			{ show && (
-				<Dialog aria-label={ 'Leave Changes?' }>
+				<Dialog aria-label={ 'Leave Changes?' } onDismiss={ onHandleCancel }>
 					<p className={ 'advanced-wp-table-alert-title' }>
 						{ __( 'Leave changes?', 'advanced-wp-table' ) }
 					</p>
