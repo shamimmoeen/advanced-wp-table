@@ -94,7 +94,7 @@ class Advanced_WP_Table_Backend_Scripts {
 			);
 		}
 
-		$preview_page = get_page_by_path( ADVANCED_WP_TABLE_PREVIEW_PAGE_SLUG );
+		$preview_page = get_post( get_option( ADVANCED_WP_TABLE_PREVIEW_PAGE_ID ) );
 
 		wp_localize_script(
 			'wp-table-backend-js',
