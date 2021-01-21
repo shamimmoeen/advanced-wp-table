@@ -187,7 +187,7 @@ export function textToClipboard( text ) {
 }
 
 export function getTablePreviewUrl( tablePageUrl, tableId ) {
-	return `${ tablePageUrl }?id=${ tableId }`;
+	return `${ tablePageUrl }&id=${ tableId }`;
 }
 
 /**

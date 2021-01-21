@@ -53,14 +53,17 @@ class Advanced_WP_Table_Activate {
 	private function create_preview_page() {
 		$data = array(
 			'post_type'    => 'page',
-			'post_title'   => 'Advanced WP Table',
-			'post_name'    => ADVANCED_WP_TABLE_PREVIEW_PAGE_SLUG,
+			'post_title'   => 'Advanced WP Table Preview',
 			'post_content' => '[advanced_wp_table_preview]',
-			'post_status'  => 'publish',
+			'post_status'  => 'draft',
 		);
 
 		if ( ! get_page_by_path( ADVANCED_WP_TABLE_PREVIEW_PAGE_SLUG ) ) {
-			wp_insert_post( $data );
+			$page_id = wp_insert_post( $data );
+
+			if ( ! is_wp_error( $page_id ) ) {
+				update_option( ADVANCED_WP_TABLE_PREVIEW_PAGE_ID, $page_id );
+			}
 		}
 	}
 
