@@ -21,6 +21,26 @@ class Advanced_WP_Table_Preview_Shortcode {
 	 */
 	public function __construct() {
 		add_shortcode( 'advanced_wp_table_preview', array( $this, 'register_shortcode' ) );
+		add_filter( 'the_title', array( $this, 'preview_page_title' ), 10, 2 );
+	}
+
+	/**
+	 * Change the title for the preview page.
+	 *
+	 * @param string $title The page title.
+	 * @param int    $id    The page id.
+	 *
+	 * @return string
+	 */
+	public function preview_page_title( $title, $id ) {
+		if ( $id === absint( get_option( ADVANCED_WP_TABLE_PREVIEW_PAGE_ID ) ) ) {
+			$table_id     = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
+			$preview_post = get_post( $table_id );
+
+			return $preview_post->post_title;
+		}
+
+		return $title;
 	}
 
 	/**

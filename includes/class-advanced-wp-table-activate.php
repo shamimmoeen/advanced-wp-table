@@ -53,12 +53,12 @@ class Advanced_WP_Table_Activate {
 	private function create_preview_page() {
 		$data = array(
 			'post_type'    => 'page',
-			'post_title'   => 'Advanced WP Table Preview',
+			'post_title'   => ADVANCED_WP_TABLE_PREVIEW_PAGE_TITLE,
 			'post_content' => '[advanced_wp_table_preview]',
 			'post_status'  => 'draft',
 		);
 
-		if ( ! get_page_by_path( ADVANCED_WP_TABLE_PREVIEW_PAGE_SLUG ) ) {
+		if ( ! get_page_by_title( ADVANCED_WP_TABLE_PREVIEW_PAGE_TITLE ) ) {
 			$page_id = wp_insert_post( $data );
 
 			if ( ! is_wp_error( $page_id ) ) {

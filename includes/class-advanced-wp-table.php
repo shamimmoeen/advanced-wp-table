@@ -57,8 +57,8 @@ class Advanced_WP_Table {
 			define( 'ADVANCED_WP_TABLE_LIST_PAGE_HOOK', 'toplevel_page_advanced-wp-table' );
 		}
 
-		if ( ! defined( 'ADVANCED_WP_TABLE_PREVIEW_PAGE_SLUG' ) ) {
-			define( 'ADVANCED_WP_TABLE_PREVIEW_PAGE_SLUG', 'advanced-wp-table-preview' );
+		if ( ! defined( 'ADVANCED_WP_TABLE_PREVIEW_PAGE_TITLE' ) ) {
+			define( 'ADVANCED_WP_TABLE_PREVIEW_PAGE_TITLE', 'Advanced WP Table Preview' );
 		}
 
 		if ( ! defined( 'ADVANCED_WP_TABLE_PREVIEW_PAGE_ID' ) ) {
