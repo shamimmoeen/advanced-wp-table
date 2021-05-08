@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 
-import { setTable } from '../../../store/reducers/table';
+import { setTable } from '../../../../store/reducers/table';
 import classNames from 'classnames';
 
-const PasteCell = ( { i, j } ) => {
+const PasteCell = ( { i, j, hideActions } ) => {
 	const dispatch = useDispatch();
 	const { table } = useSelector( state => state.table );
 	const { cellContent } = useSelector( state => state.globals );
@@ -33,6 +33,8 @@ const PasteCell = ( { i, j } ) => {
 		const updatedTable = { ...table, advanced_wp_table_data: newData };
 
 		dispatch( setTable( updatedTable ) );
+
+		hideActions();
 	};
 
 	const pasteCellClasses = classNames(

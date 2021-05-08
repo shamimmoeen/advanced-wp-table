@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import classNames from 'classnames';
 
-import { setTable } from '../../../store/reducers/table';
+import { setTable } from '../../../../store/reducers/table';
 
-const ClearCell = ( { i, j, y } ) => {
+const ClearCell = ( { i, j, y, hideActions } ) => {
 	const dispatch = useDispatch();
 	const { table } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
@@ -32,6 +32,8 @@ const ClearCell = ( { i, j, y } ) => {
 		const updatedTable = { ...table, advanced_wp_table_data: newData };
 
 		dispatch( setTable( updatedTable ) );
+
+		hideActions();
 	};
 
 	const clearCellClasses = classNames(
