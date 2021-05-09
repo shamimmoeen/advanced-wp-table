@@ -37,8 +37,6 @@ const Actions = ( { i, j, y } ) => {
 	}
 
 	const hideActionsOnClickOutside = ( e ) => {
-		console.log( 'registered' );
-
 		if ( buttonRef.current.contains( e.target ) ) {
 			e.stopPropagation();
 		}
@@ -49,8 +47,6 @@ const Actions = ( { i, j, y } ) => {
 	}
 
 	const hideActionsOnEscPress = ( e ) => {
-		console.log( 'esc registered' );
-
 		if ( e.key === 'Escape' ) {
 			hideActions();
 		}
