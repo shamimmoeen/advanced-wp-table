@@ -1,41 +1,37 @@
 import React from 'react';
-import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelector } from 'react-redux';
+import { __ } from '@wordpress/i18n';
 
-import { setTable } from '../../../store/reducers/table';
+import { setTable } from '../../../../store/reducers/table';
 
-const AddRow = ( { i } ) => {
+const DeleteColumn = ( { j, hideActions } ) => {
 	const dispatch = useDispatch();
 	const { table } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
 	const { size, rows } = tableData;
 
-	const onHandleAddRow = () => {
+	const onHandleDeleteColumn = () => {
 		const tempSize = { ...size };
-		const newRows = [ ...rows ];
-		const newRow = [];
+		const newRows = rows.map( ( row ) => row.filter( ( column, index ) => index !== j ) );
 
-		for ( let increment = 0; increment < tempSize.columns; increment++ ) {
-			newRow.push( '' );
-		}
-
-		newRows.splice( i + 1, 0, newRow );
-		const newSize = { ...tempSize, rows: tempSize.rows + 1 };
+		const newSize = { ...tempSize, columns: tempSize.columns - 1 };
 		const newData = { ...tableData, size: newSize, rows: newRows };
 		const updatedTable = { ...table, advanced_wp_table_data: newData };
 
 		dispatch( setTable( updatedTable ) );
+
+		hideActions();
 	};
 
 	return (
 		<div
 			className="advanced-wp-table-action-item"
-			onClick={ onHandleAddRow }
+			onClick={ onHandleDeleteColumn }
 			role="presentation"
 		>
-			{ __( 'Add Row', 'advanced-wp-table' ) }
+			{ __( 'Delete Column', 'advanced-wp-table' ) }
 		</div>
 	);
 };
 
-export default AddRow;
+export default DeleteColumn;

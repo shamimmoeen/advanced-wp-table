@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { parse } from '@wordpress/blocks';
 
-import { dismissToasts } from '../../../utils/utils';
-import { EDITOR } from '../../../utils/views';
-import { setView } from '../../../store/reducers/ui';
-import { setActiveCell, showEditorToolbar } from '../../../store/reducers/table';
+import { dismissToasts } from '../../../../utils/utils';
+import { EDITOR } from '../../../../utils/views';
+import { setView } from '../../../../store/reducers/ui';
+import { setActiveCell, showEditorToolbar } from '../../../../store/reducers/table';
 
-const Edit = ( { i, j } ) => {
+const Edit = ( { i, j, hideActions } ) => {
 	const dispatch = useDispatch();
 	const { table } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
@@ -36,6 +36,8 @@ const Edit = ( { i, j } ) => {
 		} else {
 			openGutenbergEditor();
 		}
+
+		hideActions();
 	};
 
 	return (

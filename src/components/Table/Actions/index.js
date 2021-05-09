@@ -1,37 +1,96 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
-import Edit from './Edit';
-import CopyCell from './CopyCell';
-import PasteCell from './PasteCell';
-import ClearCell from './ClearCell';
-import AddRow from './AddRow';
-import AddColumn from './AddColumn';
-import DuplicateRow from './DuplicateRow';
-import DuplicateColumn from './DuplicateColumn';
-import DeleteRow from './DeleteRow';
-import DeleteColumn from './DeleteColumn';
+import Edit from './Items/Edit';
+import CopyCell from './Items/CopyCell';
+import PasteCell from './Items/PasteCell';
+import ClearCell from './Items/ClearCell';
+import AddRow from './Items/AddRow';
+import AddColumn from './Items/AddColumn';
+import DuplicateRow from './Items/DuplicateRow';
+import DuplicateColumn from './Items/DuplicateColumn';
+import DeleteRow from './Items/DeleteRow';
+import DeleteColumn from './Items/DeleteColumn';
+import Separator from './Items/Separator';
 
 const Actions = ( { i, j, y } ) => {
-	return (
-		<div className={ 'advanced-wp-table-cell-actions' }>
-			<span className={ 'dashicons dashicons-admin-generic advanced-wp-table-edit-cell' } />
-			<div className="advanced-wp-table-actions-dropdown">
-				<div className="advanced-wp-table-actions-dropdown-inner">
-					<Edit i={ i } j={ j } />
-					<hr />
-					<CopyCell i={ i } j={ j } y={ y } />
-					<PasteCell i={ i } j={ j } />
-					<ClearCell i={ i } j={ j } y={ y } />
-					<hr />
-					<AddRow i={ i } />
-					<AddColumn j={ j } />
-					<hr />
-					<DuplicateRow i={ i } />
-					<DuplicateColumn j={ j } />
-					<hr />
-					<DeleteRow i={ i } />
-					<DeleteColumn j={ j } />
+	const [ open, setOpen ] = useState( false );
+
+	const wrapperRef = useRef( null );
+	const buttonRef = useRef( null );
+
+	const showActions = () => {
+		setOpen( true );
+
+		document.getElementById( 'wpwrap' )
+			.addEventListener( 'click', hideActionsOnClickOutside );
+		document.getElementById( 'wpwrap' )
+			.addEventListener( 'keyup', hideActionsOnEscPress );
+	}
+
+	const hideActions = () => {
+		setOpen( false );
+
+		document.getElementById( 'wpwrap' )
+			.removeEventListener( 'click', hideActionsOnClickOutside );
+		document.getElementById( 'wpwrap' )
+			.removeEventListener( 'keyup', hideActionsOnEscPress );
+	}
+
+	const hideActionsOnClickOutside = ( e ) => {
+		if ( buttonRef.current.contains( e.target ) ) {
+			e.stopPropagation();
+		}
+
+		if ( ! wrapperRef.current.contains( e.target ) ) {
+			hideActions();
+		}
+	}
+
+	const hideActionsOnEscPress = ( e ) => {
+		if ( e.key === 'Escape' ) {
+			hideActions();
+		}
+	}
+
+	let wrapperClasses = 'advanced-wp-table-cell-actions';
+	let items = '';
+
+	if ( open ) {
+		wrapperClasses = 'advanced-wp-table-cell-actions show-cell-actions';
+
+		items = (
+			<div className={ 'advanced-wp-table-actions-dropdown' }>
+				<div className={ 'advanced-wp-table-actions-dropdown-inner' }>
+					<Edit i={ i } j={ j } hideActions={ hideActions } />
+					<Separator />
+					<CopyCell i={ i } j={ j } y={ y } hideActions={ hideActions } />
+					<PasteCell i={ i } j={ j } hideActions={ hideActions } />
+					<ClearCell i={ i } j={ j } y={ y } hideActions={ hideActions } />
+					<Separator />
+					<AddRow i={ i } hideActions={ hideActions } />
+					<AddColumn j={ j } hideActions={ hideActions } />
+					<Separator />
+					<DuplicateRow i={ i } hideActions={ hideActions } />
+					<DuplicateColumn j={ j } hideActions={ hideActions } />
+					<Separator />
+					<DeleteRow i={ i } hideActions={ hideActions } />
+					<DeleteColumn j={ j } hideActions={ hideActions } />
 				</div>
+			</div>
+		);
+	}
+
+	return (
+		<div className={ wrapperClasses }>
+			<span
+				onClick={ showActions }
+				className={ 'dashicons dashicons-ellipsis advanced-wp-table-edit-cell' }
+				ref={ buttonRef }
+				tabIndex={ '0' }
+			/>
+
+			<div ref={ wrapperRef }>
+				{ items }
 			</div>
 		</div>
 	);

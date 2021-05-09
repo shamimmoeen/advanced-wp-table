@@ -53,27 +53,27 @@ export const EditorToolbar = ( props, ref ) => {
 				<button className="ql-indent" value="-1" />
 				<button className="ql-indent" value="+1" />
 			</span>
-			<span className="ql-formats">
-				<button className="ql-script" value="super" />
-				<button className="ql-script" value="sub" />
-				<button className="ql-blockquote" />
-			</span>
-			<span className="ql-formats">
-				<span className={ 'ql-item' }>
-					<select className="ql-align" />
-				</span>
-				<span className={ 'ql-item' }>
-					<select className="ql-color" />
-				</span>
-				<span className={ 'ql-item' }>
-					<select className="ql-background" />
-				</span>
-			</span>
-			<span className="ql-formats">
-				<button className="ql-link" />
-				<button className="ql-image" />
-				<button className="ql-video" />
-			</span>
+			{/*<span className="ql-formats">*/}
+			{/*	<button className="ql-script" value="super" />*/}
+			{/*	<button className="ql-script" value="sub" />*/}
+			{/*	<button className="ql-blockquote" />*/}
+			{/*</span>*/}
+			{/*<span className="ql-formats">*/}
+			{/*	<span className={ 'ql-item' }>*/}
+			{/*		<select className="ql-align" />*/}
+			{/*	</span>*/}
+			{/*	<span className={ 'ql-item' }>*/}
+			{/*		<select className="ql-color" />*/}
+			{/*	</span>*/}
+			{/*	<span className={ 'ql-item' }>*/}
+			{/*		<select className="ql-background" />*/}
+			{/*	</span>*/}
+			{/*</span>*/}
+			{/*<span className="ql-formats">*/}
+			{/*	<button className="ql-link" />*/}
+			{/*	<button className="ql-image" />*/}
+			{/*	<button className="ql-video" />*/}
+			{/*</span>*/}
 			<span className="ql-formats">
 				<button className="ql-code-block" />
 				<button className="ql-clean" />

@@ -58,7 +58,7 @@ export const {
 	setIsChanged,
 	unsetIsChanged,
 	setIsBlocksChanged,
-	unsetIsBlocksChanged
+	unsetIsBlocksChanged,
 } = slice.actions;
 
 export default slice.reducer;

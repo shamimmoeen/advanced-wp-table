@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 
-import { setTable } from '../../../store/reducers/table';
+import { setTable } from '../../../../store/reducers/table';
 
-const DuplicateColumn = ( { j } ) => {
+const DuplicateColumn = ( { j, hideActions } ) => {
 	const dispatch = useDispatch();
 	const { table } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
@@ -26,6 +26,8 @@ const DuplicateColumn = ( { j } ) => {
 		const updatedTable = { ...table, advanced_wp_table_data: newData };
 
 		dispatch( setTable( updatedTable ) );
+
+		hideActions();
 	};
 
 	return (
