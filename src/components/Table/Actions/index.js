@@ -1,7 +1,4 @@
-import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { setActiveActionCell, unsetActiveActionCell } from '../../../store/reducers/table';
+import React, { useRef, useState } from 'react';
 
 import Edit from './Items/Edit';
 import CopyCell from './Items/CopyCell';
@@ -16,59 +13,54 @@ import DeleteColumn from './Items/DeleteColumn';
 import Separator from './Items/Separator';
 
 const Actions = ( { i, j, y } ) => {
-	const { activeActionCell } = useSelector( state => state.table );
-	const dispatch = useDispatch();
-	const { i: _i, j: _j } = activeActionCell;
+	const [ open, setOpen ] = useState( false );
+
 	const wrapperRef = useRef( null );
+	const buttonRef = useRef( null );
 
 	const showActions = () => {
-		dispatch( setActiveActionCell( { i, j } ) );
+		setOpen( true );
+
 		document.getElementById( 'wpwrap' )
 			.addEventListener( 'click', hideActionsOnClickOutside );
-		document.getElementById( 'advanced-wp-table-wrapper' )
-			.addEventListener( 'keyup', bal );
+		document.getElementById( 'wpwrap' )
+			.addEventListener( 'keyup', hideActionsOnEscPress );
 	}
 
 	const hideActions = () => {
-		dispatch( unsetActiveActionCell() );
+		setOpen( false );
+
 		document.getElementById( 'wpwrap' )
 			.removeEventListener( 'click', hideActionsOnClickOutside );
-		document.getElementById( 'advanced-wp-table-wrapper' )
-			.removeEventListener( 'keyup', bal );
+		document.getElementById( 'wpwrap' )
+			.removeEventListener( 'keyup', hideActionsOnEscPress );
 	}
 
 	const hideActionsOnClickOutside = ( e ) => {
 		console.log( 'registered' );
+
+		if ( buttonRef.current.contains( e.target ) ) {
+			e.stopPropagation();
+		}
 
 		if ( ! wrapperRef.current.contains( e.target ) ) {
 			hideActions();
 		}
 	}
 
-	const bal = ( e ) => {
-		console.log( 'bal registered' )
-		// if ( e.key === 'Escape' ) {
-		// 	hideActions();
-		// }
-	}
+	const hideActionsOnEscPress = ( e ) => {
+		console.log( 'esc registered' );
 
-	const forceHideActions = () => {
+		if ( e.key === 'Escape' ) {
+			hideActions();
+		}
 	}
 
 	let wrapperClasses = 'advanced-wp-table-cell-actions';
-	let button = <span
-		onClick={ showActions }
-		className={ 'dashicons dashicons-ellipsis advanced-wp-table-edit-cell' }
-	/>;
 	let items = '';
 
-	if ( _i === i && _j === j ) {
+	if ( open ) {
 		wrapperClasses = 'advanced-wp-table-cell-actions show-cell-actions';
-
-		button = <span
-			onClick={ forceHideActions }
-			className={ 'dashicons dashicons-ellipsis advanced-wp-table-edit-cell' }
-		/>;
 
 		items = (
 			<div className={ 'advanced-wp-table-actions-dropdown' }>
@@ -93,9 +85,17 @@ const Actions = ( { i, j, y } ) => {
 	}
 
 	return (
-		<div className={ wrapperClasses } ref={ wrapperRef }>
-			{ button }
-			{ items }
+		<div className={ wrapperClasses }>
+			<span
+				onClick={ showActions }
+				className={ 'dashicons dashicons-ellipsis advanced-wp-table-edit-cell' }
+				ref={ buttonRef }
+				tabIndex={ '0' }
+			/>
+
+			<div ref={ wrapperRef }>
+				{ items }
+			</div>
 		</div>
 	);
 };

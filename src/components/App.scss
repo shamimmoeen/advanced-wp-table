@@ -722,6 +722,14 @@ $fixed_header_height: 50px;
 		}
 	}
 
+	.advanced-wp-table-quill-editor {
+		&.focused ~ .advanced-wp-table-cell-actions {
+			.advanced-wp-table-edit-cell {
+				visibility: hidden;
+			}
+		}
+	}
+
 	.advanced-wp-table-cell-actions {
 		position: absolute;
 		right: 4px;
@@ -742,6 +750,7 @@ $fixed_header_height: 50px;
 		transition: opacity .4s ease-out;
 		visibility: hidden;
 		z-index: 2;
+		outline: none;
 
 		&:hover {
 			color: $edit-cell-hover-color;
@@ -773,13 +782,12 @@ $fixed_header_height: 50px;
 
 	.advanced-wp-table-actions-dropdown {
 		cursor: initial;
-		padding: 100% 0 0;
 		position: absolute;
 		right: 0;
-		top: 0;
+		top: 100%;
 		transition: opacity 0.1s ease-in;
 		width: 130px;
-		z-index: 1;
+		z-index: 3;
 
 		.advanced-wp-table-actions-dropdown-inner {
 			background-color: #fff;

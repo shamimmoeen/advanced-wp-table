@@ -9,7 +9,6 @@ export const table = {
 	visibleEditorToolbar: false,
 	isChanged: false,
 	isBlocksChanged: false,
-	activeActionCell: {},
 };
 
 const slice = createSlice( {
@@ -46,12 +45,6 @@ const slice = createSlice( {
 		unsetIsBlocksChanged: ( state ) => {
 			state.isBlocksChanged = false;
 		},
-		setActiveActionCell: ( state, action ) => {
-			state.activeActionCell = action.payload;
-		},
-		unsetActiveActionCell: ( state ) => {
-			state.activeActionCell = {};
-		},
 	},
 } );
 
@@ -66,8 +59,6 @@ export const {
 	unsetIsChanged,
 	setIsBlocksChanged,
 	unsetIsBlocksChanged,
-	setActiveActionCell,
-	unsetActiveActionCell,
 } = slice.actions;
 
 export default slice.reducer;
