@@ -323,11 +323,14 @@ $fixed_header_height: 50px;
 		}
 
 		a {
-			box-shadow: none;
 			color: #0071a1;
 			cursor: pointer;
 			display: block;
-			outline-style: none;
+
+			&:not(:focus) {
+				box-shadow: none;
+				outline: none;
+			}
 		}
 
 		&.disabled {

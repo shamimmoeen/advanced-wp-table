@@ -11,7 +11,7 @@ import { TABLE } from '../../utils/views';
 import { setTableDeleteDialog } from '../../store/reducers/dialogs';
 import { setCache, setCurrentPage, setOffset, setTables, setTotal, setTotalPages } from '../../store/reducers/tables';
 
-const Actions = ( { table } ) => {
+const Actions = ( { table, onHandleRowFocus, onHandleRowBlur } ) => {
 	const tablesState = useSelector( state => state.tables );
 	const { perPage, total, tables, cache } = tablesState;
 	const { previewPageUrl } = useSelector( state => state.globals );
@@ -72,11 +72,13 @@ const Actions = ( { table } ) => {
 	};
 
 	return (
-		<div className={ 'row-actions' }>
+		<>
 			<span className={ 'edit' }>
 				<button
 					className={ 'button-link' }
 					onClick={ onHandleNavigateToTable }
+					onFocus={ onHandleRowFocus }
+					onBlur={ onHandleRowBlur }
 				>
 					{ __( 'Edit', 'advanced-wp-table' ) }
 				</button>
@@ -87,6 +89,8 @@ const Actions = ( { table } ) => {
 					href={ tablePreviewUrl }
 					target={ '_blank' }
 					rel={ 'noreferrer' }
+					onFocus={ onHandleRowFocus }
+					onBlur={ onHandleRowBlur }
 				>
 					{ __( 'Preview', 'advanced-wp-table' ) }
 				</a>
@@ -96,15 +100,24 @@ const Actions = ( { table } ) => {
 				<button
 					className={ 'button-link' }
 					onClick={ onHandleDuplicateTable }
+					onFocus={ onHandleRowFocus }
+					onBlur={ onHandleRowBlur }
 				>
 					{ __( 'Duplicate', 'advanced-wp-table' ) }
 				</button>
 			</span>
 			{ ` | ` }
 			<span className={ 'trash' }>
-				<a href={ '#/' } onClick={ onHandleDeleteTable }>{ __( 'Delete', 'advanced-wp-table' ) }</a>
+				<a
+					href={ '#/' }
+					onClick={ onHandleDeleteTable }
+					onFocus={ onHandleRowFocus }
+					onBlur={ onHandleRowBlur }
+				>
+					{ __( 'Delete', 'advanced-wp-table' ) }
+				</a>
 			</span>
-		</div>
+		</>
 	);
 };
 

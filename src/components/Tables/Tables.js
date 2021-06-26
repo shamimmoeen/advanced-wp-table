@@ -1,11 +1,10 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { copyShortcode, getShortcode, getType } from '../../utils/table';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTable } from '../../store/reducers/table';
 import { setView } from '../../store/reducers/ui';
-import Actions from './Actions';
 import { TABLE } from '../../utils/views';
+import Row from './Row';
 
 const Tables = () => {
 	const tablesState = useSelector( state => state.tables );
@@ -30,30 +29,11 @@ const Tables = () => {
 			</thead>
 			<tbody>
 				{ tables.length ? tables.map( ( table ) => (
-					<tr key={ table.id }>
-						<td>
-							<strong>
-								<a
-									href={ '#/' }
-									className={ 'row-title' }
-									onClick={ ( e ) => onHandleNavigateToTable( e, table ) }
-								>
-									{ table.title.rendered }
-								</a>
-							</strong>
-							<Actions table={ table } />
-						</td>
-						<td>{ getType( table ) }</td>
-						<td>
-							<input
-								type="text"
-								className={ 'advanced-wp-table-shortcode' }
-								value={ getShortcode( table.id ) }
-								readOnly={ true }
-								onClick={ copyShortcode }
-							/>
-						</td>
-					</tr>
+					<Row
+						key={ table.id }
+						table={ table }
+						onHandleNavigateToTable={ onHandleNavigateToTable }
+					/>
 				) ) : (
 					<tr>
 						<td colSpan={ 3 }>{ __( 'No tables found.', 'advanced-wp-table' ) }</td>
