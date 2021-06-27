@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tooltip } from '@wordpress/components';
+import { Button, Dashicon, Tooltip } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -34,13 +34,9 @@ const AddRow = () => {
 			text={ __( 'Add row', 'advanced-wp-table' ) }
 			position={ 'bottom center' }
 		>
-			<div
-				aria-label={ 'Add row' }
-				role={ 'presentation' }
-				onClick={ onHandleAddRow }
-			>
-				<span className="dashicons dashicons-table-row-before" />
-			</div>
+			<Button onClick={ onHandleAddRow }>
+				<Dashicon icon={ 'table-row-before' } />
+			</Button>
 		</Tooltip>
 	);
 };

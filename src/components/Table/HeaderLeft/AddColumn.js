@@ -1,8 +1,7 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { Tooltip } from '@wordpress/components';
+import { Button, Dashicon, Tooltip } from '@wordpress/components';
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
 
 import { setTable } from '../../../store/reducers/table';
 
@@ -11,7 +10,7 @@ const AddColumn = () => {
 	const { table } = useSelector( state => state.table );
 	const { advanced_wp_table_data: tableData } = table;
 	const { size, rows } = tableData;
-	const disabled = !! size.rows;
+	const enabled = !! size.rows;
 
 	const onHandleAddColumn = () => {
 		if ( ! size.rows ) {
@@ -39,14 +38,9 @@ const AddColumn = () => {
 			text={ __( 'Add column', 'advanced-wp-table' ) }
 			position={ 'bottom center' }
 		>
-			<div
-				className={ classNames( { 'advanced-wp-table-button-disabled': ! disabled } ) }
-				aria-label={ 'Add column' }
-				role={ 'presentation' }
-				onClick={ onHandleAddColumn }
-			>
-				<span className="dashicons dashicons-table-col-before" />
-			</div>
+			<Button disabled={ ! enabled } onClick={ onHandleAddColumn }>
+				<Dashicon icon={ 'table-col-before' } />
+			</Button>
 		</Tooltip>
 	);
 };

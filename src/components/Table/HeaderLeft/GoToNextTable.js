@@ -1,9 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
-import { Tooltip } from '@wordpress/components';
+import { Button, Dashicon, Tooltip } from '@wordpress/components';
 import _ from 'lodash';
-import classNames from 'classnames';
 
 import { setTable } from '../../../store/reducers/table';
 import { setTableChangedDialog, unsetTableChangedDialog } from '../../../store/reducers/dialogs';
@@ -15,7 +14,7 @@ const GoToNextTable = () => {
 	const { table } = useSelector( state => state.table );
 	const currentTableIndex = _.findIndex( tables, { id: table.id } );
 	const nextTable = tables[ currentTableIndex + 1 ];
-	const disabled = !! nextTable;
+	const enabled = !! nextTable;
 
 	const goToNextTable = () => {
 		dispatch( setTable( nextTable ) );
@@ -48,14 +47,9 @@ const GoToNextTable = () => {
 			text={ __( 'Go to next table', 'advanced-wp-table' ) }
 			position={ 'bottom center' }
 		>
-			<div
-				className={ classNames( { 'advanced-wp-table-button-disabled': ! disabled } ) }
-				aria-label={ 'Go to next table' }
-				role={ 'presentation' }
-				onClick={ onHandleGoToNextTable }
-			>
-				<span className="dashicons dashicons-arrow-right-alt" />
-			</div>
+			<Button disabled={ ! enabled } onClick={ onHandleGoToNextTable }>
+				<Dashicon icon={ 'arrow-right-alt' } />
+			</Button>
 		</Tooltip>
 	);
 };

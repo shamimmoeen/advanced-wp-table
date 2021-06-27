@@ -145,6 +145,10 @@ $fixed_header_height: 50px;
 		display: flex;
 	}
 
+	.advanced-wp-table-header-left {
+		align-items: center;
+	}
+
 	> div {
 		flex: 1;
 	}
@@ -212,31 +216,17 @@ $fixed_header_height: 50px;
 		display: flex;
 		padding: 0 0 0 10px;
 
-		div[role="presentation"] {
-			align-items: center;
-			cursor: pointer;
-			display: inline-flex;
-			height: 30px;
+		.components-button {
+			padding: 6px;
 
-			.dashicons {
-				transition: none;
+			&:disabled {
+				&:hover {
+					color: inherit;
+				}
 			}
 
 			&:not(:last-child) {
-				margin: 0 10px 0 0;
-			}
-
-			&:not(.advanced-wp-table-button-disabled) {
-				&:hover {
-					color: #007cba;
-				}
-			}
-
-			&.advanced-wp-table-button-disabled {
-				.dashicons {
-					cursor: default;
-					opacity: .3;
-				}
+				margin: 0 5px 0 0;
 			}
 		}
 	}
@@ -748,12 +738,12 @@ $fixed_header_height: 50px;
 		font-size: 14px;
 		line-height: 20px;
 		opacity: 0;
+		outline: none;
 		position: relative;
 		transform: rotate(90deg);
 		transition: opacity .4s ease-out;
 		visibility: hidden;
 		z-index: 2;
-		outline: none;
 
 		&:hover {
 			color: $edit-cell-hover-color;
