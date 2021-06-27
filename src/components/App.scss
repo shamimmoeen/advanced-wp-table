@@ -60,42 +60,32 @@ $fixed_header_height: 50px;
 
 	@mixin show_edit_icon {
 		opacity: 1;
-		visibility: visible;
 	}
 
 	.advanced-wp-table-edit-title-wrapper {
+		.advanced-wp-table-edit-title-btn-wrapper {
+			margin-right: -32px;
+			padding-left: 4px;
+		}
+
 		.advanced-wp-table-edit-title-toggle {
-			cursor: pointer;
-			margin-right: -40px;
+			height: 30px;
 			opacity: 0;
-			padding: 0 10px;
-			position: relative;
-			transition: opacity .4s ease-out;
-			visibility: hidden;
-
-			.dashicons {
-				transition: none;
-			}
-
-			> div {
-				align-items: center;
-				display: inline-flex;
-				height: 30px;
-			}
+			padding: 4px;
 
 			&:hover {
 				@include show_edit_icon;
 				color: #007cba;
+			}
+
+			&:focus {
+				@include show_edit_icon;
 			}
 		}
 
 		&:hover {
 			.advanced-wp-table-edit-title-toggle {
 				@include show_edit_icon;
-			}
-
-			&:after {
-				content: none;
 			}
 		}
 	}
@@ -233,6 +223,7 @@ $fixed_header_height: 50px;
 
 	.advanced-wp-table-header-middle {
 		min-width: 0;
+		z-index: 2;
 	}
 
 	.advanced-wp-table-header-right {

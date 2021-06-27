@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Tooltip } from '@wordpress/components';
+import { Button, Dashicon, Tooltip } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 import { setTable } from '../../../../store/reducers/table';
@@ -29,7 +29,7 @@ const Title = () => {
 	};
 
 	const closeEditTitleFromEscEnterPress = ( e ) => {
-		if ( e.key === 'Escape' || e.key === 'Enter' ) {
+		if ( e.key === 'Escape' ) {
 			unregisterEvents();
 		}
 	};
@@ -77,17 +77,17 @@ const Title = () => {
 					>
 						{ title }
 					</h1>
-					<div
-						className={ 'advanced-wp-table-edit-title-toggle' }
-						role={ 'presentation' }
-						onClick={ handleToggleEditTitle }
-						data-testid={ 'toggle-edit-mode' }
-					>
+					<div className={ 'advanced-wp-table-edit-title-btn-wrapper' }>
 						<Tooltip
 							text={ __( 'Edit the title', 'advanced-wp-table' ) }
 							position={ 'bottom center' }
 						>
-							<div><span className={ 'dashicons dashicons-edit' } /></div>
+							<Button
+								className={ 'advanced-wp-table-edit-title-toggle' }
+								onClick={ handleToggleEditTitle }
+							>
+								<Dashicon icon={ 'edit' } />
+							</Button>
 						</Tooltip>
 					</div>
 				</Fragment>
