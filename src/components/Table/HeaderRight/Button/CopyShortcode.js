@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import Icon from '@mdi/react';
@@ -10,6 +10,7 @@ import { getShortcode, textToClipboard } from '../../../../utils/table';
 const CopyShortcode = () => {
 	const { table } = useSelector( state => state.table );
 	const [ loading, setLoading ] = useState( false );
+	const buttonRef = useRef( '' );
 
 	const handleShortcodeCopy = () => {
 		if ( loading ) {
@@ -19,6 +20,7 @@ const CopyShortcode = () => {
 		setLoading( true );
 		const shortcode = getShortcode( table.id );
 		textToClipboard( shortcode );
+		buttonRef.current.focus();
 
 		setTimeout( () => {
 			setLoading( false );
@@ -34,7 +36,7 @@ const CopyShortcode = () => {
 			className={ 'isLoading' }
 			path={ mdiCheckCircle }
 			size={ '20px' }
-			data-testid={'copy-shortcode-loading'}
+			data-testid={ 'copy-shortcode-loading' }
 		/>;
 
 		buttonClasses = 'has-icon copy-shortcode isLoading'
@@ -50,6 +52,7 @@ const CopyShortcode = () => {
 			<Button
 				className={ buttonClasses }
 				onClick={ handleShortcodeCopy }
+				ref={ buttonRef }
 			>
 				{ button }
 			</Button>

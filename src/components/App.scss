@@ -233,6 +233,10 @@ $fixed_header_height: 50px;
 			margin: 0 0 0 8px;
 		}
 
+		.hello-input {
+			display: none;
+		}
+
 		.copy-shortcode {
 			&.isLoading {
 				cursor: none;
