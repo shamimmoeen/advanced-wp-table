@@ -6,6 +6,7 @@ import TableCell from '../Table/TableCell';
 import { setIsChanged, unsetIsChanged } from '../../store/reducers/table';
 import { isTableChanged } from '../../utils/table';
 import useDraggableTable from '../../hooks/useDraggableTable';
+import useResizableTable from '../../hooks/useResizableTable';
 
 const Table = () => {
 	const dispatch = useDispatch();
@@ -17,13 +18,15 @@ const Table = () => {
 
 	const [
 		rowsRef,
-		preview,
 		rows,
 		style,
 		onDragStart,
 		onDragEnter,
 		onDragEnd,
+		preview,
 	] = useDraggableTable( table );
+
+	const [ resizer ] = useResizableTable();
 
 	useEffect( () => {
 		if ( isTableChanged( tables, table ) ) {
@@ -44,7 +47,7 @@ const Table = () => {
 								<td
 									className={ 'advanced-wp-table-cell' }
 									key={ j }
-									draggable="true"
+									draggable={ true }
 									style={ style( i, j ) }
 									onDragStart={ ( e ) => onDragStart( e, i, j ) }
 									onDragEnter={ () => onDragEnter( i, j ) }
@@ -57,21 +60,14 @@ const Table = () => {
 										rowsRef={ rowsRef }
 										ref={ toolbarRef }
 									/>
+									{ resizer(i, j) }
 								</td>
 							) ) }
 						</tr>
 					) )
 				}</tbody>
 			</table>
-			<div
-				ref={ preview }
-				style={ {
-					position: 'absolute',
-					width: 0,
-					height: 0,
-					overflow: 'hidden',
-				} }
-			/>
+			{ preview }
 		</Fragment>
 	);
 };

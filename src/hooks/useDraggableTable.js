@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { offsetIndex } from '../utils/utils';
@@ -26,7 +26,7 @@ const useDraggableTable = ( table ) => {
 	const [ dragState, setDragState ] = useState( { ...defaultDragState } );
 
 	const rowsRef = useRef( [] ),
-		preview = useRef( null );
+		previewRef = useRef( null );
 
 	if ( dragState.direction === DRAG_DIRECTION_COLUMN ) {
 		rows = rows.map( ( x ) => offsetIndex( dragState.column, dragState.dropIndex, x ) );
@@ -84,7 +84,7 @@ const useDraggableTable = ( table ) => {
 	}
 
 	const onDragStart = ( e, i, j ) => {
-		e.dataTransfer.setDragImage( preview.current, 0, 0 );
+		e.dataTransfer.setDragImage( previewRef.current, 0, 0 );
 		// noinspection JSCheckFunctionSignatures
 		setDragState( {
 			...dragState,
@@ -143,14 +143,26 @@ const useDraggableTable = ( table ) => {
 		setDragState( { ...defaultDragState } );
 	}
 
+	const preview = (
+		<div
+			ref={ previewRef }
+			style={ {
+				position: 'absolute',
+				width: 0,
+				height: 0,
+				overflow: 'hidden',
+			} }
+		/>
+	);
+
 	return [
 		rowsRef,
-		preview,
 		rows,
 		style,
 		onDragStart,
 		onDragEnter,
 		onDragEnd,
+		preview,
 	];
 }
 
