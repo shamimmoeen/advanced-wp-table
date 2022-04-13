@@ -7,7 +7,7 @@
  * Author URI:      https://mainulhassan.info
  * Text Domain:     advanced-wp-table
  * Domain Path:     /languages
- * Version:         1.2.0
+ * Version:         1.2.1
  * License:         GPLv3
  *
  * @package         Advanced_WP_Table
