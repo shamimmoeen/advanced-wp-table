@@ -2,7 +2,7 @@
 **Contributors:** [shamimmoeen](https://profiles.wordpress.org/shamimmoeen)  
 **Tags:** advanced wp table, wp table, table, responsive table, gutenberg table  
 **Requires at least:** 5.0.0  
-**Tested up to:** 5.4  
+**Tested up to:** 5.9.3  
 **Requires PHP:** 5.6  
 **Stable tag:** 1.2.1  
 **License:** GPLv3  
