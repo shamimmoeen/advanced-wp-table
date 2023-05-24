@@ -7,13 +7,10 @@ import {
 	SETTINGS_DEFAULTS,
 	WritingFlow,
 } from '@wordpress/block-editor';
-import { DropZoneProvider, Popover, SlotFillProvider } from '@wordpress/components';
+import { Popover, SlotFillProvider, DropZone } from '@wordpress/components';
 import '@wordpress/format-library';
 import { StateContext } from '../../App';
 import Buttons from './Buttons';
-
-import './editor.scss';
-import './style.scss';
 
 const { Fragment, useContext } = wp.element;
 const { __ } = wp.i18n;
@@ -28,34 +25,38 @@ const { __ } = wp.i18n;
 SETTINGS_DEFAULTS.mediaUpload = wp.mediaUtils.uploadMedia;
 
 SETTINGS_DEFAULTS.imageSizes = [
-	{ slug: 'thumbnail', name: __( 'Thumbnail', 'advanced-wp-table' ) },
-	{ slug: 'medium', name: __( 'Medium', 'advanced-wp-table' ) },
-	{ slug: 'large', name: __( 'Large', 'advanced-wp-table' ) },
-	{ slug: 'full', name: __( 'Full Size', 'advanced-wp-table' ) },
+	{ slug: 'thumbnail', name: __('Thumbnail', 'advanced-wp-table') },
+	{ slug: 'medium', name: __('Medium', 'advanced-wp-table') },
+	{ slug: 'large', name: __('Large', 'advanced-wp-table') },
+	{ slug: 'full', name: __('Full Size', 'advanced-wp-table') },
 ];
 
 const Editor = () => {
-	const { state, dispatch } = useContext( StateContext );
+	const { state, dispatch } = useContext(StateContext);
 	const { activeCell } = state;
 	const { content: blocks } = activeCell;
 
-	const onHandleChange = ( updatedBlocks ) => {
-		dispatch( { type: 'SET_ACTIVE_CELL', payload: { ...activeCell, content: updatedBlocks } } );
+	const onHandleChange = (updatedBlocks) => {
+		dispatch({
+			type: 'SET_ACTIVE_CELL',
+			payload: { ...activeCell, content: updatedBlocks },
+		});
 	};
 
 	return (
 		<Fragment>
 			<Buttons />
-			<div className={ 'advanced-wp-table-editor' }>
+			<div className={'advanced-wp-table-editor'}>
 				<SlotFillProvider>
-					<DropZoneProvider>
+					<DropZone>
 						<BlockEditorProvider
-							value={ blocks }
-							onInput={ onHandleChange }
-							onChange={ onHandleChange }>
-							<div className={ 'editor-styles-wrapper' }>
-								<div style={ { padding: '20px' } } />
-								<Popover.Slot name={ 'block-toolbar' } />
+							value={blocks}
+							onInput={onHandleChange}
+							onChange={onHandleChange}
+						>
+							<div className={'editor-styles-wrapper'}>
+								<div style={{ padding: '20px' }} />
+								<Popover.Slot name={'block-toolbar'} />
 								<BlockEditorKeyboardShortcuts />
 								<WritingFlow>
 									<ObserveTyping>
@@ -63,12 +64,12 @@ const Editor = () => {
 									</ObserveTyping>
 								</WritingFlow>
 							</div>
-							<div className={ 'advanced-wp-table-editor-sidebar' }>
+							<div className={'advanced-wp-table-editor-sidebar'}>
 								<BlockInspector />
 							</div>
 							<Popover.Slot />
 						</BlockEditorProvider>
-					</DropZoneProvider>
+					</DropZone>
 				</SlotFillProvider>
 			</div>
 		</Fragment>

@@ -266,14 +266,20 @@ class Advanced_WP_Table {
 		wp_enqueue_style( 'wp-format-library' );
 
 		// Automatically load dependencies and version.
-		$asset_file = require_once dirname( __DIR__ ) . '/build/index.asset.php';
+		$asset_file = require_once dirname( __DIR__ ) . '/build/awt.asset.php';
 
 		wp_enqueue_script(
 			'advanced-wp-table-backend-js',
-			ADVANCED_WP_TABLE_URL . 'build/index.js',
+			ADVANCED_WP_TABLE_URL . 'build/awt.js',
 			$asset_file['dependencies'],
 			$asset_file['version'],
 			true
+		);
+
+		wp_enqueue_script(
+			'advanced-wp-table-backend-css',
+			ADVANCED_WP_TABLE_URL . 'awt.css',
+			array(),
 		);
 	}
 

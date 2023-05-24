@@ -1,10 +1,8 @@
 import { registerCoreBlocks } from '@wordpress/block-library';
-import { hot } from 'react-hot-loader/root';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.css';
 import { getTables, parseTableSize } from '../utils/table';
 import { toastError } from '../utils/utils';
-import './App.scss';
 import EditCellModal from './EditCellModal/EditCellModal';
 import List from './List/List';
 import NewTable from './NewTable/NewTable';
@@ -53,8 +51,8 @@ const initialState = {
 	newTableData,
 };
 
-const reducer = ( state, action ) => {
-	switch ( action.type ) {
+const reducer = (state, action) => {
+	switch (action.type) {
 		case 'SET_VIEW':
 			return { ...state, view: action.payload };
 
@@ -88,11 +86,15 @@ const reducer = ( state, action ) => {
 			return { ...state, tables: action.payload };
 
 		case 'PAGINATE_TABLES':
-			return { ...state, offset: action.payload.offset, currentPage: action.payload.currentPage };
+			return {
+				...state,
+				offset: action.payload.offset,
+				currentPage: action.payload.currentPage,
+			};
 
 		case 'SET_INPUT':
 			const data = { ...state.newTableData };
-			data[ action.payload.name ] = action.payload.value;
+			data[action.payload.name] = action.payload.value;
 
 			return { ...state, newTableData: data };
 
@@ -100,7 +102,7 @@ const reducer = ( state, action ) => {
 			return { ...state, newTableData };
 
 		case 'SET_TABLE':
-			return { ...state, table: parseTableSize( action.payload ) };
+			return { ...state, table: parseTableSize(action.payload) };
 
 		case 'UNSET_TABLE':
 			return { ...state, table: {} };
@@ -109,7 +111,13 @@ const reducer = ( state, action ) => {
 			const { advanced_wp_table_data: tableData } = state.table;
 			const updatedTableData = { ...tableData, rows: action.payload };
 
-			return { ...state, table: { ...state.table, advanced_wp_table_data: updatedTableData } };
+			return {
+				...state,
+				table: {
+					...state.table,
+					advanced_wp_table_data: updatedTableData,
+				},
+			};
 
 		case 'SET_ACTIVE_CELL':
 			return { ...state, activeCell: action.payload };
@@ -135,78 +143,78 @@ const reducer = ( state, action ) => {
 };
 
 const App = () => {
-	const [ state, dispatch ] = useReducer( reducer, initialState );
+	const [state, dispatch] = useReducer(reducer, initialState);
 	const { perPage, offset, view } = state;
 
 	const fetchTables = () => {
-		dispatch( { type: 'SET_TABLES_LOADING' } );
+		dispatch({ type: 'SET_TABLES_LOADING' });
 
-		getTables( perPage, offset )
-			.then( ( response ) => {
-				dispatch( { type: 'FETCH_TABLES', payload: response } );
-				dispatch( { type: 'UNSET_TABLES_LOADING' } );
-			} )
-			.catch( ( err ) => {
-				toastError( err.message );
-				dispatch( { type: 'UNSET_TABLES_LOADING' } );
-			} );
+		getTables(perPage, offset)
+			.then((response) => {
+				dispatch({ type: 'FETCH_TABLES', payload: response });
+				dispatch({ type: 'UNSET_TABLES_LOADING' });
+			})
+			.catch((err) => {
+				toastError(err.message);
+				dispatch({ type: 'UNSET_TABLES_LOADING' });
+			});
 	};
 
 	/**
 	 * Initially fetch the tables from the database.
 	 */
-	useEffect( () => {
+	useEffect(() => {
 		fetchTables();
-		dispatch( { type: 'UNSET_LOADING' } );
-	}, [] );
+		dispatch({ type: 'UNSET_LOADING' });
+	}, []);
 
 	/**
 	 * Fetch the tables when offset gets changed.
 	 */
-	useEffect( () => {
-		if ( state.loading ) {
+	useEffect(() => {
+		if (state.loading) {
 			return;
 		}
 
 		fetchTables();
-	}, [ offset ] );
+	}, [offset]);
 
 	/**
 	 * Register the gutenberg core blocks.
 	 */
-	useEffect( () => {
+	useEffect(() => {
 		registerCoreBlocks();
 
 		// Since wp 5.4 core/freeform, core/shortcode block issues are fixed.
 		const disAllowedBlocks = [];
 
-		wp.blocks.getBlockTypes().forEach( ( blockType ) => {
-			if ( disAllowedBlocks.includes( blockType.name ) ) {
-				wp.blocks.unregisterBlockType( blockType.name );
+		wp.blocks.getBlockTypes().forEach((blockType) => {
+			if (disAllowedBlocks.includes(blockType.name)) {
+				wp.blocks.unregisterBlockType(blockType.name);
 			}
-		} );
-	}, [] );
+		});
+	}, []);
 
 	let content;
 
-	if ( 'list' === view ) {
+	if ('list' === view) {
 		content = <List />;
-	} else if ( 'form' === view ) {
+	} else if ('form' === view) {
 		content = <NewTable />;
-	} else if ( 'table' === view ) {
+	} else if ('table' === view) {
 		content = <Table />;
-	} else if ( 'editCellModal' === view ) {
+	} else if ('editCellModal' === view) {
 		content = <EditCellModal />;
 	}
 
 	return (
-		<StateContext.Provider value={ { state, dispatch } }>
-			<ToastContainer className={ 'advanced-wp-table-toast' } />
+		<StateContext.Provider value={{ state, dispatch }}>
+			<ToastContainer className={'advanced-wp-table-toast'} />
 			<TableDeleteDialog />
 			<TableChangedDialog />
-			{ content }
+			{content}
 		</StateContext.Provider>
 	);
 };
 
-export default hot( App );
+export default App;
