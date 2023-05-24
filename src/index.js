@@ -1,5 +1,7 @@
 import { render, StrictMode } from '@wordpress/element';
 import App from './components/App';
+import 'react-toastify/dist/ReactToastify.css';
+import '@reach/dialog/styles.css';
 import './index.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
