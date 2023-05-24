@@ -7,7 +7,7 @@
  * Author URI:      https://mainulhassan.info
  * Text Domain:     advanced-wp-table
  * Domain Path:     /languages
- * Version:         1.3.0
+ * Version:         1.3.1
  * License:         GPLv3
  *
  * @package         Advanced_WP_Table
@@ -61,10 +61,26 @@ if ( ! function_exists( 'awt_fs' ) ) {
 	do_action( 'awt_fs_loaded' );
 }
 
+if ( ! defined( 'ADVANCED_WP_TABLE_VERSION' ) ) {
+	define( 'ADVANCED_WP_TABLE_VERSION', '1.3.1' );
+}
+
 // Include the main WooCommerce class.
 if ( ! class_exists( 'Advanced_WP_Table' ) ) {
 	require_once dirname( __FILE__ ) . '/includes/class-advanced-wp-table.php';
 }
+
+/**
+ * The code that runs during plugin activation.
+ *
+ * @since 1.3.1
+ */
+function advanced_wp_table_activate() {
+	require_once dirname( __FILE__ ) . '/includes/class-advanced-wp-table-activator.php';
+	Advanced_WP_Table_Table_Activator::activate();
+}
+
+register_activation_hook( __FILE__, 'advanced_wp_table_activate' );
 
 if ( ! function_exists( 'advanced_wp_table_run' ) ) {
 	/**
