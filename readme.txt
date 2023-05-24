@@ -4,7 +4,7 @@ Tags: advanced wp table, wp table, table, responsive table, gutenberg table
 Requires at least: 5.0.0
 Tested up to: 6.2
 Requires PHP: 5.6
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,10 @@ You need to use shortcode. As an example, `[advanced_wp_table id="1"]`. You shou
 == Screenshots ==
 
 == Changelog ==
+
+= 1.3.2 =
+
+* Trying to migrate the table data
 
 = 1.3.1 =
 
