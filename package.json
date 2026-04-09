@@ -26,7 +26,7 @@
   "devDependencies": {
     "@wordpress/api-fetch": "^6.30.0",
     "@wordpress/block-library": "^8.10.0",
-    "@wordpress/scripts": "^26.4.0",
+    "@wordpress/scripts": "^26.19.0",
     "@wordpress/url": "^3.34.0",
     "grunt": "~1.6.1",
     "grunt-wp-i18n": "^1.0.3",
