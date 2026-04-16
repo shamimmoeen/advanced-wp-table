@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Mainul Hassan Main
+# Copyright (C) 2023 Mainul Hassan
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
@@ -47,9 +47,9 @@ msgid "An easy to use plugin to create tables in WordPress."
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Mainul Hassan Main"
+msgid "Mainul Hassan"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://mainulhassan.info"
+msgid "https://mainulhassan.com"
 msgstr ""

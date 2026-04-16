@@ -3,8 +3,8 @@
  * Plugin Name:     Advanced WP Table
  * Plugin URI:      https://wordpress.org/plugins/advanced-wp-table
  * Description:     An easy to use plugin to create tables in WordPress.
- * Author:          Mainul Hassan Main
- * Author URI:      https://mainulhassan.info
+ * Author:          Mainul Hassan
+ * Author URI:      https://mainulhassan.com
  * Text Domain:     advanced-wp-table
  * Domain Path:     /languages
  * Version:         1.3.2

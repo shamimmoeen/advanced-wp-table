@@ -21,7 +21,7 @@
     "responsive table",
     "gutenberg table"
   ],
-  "author": "Mainul Hassan Main <shamim.moeen@gmail.com> (https://mainulhassan.info)",
+  "author": "Mainul Hassan <shamim.moeen@gmail.com> (https://mainulhassan.com)",
   "license": "GPLv3",
   "devDependencies": {
     "@wordpress/api-fetch": "^6.30.0",
