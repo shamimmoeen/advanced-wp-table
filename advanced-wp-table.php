@@ -93,20 +93,14 @@ register_activation_hook( __FILE__, 'advanced_wp_table_activate' );
  * @return void
  */
 function advanced_wp_table_updated( $upgrader_object, $options ) {
-	error_log( 'called the function advanced_wp_table_updated' );
-
 	// Check if the updated plugin is your plugin
 	if ( $options['action'] === 'update' && $options['type'] === 'plugin' && isset( $options['plugins'] ) ) {
-		error_log( 'we are inside the plugin update condition' );
-
 		$updated_plugins = $options['plugins'];
 
 		$db_version_option_key = 'advanced_wp_table_db_version';
 
 		// Check if your plugin is in the list of updated plugins
 		if ( in_array( 'advanced-wp-table/advanced-wp-table.php', $updated_plugins ) ) {
-			error_log( 'we are checking if migration should be run' );
-
 			if ( ! get_option( $db_version_option_key ) ) {
 				$tables = get_posts(
 					array(
@@ -123,8 +117,6 @@ function advanced_wp_table_updated( $upgrader_object, $options ) {
 
 				// Update the db version.
 				update_option( $db_version_option_key, ADVANCED_WP_TABLE_VERSION );
-
-				error_log( 'The migration ran successfully' );
 			}
 		}
 	}

@@ -24,22 +24,12 @@ class Advanced_WP_Table {
 	protected static $instance = null;
 
 	/**
-	 * Advanced_WP_Table version.
-	 *
-	 * @var string
-	 */
-	public $version = '1.1.0';
-
-	/**
 	 * Advanced_WP_Table constructor.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct() {
 		$this->defines();
-
-		register_activation_hook( __FILE__, array( $this, 'install' ) );
-		register_deactivation_hook( __FILE__, array( $this, 'uninstall' ) );
 
 		add_action( 'admin_notices', array( $this, 'show_notices' ) );
 		add_action( 'init', array( $this, 'register_post_type' ) );
@@ -112,19 +102,6 @@ class Advanced_WP_Table {
 	}
 
 	/**
-	 * Runs when the plugin is activated.
-	 *
-	 * @since 1.1.0
-	 */
-	public function install() {
-		// Register the post type 'advanced-wp-table'.
-		$this->register_post_type();
-
-		// Clear the permalinks after the post type has been registered.
-		flush_rewrite_rules();
-	}
-
-	/**
 	 * Register Post Type.
 	 *
 	 * @since 1.0.0
@@ -139,19 +116,6 @@ class Advanced_WP_Table {
 		);
 
 		register_post_type( 'advanced-wp-table', $args );
-	}
-
-	/**
-	 * Runs when the plugin is deactivated.
-	 *
-	 * @since 1.1.0
-	 */
-	public function uninstall() {
-		// Unregister the post type, so the rules are no longer in memory.
-		unregister_post_type( 'advanced-wp-table' );
-
-		// Clear the permalinks to remove our post type's rules from the database.
-		flush_rewrite_rules();
 	}
 
 	/**
