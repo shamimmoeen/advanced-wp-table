@@ -60,10 +60,11 @@
 }
 
 .advanced-wp-table-pagination-wrapper {
-	align-items: flex-end;
+	align-items: center;
 	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
 	justify-content: space-between;
-	min-height: 26px;
 }
 
 .advanced-wp-table-total-info {
@@ -71,62 +72,13 @@
 }
 
 .advanced-wp-table-pagination {
-	margin: 0;
-	padding: 0;
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
 
-	li {
-		background: #f3f5f6;
-		border-color: #0071a1;
-		border-radius: 3px;
-		border-style: solid;
-		border-width: 1px;
-		display: inline-block;
-		font-size: 14px;
-		line-height: 24px;
-		min-height: 24px;
-		min-width: 24px;
-
-		text-align: center;
-
-		vertical-align: baseline;
-
-		&:not(:last-child) {
-			margin: 0 4px 0 0;
-		}
-
-		&:last-child {
-			margin: 0;
-		}
-
-		a {
-			box-shadow: none;
-			color: #0071a1;
-			cursor: pointer;
-			display: block;
-			outline-style: none;
-		}
-
-		&.disabled {
-			background: #f7f7f7;
-			border-color: #ddd;
-			box-shadow: none;
-			text-shadow: 0 1px 0 #fff;
-			transform: none;
-
-			a {
-				color: #a0a5aa;
-				cursor: default;
-			}
-		}
-
-		&.active {
-			background: #0071a1;
-			border-color: #0071a1;
-
-			a {
-				color: #fff;
-			}
-		}
+	.advanced-wp-table-pagination-ellipsis {
+		padding: 0 4px;
 	}
 }
 

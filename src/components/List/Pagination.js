@@ -1,49 +1,88 @@
-import ReactPaginate from 'react-paginate';
+import { Button } from '@wordpress/components';
 import { StateContext } from '../App';
 
 const { useContext } = wp.element;
-const { __ } = wp.i18n;
+const { _n, sprintf } = wp.i18n;
+
+const getPageNumbers = ( currentPage, pageCount ) => {
+	const delta = 2;
+	const pages = [];
+
+	for ( let i = 0; i < pageCount; i++ ) {
+		if (
+			i === 0 ||
+			i === pageCount - 1 ||
+			( i >= currentPage - delta && i <= currentPage + delta )
+		) {
+			pages.push( i );
+		} else if ( pages[ pages.length - 1 ] !== '...' ) {
+			pages.push( '...' );
+		}
+	}
+
+	return pages;
+};
 
 const Pagination = () => {
 	const { state, dispatch } = useContext( StateContext );
 	const { total, totalPages, perPage, currentPage } = state;
+	const pageCount = totalPages;
 
-	const onHandlePageChange = ( data ) => {
-		const selected = data.selected;
-		const offset = Math.ceil( selected * perPage );
-		dispatch( { type: 'PAGINATE_TABLES', payload: { offset, currentPage: selected } } );
+	const onPageChange = ( page ) => {
+		const offset = page * perPage;
+		dispatch( { type: 'PAGINATE_TABLES', payload: { offset, currentPage: page } } );
 	};
-
-	let paginationElement;
-
-	if ( 1 < totalPages ) {
-		paginationElement = (
-			<ReactPaginate
-				previousLabel={ '‹' }
-				nextLabel={ '›' }
-				breakLabel={ '...' }
-				breakClassName={ 'break-me' }
-				pageCount={ parseInt( totalPages ) }
-				forcePage={ currentPage }
-				marginPagesDisplayed={ 2 }
-				pageRangeDisplayed={ 3 }
-				onPageChange={ onHandlePageChange }
-				containerClassName={ 'advanced-wp-table-pagination' }
-				subContainerClassName={ 'pages pagination' }
-				activeClassName={ 'active' }
-			/>
-		);
-	}
 
 	return (
 		<div className={ 'advanced-wp-table-pagination-wrapper' }>
 			<span className={ 'advanced-wp-table-total-info' }>
-				{ 1 === total ?
-					`${ total } ${ __( 'item', 'advanced-wp-table' ) }` :
-					`${ total } ${ __( 'items', 'advanced-wp-table' ) }`
-				}
+				{ sprintf(
+					/* translators: %d: number of items. */
+					_n(
+						'%d item',
+						'%d items',
+						total,
+						'advanced-wp-table'
+					),
+					total
+				) }
 			</span>
-			{ paginationElement }
+			{ 1 < pageCount && (
+				<div className={ 'advanced-wp-table-pagination' }>
+					<Button
+						variant={ 'secondary' }
+						size={ 'compact' }
+						disabled={ 0 === currentPage }
+						onClick={ () => onPageChange( currentPage - 1 ) }
+					>
+						{ '‹' }
+					</Button>
+					{ getPageNumbers( currentPage, pageCount ).map( ( page, index ) =>
+						page === '...' ? (
+							<span key={ `ellipsis-${ index }` } className={ 'advanced-wp-table-pagination-ellipsis' }>
+								{ '...' }
+							</span>
+						) : (
+							<Button
+								key={ page }
+								variant={ page === currentPage ? 'primary' : 'secondary' }
+								size={ 'compact' }
+								onClick={ () => onPageChange( page ) }
+							>
+								{ page + 1 }
+							</Button>
+						)
+					) }
+					<Button
+						variant={ 'secondary' }
+						size={ 'compact' }
+						disabled={ currentPage === pageCount - 1 }
+						onClick={ () => onPageChange( currentPage + 1 ) }
+					>
+						{ '›' }
+					</Button>
+				</div>
+			) }
 		</div>
 	);
 };

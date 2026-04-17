@@ -20,19 +20,27 @@ const TableDeleteDialog = () => {
 	const onHandleDelete = () => {
 		const oldTables = [...tables];
 		const newTables = oldTables.filter((item) => id !== item.id);
+		const { currentPage, perPage } = state;
+		const newTotal = total - 1;
+		const newTotalPages = Math.ceil(newTotal / perPage);
 
-		dispatch({ type: 'UPDATE_TOTAL', payload: total - 1 });
+		dispatch({ type: 'UPDATE_TOTAL', payload: newTotal });
 		dispatch({ type: 'UPDATE_TABLES', payload: newTables });
 		dispatch({ type: 'UNSET_TABLE_DELETE_DIALOG' });
 		toastSuccess(__('Table deleted successfully', 'advanced-wp-table'));
 
 		deleteTable(id)
 			.then(() => {
-				// If we are not in the first page then paginate the tables to the first page.
-				dispatch({
-					type: 'PAGINATE_TABLES',
-					payload: { offset: 0, currentPage: 0 },
-				});
+				// Go back one page if current page is now empty, otherwise stay.
+				if (currentPage >= newTotalPages && newTotalPages > 0) {
+					dispatch({
+						type: 'PAGINATE_TABLES',
+						payload: {
+							offset: (newTotalPages - 1) * perPage,
+							currentPage: newTotalPages - 1,
+						},
+					});
+				}
 			})
 			.catch((err) => {
 				// eslint-disable-next-line no-console

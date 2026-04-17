@@ -12,8 +12,8 @@ export async function getTables( perPage, offset ) {
 
 	try {
 		const response = await apiFetch( options );
-		const total = response.headers && response.headers.get( 'X-WP-Total' );
-		const totalPages = response.headers && response.headers.get( 'X-WP-TotalPages' );
+		const total = parseInt( response.headers && response.headers.get( 'X-WP-Total' ) );
+		const totalPages = parseInt( response.headers && response.headers.get( 'X-WP-TotalPages' ) );
 		const tables = await response.json();
 
 		return { total, totalPages, tables };

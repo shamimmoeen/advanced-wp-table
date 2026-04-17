@@ -81,7 +81,11 @@ const reducer = (state, action) => {
 			return { ...state, total, totalPages, tables };
 
 		case 'UPDATE_TOTAL':
-			return { ...state, total: action.payload };
+			return {
+				...state,
+				total: action.payload,
+				totalPages: Math.ceil( action.payload / state.perPage ),
+			};
 
 		case 'UPDATE_TABLES':
 			return { ...state, tables: action.payload };
