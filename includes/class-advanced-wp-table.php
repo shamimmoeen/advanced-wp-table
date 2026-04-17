@@ -179,10 +179,6 @@ class Advanced_WP_Table {
 			array(),
 			filemtime( ADVANCED_WP_TABLE_PATH . $style_file )
 		);
-
-		if ( 'advanced-wp-table' === get_post_type() ) {
-			wp_enqueue_style( 'advanced-wp-table-style' );
-		}
 	}
 
 	/**

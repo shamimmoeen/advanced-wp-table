@@ -1,54 +1,55 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress Coding Standards based custom ruleset for Advanced WP Table plugin">
-	<description>Generally-applicable sniffs for WordPress plugins.</description>
+<ruleset name="Advanced WP Table">
 
-	<!-- What to scan -->
-	<file>.</file>
-	<exclude-pattern>/vendor/</exclude-pattern>
-	<exclude-pattern>/node_modules/</exclude-pattern>
-	<exclude-pattern>/freemius/</exclude-pattern>
+	<description>A custom set of rules to check for Advanced WP Table plugin</description>
 
-	<!-- How to scan -->
-	<!-- Usage instructions: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage -->
-	<!-- Annotated ruleset: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
-	<arg value="sp"/> <!-- Show sniff and progress -->
-	<arg name="basepath" value="./"/><!-- Strip the file paths down to the relevant bit -->
-	<arg name="colors"/>
-	<arg name="extensions" value="php"/>
-	<arg name="parallel" value="8"/><!-- Enables parallel processing when available for faster results. -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>*.min.js</exclude-pattern>
+	<exclude-pattern>*.min.css</exclude-pattern>
 
-	<!-- Rules: Check PHP version compatibility -->
-	<!-- https://github.com/PHPCompatibility/PHPCompatibility#sniffing-your-code-for-compatibility-with-specific-php-versions -->
-	<config name="testVersion" value="5.3-"/>
-	<!-- https://github.com/PHPCompatibility/PHPCompatibilityWP -->
+	<rule ref="WordPress-Extra"/>
+
+	<!-- Inline comments do not need to end with a full stop. -->
+	<rule ref="Squiz.Commenting.InlineComment">
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+	</rule>
+
+	<!-- Files may contain both a class and a companion helper function — common WordPress pattern. -->
+	<rule ref="Universal.Files.SeparateFunctionsFromOO">
+		<exclude name="Universal.Files.SeparateFunctionsFromOO.Mixed"/>
+	</rule>
+
+	<rule ref="WordPress-Docs"/>
+
+	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+
+	<!-- Line length is not enforced; SQL strings and hook names routinely exceed any reasonable limit. -->
+	<rule ref="Generic.Files.LineLength">
+		<exclude name="Generic.Files.LineLength.TooLong"/>
+		<exclude name="Generic.Files.LineLength.MaxExceeded"/>
+	</rule>
+
+	<!-- Check PHP cross-version compatibility -->
+	<config name="testVersion" value="7.4-"/>
 	<rule ref="PHPCompatibilityWP"/>
 
-	<!-- Rules: WordPress Coding Standards -->
-	<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards -->
-	<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties -->
-	<config name="minimum_supported_wp_version" value="4.6"/>
-	<rule ref="WordPress">
-		<exclude name="WordPress.Files.FileName"/>
-		<exclude name="WordPress.NamingConventions.ValidVariableName"/>
-	</rule>
-	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+	<config name="minimum_supported_wp_version" value="6.0"/>
+
+	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<!-- Value: replace the function, class, and variable prefixes used. Separate multiple prefixes with a comma. -->
-			<property name="prefixes" type="array">
-				<element value="advanced_wp_table"/>
-				<element value="awt_fs"/>
+			<property name="text_domain" type="array">
+				<element value="advanced-wp-table"/>
 			</property>
 		</properties>
 	</rule>
-	<rule ref="WordPress.WP.I18n">
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
-			<!-- Value: replace the text domain used. -->
-			<property name="text_domain" type="array" value="advanced-wp-table"/>
+			<property name="prefixes" type="array">
+				<element value="advanced_wp_table"/>
+			</property>
 		</properties>
 	</rule>
-	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
-		<properties>
-			<property name="blank_line_check" value="true"/>
-		</properties>
-	</rule>
+
 </ruleset>
