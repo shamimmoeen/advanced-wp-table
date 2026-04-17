@@ -1,5 +1,4 @@
-import { updateTableWithCellData } from '../../utils/table';
-import { createMarkup, offsetIndex } from '../../utils/utils';
+import { offsetIndex } from '../../utils/utils';
 import { StateContext } from '../App';
 import Actions from './Actions';
 import Buttons from './Buttons';
@@ -207,10 +206,6 @@ const Table = () => {
 											'advanced-wp-table-cell-wrapper'
 										}
 									>
-										{/* <div
-											className={ 'advanced-wp-table-cell-content' }
-											dangerouslySetInnerHTML={ createMarkup( y ) }
-										/> */}
 										<textarea
 											value={y}
 											onChange={(e) =>

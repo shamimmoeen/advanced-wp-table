@@ -129,36 +129,6 @@ export function parseTableSize( table ) {
 	return { ...table, advanced_wp_table_data: { ...tableData, size } };
 }
 
-export function updateTableWithCellData( table, activeCell ) {
-	const { advanced_wp_table_data: tableData } = table;
-	const tempRows = [ ...tableData.rows ];
-	const { i, j, content } = activeCell;
-	// @todo Serialize content only if gutenberg active.
-	const serializedContent = wp.blocks.serialize( content );
-
-	const newRows = [];
-
-	tempRows.map( ( row, rowIndex ) => {
-		if ( i !== rowIndex ) {
-			return newRows.push( row );
-		}
-
-		const newRow = [];
-
-		row.map( ( data, columnIndex ) => {
-			if ( j !== columnIndex ) {
-				return newRow.push( data );
-			}
-
-			return newRow.push( serializedContent );
-		} );
-
-		return newRows.push( newRow );
-	} );
-
-	return { ...table, advanced_wp_table_data: { ...tableData, rows: newRows } };
-}
-
 export function prepareTableToDuplicate( tables, targetTableId ) {
 	const targetTable = _.find( tables, ( item ) => targetTableId === item.id );
 	const tempId = `new${ targetTable.id }`;

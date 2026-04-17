@@ -194,41 +194,6 @@ class Advanced_WP_Table {
 			return;
 		}
 
-		global $post;
-
-		wp_add_inline_script(
-			'wp-blocks',
-			sprintf(
-				'wp.blocks.unstable__bootstrapServerSideBlockDefinitions( %s );',
-				wp_json_encode( get_block_editor_server_block_settings() )
-			),
-			'after'
-		);
-
-		wp_add_inline_script(
-			'wp-blocks',
-			sprintf(
-				'wp.blocks.setCategories( %s );',
-				wp_json_encode( get_block_categories( $post ) )
-			),
-			'after'
-		);
-
-		wp_tinymce_inline_scripts();
-		wp_enqueue_editor();
-
-		wp_enqueue_media();
-		wp_enqueue_script( 'media-upload' );
-		wp_enqueue_script( 'wp-edit-post' );
-
-		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-		do_action( 'enqueue_block_editor_assets' );
-
-		wp_enqueue_script( 'wp-edit-site' );
-		wp_enqueue_script( 'wp-format-library' );
-		wp_enqueue_style( 'wp-edit-site' );
-		wp_enqueue_style( 'wp-format-library' );
-
 		// Automatically load dependencies and version.
 		$asset_file = require_once dirname( __DIR__ ) . '/build/index.asset.php';
 

@@ -26,10 +26,6 @@ export function dismissToasts() {
 	} );
 }
 
-export function createMarkup( html ) {
-	return { __html: html };
-}
-
 export function offsetIndex( from, to, arr = [] ) {
 	if ( from < to ) {
 		const start = arr.slice( 0, from ),

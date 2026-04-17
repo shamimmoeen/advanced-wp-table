@@ -1,10 +1,8 @@
-import { registerCoreBlocks } from '@wordpress/block-library';
 import { SnackbarList } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { store as noticesStore } from '@wordpress/notices';
 import { getTables, parseTableSize } from '../utils/table';
 import { toastError } from '../utils/utils';
-import EditCellModal from './EditCellModal/EditCellModal';
 import List from './List/List';
 import NewTable from './NewTable/NewTable';
 import Table from './Table/Table';
@@ -45,7 +43,6 @@ const initialState = {
 	tables: [],
 	table: {},
 	tableData: [],
-	activeCell: {},
 	tableChangedDialog,
 	tableDeleteDialog,
 	view: 'list',
@@ -124,12 +121,6 @@ const reducer = (state, action) => {
 				},
 			};
 
-		case 'SET_ACTIVE_CELL':
-			return { ...state, activeCell: action.payload };
-
-		case 'UNSET_ACTIVE_CELL':
-			return { ...state, activeCell: {} };
-
 		case 'SET_TABLE_CHANGED_DIALOG':
 			return { ...state, tableChangedDialog: action.payload };
 
@@ -188,22 +179,6 @@ const App = () => {
 		fetchTables();
 	}, [offset]);
 
-	/**
-	 * Register the gutenberg core blocks.
-	 */
-	useEffect(() => {
-		registerCoreBlocks();
-
-		// Since wp 5.4 core/freeform, core/shortcode block issues are fixed.
-		const disAllowedBlocks = [];
-
-		wp.blocks.getBlockTypes().forEach((blockType) => {
-			if (disAllowedBlocks.includes(blockType.name)) {
-				wp.blocks.unregisterBlockType(blockType.name);
-			}
-		});
-	}, []);
-
 	let content;
 
 	if ('list' === view) {
@@ -212,8 +187,6 @@ const App = () => {
 		content = <NewTable />;
 	} else if ('table' === view) {
 		content = <Table />;
-	} else if ('editCellModal' === view) {
-		content = <EditCellModal />;
 	}
 
 	return (
