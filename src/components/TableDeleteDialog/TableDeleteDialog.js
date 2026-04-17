@@ -1,10 +1,10 @@
-import { Dialog } from '@reach/dialog';
+import { Button, Flex, FlexItem, Modal } from '@wordpress/components';
 import { deleteTable } from '../../utils/table';
 import { toastError, toastSuccess } from '../../utils/utils';
 
 import { StateContext } from '../App';
 
-const { Fragment, useContext } = wp.element;
+const { useContext } = wp.element;
 const { __ } = wp.i18n;
 
 const TableDeleteDialog = () => {
@@ -49,37 +49,38 @@ const TableDeleteDialog = () => {
 			});
 	};
 
+	if (!status) {
+		return null;
+	}
+
 	return (
-		<Fragment>
-			{status && (
-				<Dialog aria-label={'Delete Table?'}>
-					<p className={'advanced-wp-table-alert-title'}>
-						{__('Delete Table?', 'advanced-wp-table')}
-					</p>
-					<p className={'advanced-wp-table-alert-desc'}>
-						{__(
-							"This action is permanent and can't be undone.",
-							'advanced-wp-table'
-						)}
-					</p>
-					<div className={'advanced-wp-table-alert-buttons'}>
-						<button
-							className={'button button-cancel'}
-							onClick={onHandleCancel}
-						>
-							{__('Cancel', 'advanced-wp-table')}
-						</button>
-						{` `}
-						<button
-							className={'button button-primary button-leave'}
-							onClick={onHandleDelete}
-						>
-							{__('Delete', 'advanced-wp-table')}
-						</button>
-					</div>
-				</Dialog>
-			)}
-		</Fragment>
+		<Modal
+			title={__('Delete table', 'advanced-wp-table')}
+			onRequestClose={onHandleCancel}
+		>
+			<p>
+				{__(
+					"This action is permanent and can't be undone.",
+					'advanced-wp-table'
+				)}
+			</p>
+			<Flex justify={'flex-end'}>
+				<FlexItem>
+					<Button variant={'secondary'} onClick={onHandleCancel}>
+						{__('Cancel', 'advanced-wp-table')}
+					</Button>
+				</FlexItem>
+				<FlexItem>
+					<Button
+						variant={'primary'}
+						isDestructive
+						onClick={onHandleDelete}
+					>
+						{__('Delete', 'advanced-wp-table')}
+					</Button>
+				</FlexItem>
+			</Flex>
+		</Modal>
 	);
 };
 

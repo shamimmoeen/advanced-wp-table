@@ -383,45 +383,6 @@
 	margin: 1em 0;
 }
 
-[data-reach-dialog-overlay] {
-	z-index: 999999;
-	background: rgba(0, 0, 0, 0.5) !important;
-}
-
 .Toastify__toast-container {
 	z-index: 999999;
-}
-
-[data-reach-dialog-content] {
-	max-width: 500px;
-	border-radius: 3px;
-}
-
-.advanced-wp-table-alert-title {
-	font-size: 1.8em;
-	margin: 0 0 10px;
-}
-
-.advanced-wp-table-alert-desc {
-	font-size: 1.2em;
-	margin: 0 0 20px;
-}
-
-.advanced-wp-table-alert-buttons {
-	$leave-button-color: #fa784f;
-
-	.button-leave,
-	.button-leave:hover {
-		background-color: $leave-button-color;
-		border-color: $leave-button-color;
-	}
-
-	.button-leave:focus {
-		background: $leave-button-color;
-		border-color: $leave-button-color;
-		color: #fff;
-		box-shadow: 0 0 0 1px #fff, 0 0 0 3px $leave-button-color;
-		outline: 2px solid transparent;
-		outline-offset: 0;
-	}
 }

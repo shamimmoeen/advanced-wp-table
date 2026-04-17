@@ -1,8 +1,8 @@
-import { Dialog } from '@reach/dialog';
+import { Button, Flex, FlexItem, Modal } from '@wordpress/components';
 
 import { StateContext } from '../App';
 
-const { Fragment, useContext } = wp.element;
+const { useContext } = wp.element;
 const { __ } = wp.i18n;
 
 const TableChangedDialog = () => {
@@ -26,37 +26,38 @@ const TableChangedDialog = () => {
 		dispatch({ type: 'UNSET_TABLE_CHANGED_DIALOG' });
 	};
 
+	if (!status) {
+		return null;
+	}
+
 	return (
-		<Fragment>
-			{status && (
-				<Dialog aria-label={'Leave Changes?'}>
-					<p className={'advanced-wp-table-alert-title'}>
-						{__('Leave changes?', 'advanced-wp-table')}
-					</p>
-					<p className={'advanced-wp-table-alert-desc'}>
-						{__(
-							'The changes you made will be lost if you leave this.',
-							'advanced-wp-table'
-						)}
-					</p>
-					<div className={'advanced-wp-table-alert-buttons'}>
-						<button
-							className={'button button-cancel'}
-							onClick={onHandleCancel}
-						>
-							{__('Cancel', 'advanced-wp-table')}
-						</button>
-						{` `}
-						<button
-							className={'button button-primary button-leave'}
-							onClick={onHandleLeave}
-						>
-							{__('Leave', 'advanced-wp-table')}
-						</button>
-					</div>
-				</Dialog>
-			)}
-		</Fragment>
+		<Modal
+			title={__('Unsaved changes', 'advanced-wp-table')}
+			onRequestClose={onHandleCancel}
+		>
+			<p>
+				{__(
+					'The changes you made will be lost if you leave this.',
+					'advanced-wp-table'
+				)}
+			</p>
+			<Flex justify={'flex-end'}>
+				<FlexItem>
+					<Button variant={'secondary'} onClick={onHandleCancel}>
+						{__('Keep editing', 'advanced-wp-table')}
+					</Button>
+				</FlexItem>
+				<FlexItem>
+					<Button
+						variant={'primary'}
+						isDestructive
+						onClick={onHandleLeave}
+					>
+						{__('Discard', 'advanced-wp-table')}
+					</Button>
+				</FlexItem>
+			</Flex>
+		</Modal>
 	);
 };
 
