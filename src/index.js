@@ -1,20 +1,18 @@
-import { render, StrictMode } from '@wordpress/element';
+import { createRoot, StrictMode } from '@wordpress/element';
 import App from './components/App';
 import 'react-toastify/dist/ReactToastify.css';
 import '@reach/dialog/styles.css';
 import './index.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
-	const renderElementInstance = document.getElementById(
-		'advanced-wp-table-wrapper'
-	);
+	const container = document.getElementById('advanced-wp-table-wrapper');
 
-	if (renderElementInstance) {
-		render(
+	if (container) {
+		const root = createRoot(container);
+		root.render(
 			<StrictMode>
 				<App />
-			</StrictMode>,
-			renderElementInstance
+			</StrictMode>
 		);
 	}
 });
