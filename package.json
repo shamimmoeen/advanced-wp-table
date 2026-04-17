@@ -2,11 +2,17 @@
   "name": "advanced-wp-table",
   "version": "1.3.2",
   "description": "An easy to use plugin to create tables in WordPress.",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
-    "build": "wp-scripts build",
+    "build": "wp-scripts build && npm run css",
     "start": "wp-scripts start",
+    "css": "sass assets/src/scss/advanced-wp-table.scss assets/css/advanced-wp-table.css --style=expanded --no-source-map && sass assets/src/scss/advanced-wp-table.scss assets/css/advanced-wp-table.min.css --style=compressed --no-source-map",
+    "css:dev": "sass assets/src/scss:assets/css --source-map",
+    "watch:css": "sass assets/src/scss:assets/css --watch --source-map",
     "readme": "grunt readme",
-    "i18n": "wp i18n make-pot . languages/advanced-wp-table.pot --exclude=src,includes/freemius,tests,bin",
+    "i18n": "wp i18n make-pot . languages/advanced-wp-table.pot --exclude=src,tests,bin",
     "plugin-zip": "wp dist-archive . ./advanced-wp-table.zip",
     "dist-check": "wp dist-archive . ./advanced-wp-table.zip && unzip -l ./advanced-wp-table.zip && rm ./advanced-wp-table.zip",
     "lint:css": "wp-scripts lint-style",
@@ -19,6 +25,7 @@
     "@wordpress/scripts": "^32.0.0",
     "@wordpress/url": "^4.44.0",
     "grunt": "^1.6.2",
-    "grunt-wp-readme-to-markdown": "^2.1.0"
+    "grunt-wp-readme-to-markdown": "^2.1.0",
+    "sass": "^1.99.0"
   }
 }

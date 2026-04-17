@@ -91,7 +91,7 @@ class Advanced_WP_Table {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @return \Advanced_WP_Table
+	 * @return Advanced_WP_Table
 	 */
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
@@ -170,11 +170,14 @@ class Advanced_WP_Table {
 	 * @since 1.0.0
 	 */
 	public function load_frontend_scripts() {
+		$min        = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		$style_file = '/assets/css/advanced-wp-table' . $min . '.css';
+
 		wp_register_style(
 			'advanced-wp-table-style',
-			ADVANCED_WP_TABLE_URL . 'assets/advanced-wp-table.css',
+			ADVANCED_WP_TABLE_URL . $style_file,
 			array(),
-			filemtime( ADVANCED_WP_TABLE_PATH . 'assets/advanced-wp-table.css' )
+			filemtime( ADVANCED_WP_TABLE_PATH . $style_file )
 		);
 
 		if ( 'advanced-wp-table' === get_post_type() ) {
