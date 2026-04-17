@@ -1,19 +1,29 @@
-import { toast } from 'react-toastify';
+import { dispatch, select } from '@wordpress/data';
+import { store as noticesStore } from '@wordpress/notices';
 
 export function getApiEndpoint() {
 	return '/wp/v2/advanced-wp-table';
 }
 
 export function toastSuccess( message ) {
-	toast.success( message );
+	dispatch( noticesStore ).createSuccessNotice( message, {
+		type: 'snackbar',
+		isDismissible: true,
+	} );
 }
 
 export function toastError( message ) {
-	toast.error( message );
+	dispatch( noticesStore ).createErrorNotice( message, {
+		type: 'snackbar',
+		isDismissible: true,
+	} );
 }
 
 export function dismissToasts() {
-	toast.dismiss();
+	const notices = select( noticesStore ).getNotices();
+	notices.forEach( ( notice ) => {
+		dispatch( noticesStore ).removeNotice( notice.id );
+	} );
 }
 
 export function createMarkup( html ) {

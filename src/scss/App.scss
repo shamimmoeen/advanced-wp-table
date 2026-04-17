@@ -14,6 +14,17 @@
 	}
 }
 
+.advanced-wp-table-notices {
+	align-items: flex-end;
+	bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	right: 20px;
+	width: auto;
+	z-index: 100000;
+}
+
 .advanced-wp-table-header {
 	.advanced-wp-table-header-inner {
 		align-items: center;
@@ -276,16 +287,6 @@
 	}
 }
 
-.advanced-wp-table-toast {
-	margin-top: 2.5em;
-
-	.Toastify__toast {
-		font-family: inherit;
-		font-size: 14px;
-		min-height: 44px;
-	}
-}
-
 .advanced-wp-table-post-item {
 	background-color: #fff;
 	border-collapse: collapse;
@@ -383,6 +384,3 @@
 	margin: 1em 0;
 }
 
-.Toastify__toast-container {
-	z-index: 999999;
-}

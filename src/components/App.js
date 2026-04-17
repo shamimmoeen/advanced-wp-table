@@ -1,6 +1,7 @@
 import { registerCoreBlocks } from '@wordpress/block-library';
-import { ToastContainer } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { SnackbarList } from '@wordpress/components';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { store as noticesStore } from '@wordpress/notices';
 import { getTables, parseTableSize } from '../utils/table';
 import { toastError } from '../utils/utils';
 import EditCellModal from './EditCellModal/EditCellModal';
@@ -146,6 +147,10 @@ const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const { perPage, offset, view } = state;
 
+	const notices = useSelect( ( select ) => select( noticesStore ).getNotices(), [] );
+	const { removeNotice } = useDispatch( noticesStore );
+	const snackbarNotices = notices.filter( ( notice ) => notice.type === 'snackbar' );
+
 	const fetchTables = () => {
 		dispatch({ type: 'SET_TABLES_LOADING' });
 
@@ -209,7 +214,11 @@ const App = () => {
 
 	return (
 		<StateContext.Provider value={{ state, dispatch }}>
-			<ToastContainer className={'advanced-wp-table-toast'} />
+			<SnackbarList
+				notices={ snackbarNotices }
+				onRemove={ removeNotice }
+				className={ 'advanced-wp-table-notices' }
+			/>
 			<TableDeleteDialog />
 			<TableChangedDialog />
 			{content}
