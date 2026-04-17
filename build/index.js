@@ -1,1 +1,2284 @@
-(()=>{var e={703:(e,t,n)=>{"use strict";var a=n(414);function r(){}function o(){}o.resetWarningCache=r,e.exports=function(){function e(e,t,n,r,o,l){if(l!==a){var i=new Error("Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types");throw i.name="Invariant Violation",i}}function t(){return e}e.isRequired=e;var n={array:e,bool:e,func:e,number:e,object:e,string:e,symbol:e,any:e,arrayOf:t,element:e,elementType:e,instanceOf:t,node:e,objectOf:t,oneOf:t,oneOfType:t,shape:t,exact:t,checkPropTypes:o,resetWarningCache:r};return n.PropTypes=n,n}},697:(e,t,n)=>{e.exports=n(703)()},414:e=>{"use strict";e.exports="SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED"},358:function(e,t,n){var a;a=e=>(()=>{var t={703:(e,t,n)=>{"use strict";var a=n(414);function r(){}function o(){}o.resetWarningCache=r,e.exports=function(){function e(e,t,n,r,o,l){if(l!==a){var i=new Error("Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types");throw i.name="Invariant Violation",i}}function t(){return e}e.isRequired=e;var n={array:e,bigint:e,bool:e,func:e,number:e,object:e,string:e,symbol:e,any:e,arrayOf:t,element:e,elementType:e,instanceOf:t,node:e,objectOf:t,oneOf:t,oneOfType:t,shape:t,exact:t,checkPropTypes:o,resetWarningCache:r};return n.PropTypes=n,n}},697:(e,t,n)=>{e.exports=n(703)()},414:e=>{"use strict";e.exports="SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED"},98:t=>{"use strict";t.exports=e}},n={};function a(e){var r=n[e];if(void 0!==r)return r.exports;var o=n[e]={exports:{}};return t[e](o,o.exports,a),o.exports}a.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return a.d(t,{a:t}),t},a.d=(e,t)=>{for(var n in t)a.o(t,n)&&!a.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:t[n]})},a.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),a.r=e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var r={};return(()=>{"use strict";a.r(r),a.d(r,{default:()=>y});var e=a(98),t=a.n(e),n=a(697),o=a.n(n);function l(){return l=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var a in n)Object.prototype.hasOwnProperty.call(n,a)&&(e[a]=n[a])}return e},l.apply(this,arguments)}var i=function(e){var n=e.pageClassName,a=e.pageLinkClassName,r=e.page,o=e.selected,i=e.activeClassName,s=e.activeLinkClassName,c=e.getEventListener,u=e.pageSelectedHandler,d=e.href,p=e.extraAriaContext,f=e.pageLabelBuilder,m=e.rel,v=e.ariaLabel||"Page "+r+(p?" "+p:""),b=null;return o&&(b="page",v=e.ariaLabel||"Page "+r+" is your current page",n=void 0!==n?n+" "+i:i,void 0!==a?void 0!==s&&(a=a+" "+s):a=s),t().createElement("li",{className:n},t().createElement("a",l({rel:m,role:d?void 0:"button",className:a,href:d,tabIndex:o?"-1":"0","aria-label":v,"aria-current":b,onKeyPress:u},c(u)),f(r)))};i.propTypes={pageSelectedHandler:o().func.isRequired,selected:o().bool.isRequired,pageClassName:o().string,pageLinkClassName:o().string,activeClassName:o().string,activeLinkClassName:o().string,extraAriaContext:o().string,href:o().string,ariaLabel:o().string,page:o().number.isRequired,getEventListener:o().func.isRequired,pageLabelBuilder:o().func.isRequired,rel:o().string};const s=i;function c(){return c=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var a in n)Object.prototype.hasOwnProperty.call(n,a)&&(e[a]=n[a])}return e},c.apply(this,arguments)}var u=function(e){var n=e.breakLabel,a=e.breakAriaLabel,r=e.breakClassName,o=e.breakLinkClassName,l=e.breakHandler,i=e.getEventListener,s=r||"break";return t().createElement("li",{className:s},t().createElement("a",c({className:o,role:"button",tabIndex:"0","aria-label":a,onKeyPress:l},i(l)),n))};u.propTypes={breakLabel:o().oneOfType([o().string,o().node]),breakAriaLabel:o().string,breakClassName:o().string,breakLinkClassName:o().string,breakHandler:o().func.isRequired,getEventListener:o().func.isRequired};const d=u;function p(e){return null!=e?e:arguments.length>1&&void 0!==arguments[1]?arguments[1]:""}function f(e){return f="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},f(e)}function m(){return m=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var a in n)Object.prototype.hasOwnProperty.call(n,a)&&(e[a]=n[a])}return e},m.apply(this,arguments)}function v(e,t){return v=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(e,t){return e.__proto__=t,e},v(e,t)}function b(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}function g(e){return g=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(e){return e.__proto__||Object.getPrototypeOf(e)},g(e)}function h(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var E=function(e){!function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),Object.defineProperty(e,"prototype",{writable:!1}),t&&v(e,t)}(i,e);var n,a,r,o,l=(r=i,o=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(e){return!1}}(),function(){var e,t=g(r);if(o){var n=g(this).constructor;e=Reflect.construct(t,arguments,n)}else e=t.apply(this,arguments);return function(e,t){if(t&&("object"===f(t)||"function"==typeof t))return t;if(void 0!==t)throw new TypeError("Derived constructors may only return object or undefined");return b(e)}(this,e)});function i(e){var n,a;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,i),h(b(n=l.call(this,e)),"handlePreviousPage",(function(e){var t=n.state.selected;n.handleClick(e,null,t>0?t-1:void 0,{isPrevious:!0})})),h(b(n),"handleNextPage",(function(e){var t=n.state.selected,a=n.props.pageCount;n.handleClick(e,null,t<a-1?t+1:void 0,{isNext:!0})})),h(b(n),"handlePageSelected",(function(e,t){if(n.state.selected===e)return n.callActiveCallback(e),void n.handleClick(t,null,void 0,{isActive:!0});n.handleClick(t,null,e)})),h(b(n),"handlePageChange",(function(e){n.state.selected!==e&&(n.setState({selected:e}),n.callCallback(e))})),h(b(n),"getEventListener",(function(e){return h({},n.props.eventListener,e)})),h(b(n),"handleClick",(function(e,t,a){var r=arguments.length>3&&void 0!==arguments[3]?arguments[3]:{},o=r.isPrevious,l=void 0!==o&&o,i=r.isNext,s=void 0!==i&&i,c=r.isBreak,u=void 0!==c&&c,d=r.isActive,p=void 0!==d&&d;e.preventDefault?e.preventDefault():e.returnValue=!1;var f=n.state.selected,m=n.props.onClick,v=a;if(m){var b=m({index:t,selected:f,nextSelectedPage:a,event:e,isPrevious:l,isNext:s,isBreak:u,isActive:p});if(!1===b)return;Number.isInteger(b)&&(v=b)}void 0!==v&&n.handlePageChange(v)})),h(b(n),"handleBreakClick",(function(e,t){var a=n.state.selected;n.handleClick(t,e,a<e?n.getForwardJump():n.getBackwardJump(),{isBreak:!0})})),h(b(n),"callCallback",(function(e){void 0!==n.props.onPageChange&&"function"==typeof n.props.onPageChange&&n.props.onPageChange({selected:e})})),h(b(n),"callActiveCallback",(function(e){void 0!==n.props.onPageActive&&"function"==typeof n.props.onPageActive&&n.props.onPageActive({selected:e})})),h(b(n),"getElementPageRel",(function(e){var t=n.state.selected,a=n.props,r=a.nextPageRel,o=a.prevPageRel,l=a.selectedPageRel;return t-1===e?o:t===e?l:t+1===e?r:void 0})),h(b(n),"pagination",(function(){var e=[],a=n.props,r=a.pageRangeDisplayed,o=a.pageCount,l=a.marginPagesDisplayed,i=a.breakLabel,s=a.breakClassName,c=a.breakLinkClassName,u=a.breakAriaLabels,p=n.state.selected;if(o<=r)for(var f=0;f<o;f++)e.push(n.getPageElement(f));else{var m=r/2,v=r-m;p>o-r/2?m=r-(v=o-p):p<r/2&&(v=r-(m=p));var b,g,h=function(e){return n.getPageElement(e)},E=[];for(b=0;b<o;b++){var y=b+1;if(y<=l)E.push({type:"page",index:b,display:h(b)});else if(y>o-l)E.push({type:"page",index:b,display:h(b)});else if(b>=p-m&&b<=p+(0===p&&r>1?v-1:v))E.push({type:"page",index:b,display:h(b)});else if(i&&E.length>0&&E[E.length-1].display!==g&&(r>0||l>0)){var w=b<p?u.backward:u.forward;g=t().createElement(d,{key:b,breakAriaLabel:w,breakLabel:i,breakClassName:s,breakLinkClassName:c,breakHandler:n.handleBreakClick.bind(null,b),getEventListener:n.getEventListener}),E.push({type:"break",index:b,display:g})}}E.forEach((function(t,n){var a=t;"break"===t.type&&E[n-1]&&"page"===E[n-1].type&&E[n+1]&&"page"===E[n+1].type&&E[n+1].index-E[n-1].index<=2&&(a={type:"page",index:t.index,display:h(t.index)}),e.push(a.display)}))}return e})),void 0!==e.initialPage&&void 0!==e.forcePage&&console.warn("(react-paginate): Both initialPage (".concat(e.initialPage,") and forcePage (").concat(e.forcePage,") props are provided, which is discouraged.")+" Use exclusively forcePage prop for a controlled component.\nSee https://reactjs.org/docs/forms.html#controlled-components"),a=e.initialPage?e.initialPage:e.forcePage?e.forcePage:0,n.state={selected:a},n}return n=i,(a=[{key:"componentDidMount",value:function(){var e=this.props,t=e.initialPage,n=e.disableInitialCallback,a=e.extraAriaContext,r=e.pageCount,o=e.forcePage;void 0===t||n||this.callCallback(t),a&&console.warn("DEPRECATED (react-paginate): The extraAriaContext prop is deprecated. You should now use the ariaLabelBuilder instead."),Number.isInteger(r)||console.warn("(react-paginate): The pageCount prop value provided is not an integer (".concat(r,"). Did you forget a Math.ceil()?")),void 0!==t&&t>r-1&&console.warn("(react-paginate): The initialPage prop provided is greater than the maximum page index from pageCount prop (".concat(t," > ").concat(r-1,").")),void 0!==o&&o>r-1&&console.warn("(react-paginate): The forcePage prop provided is greater than the maximum page index from pageCount prop (".concat(o," > ").concat(r-1,")."))}},{key:"componentDidUpdate",value:function(e){void 0!==this.props.forcePage&&this.props.forcePage!==e.forcePage&&(this.props.forcePage>this.props.pageCount-1&&console.warn("(react-paginate): The forcePage prop provided is greater than the maximum page index from pageCount prop (".concat(this.props.forcePage," > ").concat(this.props.pageCount-1,").")),this.setState({selected:this.props.forcePage})),Number.isInteger(e.pageCount)&&!Number.isInteger(this.props.pageCount)&&console.warn("(react-paginate): The pageCount prop value provided is not an integer (".concat(this.props.pageCount,"). Did you forget a Math.ceil()?"))}},{key:"getForwardJump",value:function(){var e=this.state.selected,t=this.props,n=t.pageCount,a=e+t.pageRangeDisplayed;return a>=n?n-1:a}},{key:"getBackwardJump",value:function(){var e=this.state.selected-this.props.pageRangeDisplayed;return e<0?0:e}},{key:"getElementHref",value:function(e){var t=this.props,n=t.hrefBuilder,a=t.pageCount,r=t.hrefAllControls;if(n)return r||e>=0&&e<a?n(e+1,a,this.state.selected):void 0}},{key:"ariaLabelBuilder",value:function(e){var t=e===this.state.selected;if(this.props.ariaLabelBuilder&&e>=0&&e<this.props.pageCount){var n=this.props.ariaLabelBuilder(e+1,t);return this.props.extraAriaContext&&!t&&(n=n+" "+this.props.extraAriaContext),n}}},{key:"getPageElement",value:function(e){var n=this.state.selected,a=this.props,r=a.pageClassName,o=a.pageLinkClassName,l=a.activeClassName,i=a.activeLinkClassName,c=a.extraAriaContext,u=a.pageLabelBuilder;return t().createElement(s,{key:e,pageSelectedHandler:this.handlePageSelected.bind(null,e),selected:n===e,rel:this.getElementPageRel(e),pageClassName:r,pageLinkClassName:o,activeClassName:l,activeLinkClassName:i,extraAriaContext:c,href:this.getElementHref(e),ariaLabel:this.ariaLabelBuilder(e),page:e+1,pageLabelBuilder:u,getEventListener:this.getEventListener})}},{key:"render",value:function(){var e=this.props.renderOnZeroPageCount;if(0===this.props.pageCount&&void 0!==e)return e?e(this.props):e;var n=this.props,a=n.disabledClassName,r=n.disabledLinkClassName,o=n.pageCount,l=n.className,i=n.containerClassName,s=n.previousLabel,c=n.previousClassName,u=n.previousLinkClassName,d=n.previousAriaLabel,f=n.prevRel,v=n.nextLabel,b=n.nextClassName,g=n.nextLinkClassName,h=n.nextAriaLabel,E=n.nextRel,y=this.state.selected,w=0===y,T=y===o-1,_="".concat(p(c)).concat(w?" ".concat(p(a)):""),C="".concat(p(b)).concat(T?" ".concat(p(a)):""),N="".concat(p(u)).concat(w?" ".concat(p(r)):""),L="".concat(p(g)).concat(T?" ".concat(p(r)):""),P=w?"true":"false",O=T?"true":"false";return t().createElement("ul",{className:l||i,role:"navigation","aria-label":"Pagination"},t().createElement("li",{className:_},t().createElement("a",m({className:N,href:this.getElementHref(y-1),tabIndex:w?"-1":"0",role:"button",onKeyPress:this.handlePreviousPage,"aria-disabled":P,"aria-label":d,rel:f},this.getEventListener(this.handlePreviousPage)),s)),this.pagination(),t().createElement("li",{className:C},t().createElement("a",m({className:L,href:this.getElementHref(y+1),tabIndex:T?"-1":"0",role:"button",onKeyPress:this.handleNextPage,"aria-disabled":O,"aria-label":h,rel:E},this.getEventListener(this.handleNextPage)),v)))}}])&&function(e,t){for(var n=0;n<t.length;n++){var a=t[n];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}(n.prototype,a),Object.defineProperty(n,"prototype",{writable:!1}),i}(e.Component);h(E,"propTypes",{pageCount:o().number.isRequired,pageRangeDisplayed:o().number,marginPagesDisplayed:o().number,previousLabel:o().node,previousAriaLabel:o().string,prevPageRel:o().string,prevRel:o().string,nextLabel:o().node,nextAriaLabel:o().string,nextPageRel:o().string,nextRel:o().string,breakLabel:o().oneOfType([o().string,o().node]),breakAriaLabels:o().shape({forward:o().string,backward:o().string}),hrefBuilder:o().func,hrefAllControls:o().bool,onPageChange:o().func,onPageActive:o().func,onClick:o().func,initialPage:o().number,forcePage:o().number,disableInitialCallback:o().bool,containerClassName:o().string,className:o().string,pageClassName:o().string,pageLinkClassName:o().string,pageLabelBuilder:o().func,activeClassName:o().string,activeLinkClassName:o().string,previousClassName:o().string,nextClassName:o().string,previousLinkClassName:o().string,nextLinkClassName:o().string,disabledClassName:o().string,disabledLinkClassName:o().string,breakClassName:o().string,breakLinkClassName:o().string,extraAriaContext:o().string,ariaLabelBuilder:o().func,eventListener:o().string,renderOnZeroPageCount:o().func,selectedPageRel:o().string}),h(E,"defaultProps",{pageRangeDisplayed:2,marginPagesDisplayed:3,activeClassName:"selected",previousLabel:"Previous",previousClassName:"previous",previousAriaLabel:"Previous page",prevPageRel:"prev",prevRel:"prev",nextLabel:"Next",nextClassName:"next",nextAriaLabel:"Next page",nextPageRel:"next",nextRel:"next",breakLabel:"...",breakAriaLabels:{forward:"Jump forward",backward:"Jump backward"},disabledClassName:"disabled",disableInitialCallback:!1,pageLabelBuilder:function(e){return e},eventListener:"onClick",renderOnZeroPageCount:void 0,selectedPageRel:"canonical",hrefAllControls:!1});const y=E})(),r})(),e.exports=a(n(196))},196:e=>{"use strict";e.exports=window.React}},t={};function n(a){var r=t[a];if(void 0!==r)return r.exports;var o=t[a]={exports:{}};return e[a].call(o.exports,o,o.exports,n),o.exports}n.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return n.d(t,{a:t}),t},n.d=(e,t)=>{for(var a in t)n.o(t,a)&&!n.o(e,a)&&Object.defineProperty(e,a,{enumerable:!0,get:t[a]})},n.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),n.nc=void 0,(()=>{"use strict";const e=window.wp.element,t=window.wp.blockLibrary;var a=n(196),r=n.n(a);function o(e){var t,n,a="";if("string"==typeof e||"number"==typeof e)a+=e;else if("object"==typeof e)if(Array.isArray(e))for(t=0;t<e.length;t++)e[t]&&(n=o(e[t]))&&(a&&(a+=" "),a+=n);else for(t in e)e[t]&&(a&&(a+=" "),a+=t);return a}const l=function(){for(var e,t,n=0,a="";n<arguments.length;)(e=arguments[n++])&&(t=o(e))&&(a&&(a+=" "),a+=t);return a},i=e=>"number"==typeof e&&!isNaN(e),s=e=>"string"==typeof e,c=e=>"function"==typeof e,u=e=>s(e)||c(e)?e:null,d=e=>(0,a.isValidElement)(e)||s(e)||c(e)||i(e);function p(e){let{enter:t,exit:n,appendPosition:r=!1,collapse:o=!0,collapseDuration:l=300}=e;return function(e){let{children:i,position:s,preventExitTransition:c,done:u,nodeRef:d,isIn:p}=e;const f=r?`${t}--${s}`:t,m=r?`${n}--${s}`:n,v=(0,a.useRef)(0);return(0,a.useLayoutEffect)((()=>{const e=d.current,t=f.split(" "),n=a=>{a.target===d.current&&(e.dispatchEvent(new Event("d")),e.removeEventListener("animationend",n),e.removeEventListener("animationcancel",n),0===v.current&&"animationcancel"!==a.type&&e.classList.remove(...t))};e.classList.add(...t),e.addEventListener("animationend",n),e.addEventListener("animationcancel",n)}),[]),(0,a.useEffect)((()=>{const e=d.current,t=()=>{e.removeEventListener("animationend",t),o?function(e,t,n){void 0===n&&(n=300);const{scrollHeight:a,style:r}=e;requestAnimationFrame((()=>{r.minHeight="initial",r.height=a+"px",r.transition=`all ${n}ms`,requestAnimationFrame((()=>{r.height="0",r.padding="0",r.margin="0",setTimeout(t,n)}))}))}(e,u,l):u()};p||(c?t():(v.current=1,e.className+=` ${m}`,e.addEventListener("animationend",t)))}),[p]),a.createElement(a.Fragment,null,i)}}function f(e,t){return null!=e?{content:e.content,containerId:e.props.containerId,id:e.props.toastId,theme:e.props.theme,type:e.props.type,data:e.props.data||{},isLoading:e.props.isLoading,icon:e.props.icon,status:t}:{}}const m={list:new Map,emitQueue:new Map,on(e,t){return this.list.has(e)||this.list.set(e,[]),this.list.get(e).push(t),this},off(e,t){if(t){const n=this.list.get(e).filter((e=>e!==t));return this.list.set(e,n),this}return this.list.delete(e),this},cancelEmit(e){const t=this.emitQueue.get(e);return t&&(t.forEach(clearTimeout),this.emitQueue.delete(e)),this},emit(e){this.list.has(e)&&this.list.get(e).forEach((t=>{const n=setTimeout((()=>{t(...[].slice.call(arguments,1))}),0);this.emitQueue.has(e)||this.emitQueue.set(e,[]),this.emitQueue.get(e).push(n)}))}},v=e=>{let{theme:t,type:n,...r}=e;return a.createElement("svg",{viewBox:"0 0 24 24",width:"100%",height:"100%",fill:"colored"===t?"currentColor":`var(--toastify-icon-color-${n})`,...r})},b={info:function(e){return a.createElement(v,{...e},a.createElement("path",{d:"M12 0a12 12 0 1012 12A12.013 12.013 0 0012 0zm.25 5a1.5 1.5 0 11-1.5 1.5 1.5 1.5 0 011.5-1.5zm2.25 13.5h-4a1 1 0 010-2h.75a.25.25 0 00.25-.25v-4.5a.25.25 0 00-.25-.25h-.75a1 1 0 010-2h1a2 2 0 012 2v4.75a.25.25 0 00.25.25h.75a1 1 0 110 2z"}))},warning:function(e){return a.createElement(v,{...e},a.createElement("path",{d:"M23.32 17.191L15.438 2.184C14.728.833 13.416 0 11.996 0c-1.42 0-2.733.833-3.443 2.184L.533 17.448a4.744 4.744 0 000 4.368C1.243 23.167 2.555 24 3.975 24h16.05C22.22 24 24 22.044 24 19.632c0-.904-.251-1.746-.68-2.44zm-9.622 1.46c0 1.033-.724 1.823-1.698 1.823s-1.698-.79-1.698-1.822v-.043c0-1.028.724-1.822 1.698-1.822s1.698.79 1.698 1.822v.043zm.039-12.285l-.84 8.06c-.057.581-.408.943-.897.943-.49 0-.84-.367-.896-.942l-.84-8.065c-.057-.624.25-1.095.779-1.095h1.91c.528.005.84.476.784 1.1z"}))},success:function(e){return a.createElement(v,{...e},a.createElement("path",{d:"M12 0a12 12 0 1012 12A12.014 12.014 0 0012 0zm6.927 8.2l-6.845 9.289a1.011 1.011 0 01-1.43.188l-4.888-3.908a1 1 0 111.25-1.562l4.076 3.261 6.227-8.451a1 1 0 111.61 1.183z"}))},error:function(e){return a.createElement(v,{...e},a.createElement("path",{d:"M11.983 0a12.206 12.206 0 00-8.51 3.653A11.8 11.8 0 000 12.207 11.779 11.779 0 0011.8 24h.214A12.111 12.111 0 0024 11.791 11.766 11.766 0 0011.983 0zM10.5 16.542a1.476 1.476 0 011.449-1.53h.027a1.527 1.527 0 011.523 1.47 1.475 1.475 0 01-1.449 1.53h-.027a1.529 1.529 0 01-1.523-1.47zM11 12.5v-6a1 1 0 012 0v6a1 1 0 11-2 0z"}))},spinner:function(){return a.createElement("div",{className:"Toastify__spinner"})}};function g(e){const[,t]=(0,a.useReducer)((e=>e+1),0),[n,r]=(0,a.useState)([]),o=(0,a.useRef)(null),l=(0,a.useRef)(new Map).current,p=e=>-1!==n.indexOf(e),v=(0,a.useRef)({toastKey:1,displayedToast:0,count:0,queue:[],props:e,containerId:null,isToastActive:p,getToast:e=>l.get(e)}).current;function g(e){let{containerId:t}=e;const{limit:n}=v.props;!n||t&&v.containerId!==t||(v.count-=v.queue.length,v.queue=[])}function h(e){r((t=>null==e?[]:t.filter((t=>t!==e))))}function E(){const{toastContent:e,toastProps:t,staleId:n}=v.queue.shift();w(e,t,n)}function y(e,n){let{delay:r,staleId:p,...g}=n;if(!d(e)||function(e){return!o.current||v.props.enableMultiContainer&&e.containerId!==v.props.containerId||l.has(e.toastId)&&null==e.updateId}(g))return;const{toastId:y,updateId:T,data:_}=g,{props:C}=v,N=()=>h(y),L=null==T;L&&v.count++;const P={...C,style:C.toastStyle,key:v.toastKey++,...Object.fromEntries(Object.entries(g).filter((e=>{let[t,n]=e;return null!=n}))),toastId:y,updateId:T,data:_,closeToast:N,isIn:!1,className:u(g.className||C.toastClassName),bodyClassName:u(g.bodyClassName||C.bodyClassName),progressClassName:u(g.progressClassName||C.progressClassName),autoClose:!g.isLoading&&(O=g.autoClose,A=C.autoClose,!1===O||i(O)&&O>0?O:A),deleteToast(){const e=f(l.get(y),"removed");l.delete(y),m.emit(4,e);const n=v.queue.length;if(v.count=null==y?v.count-v.displayedToast:v.count-1,v.count<0&&(v.count=0),n>0){const e=null==y?v.props.limit:1;if(1===n||1===e)v.displayedToast++,E();else{const t=e>n?n:e;v.displayedToast=t;for(let e=0;e<t;e++)E()}}else t()}};var O,A;P.iconOut=function(e){let{theme:t,type:n,isLoading:r,icon:o}=e,l=null;const u={theme:t,type:n};return!1===o||(c(o)?l=o(u):(0,a.isValidElement)(o)?l=(0,a.cloneElement)(o,u):s(o)||i(o)?l=o:r?l=b.spinner():(e=>e in b)(n)&&(l=b[n](u))),l}(P),c(g.onOpen)&&(P.onOpen=g.onOpen),c(g.onClose)&&(P.onClose=g.onClose),P.closeButton=C.closeButton,!1===g.closeButton||d(g.closeButton)?P.closeButton=g.closeButton:!0===g.closeButton&&(P.closeButton=!d(C.closeButton)||C.closeButton);let k=e;(0,a.isValidElement)(e)&&!s(e.type)?k=(0,a.cloneElement)(e,{closeToast:N,toastProps:P,data:_}):c(e)&&(k=e({closeToast:N,toastProps:P,data:_})),C.limit&&C.limit>0&&v.count>C.limit&&L?v.queue.push({toastContent:k,toastProps:P,staleId:p}):i(r)?setTimeout((()=>{w(k,P,p)}),r):w(k,P,p)}function w(e,t,n){const{toastId:a}=t;n&&l.delete(n);const o={content:e,props:t};l.set(a,o),r((e=>[...e,a].filter((e=>e!==n)))),m.emit(4,f(o,null==o.props.updateId?"added":"updated"))}return(0,a.useEffect)((()=>(v.containerId=e.containerId,m.cancelEmit(3).on(0,y).on(1,(e=>o.current&&h(e))).on(5,g).emit(2,v),()=>{l.clear(),m.emit(3,v)})),[]),(0,a.useEffect)((()=>{v.props=e,v.isToastActive=p,v.displayedToast=n.length})),{getToastToRender:function(t){const n=new Map,a=Array.from(l.values());return e.newestOnTop&&a.reverse(),a.forEach((e=>{const{position:t}=e.props;n.has(t)||n.set(t,[]),n.get(t).push(e)})),Array.from(n,(e=>t(e[0],e[1])))},containerRef:o,isToastActive:p}}function h(e){return e.targetTouches&&e.targetTouches.length>=1?e.targetTouches[0].clientX:e.clientX}function E(e){return e.targetTouches&&e.targetTouches.length>=1?e.targetTouches[0].clientY:e.clientY}function y(e){const[t,n]=(0,a.useState)(!1),[r,o]=(0,a.useState)(!1),l=(0,a.useRef)(null),i=(0,a.useRef)({start:0,x:0,y:0,delta:0,removalDistance:0,canCloseOnClick:!0,canDrag:!1,boundingRect:null,didMove:!1}).current,s=(0,a.useRef)(e),{autoClose:u,pauseOnHover:d,closeToast:p,onClick:f,closeOnClick:m}=e;function v(t){if(e.draggable){"touchstart"===t.nativeEvent.type&&t.nativeEvent.preventDefault(),i.didMove=!1,document.addEventListener("mousemove",w),document.addEventListener("mouseup",T),document.addEventListener("touchmove",w),document.addEventListener("touchend",T);const n=l.current;i.canCloseOnClick=!0,i.canDrag=!0,i.boundingRect=n.getBoundingClientRect(),n.style.transition="",i.x=h(t.nativeEvent),i.y=E(t.nativeEvent),"x"===e.draggableDirection?(i.start=i.x,i.removalDistance=n.offsetWidth*(e.draggablePercent/100)):(i.start=i.y,i.removalDistance=n.offsetHeight*(80===e.draggablePercent?1.5*e.draggablePercent:e.draggablePercent/100))}}function b(t){if(i.boundingRect){const{top:n,bottom:a,left:r,right:o}=i.boundingRect;"touchend"!==t.nativeEvent.type&&e.pauseOnHover&&i.x>=r&&i.x<=o&&i.y>=n&&i.y<=a?y():g()}}function g(){n(!0)}function y(){n(!1)}function w(n){const a=l.current;i.canDrag&&a&&(i.didMove=!0,t&&y(),i.x=h(n),i.y=E(n),i.delta="x"===e.draggableDirection?i.x-i.start:i.y-i.start,i.start!==i.x&&(i.canCloseOnClick=!1),a.style.transform=`translate${e.draggableDirection}(${i.delta}px)`,a.style.opacity=""+(1-Math.abs(i.delta/i.removalDistance)))}function T(){document.removeEventListener("mousemove",w),document.removeEventListener("mouseup",T),document.removeEventListener("touchmove",w),document.removeEventListener("touchend",T);const t=l.current;if(i.canDrag&&i.didMove&&t){if(i.canDrag=!1,Math.abs(i.delta)>i.removalDistance)return o(!0),void e.closeToast();t.style.transition="transform 0.2s, opacity 0.2s",t.style.transform=`translate${e.draggableDirection}(0)`,t.style.opacity="1"}}(0,a.useEffect)((()=>{s.current=e})),(0,a.useEffect)((()=>(l.current&&l.current.addEventListener("d",g,{once:!0}),c(e.onOpen)&&e.onOpen((0,a.isValidElement)(e.children)&&e.children.props),()=>{const e=s.current;c(e.onClose)&&e.onClose((0,a.isValidElement)(e.children)&&e.children.props)})),[]),(0,a.useEffect)((()=>(e.pauseOnFocusLoss&&(document.hasFocus()||y(),window.addEventListener("focus",g),window.addEventListener("blur",y)),()=>{e.pauseOnFocusLoss&&(window.removeEventListener("focus",g),window.removeEventListener("blur",y))})),[e.pauseOnFocusLoss]);const _={onMouseDown:v,onTouchStart:v,onMouseUp:b,onTouchEnd:b};return u&&d&&(_.onMouseEnter=y,_.onMouseLeave=g),m&&(_.onClick=e=>{f&&f(e),i.canCloseOnClick&&p()}),{playToast:g,pauseToast:y,isRunning:t,preventExitTransition:r,toastRef:l,eventHandlers:_}}function w(e){let{closeToast:t,theme:n,ariaLabel:r="close"}=e;return a.createElement("button",{className:`Toastify__close-button Toastify__close-button--${n}`,type:"button",onClick:e=>{e.stopPropagation(),t(e)},"aria-label":r},a.createElement("svg",{"aria-hidden":"true",viewBox:"0 0 14 16"},a.createElement("path",{fillRule:"evenodd",d:"M7.71 8.23l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75L1 11.98l3.75-3.75L1 4.48 2.48 3l3.75 3.75L9.98 3l1.48 1.48-3.75 3.75z"})))}function T(e){let{delay:t,isRunning:n,closeToast:r,type:o="default",hide:i,className:s,style:u,controlledProgress:d,progress:p,rtl:f,isIn:m,theme:v}=e;const b=i||d&&0===p,g={...u,animationDuration:`${t}ms`,animationPlayState:n?"running":"paused",opacity:b?0:1};d&&(g.transform=`scaleX(${p})`);const h=l("Toastify__progress-bar",d?"Toastify__progress-bar--controlled":"Toastify__progress-bar--animated",`Toastify__progress-bar-theme--${v}`,`Toastify__progress-bar--${o}`,{"Toastify__progress-bar--rtl":f}),E=c(s)?s({rtl:f,type:o,defaultClassName:h}):l(h,s);return a.createElement("div",{role:"progressbar","aria-hidden":b?"true":"false","aria-label":"notification timer",className:E,style:g,[d&&p>=1?"onTransitionEnd":"onAnimationEnd"]:d&&p<1?null:()=>{m&&r()}})}const _=e=>{const{isRunning:t,preventExitTransition:n,toastRef:r,eventHandlers:o}=y(e),{closeButton:i,children:s,autoClose:u,onClick:d,type:p,hideProgressBar:f,closeToast:m,transition:v,position:b,className:g,style:h,bodyClassName:E,bodyStyle:_,progressClassName:C,progressStyle:N,updateId:L,role:P,progress:O,rtl:A,toastId:k,deleteToast:S,isIn:x,isLoading:D,iconOut:I,closeOnClick:R,theme:B}=e,M=l("Toastify__toast",`Toastify__toast-theme--${B}`,`Toastify__toast--${p}`,{"Toastify__toast--rtl":A},{"Toastify__toast--close-on-click":R}),j=c(g)?g({rtl:A,position:b,type:p,defaultClassName:M}):l(M,g),F=!!O||!u,U={closeToast:m,type:p,theme:B};let G=null;return!1===i||(G=c(i)?i(U):(0,a.isValidElement)(i)?(0,a.cloneElement)(i,U):w(U)),a.createElement(v,{isIn:x,done:S,position:b,preventExitTransition:n,nodeRef:r},a.createElement("div",{id:k,onClick:d,className:j,...o,style:h,ref:r},a.createElement("div",{...x&&{role:P},className:c(E)?E({type:p}):l("Toastify__toast-body",E),style:_},null!=I&&a.createElement("div",{className:l("Toastify__toast-icon",{"Toastify--animate-icon Toastify__zoom-enter":!D})},I),a.createElement("div",null,s)),G,a.createElement(T,{...L&&!F?{key:`pb-${L}`}:{},rtl:A,theme:B,delay:u,isRunning:t,isIn:x,closeToast:m,hide:f,type:p,style:N,className:C,controlledProgress:F,progress:O||0})))},C=function(e,t){return void 0===t&&(t=!1),{enter:`Toastify--animate Toastify__${e}-enter`,exit:`Toastify--animate Toastify__${e}-exit`,appendPosition:t}},N=p(C("bounce",!0)),L=(p(C("slide",!0)),p(C("zoom")),p(C("flip")),(0,a.forwardRef)(((e,t)=>{const{getToastToRender:n,containerRef:r,isToastActive:o}=g(e),{className:i,style:s,rtl:d,containerId:p}=e;function f(e){const t=l("Toastify__toast-container",`Toastify__toast-container--${e}`,{"Toastify__toast-container--rtl":d});return c(i)?i({position:e,rtl:d,defaultClassName:t}):l(t,u(i))}return(0,a.useEffect)((()=>{t&&(t.current=r.current)}),[]),a.createElement("div",{ref:r,className:"Toastify",id:p},n(((e,t)=>{const n=t.length?{...s}:{...s,pointerEvents:"none"};return a.createElement("div",{className:f(e),style:n,key:`container-${e}`},t.map(((e,n)=>{let{content:r,props:l}=e;return a.createElement(_,{...l,isIn:o(l.toastId),style:{...l.style,"--nth":n+1,"--len":t.length},key:`toast-${l.key}`},r)})))})))})));L.displayName="ToastContainer",L.defaultProps={position:"top-right",transition:N,autoClose:5e3,closeButton:w,pauseOnHover:!0,pauseOnFocusLoss:!0,closeOnClick:!0,draggable:!0,draggablePercent:80,draggableDirection:"x",role:"alert",theme:"light"};let P,O=new Map,A=[],k=1;function S(){return""+k++}function x(e){return e&&(s(e.toastId)||i(e.toastId))?e.toastId:S()}function D(e,t){return O.size>0?m.emit(0,e,t):A.push({content:e,options:t}),t.toastId}function I(e,t){return{...t,type:t&&t.type||e,toastId:x(t)}}function R(e){return(t,n)=>D(t,I(e,n))}function B(e,t){return D(e,I("default",t))}B.loading=(e,t)=>D(e,I("default",{isLoading:!0,autoClose:!1,closeOnClick:!1,closeButton:!1,draggable:!1,...t})),B.promise=function(e,t,n){let a,{pending:r,error:o,success:l}=t;r&&(a=s(r)?B.loading(r,n):B.loading(r.render,{...n,...r}));const i={isLoading:null,autoClose:null,closeOnClick:null,closeButton:null,draggable:null},u=(e,t,r)=>{if(null==t)return void B.dismiss(a);const o={type:e,...i,...n,data:r},l=s(t)?{render:t}:t;return a?B.update(a,{...o,...l}):B(l.render,{...o,...l}),r},d=c(e)?e():e;return d.then((e=>u("success",l,e))).catch((e=>u("error",o,e))),d},B.success=R("success"),B.info=R("info"),B.error=R("error"),B.warning=R("warning"),B.warn=B.warning,B.dark=(e,t)=>D(e,I("default",{theme:"dark",...t})),B.dismiss=e=>{O.size>0?m.emit(1,e):A=A.filter((t=>null!=e&&t.options.toastId!==e))},B.clearWaitingQueue=function(e){return void 0===e&&(e={}),m.emit(5,e)},B.isActive=e=>{let t=!1;return O.forEach((n=>{n.isToastActive&&n.isToastActive(e)&&(t=!0)})),t},B.update=function(e,t){void 0===t&&(t={}),setTimeout((()=>{const n=function(e,t){let{containerId:n}=t;const a=O.get(n||P);return a&&a.getToast(e)}(e,t);if(n){const{props:a,content:r}=n,o={delay:100,...a,...t,toastId:t.toastId||e,updateId:S()};o.toastId!==e&&(o.staleId=e);const l=o.render||r;delete o.render,D(l,o)}}),0)},B.done=e=>{B.update(e,{progress:1})},B.onChange=e=>(m.on(4,e),()=>{m.off(4,e)}),B.POSITION={TOP_LEFT:"top-left",TOP_RIGHT:"top-right",TOP_CENTER:"top-center",BOTTOM_LEFT:"bottom-left",BOTTOM_RIGHT:"bottom-right",BOTTOM_CENTER:"bottom-center"},B.TYPE={INFO:"info",SUCCESS:"success",WARNING:"warning",ERROR:"error",DEFAULT:"default"},m.on(2,(e=>{P=e.containerId||e,O.set(P,e),A.forEach((e=>{m.emit(0,e.content,e.options)})),A=[]})).on(3,(e=>{O.delete(e.containerId||e),0===O.size&&m.off(0).off(1).off(5)}));const M=window.wp.apiFetch;var j=n.n(M);const F=window.lodash;var U=n.n(F);function G(e){B.success(e)}function z(e){B.error(e)}function H(){B.dismiss()}function W(e,t){let n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:[];if(e<t){const a=n.slice(0,e),r=n.slice(e+1,t+1),o=n.slice(t+1);return[...a,...r,n[e],...o]}if(e>t){const a=n.slice(0,t),r=n.slice(t,e),o=n.slice(e+1);return[...a,n[e],...r,...o]}return n}const{__}=wp.i18n;async function $(e){let{title:t,advanced_wp_table_data:n}=e;const a={path:"/wp/v2/advanced-wp-table",method:"POST",data:{title:t,status:"publish",advanced_wp_table_data:n}};try{return await j()(a)}catch(e){throw new Error(e.message)}}async function q(e,t,n){const a={path:"/wp/v2/advanced-wp-table/"+e,method:"PUT",data:{title:t,advanced_wp_table_data:n}};try{return await j()(a)}catch(e){throw new Error(e.message)}}function V(e){const{advanced_wp_table_data:t}=e,{rows:n,columns:a}=t.size,r={rows:parseInt(n),columns:parseInt(a)};return{...e,advanced_wp_table_data:{...t,size:r}}}const Y=window.wp.blockEditor,X=window.wp.components,{useContext:Z}=(window.wp.formatLibrary,wp.element),{__:K}=wp.i18n,Q=()=>{const{state:t,dispatch:n}=Z(pa),{tables:a,table:r,activeCell:o}=t,{i:l,j:i,content:s}=o,c=()=>{n({type:"UNSET_ACTIVE_CELL"}),n({type:"SET_VIEW",payload:"table"})};return(0,e.createElement)("div",{className:"advanced-wp-table-editor-action-buttons"},(0,e.createElement)("div",null,(0,e.createElement)("button",{onClick:()=>{const e=[...a],t=function(e,t){const{advanced_wp_table_data:n}=e,a=[...n.rows],{i:r,j:o,content:l}=t,i=wp.blocks.serialize(l),s=[];return a.map(((e,t)=>{if(r!==t)return s.push(e);const n=[];return e.map(((e,t)=>o!==t?n.push(e):n.push(i))),s.push(n)})),{...e,advanced_wp_table_data:{...n,rows:s}}}(r,o),l=e.map((e=>e.id===t.id?t:e));n({type:"SET_TABLE",payload:t}),n({type:"UPDATE_TABLES",payload:l}),n({type:"UNSET_ACTIVE_CELL"}),n({type:"SET_VIEW",payload:"table"}),G(K("Successfully updated","advanced-wp-table"));const{id:i,advanced_wp_table_data:s}=t;q(i,t.title.rendered,s).catch((t=>{console.log(t.message),H(),n({type:"SET_TABLE",payload:r}),n({type:"UPDATE_TABLES",payload:e}),z(K("Oops, there was a problem when updating the table","advanced-wp-table"))}))},className:"button button-primary button-large"},K("Save Changes","advanced-wp-table"))," ",(0,e.createElement)("button",{onClick:()=>{(()=>{const e=U().find(t.tables,(e=>e.id===r.id)),{advanced_wp_table_data:n}=V(e),a=n.rows[l][i],o=wp.blocks.serialize(s);return!U().isEqual(a,o)})()?n({type:"SET_TABLE_CHANGED_DIALOG",payload:{status:!0,callbackLeave:c}}):c()},className:"button button-large"},K("Close","advanced-wp-table"))))},{Fragment:J,useContext:ee}=wp.element,{__:te}=wp.i18n;Y.SETTINGS_DEFAULTS.mediaUpload=wp.mediaUtils.uploadMedia,Y.SETTINGS_DEFAULTS.imageSizes=[{slug:"thumbnail",name:te("Thumbnail","advanced-wp-table")},{slug:"medium",name:te("Medium","advanced-wp-table")},{slug:"large",name:te("Large","advanced-wp-table")},{slug:"full",name:te("Full Size","advanced-wp-table")}];const ne=()=>{const{state:t,dispatch:n}=ee(pa),{activeCell:a}=t,{content:r}=a,o=e=>{n({type:"SET_ACTIVE_CELL",payload:{...a,content:e}})};return(0,e.createElement)(J,null,(0,e.createElement)(Q,null),(0,e.createElement)("div",{className:"advanced-wp-table-editor"},(0,e.createElement)(X.SlotFillProvider,null,(0,e.createElement)(X.DropZone,null,(0,e.createElement)(Y.BlockEditorProvider,{value:r,onInput:o,onChange:o},(0,e.createElement)("div",{className:"editor-styles-wrapper"},(0,e.createElement)("div",{style:{padding:"20px"}}),(0,e.createElement)(X.Popover.Slot,{name:"block-toolbar"}),(0,e.createElement)(Y.BlockEditorKeyboardShortcuts,null),(0,e.createElement)(Y.WritingFlow,null,(0,e.createElement)(Y.ObserveTyping,null,(0,e.createElement)(Y.BlockList,null)))),(0,e.createElement)("div",{className:"advanced-wp-table-editor-sidebar"},(0,e.createElement)(Y.BlockInspector,null)),(0,e.createElement)(X.Popover.Slot,null))))))},ae=()=>(0,e.createElement)("div",{className:"advanced-wp-table-edit-cell-modal"},(0,e.createElement)("div",{className:"advanced-wp-table-edit-cell-modal-wrapper"},(0,e.createElement)(ne,null))),{useContext:re}=wp.element,{__:oe}=wp.i18n,le=()=>{const{dispatch:t}=re(pa);return(0,e.createElement)("div",{className:"advanced-wp-table-header"},(0,e.createElement)("div",{className:"advanced-wp-table-header-inner"},(0,e.createElement)("h1",null,oe("All Tables","advanced-wp-table")),(0,e.createElement)("button",{className:"button",onClick:()=>t({type:"SET_VIEW",payload:"form"})},oe("Add New","advanced-wp-table"))))};var ie=n(358),se=n.n(ie);const{useContext:ce}=wp.element,{__:ue}=wp.i18n,de=()=>{const{state:t,dispatch:n}=ce(pa),{total:a,totalPages:r,perPage:o,currentPage:l}=t;let i;return 1<r&&(i=(0,e.createElement)(se(),{previousLabel:"‹",nextLabel:"›",breakLabel:"...",breakClassName:"break-me",pageCount:parseInt(r),forcePage:l,marginPagesDisplayed:2,pageRangeDisplayed:3,onPageChange:e=>{const t=e.selected,a=Math.ceil(t*o);n({type:"PAGINATE_TABLES",payload:{offset:a,currentPage:t}})},containerClassName:"advanced-wp-table-pagination",subContainerClassName:"pages pagination",activeClassName:"active"})),(0,e.createElement)("div",{className:"advanced-wp-table-pagination-wrapper"},(0,e.createElement)("span",{className:"advanced-wp-table-total-info"},1===a?`${a} ${ue("item","advanced-wp-table")}`:`${a} ${ue("items","advanced-wp-table")}`),i)},{useContext:pe}=wp.element,{__:fe}=wp.i18n,me=t=>{let{table:n}=t;const a=pe(pa),{state:r,dispatch:o}=a,{tables:l}=r,{id:i}=n,s=parseInt(r.total);return(0,e.createElement)("div",{className:"row-actions"},(0,e.createElement)("span",{className:"edit"},(0,e.createElement)("button",{className:"button-link",onClick:()=>{o({type:"UNSET_TABLE_CHANGED"}),o({type:"SET_TABLE",payload:n}),o({type:"SET_VIEW",payload:"table"})}},fe("Edit","advanced-wp-table")))," | ",(0,e.createElement)("span",{className:"duplicate"},(0,e.createElement)("button",{className:"button-link",onClick:()=>{const e=[...l],t=function(e,t){const n=U().find(e,(e=>t===e.id)),a=`new${n.id}`,r=`${n.title.rendered} (${__("Duplicated","advanced-wp-table")})`;return{...n,id:a,title:{...n.title,rendered:r}}}(e,i),n=[t,...e],a={title:t.title.rendered,advanced_wp_table_data:t.advanced_wp_table_data};o({type:"UPDATE_TOTAL",payload:s+1}),o({type:"UPDATE_TABLES",payload:n}),G(fe("Table duplicated successfully","advanced-wp-table")),$(a).then((e=>{const a=n.map((n=>t.id===n.id?e:n));o({type:"UPDATE_TABLES",payload:a}),o({type:"PAGINATE_TABLES",payload:{offset:0,currentPage:0}})})).catch((t=>{console.log(t.message),o({type:"UPDATE_TABLES",payload:e}),z(fe("Oops, there was a problem when duplicating the table","advanced-wp-table"))}))}},fe("Duplicate","advanced-wp-table")))," | ",(0,e.createElement)("span",{className:"trash"},(0,e.createElement)("a",{href:"#/",onClick:e=>{e.preventDefault(),o({type:"SET_TABLE_DELETE_DIALOG",payload:{status:!0,id:i}})}},fe("Delete","advanced-wp-table"))))},{useContext:ve}=wp.element,{__:be}=wp.i18n,ge=()=>{const t=ve(pa),{state:n,dispatch:a}=t;return(0,e.createElement)("table",{className:"wp-list-table widefat fixed striped posts advanced-wp-table-list"},(0,e.createElement)("thead",null,(0,e.createElement)("tr",null,(0,e.createElement)("td",{className:"title"},be("Title","advanced-wp-table")),(0,e.createElement)("td",{className:"shortcode"},be("Shortcode","advanced-wp-table")))),(0,e.createElement)("tbody",null,n.tables.length?n.tables.map((t=>(0,e.createElement)("tr",{key:t.id},(0,e.createElement)("td",null,(0,e.createElement)("strong",null,(0,e.createElement)("a",{href:"#/",className:"row-title",onClick:e=>((e,t)=>{e.preventDefault(),a({type:"UNSET_TABLE_CHANGED"}),a({type:"SET_TABLE",payload:t}),a({type:"SET_VIEW",payload:"table"})})(e,t)},t.title.rendered)),(0,e.createElement)(me,{table:t})),(0,e.createElement)("td",null,`[advanced_wp_table id="${t.id}"]`)))):(0,e.createElement)("tr",null,(0,e.createElement)("td",{colSpan:2},be("No tables found.","advanced-wp-table")))),(0,e.createElement)("tfoot",null,(0,e.createElement)("tr",null,(0,e.createElement)("td",null,be("Title","advanced-wp-table")),(0,e.createElement)("td",null,be("Shortcode","advanced-wp-table")))))},{useContext:he}=wp.element,{__:Ee}=wp.i18n,ye=()=>{const t=he(pa),{state:n}=t,a=[];for(let t=0;t<n.perPage;t++)a.push((0,e.createElement)("tr",{key:t},(0,e.createElement)("td",null,(0,e.createElement)("div",{className:"advanced-wp-table-liner-loading title-loading"}),(0,e.createElement)("div",{className:"advanced-wp-table-liner-loading actions-loading"})),(0,e.createElement)("td",null,(0,e.createElement)("div",{className:"advanced-wp-table-liner-loading shortcode-loading"}))));return(0,e.createElement)("table",{className:"wp-list-table widefat fixed striped posts advanced-wp-table-list-loading"},(0,e.createElement)("thead",null,(0,e.createElement)("tr",null,(0,e.createElement)("td",{className:"title"},Ee("Title","advanced-wp-table")),(0,e.createElement)("td",{className:"shortcode"},Ee("Shortcode","advanced-wp-table")))),(0,e.createElement)("tbody",null,a),(0,e.createElement)("tfoot",null,(0,e.createElement)("tr",null,(0,e.createElement)("td",null,Ee("Title","advanced-wp-table")),(0,e.createElement)("td",null,Ee("Shortcode","advanced-wp-table")))))},{Fragment:we,useContext:Te}=wp.element,{__:_e}=wp.i18n,Ce=()=>{const t=Te(pa),{tablesLoading:n}=t.state;return(0,e.createElement)(we,null,(0,e.createElement)(le,null),(0,e.createElement)(de,null),n?(0,e.createElement)(ye,null):(0,e.createElement)(ge,null),(0,e.createElement)(de,null))},{useContext:Ne}=wp.element,{__:Le}=wp.i18n,Pe=()=>{const{state:t,dispatch:n}=Ne(pa),{tables:a,formLoading:r,newTableData:o}=t,{title:l,sizeOfRows:i,sizeOfColumns:s}=o,c=e=>{n({type:"SET_INPUT",payload:{name:e.target.name,value:e.target.value}})};let u="advanced-wp-table-new-table-form";return r&&(u+=" loading"),(0,e.createElement)("form",{className:u,onSubmit:e=>{e.preventDefault();try{!function(e){const{title:t,sizeOfRows:n,sizeOfColumns:a}=e;if(!t)throw new Error(__("Title shouldn't be empty","advanced-wp-table"));if(parseInt(n)<1)throw new Error(__("Size of rows should be greater than 0","advanced-wp-table"));if(parseInt(a)<1)throw new Error(__("Size of columns should be greater than 0","advanced-wp-table"))}(o)}catch(e){return void z(e.message)}n({type:"SET_FORM_LOADING"});const t=[...a],r=function(e){const{title:t,sizeOfRows:n,sizeOfColumns:a}=e,r={rows:n,columns:a},o=[];for(let e=0;e<n;e++){const e=[];for(let t=0;t<a;t++)e.push("");o.push(e)}return{title:t,advanced_wp_table_data:{size:r,rows:o}}}(o);$(r).then((e=>{const a=[e,...t];n({type:"UNSET_FORM_LOADING"}),n({type:"SET_TABLE",payload:e}),n({type:"SET_VIEW",payload:"table"}),n({type:"CLEAR_NEW_TABLE_DATA"}),G(Le("Table created successfully","advanced-wp-table")),n({type:"UPDATE_TABLES",payload:a}),n({type:"PAGINATE_TABLES",payload:{offset:0,currentPage:0}})})).catch((e=>{console.log(e.message),n({type:"UNSET_FORM_LOADING"}),n({type:"UPDATE_TABLES",payload:t}),z(Le("Oops, there was a problem when creating the table","advanced-wp-table"))}))}},(0,e.createElement)("div",{className:"advanced-wp-table-form-item"},(0,e.createElement)("label",{htmlFor:"title"},Le("Title","advanced-wp-table")),(0,e.createElement)("div",{className:"advanced-wp-table-form-input-wrapper"},(0,e.createElement)("input",{type:"text",id:"title",name:"title",placeholder:Le("Give a title","advanced-wp-table"),onChange:c,value:l}))),(0,e.createElement)("div",{className:"advanced-wp-table-form-item"},(0,e.createElement)("label",{htmlFor:"no-of-rows"},Le("How many rows?","advanced-wp-table")),(0,e.createElement)("div",{className:"advanced-wp-table-form-input-wrapper"},(0,e.createElement)("input",{type:"number",id:"no-of-rows",name:"sizeOfRows",onChange:c,value:i}))),(0,e.createElement)("div",{className:"advanced-wp-table-form-item"},(0,e.createElement)("label",{htmlFor:"no-of-columns"},Le("How many columns?","advanced-wp-table")),(0,e.createElement)("div",{className:"advanced-wp-table-form-input-wrapper"},(0,e.createElement)("input",{type:"number",id:"no-of-columns",name:"sizeOfColumns",onChange:c,value:s}))),(0,e.createElement)("div",{className:"advanced-wp-table-form-buttons"},(0,e.createElement)("button",{className:"button button-primary",type:"submit"},Le("Create","advanced-wp-table"))," ",(0,e.createElement)("button",{className:"button",onClick:()=>{n({type:"CLEAR_NEW_TABLE_DATA"}),n({type:"SET_VIEW",payload:"list"}),H()}},Le("Cancel","advanced-wp-table"))))},{__:Oe}=wp.i18n,Ae=()=>(0,e.createElement)("div",{className:"advanced-wp-table-header"},(0,e.createElement)("div",{className:"advanced-wp-table-header-inner"},(0,e.createElement)("h1",null,Oe("Add New Table","advanced-wp-table")))),{Fragment:ke}=wp.element,Se=()=>(0,e.createElement)(ke,null,(0,e.createElement)(Ae,null),(0,e.createElement)(Pe,null)),{useContext:xe}=wp.element,{__:De}=wp.i18n,Ie=t=>{let{i:n,j:a}=t;const{state:r,dispatch:o}=xe(pa),{table:l}=r,{advanced_wp_table_data:i}=l,{size:s,rows:c}=i;return(0,e.createElement)("div",{className:"advanced-wp-table-cell-actions"},(0,e.createElement)("span",{className:"dashicons dashicons-admin-generic advanced-wp-table-edit-cell"}),(0,e.createElement)("div",{className:"advanced-wp-table-actions-dropdown"},(0,e.createElement)("div",{className:"advanced-wp-table-action-item",onClick:()=>{const e={...s},t=c.map((e=>e.filter(((e,t)=>t!==a)))),n={...e,columns:e.columns-1},r={...l,advanced_wp_table_data:{size:n,rows:t}};o({type:"SET_TABLE",payload:r})},role:"presentation"},De("Delete Column","advanced-wp-table")),(0,e.createElement)("div",{className:"advanced-wp-table-action-item",onClick:()=>{const e={...s},t=c.filter(((e,t)=>t!==n)),a={...e,rows:e.rows-1},r={...l,advanced_wp_table_data:{size:a,rows:t}};o({type:"SET_TABLE",payload:r})},role:"presentation"},De("Delete Row","advanced-wp-table")),(0,e.createElement)("div",{className:"advanced-wp-table-action-item",onClick:()=>{const e={...s},t=[...c],a=t[n];t.splice(n+0,0,a);const r={...e,rows:e.rows+1},i={...l,advanced_wp_table_data:{size:r,rows:t}};o({type:"SET_TABLE",payload:i})},role:"presentation"},De("Duplicate Row","advanced-wp-table"))))},{useContext:Re}=wp.element,{__:Be}=wp.i18n,Me=()=>{const{state:t,dispatch:n}=Re(pa),{tables:a,table:r}=t,{advanced_wp_table_data:o}=r,{size:l,rows:i}=o;return(0,e.createElement)("div",{className:"advanced-wp-table-post-item-buttons"},(0,e.createElement)("div",null,(0,e.createElement)("button",{className:"button button-primary",onClick:()=>{const e=[...a],t=e.map((e=>e.id===r.id?r:e));n({type:"UPDATE_TABLES",payload:t}),G(Be("Successfully updated","advanced-wp-table"));const{id:o,advanced_wp_table_data:l}=r;q(o,r.title.rendered,l).catch((t=>{console.log(t.message),H(),n({type:"UPDATE_TABLES",payload:e}),z(Be("Oops, there was a problem when updating the table","advanced-wp-table"))}))}},Be("Save Changes","advanced-wp-table"))),(0,e.createElement)("div",{className:"button-group"},(0,e.createElement)("button",{className:"button button-small",onClick:()=>{const e={...l},t=[...i],a=[];for(let t=0;t<e.columns;t++)a.push("");const o=[...t,a],s={...e,rows:e.rows+1},c={...r,advanced_wp_table_data:{size:s,rows:o}};n({type:"SET_TABLE",payload:c})}},Be("Add Row","advanced-wp-table")),(0,e.createElement)("button",{className:"button button-small",onClick:()=>{const e={...l},t=[...i],a=[];t.map((e=>{const t=[...e,""];return a.push(t)}));const o={...e,columns:e.columns+1},s={...r,advanced_wp_table_data:{size:o,rows:a}};n({type:"SET_TABLE",payload:s})}},Be("Add Column","advanced-wp-table"))))},{useContext:je}=wp.element,{__:Fe}=wp.i18n,Ue=()=>{const{state:t,dispatch:n}=je(pa),{table:a}=t,{rendered:r}=a.title,o=()=>{n({type:"UNSET_TABLE"}),n({type:"SET_VIEW",payload:"list"})};return(0,e.createElement)("div",{className:"advanced-wp-table-header"},(0,e.createElement)("div",{className:"advanced-wp-table-header-inner margin-bottom-large"},(0,e.createElement)("h1",null,r),(0,e.createElement)("button",{className:"button",onClick:()=>{(()=>{const e=U().find(t.tables,(e=>e.id===a.id)),{advanced_wp_table_data:n}=V(e),{advanced_wp_table_data:r}=a;return!U().isEqual(n,r)})()?n({type:"SET_TABLE_CHANGED_DIALOG",payload:{status:!0,callbackLeave:o}}):o()}},(0,e.createElement)("span",{className:"dashicons dashicons-controls-back"}),Fe("Back to Tables","advanced-wp-table"))))},{Fragment:Ge,useState:ze,useRef:He,useContext:We}=wp.element,$e="row",qe="column",Ve={column:-1,row:-1,startPoint:null,direction:"",dropIndex:-1},Ye=()=>{const{state:t,dispatch:n}=We(pa),{tables:a,table:r}=t;let{rows:o=[]}=t.table.advanced_wp_table_data;const[l,i]=ze({...Ve}),s=He(null),c=He(null);l.direction===qe&&(o=o.map((e=>W(l.column,l.dropIndex,e)))),l.direction===$e&&(o=W(l.row,l.dropIndex,o));const u=(e,t)=>{let n=null;const{direction:a,dropIndex:r}=l;return qe===a&&(n=t===r?.5:1),$e===a&&(n=e===r?.5:1),n};return(0,e.createElement)(Ge,null,(0,e.createElement)(Ue,null),(0,e.createElement)(Me,null),(0,e.createElement)("table",{className:"advanced-wp-table advanced-wp-table-post-item"},(0,e.createElement)("tbody",{ref:s},o.map((function(){let t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],s=arguments.length>1?arguments[1]:void 0;return(0,e.createElement)("tr",{key:s},t.map(((t,d)=>(0,e.createElement)("td",{key:d,style:{cursor:l.direction?"move":"grab",opacity:u(s,d)},draggable:"true",onDragStart:e=>{e.dataTransfer.setDragImage(c.current,0,0),i({...l,row:s,column:d,startPoint:{x:e.pageX,y:e.pageY}})},onDragEnter:()=>{if(!l.direction)return l.column!==d?void i({...l,direction:qe,dropIndex:d}):l.row!==s?void i({...l,direction:$e,dropIndex:s}):void 0;l.direction!==qe?l.direction===$e&&s!==l.dropIndex&&i({...l,dropIndex:s}):d!==l.dropIndex&&i({...l,dropIndex:d})},onDragEnd:()=>{n({type:"ON_DRAG_END_TABLE",payload:o}),i({...Ve})}},(0,e.createElement)("div",{className:"advanced-wp-table-cell-wrapper"},(0,e.createElement)("textarea",{value:t,onChange:e=>((e,t,o)=>{const l=[...a],i=((e,t)=>{const{advanced_wp_table_data:n}=e,a=[...n.rows],{i:r,j:o,content:l}=t,i=[];return a.map(((e,t)=>{if(r!==t)return i.push(e);const n=[];return e.map(((e,t)=>o!==t?n.push(e):n.push(l))),i.push(n)})),{...e,advanced_wp_table_data:{...n,rows:i}}})(r,{i:t,j:o,content:e}),s=l.map((e=>e.id===i.id?i:e));n({type:"SET_TABLE",payload:i}),n({type:"UPDATE_TABLES",payload:s})})(e.target.value,s,d)}),(0,e.createElement)(Ie,{i:s,j:d}))))))})))),(0,e.createElement)("div",{ref:c,style:{position:"absolute",width:0,height:0,overflow:"hidden"}}),(0,e.createElement)(Me,null))};function Xe(){return!("undefined"==typeof window||!window.document||!window.document.createElement)}function Ze(e,t){return n=>{if(e&&e(n),!n.defaultPrevented)return t(n)}}function Ke(e,t){if(null!=e)if(function(e){return!(!e||"[object Function]"!={}.toString.call(e))}(e))e(t);else try{e.current=t}catch(n){throw new Error(`Cannot assign value "${t}" to ref "${e}"`)}}function Qe(){}var Je=Xe()?a.useLayoutEffect:a.useEffect;const et=window.ReactDOM;var tt=({children:e,type:t="reach-portal",containerRef:n})=>{let r=a.useRef(null),o=a.useRef(null),l=function(){let[,e]=(0,a.useState)(Object.create(null));return(0,a.useCallback)((()=>{e(Object.create(null))}),[])}();return a.useEffect((()=>{null!=n&&("object"==typeof n&&"current"in n?null==n.current&&console.warn("@reach/portal: A ref was passed to the `containerRef` prop of a `Portal`, but no DOM node was attached to it. Be sure to pass the ref to a DOM component.\n\nIf you are forwarding the ref from another component, be sure to use the React.forwardRef API. See https://reactjs.org/docs/forwarding-refs.html."):console.warn("@reach/portal: Invalid value passed to the `containerRef` of a `Portal`. The portal will be appended to the document body, but if you want to attach it to another DOM node you must pass a valid React ref object to `containerRef`."))}),[n]),Je((()=>{if(!r.current)return;let e=r.current.ownerDocument,a=n?.current||e.body;return o.current=e?.createElement(t),a.appendChild(o.current),l(),()=>{o.current&&a&&a.removeChild(o.current)}}),[t,l,n]),o.current?(0,et.createPortal)(e,o.current):a.createElement("span",{ref:r})},nt=({unstable_skipInitialRender:e,...t})=>{let[n,r]=a.useState(!1);return a.useEffect((()=>{e&&r(!0)}),[e]),e&&!n?null:a.createElement(tt,{...t})};function at(){return at=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var a in n)Object.prototype.hasOwnProperty.call(n,a)&&(e[a]=n[a])}return e},at.apply(this,arguments)}nt.displayName="Portal",n(697);var rt="data-focus-lock",ot="data-focus-lock-disabled";function lt(e,t){return n=t||null,r=function(t){return e.forEach((function(e){return function(e,t){return"function"==typeof e?e(t):e&&(e.current=t),e}(e,t)}))},(o=(0,a.useState)((function(){return{value:n,callback:r,facade:{get current(){return o.value},set current(e){var t=o.value;t!==e&&(o.value=e,o.callback(e,t))}}}}))[0]).callback=r,o.facade;var n,r,o}var it={width:"1px",height:"0px",padding:0,overflow:"hidden",position:"fixed",top:"1px",left:"1px"},st=function(e){var t=e.children;return a.createElement(a.Fragment,null,a.createElement("div",{key:"guard-first","data-focus-guard":!0,"data-focus-auto-guard":!0,style:it}),t,t&&a.createElement("div",{key:"guard-last","data-focus-guard":!0,"data-focus-auto-guard":!0,style:it}))};st.propTypes={},st.defaultProps={children:null};var ct=function(){return ct=Object.assign||function(e){for(var t,n=1,a=arguments.length;n<a;n++)for(var r in t=arguments[n])Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);return e},ct.apply(this,arguments)};function ut(e){return e}function dt(e,t){void 0===t&&(t=ut);var n=[],a=!1;return{read:function(){if(a)throw new Error("Sidecar: could not `read` from an `assigned` medium. `read` could be used only with `useMedium`.");return n.length?n[n.length-1]:e},useMedium:function(e){var r=t(e,a);return n.push(r),function(){n=n.filter((function(e){return e!==r}))}},assignSyncMedium:function(e){for(a=!0;n.length;){var t=n;n=[],t.forEach(e)}n={push:function(t){return e(t)},filter:function(){return n}}},assignMedium:function(e){a=!0;var t=[];if(n.length){var r=n;n=[],r.forEach(e),t=n}var o=function(){var n=t;t=[],n.forEach(e)},l=function(){return Promise.resolve().then(o)};l(),n={push:function(e){t.push(e),l()},filter:function(e){return t=t.filter(e),n}}}}}function pt(e,t){return void 0===t&&(t=ut),dt(e,t)}function ft(e){void 0===e&&(e={});var t=dt(null);return t.options=ct({async:!0,ssr:!1},e),t}Object.create,Object.create;var mt=pt({},(function(e){return{target:e.target,currentTarget:e.currentTarget}})),vt=pt(),bt=pt(),gt=ft({async:!0}),ht=[],Et=a.forwardRef((function(e,t){var n,r=a.useState(),o=r[0],l=r[1],i=a.useRef(),s=a.useRef(!1),c=a.useRef(null),u=e.children,d=e.disabled,p=e.noFocusGuards,f=e.persistentFocus,m=e.crossFrame,v=e.autoFocus,b=(e.allowTextSelection,e.group),g=e.className,h=e.whiteList,E=e.shards,y=void 0===E?ht:E,w=e.as,T=void 0===w?"div":w,_=e.lockProps,C=void 0===_?{}:_,N=e.sideCar,L=e.returnFocus,P=e.onActivation,O=e.onDeactivation,A=a.useState({})[0],k=a.useCallback((function(){c.current=c.current||document&&document.activeElement,i.current&&P&&P(i.current),s.current=!0}),[P]),S=a.useCallback((function(){s.current=!1,O&&O(i.current)}),[O]),x=a.useCallback((function(e){var t=c.current;if(Boolean(L)&&t&&t.focus){var n="object"==typeof L?L:void 0;c.current=null,e?Promise.resolve().then((function(){return t.focus(n)})):t.focus(n)}}),[L]),D=a.useCallback((function(e){s.current&&mt.useMedium(e)}),[]),I=vt.useMedium,R=a.useCallback((function(e){i.current!==e&&(i.current=e,l(e))}),[]),B=at(((n={})[ot]=d&&"disabled",n[rt]=b,n),C),M=!0!==p,j=M&&"tail"!==p,F=lt([t,R]);return a.createElement(a.Fragment,null,M&&[a.createElement("div",{key:"guard-first","data-focus-guard":!0,tabIndex:d?-1:0,style:it}),a.createElement("div",{key:"guard-nearest","data-focus-guard":!0,tabIndex:d?-1:1,style:it})],!d&&a.createElement(N,{id:A,sideCar:gt,observed:o,disabled:d,persistentFocus:f,crossFrame:m,autoFocus:v,whiteList:h,shards:y,onActivation:k,onDeactivation:S,returnFocus:x}),a.createElement(T,at({ref:F},B,{className:g,onBlur:I,onFocus:D}),u),j&&a.createElement("div",{"data-focus-guard":!0,tabIndex:d?-1:0,style:it}))}));Et.propTypes={},Et.defaultProps={children:void 0,disabled:!1,returnFocus:!1,noFocusGuards:!1,autoFocus:!0,persistentFocus:!1,crossFrame:!0,allowTextSelection:void 0,group:void 0,className:void 0,whiteList:void 0,shards:void 0,as:"div",lockProps:{},onActivation:void 0,onDeactivation:void 0};const yt=Et;function wt(e,t){return wt=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(e,t){return e.__proto__=t,e},wt(e,t)}function Tt(e){return Tt="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},Tt(e)}var _t=function(e){for(var t=Array(e.length),n=0;n<e.length;++n)t[n]=e[n];return t},Ct=function(e){return Array.isArray(e)?e:[e]},Nt=function(e){return e.parentNode?Nt(e.parentNode):e},Lt=function(e){return Ct(e).filter(Boolean).reduce((function(e,t){var n=t.getAttribute(rt);return e.push.apply(e,n?function(e){for(var t=new Set,n=e.length,a=0;a<n;a+=1)for(var r=a+1;r<n;r+=1){var o=e[a].compareDocumentPosition(e[r]);(o&Node.DOCUMENT_POSITION_CONTAINED_BY)>0&&t.add(r),(o&Node.DOCUMENT_POSITION_CONTAINS)>0&&t.add(a)}return e.filter((function(e,n){return!t.has(n)}))}(_t(Nt(t).querySelectorAll("["+rt+'="'+n+'"]:not(['+ot+'="disabled"])'))):[t]),e}),[])},Pt=function(e){var t=document&&document.activeElement;return!(!t||t.dataset&&t.dataset.focusGuard)&&Lt(e).reduce((function(e,n){return e||n.contains(t)||function(e){return Boolean(_t(e.querySelectorAll("iframe")).some((function(e){return e===document.activeElement})))}(n)}),!1)},Ot=function(e){return"INPUT"===e.tagName&&"radio"===e.type},At=function(e,t){return Ot(e)&&e.name?function(e,t){return t.filter(Ot).filter((function(t){return t.name===e.name})).filter((function(e){return e.checked}))[0]||e}(e,t):e},kt=function(e){return e[0]&&e.length>1?At(e[0],e):e[0]},St=function(e,t){return e.length>1?e.indexOf(At(e[t],e)):t},xt=function(e,t){var n=e.get(t);if(void 0!==n)return n;var a=function(e,t){return!e||e===document||e&&e.nodeType===Node.DOCUMENT_NODE||!function(e){if(e.nodeType!==Node.ELEMENT_NODE)return!1;var t=window.getComputedStyle(e,null);return!(!t||!t.getPropertyValue||"none"!==t.getPropertyValue("display")&&"hidden"!==t.getPropertyValue("visibility"))}(e)&&t(e.parentNode&&e.parentNode.nodeType===Node.DOCUMENT_FRAGMENT_NODE?e.parentNode.host:e.parentNode)}(t,xt.bind(void 0,e));return e.set(t,a),a},Dt=function(e){return Boolean(e&&e.dataset&&e.dataset.focusGuard)},It=function(e){return!Dt(e)},Rt=function(e){return Boolean(e)},Bt="NEW_FOCUS",Mt=function(e,t){var n=e.tabIndex-t.tabIndex,a=e.index-t.index;if(n){if(!e.tabIndex)return 1;if(!t.tabIndex)return-1}return n||a},jt=function(e,t,n){return _t(e).map((function(e,t){return{node:e,index:t,tabIndex:n&&-1===e.tabIndex?(e.dataset||{}).focusGuard?0:-1:e.tabIndex}})).filter((function(e){return!t||e.tabIndex>=0})).sort(Mt)},Ft=["button:enabled","select:enabled","textarea:enabled","input:enabled","a[href]","area[href]","summary","iframe","object","embed","audio[controls]","video[controls]","[tabindex]","[contenteditable]","[autofocus]"].join(","),Ut=Ft+", [data-focus-guard]",Gt=function(e,t){return e.reduce((function(e,n){return e.concat(_t(n.querySelectorAll(t?Ut:Ft)),n.parentNode?_t(n.parentNode.querySelectorAll(Ft)).filter((function(e){return e===n})):[])}),[])},zt=function(e,t){return _t(e).filter((function(e){return xt(t,e)})).filter((function(e){return function(e){return!(("INPUT"===e.tagName||"BUTTON"===e.tagName)&&("hidden"===e.type||e.disabled))}(e)}))},Ht=function(e,t,n){return jt(zt(Gt(e,n),t),!0,n)},Wt=function(e,t){return jt(zt(Gt(e),t),!1)},$t=function(e,t){return void 0===t&&(t=[]),t.push(e),e.parentNode&&$t(e.parentNode,t),t},qt=function(e,t){for(var n=$t(e),a=$t(t),r=0;r<n.length;r+=1){var o=n[r];if(a.indexOf(o)>=0)return o}return!1},Vt=function(e,t,n){var a=Ct(e),r=Ct(t),o=a[0],l=!1;return r.filter(Boolean).forEach((function(e){l=qt(l||e,e)||l,n.filter(Boolean).forEach((function(e){var t=qt(o,e);t&&(l=!l||t.contains(l)?t:qt(t,l))}))})),l},Yt=function(e,t){var n=document&&document.activeElement,a=Lt(e).filter(It),r=Vt(n||e,e,a),o=new Map,l=Wt(a,o),i=Ht(a,o).filter((function(e){var t=e.node;return It(t)}));if(i[0]||(i=l)[0]){var s,c,u,d,p=Wt([r],o).map((function(e){return e.node})),f=(s=p,c=i,u=new Map,c.forEach((function(e){return u.set(e.node,e)})),s.map((function(e){return u.get(e)})).filter(Rt)),m=f.map((function(e){return e.node})),v=function(e,t,n,a){var r=e.length,o=e[0],l=e[r-1],i=Dt(n);if(!(e.indexOf(n)>=0)){var s,c,u=t.indexOf(n),d=a?t.indexOf(a):u,p=a?e.indexOf(a):-1,f=u-d,m=t.indexOf(o),v=t.indexOf(l),b=(s=t,c=new Set,s.forEach((function(e){return c.add(At(e,s))})),s.filter((function(e){return c.has(e)}))),g=b.indexOf(n)-(a?b.indexOf(a):u),h=St(e,0),E=St(e,r-1);return-1===u||-1===p?Bt:!f&&p>=0?p:u<=m&&i&&Math.abs(f)>1?E:u>=v&&i&&Math.abs(f)>1?h:f&&Math.abs(g)>1?p:u<=m?E:u>v?h:f?Math.abs(f)>1?p:(r+p+f)%r:void 0}}(m,p,n,t);if(v===Bt){var b=l.map((function(e){return e.node})).filter((d=function(e,t){return e.reduce((function(e,n){return e.concat(function(e,t){return zt((n=e.querySelectorAll("[data-autofocus-inside]"),_t(n).map((function(e){return Gt([e])})).reduce((function(e,t){return e.concat(t)}),[])),t);var n}(n,t))}),[])}(a,o),function(e){return e.autofocus||e.dataset&&!!e.dataset.autofocus||d.indexOf(e)>=0}));return{node:b&&b.length?kt(b):kt(m)}}return void 0===v?v:f[v]}},Xt=0,Zt=!1;const Kt=function(e,t){var n,a=Yt(e,t);if(!Zt&&a){if(Xt>2)return console.error("FocusLock: focus-fighting detected. Only one focus management system could be active. See https://github.com/theKashey/focus-lock/#focus-fighting"),Zt=!0,void setTimeout((function(){Zt=!1}),1);Xt++,(n=a.node).focus(),"contentWindow"in n&&n.contentWindow&&n.contentWindow.focus(),Xt--}};function Qt(e){var t=window.setImmediate;void 0!==t?t(e):setTimeout(e,1)}var Jt=null,en=null,tn=null,nn=!1,an=function(){return!0};function rn(e,t,n,a){var r=null,o=e;do{var l=a[o];if(l.guard)l.node.dataset.focusAutoGuard&&(r=l);else{if(!l.lockItem)break;if(o!==e)return;r=null}}while((o+=n)!==t);r&&(r.node.tabIndex=0)}var on=function(e){return e&&"current"in e?e.current:e},ln=function(){var e,t,n,a,r,o,l,i=!1;if(Jt){var s=Jt,c=s.observed,u=s.persistentFocus,d=s.autoFocus,p=s.shards,f=s.crossFrame,m=c||tn&&tn.portaledElement,v=document&&document.activeElement;if(m){var b=[m].concat(p.map(on).filter(Boolean));if(v&&!function(e){return(Jt.whiteList||an)(e)}(v)||(u||(f?Boolean(nn):"meanwhile"===nn)||!(document&&document.activeElement===document.body||document&&_t(document.querySelectorAll("[data-no-focus-lock]")).some((function(e){return e.contains(document.activeElement)})))||!en&&d)&&(!m||Pt(b)||(l=v,tn&&tn.portaledElement===l)||(document&&!en&&v&&!d?(v.blur&&v.blur(),document.body.focus()):(i=Kt(b,en),tn={})),nn=!1,en=document&&document.activeElement),document){var g=document&&document.activeElement,h=(t=Lt(e=b).filter(It),n=Vt(e,e,t),a=new Map,r=Ht([n],a,!0),o=Ht(t,a).filter((function(e){var t=e.node;return It(t)})).map((function(e){return e.node})),r.map((function(e){var t=e.node;return{node:t,index:e.index,lockItem:o.indexOf(t)>=0,guard:Dt(t)}}))),E=h.map((function(e){return e.node})).indexOf(g);E>-1&&(h.filter((function(e){var t=e.guard,n=e.node;return t&&n.dataset.focusAutoGuard})).forEach((function(e){return e.node.removeAttribute("tabIndex")})),rn(E,h.length,1,h),rn(E,-1,-1,h))}}}return i},sn=function(e){ln()&&e&&(e.stopPropagation(),e.preventDefault())},cn=function(){return Qt(ln)},un=function(){nn="just",setTimeout((function(){nn="meanwhile"}),0)};mt.assignSyncMedium((function(e){var t=e.target,n=e.currentTarget;n.contains(t)||(tn={observerNode:n,portaledElement:t})})),vt.assignMedium(cn),bt.assignMedium((function(e){return e({moveFocusInside:Kt,focusInside:Pt})}));const dn=(pn=function(e){return e.filter((function(e){return!e.disabled}))},fn=function(e){var t=e.slice(-1)[0];t&&!Jt&&(document.addEventListener("focusin",sn,!0),document.addEventListener("focusout",cn),window.addEventListener("blur",un));var n=Jt,a=n&&t&&t.id===n.id;Jt=t,n&&!a&&(n.onDeactivation(),e.filter((function(e){return e.id===n.id})).length||n.returnFocus(!t)),t?(en=null,a&&n.observed===t.observed||t.onActivation(),ln(),Qt(ln)):(document.removeEventListener("focusin",sn,!0),document.removeEventListener("focusout",cn),window.removeEventListener("blur",un),en=null)},function(e){var t,n=[];function o(){t=pn(n.map((function(e){return e.props}))),fn(t)}var l,i,s,c=function(a){var l,i;function s(){return a.apply(this,arguments)||this}i=a,(l=s).prototype=Object.create(i.prototype),l.prototype.constructor=l,wt(l,i),s.peek=function(){return t};var c=s.prototype;return c.componentDidMount=function(){n.push(this),o()},c.componentDidUpdate=function(){o()},c.componentWillUnmount=function(){var e=n.indexOf(this);n.splice(e,1),o()},c.render=function(){return r().createElement(e,this.props)},s}(a.PureComponent);return l=c,i="displayName",s="SideEffect("+function(e){return e.displayName||e.name||"Component"}(e)+")",(i=function(e){var t=function(e,t){if("object"!==Tt(e)||null===e)return e;var n=e[Symbol.toPrimitive];if(void 0!==n){var a=n.call(e,"string");if("object"!==Tt(a))return a;throw new TypeError("@@toPrimitive must return a primitive value.")}return String(e)}(e);return"symbol"===Tt(t)?t:String(t)}(i))in l?Object.defineProperty(l,i,{value:s,enumerable:!0,configurable:!0,writable:!0}):l[i]=s,c})((function(){return null}));var pn,fn,mn=a.forwardRef((function(e,t){return a.createElement(yt,at({sideCar:dn,ref:t},e))})),vn=yt.propTypes||{};vn.sideCar,function(e,t){if(null==e)return{};var n,a,r={},o=Object.keys(e);for(a=0;a<o.length;a++)n=o[a],t.indexOf(n)>=0||(r[n]=e[n])}(vn,["sideCar"]),mn.propTypes={};const bn=mn;var gn=function(){return gn=Object.assign||function(e){for(var t,n=1,a=arguments.length;n<a;n++)for(var r in t=arguments[n])Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);return e},gn.apply(this,arguments)},hn="right-scroll-bar-position",En="width-before-scroll-bar",yn=ft(),wn=function(){},Tn=a.forwardRef((function(e,t){var n=a.useRef(null),r=a.useState({onScrollCapture:wn,onWheelCapture:wn,onTouchMoveCapture:wn}),o=r[0],l=r[1],i=e.forwardProps,s=e.children,c=e.className,u=e.removeScrollBar,d=e.enabled,p=e.shards,f=e.sideCar,m=e.noIsolation,v=e.inert,b=e.allowPinchZoom,g=e.as,h=void 0===g?"div":g,E=function(e,t){var n={};for(var a in e)Object.prototype.hasOwnProperty.call(e,a)&&t.indexOf(a)<0&&(n[a]=e[a]);if(null!=e&&"function"==typeof Object.getOwnPropertySymbols){var r=0;for(a=Object.getOwnPropertySymbols(e);r<a.length;r++)t.indexOf(a[r])<0&&Object.prototype.propertyIsEnumerable.call(e,a[r])&&(n[a[r]]=e[a[r]])}return n}(e,["forwardProps","children","className","removeScrollBar","enabled","shards","sideCar","noIsolation","inert","allowPinchZoom","as"]),y=f,w=lt([n,t]),T=gn({},E,o);return a.createElement(a.Fragment,null,d&&a.createElement(y,{sideCar:yn,removeScrollBar:u,shards:p,noIsolation:m,inert:v,setCallbacks:l,allowPinchZoom:!!b,lockRef:n}),i?a.cloneElement(a.Children.only(s),gn({},T,{ref:w})):a.createElement(h,gn({},T,{className:c,ref:w}),s))}));Tn.defaultProps={enabled:!0,removeScrollBar:!0,inert:!1},Tn.classNames={fullWidth:En,zeroRight:hn};var Cn=function(e){var t=e.sideCar,n=function(e,t){var n={};for(var a in e)Object.prototype.hasOwnProperty.call(e,a)&&t.indexOf(a)<0&&(n[a]=e[a]);if(null!=e&&"function"==typeof Object.getOwnPropertySymbols){var r=0;for(a=Object.getOwnPropertySymbols(e);r<a.length;r++)t.indexOf(a[r])<0&&Object.prototype.propertyIsEnumerable.call(e,a[r])&&(n[a[r]]=e[a[r]])}return n}(e,["sideCar"]);if(!t)throw new Error("Sidecar: please provide `sideCar` property to import the right car");var r=t.read();if(!r)throw new Error("Sidecar medium not found");return a.createElement(r,ct({},n))};Cn.isSideCarExport=!0;var Nn=function(){var e=0,t=null;return{add:function(a){var r,o;0==e&&(t=function(){if(!document)return null;var e=document.createElement("style");e.type="text/css";var t=n.nc;return t&&e.setAttribute("nonce",t),e}())&&(o=a,(r=t).styleSheet?r.styleSheet.cssText=o:r.appendChild(document.createTextNode(o)),function(e){(document.head||document.getElementsByTagName("head")[0]).appendChild(e)}(t)),e++},remove:function(){!--e&&t&&(t.parentNode&&t.parentNode.removeChild(t),t=null)}}},Ln=function(){var e,t=(e=Nn(),function(t,n){a.useEffect((function(){return e.add(t),function(){e.remove()}}),[t&&n])});return function(e){var n=e.styles,a=e.dynamic;return t(n,a),null}},Pn={left:0,top:0,right:0,gap:0},On=function(e){return parseInt(e||"",10)||0},An=Ln(),kn=function(e,t,n,a){var r=e.left,o=e.top,l=e.right,i=e.gap;return void 0===n&&(n="margin"),"\n  .".concat("with-scroll-bars-hidden"," {\n   overflow: hidden ").concat(a,";\n   padding-right: ").concat(i,"px ").concat(a,";\n  }\n  body {\n    overflow: hidden ").concat(a,";\n    overscroll-behavior: contain;\n    ").concat([t&&"position: relative ".concat(a,";"),"margin"===n&&"\n    padding-left: ".concat(r,"px;\n    padding-top: ").concat(o,"px;\n    padding-right: ").concat(l,"px;\n    margin-left:0;\n    margin-top:0;\n    margin-right: ").concat(i,"px ").concat(a,";\n    "),"padding"===n&&"padding-right: ".concat(i,"px ").concat(a,";")].filter(Boolean).join(""),"\n  }\n  \n  .").concat(hn," {\n    right: ").concat(i,"px ").concat(a,";\n  }\n  \n  .").concat(En," {\n    margin-right: ").concat(i,"px ").concat(a,";\n  }\n  \n  .").concat(hn," .").concat(hn," {\n    right: 0 ").concat(a,";\n  }\n  \n  .").concat(En," .").concat(En," {\n    margin-right: 0 ").concat(a,";\n  }\n  \n  body {\n    ").concat("--removed-body-scroll-bar-size",": ").concat(i,"px;\n  }\n")},Sn=function(e){var t=e.noRelative,n=e.noImportant,r=e.gapMode,o=void 0===r?"margin":r,l=a.useMemo((function(){return function(e){if(void 0===e&&(e="margin"),"undefined"==typeof window)return Pn;var t=function(e){var t=window.getComputedStyle(document.body),n=t["padding"===e?"paddingLeft":"marginLeft"],a=t["padding"===e?"paddingTop":"marginTop"],r=t["padding"===e?"paddingRight":"marginRight"];return[On(n),On(a),On(r)]}(e),n=document.documentElement.clientWidth,a=window.innerWidth;return{left:t[0],top:t[1],right:t[2],gap:Math.max(0,a-n+t[2]-t[0])}}(o)}),[o]);return a.createElement(An,{styles:kn(l,!t,o,n?"":"!important")})},xn=function(e,t){var n=t;do{if("undefined"!=typeof ShadowRoot&&n instanceof ShadowRoot&&(n=n.host),Dn(e,n)){var a=In(e,n);if(a[1]>a[2])return!0}n=n.parentNode}while(n&&n!==document.body);return!1},Dn=function(e,t){return"v"===e?function(e){var t=window.getComputedStyle(e);return"hidden"!==t.overflowY&&!(t.overflowY===t.overflowX&&"visible"===t.overflowY)}(t):function(e){var t=window.getComputedStyle(e);return"range"===e.type||"hidden"!==t.overflowX&&!(t.overflowY===t.overflowX&&"visible"===t.overflowX)}(t)},In=function(e,t){return"v"===e?[(n=t).scrollTop,n.scrollHeight,n.clientHeight]:function(e){return[e.scrollLeft,e.scrollWidth,e.clientWidth]}(t);var n},Rn=!1;if("undefined"!=typeof window)try{var Bn=Object.defineProperty({},"passive",{get:function(){return Rn=!0,!0}});window.addEventListener("test",Bn,Bn),window.removeEventListener("test",Bn,Bn)}catch(e){Rn=!1}var Mn=!!Rn&&{passive:!1},jn=function(e){return"changedTouches"in e?[e.changedTouches[0].clientX,e.changedTouches[0].clientY]:[0,0]},Fn=function(e){return[e.deltaX,e.deltaY]},Un=function(e){return e&&"current"in e?e.current:e},Gn=function(e){return"\n  .block-interactivity-"+e+" {pointer-events: none;}\n  .allow-interactivity-"+e+" {pointer-events: all;}\n"},zn=0,Hn=[];const Wn=($n=function(e){var t=a.useRef([]),n=a.useRef([0,0]),r=a.useRef(),o=a.useState(zn++)[0],l=a.useState((function(){return Ln()}))[0],i=a.useRef(e);a.useEffect((function(){i.current=e}),[e]),a.useEffect((function(){if(e.inert){document.body.classList.add("block-interactivity-"+o);var t=[e.lockRef.current].concat((e.shards||[]).map(Un)).filter(Boolean);return t.forEach((function(e){return e.classList.add("allow-interactivity-"+o)})),function(){document.body.classList.remove("block-interactivity-"+o),t.forEach((function(e){return e.classList.remove("allow-interactivity-"+o)}))}}}),[e.inert,e.lockRef.current,e.shards]);var s=a.useCallback((function(e,t){if("touches"in e&&2===e.touches.length)return!i.current.allowPinchZoom;var a,o=jn(e),l=n.current,s="deltaX"in e?e.deltaX:l[0]-o[0],c="deltaY"in e?e.deltaY:l[1]-o[1],u=e.target,d=Math.abs(s)>Math.abs(c)?"h":"v",p=xn(d,u);if(!p)return!0;if(p?a=d:(a="v"===d?"h":"v",p=xn(d,u)),!p)return!1;if(!r.current&&"changedTouches"in e&&(s||c)&&(r.current=a),!a)return!0;var f=r.current||a;return function(e,t,n,a,r){var o=a,l=n.target,i=t.contains(l),s=!1,c=o>0,u=0,d=0;do{var p=In(e,l),f=p[0],m=p[1]-p[2]-f;(f||m)&&Dn(e,l)&&(u+=m,d+=f),l=l.parentNode}while(!i&&l!==document.body||i&&(t.contains(l)||t===l));return(c&&(0===u||!1)||!c&&(0===d||!1))&&(s=!0),s}(f,t,e,"h"===f?s:c)}),[]),c=a.useCallback((function(e){var n=e;if(Hn.length&&Hn[Hn.length-1]===l){var a="deltaY"in n?Fn(n):jn(n),r=t.current.filter((function(e){return e.name===n.type&&e.target===n.target&&function(e,t){return e[0]===t[0]&&e[1]===t[1]}(e.delta,a)}))[0];if(r&&r.should)n.preventDefault();else if(!r){var o=(i.current.shards||[]).map(Un).filter(Boolean).filter((function(e){return e.contains(n.target)}));(o.length>0?s(n,o[0]):!i.current.noIsolation)&&n.preventDefault()}}}),[]),u=a.useCallback((function(e,n,a,r){var o={name:e,delta:n,target:a,should:r};t.current.push(o),setTimeout((function(){t.current=t.current.filter((function(e){return e!==o}))}),1)}),[]),d=a.useCallback((function(e){n.current=jn(e),r.current=void 0}),[]),p=a.useCallback((function(t){u(t.type,Fn(t),t.target,s(t,e.lockRef.current))}),[]),f=a.useCallback((function(t){u(t.type,jn(t),t.target,s(t,e.lockRef.current))}),[]);a.useEffect((function(){return Hn.push(l),e.setCallbacks({onScrollCapture:p,onWheelCapture:p,onTouchMoveCapture:f}),document.addEventListener("wheel",c,Mn),document.addEventListener("touchmove",c,Mn),document.addEventListener("touchstart",d,Mn),function(){Hn=Hn.filter((function(e){return e!==l})),document.removeEventListener("wheel",c,Mn),document.removeEventListener("touchmove",c,Mn),document.removeEventListener("touchstart",d,Mn)}}),[]);var m=e.removeScrollBar,v=e.inert;return a.createElement(a.Fragment,null,v?a.createElement(l,{styles:Gn(o)}):null,m?a.createElement(Sn,{gapMode:"margin"}):null)},yn.useMedium($n),Cn);var $n,qn=a.forwardRef((function(e,t){return a.createElement(Tn,gn({},e,{ref:t,sideCar:Wn}))}));qn.classNames=Tn.classNames;const Vn=qn;var[Yn,Xn]=function(e,t){let n=a.createContext(t);function r(e){let{children:t,...r}=e,o=a.useMemo((()=>r),Object.values(r));return a.createElement(n.Provider,{value:o},t)}return n.displayName=`${e}Context`,r.displayName=`${e}Provider`,[r,function(r){let o=a.useContext(n);if(o)return o;if(t)return t;throw Error(`${r} must be rendered inside of a ${e} component.`)}]}("DialogContext",{isOpen:!1});function Zn({isOpen:e=!0,children:t,...n}){return a.useEffect((()=>{e?window.__REACH_DISABLE_TOOLTIPS=!0:window.requestAnimationFrame((()=>{window.__REACH_DISABLE_TOOLTIPS=!1}))}),[e]),a.createElement(nt,{"data-reach-dialog-wrapper":"","data-state":e?"open":"closed",...n},a.createElement(Yn,{isOpen:e},t))}Zn.displayName="unstable_DialogWrapper";var Kn=a.forwardRef((function({allowPinchZoom:e,as:t="div",dangerouslyBypassFocusLock:n,dangerouslyBypassScrollLock:r,initialFocusRef:o,onClick:l,onDismiss:i=Qe,onKeyDown:s,onMouseDown:c,unstable_lockFocusAcrossFrames:u,...d},p){let{isOpen:f}=Xn("DialogInner"),m=void 0!==u;a.useEffect((()=>{m&&console.warn("The unstable_lockFocusAcrossFrames in @reach/dialog is deprecated. It will be removed in the next minor release.")}),[m]);const v=a.useRef(null),b=a.useRef(null),g=function(...e){return(0,a.useCallback)((t=>{for(let n of e)Ke(n,t)}),e)}(b,p),h=a.useCallback((()=>{o&&o.current&&o.current.focus()}),[o]);return a.useEffect((()=>b.current?function(e){let t=[],n=[],a=(r=e,Xe()?r?r.ownerDocument:document:null);var r;return e?(Array.prototype.forEach.call(a.querySelectorAll("body > *"),(a=>{const r=e.parentNode?.parentNode?.parentNode;if(a===r)return;let o=a.getAttribute("aria-hidden");null!==o&&"false"!==o||(t.push(o),n.push(a),a.setAttribute("aria-hidden","true"))})),()=>{n.forEach(((e,n)=>{let a=t[n];null===a?e.removeAttribute("aria-hidden"):e.setAttribute("aria-hidden",a)}))}):(console.warn("A ref has not yet been attached to a dialog node when attempting to call `createAriaHider`."),Qe)}(b.current):void 0),[]),a.createElement(bn,{autoFocus:!0,returnFocus:!0,onActivation:h,disabled:null!=n?n:!f,crossFrame:u??!0},a.createElement(Vn,{allowPinchZoom:e,enabled:null!=r?!r:f},a.createElement(t,{...d,ref:g,"data-reach-dialog-inner":"","data-state":f?"open":"closed",onClick:Ze(l,(function(e){v.current===e.target&&(e.stopPropagation(),i(e))})),onKeyDown:Ze(s,(function(e){"Escape"===e.key&&(e.stopPropagation(),i(e))})),onMouseDown:Ze(c,(function(e){v.current=e.target}))})))}));Kn.displayName="DialogInner";var Qn=a.forwardRef((function({as:e="div",isOpen:t=!0,...n},r){return t?a.createElement(Zn,{isOpen:t},a.createElement(Kn,{"data-reach-dialog-overlay":"",ref:r,as:e,...n})):null}));Qn.displayName="DialogOverlay";var Jn=a.forwardRef((function({as:e="div",onClick:t,onKeyDown:n,...r},o){let{isOpen:l}=Xn("DialogContent");return a.createElement(e,{"aria-modal":"true",role:"dialog",tabIndex:-1,...r,ref:o,"data-reach-dialog-content":"","data-state":l?"open":"closed",onClick:Ze(t,(e=>{e.stopPropagation()}))})}));Jn.displayName="DialogContent";var ea=a.forwardRef((function({allowPinchZoom:e=!1,initialFocusRef:t,isOpen:n,onDismiss:r=Qe,...o},l){return a.createElement(Qn,{allowPinchZoom:e,initialFocusRef:t,isOpen:n,onDismiss:r},a.createElement(Jn,{ref:l,...o}))}));ea.displayName="Dialog";const{Fragment:ta,useContext:na}=wp.element,{__:aa}=wp.i18n,ra=()=>{const{state:t,dispatch:n}=na(pa),{tableChangedDialog:a}=t,{status:r,callbackCancel:o,callbackLeave:l}=a;return(0,e.createElement)(ta,null,r&&(0,e.createElement)(ea,{"aria-label":"Leave Changes?"},(0,e.createElement)("p",{className:"advanced-wp-table-alert-title"},aa("Leave changes?","advanced-wp-table")),(0,e.createElement)("p",{className:"advanced-wp-table-alert-desc"},aa("The changes you made will be lost if you leave this.","advanced-wp-table")),(0,e.createElement)("div",{className:"advanced-wp-table-alert-buttons"},(0,e.createElement)("button",{className:"button button-cancel",onClick:()=>{o&&o(),n({type:"UNSET_TABLE_CHANGED_DIALOG"})}},aa("Cancel","advanced-wp-table"))," ",(0,e.createElement)("button",{className:"button button-primary button-leave",onClick:()=>{l&&l(),n({type:"UNSET_TABLE_CHANGED_DIALOG"})}},aa("Leave","advanced-wp-table")))))},{Fragment:oa,useContext:la}=wp.element,{__:ia}=wp.i18n,sa=()=>{const{state:t,dispatch:n}=la(pa),{tables:a,tableDeleteDialog:r}=t,{status:o,id:l}=r,i=parseInt(t.total);return(0,e.createElement)(oa,null,o&&(0,e.createElement)(ea,{"aria-label":"Delete Table?"},(0,e.createElement)("p",{className:"advanced-wp-table-alert-title"},ia("Delete Table?","advanced-wp-table")),(0,e.createElement)("p",{className:"advanced-wp-table-alert-desc"},ia("This action is permanent and can't be undone.","advanced-wp-table")),(0,e.createElement)("div",{className:"advanced-wp-table-alert-buttons"},(0,e.createElement)("button",{className:"button button-cancel",onClick:()=>{n({type:"UNSET_TABLE_DELETE_DIALOG"})}},ia("Cancel","advanced-wp-table"))," ",(0,e.createElement)("button",{className:"button button-primary button-leave",onClick:()=>{const e=[...a],t=e.filter((e=>l!==e.id));n({type:"UPDATE_TOTAL",payload:i-1}),n({type:"UPDATE_TABLES",payload:t}),n({type:"UNSET_TABLE_DELETE_DIALOG"}),G(ia("Table deleted successfully","advanced-wp-table")),async function(e){const t={path:"/wp/v2/advanced-wp-table/"+e,method:"DELETE"};try{return await j()(t)}catch(e){throw new Error(e.message)}}(l).then((()=>{n({type:"PAGINATE_TABLES",payload:{offset:0,currentPage:0}})})).catch((t=>{console.log(t.message),n({type:"UPDATE_TOTAL",payload:i}),n({type:"UPDATE_TABLES",payload:e}),z(ia("Oops, there was a problem when deleting the table","advanced-wp-table"))}))}},ia("Delete","advanced-wp-table")))))},ca=wp.element,{useReducer:ua,useEffect:da}=wp.element,pa=ca.createContext(),fa={title:"",sizeOfRows:2,sizeOfColumns:2},ma={status:!1,callbackCancel:null,callbackLeave:null},va={status:!1,id:null},ba={loading:!0,tablesLoading:!0,formLoading:!1,total:0,totalPages:1,perPage:10,offset:0,currentPage:0,tables:[],table:{},tableData:[],activeCell:{},tableChangedDialog:ma,tableDeleteDialog:va,view:"list",newTableData:fa},ga=(e,t)=>{switch(t.type){case"SET_VIEW":return{...e,view:t.payload};case"SET_LOADING":return{...e,loading:!0};case"UNSET_LOADING":return{...e,loading:!1};case"SET_TABLES_LOADING":return{...e,tablesLoading:!0};case"UNSET_TABLES_LOADING":return{...e,tablesLoading:!1};case"SET_FORM_LOADING":return{...e,formLoading:!0};case"UNSET_FORM_LOADING":return{...e,formLoading:!1};case"FETCH_TABLES":const{total:n,totalPages:a,tables:r}=t.payload;return{...e,total:n,totalPages:a,tables:r};case"UPDATE_TOTAL":return{...e,total:t.payload};case"UPDATE_TABLES":return{...e,tables:t.payload};case"PAGINATE_TABLES":return{...e,offset:t.payload.offset,currentPage:t.payload.currentPage};case"SET_INPUT":const o={...e.newTableData};return o[t.payload.name]=t.payload.value,{...e,newTableData:o};case"CLEAR_NEW_TABLE_DATA":return{...e,newTableData:fa};case"SET_TABLE":return{...e,table:V(t.payload)};case"UNSET_TABLE":return{...e,table:{}};case"ON_DRAG_END_TABLE":const{advanced_wp_table_data:l}=e.table,i={...l,rows:t.payload};return{...e,table:{...e.table,advanced_wp_table_data:i}};case"SET_ACTIVE_CELL":return{...e,activeCell:t.payload};case"UNSET_ACTIVE_CELL":return{...e,activeCell:{}};case"SET_TABLE_CHANGED_DIALOG":return{...e,tableChangedDialog:t.payload};case"UNSET_TABLE_CHANGED_DIALOG":return{...e,tableChangedDialog:ma};case"SET_TABLE_DELETE_DIALOG":return{...e,tableDeleteDialog:t.payload};case"UNSET_TABLE_DELETE_DIALOG":return{...e,tableDeleteDialog:va};default:return e}},ha=()=>{const[n,a]=ua(ga,ba),{perPage:r,offset:o,view:l}=n,i=()=>{a({type:"SET_TABLES_LOADING"}),async function(e,t){const n={path:wp.url.addQueryArgs("/wp/v2/advanced-wp-table",{per_page:e,offset:t}),parse:!1};try{const e=await j()(n);return{total:e.headers&&e.headers.get("X-WP-Total"),totalPages:e.headers&&e.headers.get("X-WP-TotalPages"),tables:await e.json()}}catch(e){const t=await e.json();throw new Error(t.message)}}(r,o).then((e=>{a({type:"FETCH_TABLES",payload:e}),a({type:"UNSET_TABLES_LOADING"})})).catch((e=>{z(e.message),a({type:"UNSET_TABLES_LOADING"})}))};let s;return da((()=>{i(),a({type:"UNSET_LOADING"})}),[]),da((()=>{n.loading||i()}),[o]),da((()=>{(0,t.registerCoreBlocks)();const e=[];wp.blocks.getBlockTypes().forEach((t=>{e.includes(t.name)&&wp.blocks.unregisterBlockType(t.name)}))}),[]),"list"===l?s=(0,e.createElement)(Ce,null):"form"===l?s=(0,e.createElement)(Se,null):"table"===l?s=(0,e.createElement)(Ye,null):"editCellModal"===l&&(s=(0,e.createElement)(ae,null)),(0,e.createElement)(pa.Provider,{value:{state:n,dispatch:a}},(0,e.createElement)(L,{className:"advanced-wp-table-toast"}),(0,e.createElement)(sa,null),(0,e.createElement)(ra,null),s)};document.addEventListener("DOMContentLoaded",(()=>{const t=document.getElementById("advanced-wp-table-wrapper");t&&(0,e.render)((0,e.createElement)(e.StrictMode,null,(0,e.createElement)(ha,null)),t)}))})()})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/components/App.js"
+/*!*******************************!*\
+  !*** ./src/components/App.js ***!
+  \*******************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   StateContext: () => (/* binding */ StateContext),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/notices */ "@wordpress/notices");
+/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_notices__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _utils_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/table */ "./src/utils/table.js");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/utils */ "./src/utils/utils.js");
+/* harmony import */ var _List_List__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./List/List */ "./src/components/List/List.js");
+/* harmony import */ var _NewTable_NewTable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./NewTable/NewTable */ "./src/components/NewTable/NewTable.js");
+/* harmony import */ var _Table_Table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Table/Table */ "./src/components/Table/Table.js");
+/* harmony import */ var _TableChangedDialog_TableChangedDialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./TableChangedDialog/TableChangedDialog */ "./src/components/TableChangedDialog/TableChangedDialog.js");
+/* harmony import */ var _TableDeleteDialog_TableDeleteDialog__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./TableDeleteDialog/TableDeleteDialog */ "./src/components/TableDeleteDialog/TableDeleteDialog.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__);
+
+
+
+
+
+
+
+
+
+
+
+const React = wp.element;
+const {
+  useReducer,
+  useEffect
+} = wp.element;
+const StateContext = React.createContext();
+const newTableData = {
+  title: '',
+  sizeOfRows: 2,
+  sizeOfColumns: 2
+};
+const tableChangedDialog = {
+  status: false,
+  callbackCancel: null,
+  callbackLeave: null
+};
+const tableDeleteDialog = {
+  status: false,
+  id: null
+};
+const initialState = {
+  loading: true,
+  tablesLoading: true,
+  formLoading: false,
+  total: 0,
+  totalPages: 1,
+  perPage: 10,
+  offset: 0,
+  currentPage: 0,
+  tables: [],
+  table: {},
+  tableData: [],
+  tableChangedDialog,
+  tableDeleteDialog,
+  view: 'list',
+  newTableData
+};
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_VIEW':
+      return {
+        ...state,
+        view: action.payload
+      };
+    case 'SET_LOADING':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'UNSET_LOADING':
+      return {
+        ...state,
+        loading: false
+      };
+    case 'SET_TABLES_LOADING':
+      return {
+        ...state,
+        tablesLoading: true
+      };
+    case 'UNSET_TABLES_LOADING':
+      return {
+        ...state,
+        tablesLoading: false
+      };
+    case 'SET_FORM_LOADING':
+      return {
+        ...state,
+        formLoading: true
+      };
+    case 'UNSET_FORM_LOADING':
+      return {
+        ...state,
+        formLoading: false
+      };
+    case 'FETCH_TABLES':
+      const {
+        total,
+        totalPages,
+        tables
+      } = action.payload;
+      return {
+        ...state,
+        total,
+        totalPages,
+        tables
+      };
+    case 'UPDATE_TOTAL':
+      return {
+        ...state,
+        total: action.payload,
+        totalPages: Math.ceil(action.payload / state.perPage)
+      };
+    case 'UPDATE_TABLES':
+      return {
+        ...state,
+        tables: action.payload
+      };
+    case 'PAGINATE_TABLES':
+      return {
+        ...state,
+        offset: action.payload.offset,
+        currentPage: action.payload.currentPage
+      };
+    case 'SET_INPUT':
+      const data = {
+        ...state.newTableData
+      };
+      data[action.payload.name] = action.payload.value;
+      return {
+        ...state,
+        newTableData: data
+      };
+    case 'CLEAR_NEW_TABLE_DATA':
+      return {
+        ...state,
+        newTableData
+      };
+    case 'SET_TABLE':
+      return {
+        ...state,
+        table: (0,_utils_table__WEBPACK_IMPORTED_MODULE_3__.parseTableSize)(action.payload)
+      };
+    case 'UNSET_TABLE':
+      return {
+        ...state,
+        table: {}
+      };
+    case 'ON_DRAG_END_TABLE':
+      const {
+        advanced_wp_table_data: tableData
+      } = state.table;
+      const updatedTableData = {
+        ...tableData,
+        rows: action.payload
+      };
+      return {
+        ...state,
+        table: {
+          ...state.table,
+          advanced_wp_table_data: updatedTableData
+        }
+      };
+    case 'SET_TABLE_CHANGED_DIALOG':
+      return {
+        ...state,
+        tableChangedDialog: action.payload
+      };
+    case 'UNSET_TABLE_CHANGED_DIALOG':
+      return {
+        ...state,
+        tableChangedDialog
+      };
+    case 'SET_TABLE_DELETE_DIALOG':
+      return {
+        ...state,
+        tableDeleteDialog: action.payload
+      };
+    case 'UNSET_TABLE_DELETE_DIALOG':
+      return {
+        ...state,
+        tableDeleteDialog
+      };
+    default:
+      return state;
+  }
+};
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const {
+    perPage,
+    offset,
+    view
+  } = state;
+  const notices = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useSelect)(select => select(_wordpress_notices__WEBPACK_IMPORTED_MODULE_2__.store).getNotices(), []);
+  const {
+    removeNotice
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_2__.store);
+  const snackbarNotices = notices.filter(notice => notice.type === 'snackbar');
+  const fetchTables = () => {
+    dispatch({
+      type: 'SET_TABLES_LOADING'
+    });
+    (0,_utils_table__WEBPACK_IMPORTED_MODULE_3__.getTables)(perPage, offset).then(response => {
+      dispatch({
+        type: 'FETCH_TABLES',
+        payload: response
+      });
+      dispatch({
+        type: 'UNSET_TABLES_LOADING'
+      });
+    }).catch(err => {
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_4__.toastError)(err.message);
+      dispatch({
+        type: 'UNSET_TABLES_LOADING'
+      });
+    });
+  };
+
+  /**
+   * Initially fetch the tables from the database.
+   */
+  useEffect(() => {
+    fetchTables();
+    dispatch({
+      type: 'UNSET_LOADING'
+    });
+  }, []);
+
+  /**
+   * Fetch the tables when offset gets changed.
+   */
+  useEffect(() => {
+    if (state.loading) {
+      return;
+    }
+    fetchTables();
+  }, [offset]);
+  let content;
+  if ('list' === view) {
+    content = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_List_List__WEBPACK_IMPORTED_MODULE_5__["default"], {});
+  } else if ('form' === view) {
+    content = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_NewTable_NewTable__WEBPACK_IMPORTED_MODULE_6__["default"], {});
+  } else if ('table' === view) {
+    content = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Table_Table__WEBPACK_IMPORTED_MODULE_7__["default"], {});
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(StateContext.Provider, {
+    value: {
+      state,
+      dispatch
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.SnackbarList, {
+      notices: snackbarNotices,
+      onRemove: removeNotice,
+      className: 'advanced-wp-table-notices'
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_TableDeleteDialog_TableDeleteDialog__WEBPACK_IMPORTED_MODULE_9__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_TableChangedDialog_TableChangedDialog__WEBPACK_IMPORTED_MODULE_8__["default"], {}), content]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ },
+
+/***/ "./src/components/List/Actions.js"
+/*!****************************************!*\
+  !*** ./src/components/List/Actions.js ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/table */ "./src/utils/table.js");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/utils */ "./src/utils/utils.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const {
+  useContext
+} = wp.element;
+const {
+  __
+} = wp.i18n;
+const Actions = ({
+  table
+}) => {
+  const stateContext = useContext(_App__WEBPACK_IMPORTED_MODULE_2__.StateContext);
+  const {
+    state,
+    dispatch
+  } = stateContext;
+  const {
+    tables
+  } = state;
+  const {
+    id
+  } = table;
+  const total = parseInt(state.total);
+  const onHandleNavigateToTable = () => {
+    dispatch({
+      type: 'UNSET_TABLE_CHANGED'
+    });
+    dispatch({
+      type: 'SET_TABLE',
+      payload: table
+    });
+    dispatch({
+      type: 'SET_VIEW',
+      payload: 'table'
+    });
+  };
+  const onHandleDuplicateTable = () => {
+    const oldTables = [...tables];
+    const tempTable = (0,_utils_table__WEBPACK_IMPORTED_MODULE_0__.prepareTableToDuplicate)(oldTables, id);
+    const tempTables = [tempTable, ...oldTables];
+    const newTableData = {
+      title: tempTable.title.rendered,
+      advanced_wp_table_data: tempTable.advanced_wp_table_data
+    };
+
+    // Insert the temp table at the top of the tables list.
+    dispatch({
+      type: 'UPDATE_TOTAL',
+      payload: total + 1
+    });
+    dispatch({
+      type: 'UPDATE_TABLES',
+      payload: tempTables
+    });
+    (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.toastSuccess)(__('Table duplicated successfully', 'advanced-wp-table'));
+
+    // Insert the table into database.
+    (0,_utils_table__WEBPACK_IMPORTED_MODULE_0__.postTable)(newTableData).then(newTable => {
+      // Replace the duplicated table with the temp table.
+      const newTables = tempTables.map(item => {
+        if (tempTable.id === item.id) {
+          return newTable;
+        }
+        return item;
+      });
+      dispatch({
+        type: 'UPDATE_TABLES',
+        payload: newTables
+      });
+
+      // If we are not in the first page then paginate the tables to the first page.
+      dispatch({
+        type: 'PAGINATE_TABLES',
+        payload: {
+          offset: 0,
+          currentPage: 0
+        }
+      });
+    }).catch(err => {
+      // eslint-disable-next-line no-console
+      console.log(err.message);
+      dispatch({
+        type: 'UPDATE_TABLES',
+        payload: oldTables
+      });
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.toastError)(__('Oops, there was a problem when duplicating the table', 'advanced-wp-table'));
+    });
+  };
+  const onHandleDeleteTable = e => {
+    e.preventDefault();
+    dispatch({
+      type: 'SET_TABLE_DELETE_DIALOG',
+      payload: {
+        status: true,
+        id
+      }
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: 'row-actions',
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+      className: 'edit',
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: 'button-link',
+        onClick: onHandleNavigateToTable,
+        children: __('Edit', 'advanced-wp-table')
+      })
+    }), ` | `, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+      className: 'duplicate',
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: 'button-link',
+        onClick: onHandleDuplicateTable,
+        children: __('Duplicate', 'advanced-wp-table')
+      })
+    }), ` | `, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+      className: 'trash',
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+        href: '#/',
+        onClick: onHandleDeleteTable,
+        children: __('Delete', 'advanced-wp-table')
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Actions);
+
+/***/ },
+
+/***/ "./src/components/List/Header.js"
+/*!***************************************!*\
+  !*** ./src/components/List/Header.js ***!
+  \***************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const {
+  useContext
+} = wp.element;
+const {
+  __
+} = wp.i18n;
+const Header = () => {
+  const {
+    dispatch
+  } = useContext(_App__WEBPACK_IMPORTED_MODULE_0__.StateContext);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: 'advanced-wp-table-header',
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: 'advanced-wp-table-header-inner',
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+        children: __('All Tables', 'advanced-wp-table')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        className: 'button',
+        onClick: () => dispatch({
+          type: 'SET_VIEW',
+          payload: 'form'
+        }),
+        children: __('Add New', 'advanced-wp-table')
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Header);
+
+/***/ },
+
+/***/ "./src/components/List/List.js"
+/*!*************************************!*\
+  !*** ./src/components/List/List.js ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Header */ "./src/components/List/Header.js");
+/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pagination */ "./src/components/List/Pagination.js");
+/* harmony import */ var _Table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Table */ "./src/components/List/Table.js");
+/* harmony import */ var _TableLoading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TableLoading */ "./src/components/List/TableLoading.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+const {
+  Fragment,
+  useContext
+} = wp.element;
+const {
+  __
+} = wp.i18n;
+const List = () => {
+  const stateContext = useContext(_App__WEBPACK_IMPORTED_MODULE_0__.StateContext);
+  const {
+    tablesLoading
+  } = stateContext.state;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Pagination__WEBPACK_IMPORTED_MODULE_2__["default"], {}), tablesLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_TableLoading__WEBPACK_IMPORTED_MODULE_4__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Table__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Pagination__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (List);
+
+/***/ },
+
+/***/ "./src/components/List/Pagination.js"
+/*!*******************************************!*\
+  !*** ./src/components/List/Pagination.js ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const {
+  useContext
+} = wp.element;
+const {
+  _n,
+  sprintf
+} = wp.i18n;
+const getPageNumbers = (currentPage, pageCount) => {
+  const delta = 2;
+  const pages = [];
+  for (let i = 0; i < pageCount; i++) {
+    if (i === 0 || i === pageCount - 1 || i >= currentPage - delta && i <= currentPage + delta) {
+      pages.push(i);
+    } else if (pages[pages.length - 1] !== '...') {
+      pages.push('...');
+    }
+  }
+  return pages;
+};
+const Pagination = () => {
+  const {
+    state,
+    dispatch
+  } = useContext(_App__WEBPACK_IMPORTED_MODULE_1__.StateContext);
+  const {
+    total,
+    totalPages,
+    perPage,
+    currentPage
+  } = state;
+  const pageCount = totalPages;
+  const onPageChange = page => {
+    const offset = page * perPage;
+    dispatch({
+      type: 'PAGINATE_TABLES',
+      payload: {
+        offset,
+        currentPage: page
+      }
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: 'advanced-wp-table-pagination-wrapper',
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+      className: 'advanced-wp-table-total-info',
+      children: sprintf(/* translators: %d: number of items. */
+      _n('%d item', '%d items', total, 'advanced-wp-table'), total)
+    }), 1 < pageCount && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: 'advanced-wp-table-pagination',
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+        variant: 'secondary',
+        size: 'compact',
+        disabled: 0 === currentPage,
+        onClick: () => onPageChange(currentPage - 1),
+        children: '‹'
+      }), getPageNumbers(currentPage, pageCount).map((page, index) => page === '...' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+        className: 'advanced-wp-table-pagination-ellipsis',
+        children: '...'
+      }, `ellipsis-${index}`) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+        variant: page === currentPage ? 'primary' : 'secondary',
+        size: 'compact',
+        onClick: () => onPageChange(page),
+        children: page + 1
+      }, page)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+        variant: 'secondary',
+        size: 'compact',
+        disabled: currentPage === pageCount - 1,
+        onClick: () => onPageChange(currentPage + 1),
+        children: '›'
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Pagination);
+
+/***/ },
+
+/***/ "./src/components/List/Table.js"
+/*!**************************************!*\
+  !*** ./src/components/List/Table.js ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/table */ "./src/utils/table.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var _Actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Actions */ "./src/components/List/Actions.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const {
+  useContext
+} = wp.element;
+const {
+  __
+} = wp.i18n;
+const Table = () => {
+  const stateContext = useContext(_App__WEBPACK_IMPORTED_MODULE_1__.StateContext);
+  const {
+    state,
+    dispatch
+  } = stateContext;
+  const onHandleNavigateToTable = (e, table) => {
+    e.preventDefault();
+    dispatch({
+      type: 'UNSET_TABLE_CHANGED'
+    });
+    dispatch({
+      type: 'SET_TABLE',
+      payload: table
+    });
+    dispatch({
+      type: 'SET_VIEW',
+      payload: 'table'
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+    className: 'wp-list-table widefat fixed striped posts advanced-wp-table-list',
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          className: 'title',
+          children: __('Title', 'advanced-wp-table')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          className: 'shortcode',
+          children: __('Shortcode', 'advanced-wp-table')
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
+      children: state.tables.length ? state.tables.map(table => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("strong", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+              href: '#/',
+              className: 'row-title',
+              onClick: e => onHandleNavigateToTable(e, table),
+              children: table.title.rendered
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Actions__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            table: table
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: (0,_utils_table__WEBPACK_IMPORTED_MODULE_0__.getShortcode)(table.id)
+        })]
+      }, table.id)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          colSpan: 2,
+          children: __('No tables found.', 'advanced-wp-table')
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tfoot", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: __('Title', 'advanced-wp-table')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: __('Shortcode', 'advanced-wp-table')
+        })]
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Table);
+
+/***/ },
+
+/***/ "./src/components/List/TableLoading.js"
+/*!*********************************************!*\
+  !*** ./src/components/List/TableLoading.js ***!
+  \*********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const {
+  useContext
+} = wp.element;
+const {
+  __
+} = wp.i18n;
+const TableLoading = () => {
+  const stateContext = useContext(_App__WEBPACK_IMPORTED_MODULE_0__.StateContext);
+  const {
+    state
+  } = stateContext;
+  const rows = [];
+  for (let i = 0; i < state.perPage; i++) {
+    rows.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: 'advanced-wp-table-liner-loading title-loading'
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: 'advanced-wp-table-liner-loading actions-loading'
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: 'advanced-wp-table-liner-loading shortcode-loading'
+        })
+      })]
+    }, i));
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
+    className: 'wp-list-table widefat fixed striped posts advanced-wp-table-list-loading',
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+          className: 'title',
+          children: __('Title', 'advanced-wp-table')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+          className: 'shortcode',
+          children: __('Shortcode', 'advanced-wp-table')
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+      children: rows
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tfoot", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+          children: __('Title', 'advanced-wp-table')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+          children: __('Shortcode', 'advanced-wp-table')
+        })]
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TableLoading);
+
+/***/ },
+
+/***/ "./src/components/NewTable/Form.js"
+/*!*****************************************!*\
+  !*** ./src/components/NewTable/Form.js ***!
+  \*****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/table */ "./src/utils/table.js");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/utils */ "./src/utils/utils.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const {
+  useContext
+} = wp.element;
+const {
+  __
+} = wp.i18n;
+const Form = () => {
+  const {
+    state,
+    dispatch
+  } = useContext(_App__WEBPACK_IMPORTED_MODULE_2__.StateContext);
+  const {
+    tables,
+    formLoading,
+    newTableData
+  } = state;
+  const {
+    title,
+    sizeOfRows,
+    sizeOfColumns
+  } = newTableData;
+  const onHandleInputChange = e => {
+    dispatch({
+      type: 'SET_INPUT',
+      payload: {
+        name: e.target.name,
+        value: e.target.value
+      }
+    });
+  };
+  const onHandleCancelSubmission = () => {
+    dispatch({
+      type: 'CLEAR_NEW_TABLE_DATA'
+    });
+    dispatch({
+      type: 'SET_VIEW',
+      payload: 'list'
+    });
+    (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.dismissToasts)();
+  };
+  const onHandleFormSubmission = e => {
+    e.preventDefault();
+    try {
+      (0,_utils_table__WEBPACK_IMPORTED_MODULE_0__.validateTable)(newTableData);
+    } catch (err) {
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.toastError)(err.message);
+      return;
+    }
+    dispatch({
+      type: 'SET_FORM_LOADING'
+    });
+    const oldTables = [...tables];
+    const parsedTableData = (0,_utils_table__WEBPACK_IMPORTED_MODULE_0__.prepareTable)(newTableData);
+    (0,_utils_table__WEBPACK_IMPORTED_MODULE_0__.postTable)(parsedTableData).then(newTable => {
+      const newTables = [newTable, ...oldTables];
+      dispatch({
+        type: 'UNSET_FORM_LOADING'
+      });
+      dispatch({
+        type: 'SET_TABLE',
+        payload: newTable
+      });
+      dispatch({
+        type: 'SET_VIEW',
+        payload: 'table'
+      });
+      dispatch({
+        type: 'CLEAR_NEW_TABLE_DATA'
+      });
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.toastSuccess)(__('Table created successfully', 'advanced-wp-table'));
+      dispatch({
+        type: 'UPDATE_TABLES',
+        payload: newTables
+      });
+
+      // If we are not in the first page then paginate the tables to the first page.
+      dispatch({
+        type: 'PAGINATE_TABLES',
+        payload: {
+          offset: 0,
+          currentPage: 0
+        }
+      });
+    }).catch(err => {
+      // eslint-disable-next-line no-console
+      console.log(err.message);
+      dispatch({
+        type: 'UNSET_FORM_LOADING'
+      });
+      dispatch({
+        type: 'UPDATE_TABLES',
+        payload: oldTables
+      });
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.toastError)(__('Oops, there was a problem when creating the table', 'advanced-wp-table'));
+    });
+  };
+  let formClasses = 'advanced-wp-table-new-table-form';
+  if (formLoading) {
+    formClasses += ' loading';
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+    className: formClasses,
+    onSubmit: onHandleFormSubmission,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "advanced-wp-table-form-item",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+        htmlFor: "title",
+        children: __('Title', 'advanced-wp-table')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: 'advanced-wp-table-form-input-wrapper',
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          type: "text",
+          id: 'title',
+          name: 'title',
+          placeholder: __('Give a title', 'advanced-wp-table'),
+          onChange: onHandleInputChange,
+          value: title
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "advanced-wp-table-form-item",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+        htmlFor: "no-of-rows",
+        children: __('How many rows?', 'advanced-wp-table')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: 'advanced-wp-table-form-input-wrapper',
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          type: "number",
+          id: 'no-of-rows',
+          name: 'sizeOfRows',
+          onChange: onHandleInputChange,
+          value: sizeOfRows
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "advanced-wp-table-form-item",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+        htmlFor: "no-of-columns",
+        children: __('How many columns?', 'advanced-wp-table')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: 'advanced-wp-table-form-input-wrapper',
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          type: "number",
+          id: 'no-of-columns',
+          name: 'sizeOfColumns',
+          onChange: onHandleInputChange,
+          value: sizeOfColumns
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: 'advanced-wp-table-form-buttons',
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: 'button button-primary',
+        type: 'submit',
+        children: __('Create', 'advanced-wp-table')
+      }), ` `, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: 'button',
+        onClick: onHandleCancelSubmission,
+        children: __('Cancel', 'advanced-wp-table')
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Form);
+
+/***/ },
+
+/***/ "./src/components/NewTable/Header.js"
+/*!*******************************************!*\
+  !*** ./src/components/NewTable/Header.js ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+
+const {
+  __
+} = wp.i18n;
+const Header = () => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    className: 'advanced-wp-table-header',
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: 'advanced-wp-table-header-inner',
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
+        children: __('Add New Table', 'advanced-wp-table')
+      })
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Header);
+
+/***/ },
+
+/***/ "./src/components/NewTable/NewTable.js"
+/*!*********************************************!*\
+  !*** ./src/components/NewTable/NewTable.js ***!
+  \*********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form */ "./src/components/NewTable/Form.js");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Header */ "./src/components/NewTable/Header.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const {
+  Fragment
+} = wp.element;
+const NewTable = () => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Form__WEBPACK_IMPORTED_MODULE_0__["default"], {})]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NewTable);
+
+/***/ },
+
+/***/ "./src/components/Table/Actions.js"
+/*!*****************************************!*\
+  !*** ./src/components/Table/Actions.js ***!
+  \*****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const {
+  useContext
+} = wp.element;
+const {
+  __
+} = wp.i18n;
+const Actions = ({
+  i,
+  j
+}) => {
+  const {
+    state,
+    dispatch
+  } = useContext(_App__WEBPACK_IMPORTED_MODULE_0__.StateContext);
+  const {
+    table
+  } = state;
+  const {
+    advanced_wp_table_data: tableData
+  } = table;
+  const {
+    size,
+    rows
+  } = tableData;
+  const onHandleDeleteColumn = () => {
+    const tempSize = {
+      ...size
+    };
+    const newRows = rows.map(row => row.filter((column, index) => index !== j));
+    const newSize = {
+      ...tempSize,
+      columns: tempSize.columns - 1
+    };
+    const updatedTable = {
+      ...table,
+      advanced_wp_table_data: {
+        size: newSize,
+        rows: newRows
+      }
+    };
+    dispatch({
+      type: 'SET_TABLE',
+      payload: updatedTable
+    });
+  };
+  const onHandleDeleteRow = () => {
+    const tempSize = {
+      ...size
+    };
+    const newRows = rows.filter((row, index) => index !== i);
+    const newSize = {
+      ...tempSize,
+      rows: tempSize.rows - 1
+    };
+    const updatedTable = {
+      ...table,
+      advanced_wp_table_data: {
+        size: newSize,
+        rows: newRows
+      }
+    };
+    dispatch({
+      type: 'SET_TABLE',
+      payload: updatedTable
+    });
+  };
+  const onHandleDuplicateRow = () => {
+    const tempSize = {
+      ...size
+    };
+    const newRows = [...rows];
+    const newRowContent = newRows[i];
+    newRows.splice(i + 0, 0, newRowContent);
+    const newSize = {
+      ...tempSize,
+      rows: tempSize.rows + 1
+    };
+    const updatedTable = {
+      ...table,
+      advanced_wp_table_data: {
+        size: newSize,
+        rows: newRows
+      }
+    };
+    dispatch({
+      type: 'SET_TABLE',
+      payload: updatedTable
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: 'advanced-wp-table-cell-actions',
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+      className: 'dashicons dashicons-admin-generic advanced-wp-table-edit-cell'
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "advanced-wp-table-actions-dropdown",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "advanced-wp-table-action-item",
+        onClick: onHandleDeleteColumn,
+        role: "presentation",
+        children: __('Delete Column', 'advanced-wp-table')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "advanced-wp-table-action-item",
+        onClick: onHandleDeleteRow,
+        role: "presentation",
+        children: __('Delete Row', 'advanced-wp-table')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "advanced-wp-table-action-item",
+        onClick: onHandleDuplicateRow,
+        role: "presentation",
+        children: __('Duplicate Row', 'advanced-wp-table')
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Actions);
+
+/***/ },
+
+/***/ "./src/components/Table/Buttons.js"
+/*!*****************************************!*\
+  !*** ./src/components/Table/Buttons.js ***!
+  \*****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/table */ "./src/utils/table.js");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/utils */ "./src/utils/utils.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const {
+  useContext
+} = wp.element;
+const {
+  __
+} = wp.i18n;
+const Buttons = () => {
+  const {
+    state,
+    dispatch
+  } = useContext(_App__WEBPACK_IMPORTED_MODULE_2__.StateContext);
+  const {
+    tables,
+    table
+  } = state;
+  const {
+    advanced_wp_table_data: tableData
+  } = table;
+  const {
+    size,
+    rows
+  } = tableData;
+  const onHandleSaveTable = () => {
+    const oldTables = [...tables];
+    const newTables = oldTables.map(item => {
+      if (item.id === table.id) {
+        return table;
+      }
+      return item;
+    });
+    dispatch({
+      type: 'UPDATE_TABLES',
+      payload: newTables
+    });
+    (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.toastSuccess)(__('Successfully updated', 'advanced-wp-table'));
+
+    // eslint-disable-next-line camelcase
+    const {
+      id,
+      advanced_wp_table_data
+    } = table;
+    const title = table.title.rendered;
+    (0,_utils_table__WEBPACK_IMPORTED_MODULE_0__.updateTable)(id, title, advanced_wp_table_data).catch(err => {
+      // eslint-disable-next-line no-console
+      console.log(err.message);
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.dismissToasts)();
+      dispatch({
+        type: 'UPDATE_TABLES',
+        payload: oldTables
+      });
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.toastError)(__('Oops, there was a problem when updating the table', 'advanced-wp-table'));
+    });
+  };
+  const onHandleAddRow = () => {
+    const tempSize = {
+      ...size
+    };
+    const tempRows = [...rows];
+    const newRow = [];
+    for (let i = 0; i < tempSize.columns; i++) {
+      newRow.push('');
+    }
+    const newRows = [...tempRows, newRow];
+    const newSize = {
+      ...tempSize,
+      rows: tempSize.rows + 1
+    };
+    const updatedTable = {
+      ...table,
+      advanced_wp_table_data: {
+        size: newSize,
+        rows: newRows
+      }
+    };
+    dispatch({
+      type: 'SET_TABLE',
+      payload: updatedTable
+    });
+  };
+  const onHandleAddColumn = () => {
+    const tempSize = {
+      ...size
+    };
+    const tempRows = [...rows];
+    const newRows = [];
+    tempRows.map(row => {
+      const newRow = [...row, ''];
+      return newRows.push(newRow);
+    });
+    const newSize = {
+      ...tempSize,
+      columns: tempSize.columns + 1
+    };
+    const updatedTable = {
+      ...table,
+      advanced_wp_table_data: {
+        size: newSize,
+        rows: newRows
+      }
+    };
+    dispatch({
+      type: 'SET_TABLE',
+      payload: updatedTable
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: 'advanced-wp-table-post-item-buttons',
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: 'button button-primary',
+        onClick: onHandleSaveTable,
+        children: __('Save Changes', 'advanced-wp-table')
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: 'button-group',
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: 'button button-small',
+        onClick: onHandleAddRow,
+        children: __('Add Row', 'advanced-wp-table')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: 'button button-small',
+        onClick: onHandleAddColumn,
+        children: __('Add Column', 'advanced-wp-table')
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Buttons);
+
+/***/ },
+
+/***/ "./src/components/Table/Header.js"
+/*!****************************************!*\
+  !*** ./src/components/Table/Header.js ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/table */ "./src/utils/table.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const {
+  useContext
+} = wp.element;
+const {
+  __
+} = wp.i18n;
+const Header = () => {
+  const {
+    state,
+    dispatch
+  } = useContext(_App__WEBPACK_IMPORTED_MODULE_2__.StateContext);
+  const {
+    table
+  } = state;
+  const {
+    rendered: title
+  } = table.title;
+  const navigateToList = () => {
+    dispatch({
+      type: 'UNSET_TABLE'
+    });
+    dispatch({
+      type: 'SET_VIEW',
+      payload: 'list'
+    });
+  };
+  const isTableChanged = () => {
+    const oldTable = lodash__WEBPACK_IMPORTED_MODULE_0___default().find(state.tables, item => item.id === table.id);
+    const {
+      advanced_wp_table_data: oldTableData
+    } = (0,_utils_table__WEBPACK_IMPORTED_MODULE_1__.parseTableSize)(oldTable);
+    const {
+      advanced_wp_table_data: newTableData
+    } = table;
+    const isEqual = lodash__WEBPACK_IMPORTED_MODULE_0___default().isEqual(oldTableData, newTableData);
+    return !isEqual;
+  };
+  const onHandleNavigateToList = () => {
+    if (isTableChanged()) {
+      dispatch({
+        type: 'SET_TABLE_CHANGED_DIALOG',
+        payload: {
+          status: true,
+          callbackLeave: navigateToList
+        }
+      });
+    } else {
+      navigateToList();
+    }
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: 'advanced-wp-table-header',
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: 'advanced-wp-table-header-inner margin-bottom-large',
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+        children: title
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+        className: 'button',
+        onClick: onHandleNavigateToList,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: 'dashicons dashicons-controls-back'
+        }), __('Back to Tables', 'advanced-wp-table')]
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Header);
+
+/***/ },
+
+/***/ "./src/components/Table/Table.js"
+/*!***************************************!*\
+  !*** ./src/components/Table/Table.js ***!
+  \***************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/utils */ "./src/utils/utils.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var _Actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Actions */ "./src/components/Table/Actions.js");
+/* harmony import */ var _Buttons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Buttons */ "./src/components/Table/Buttons.js");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Header */ "./src/components/Table/Header.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+const {
+  Fragment,
+  useState,
+  useRef,
+  useContext
+} = wp.element;
+
+// tell direction after drag start, the first direction that reach 5px offset
+const DRAG_DIRECTION_NONE = '';
+const DRAG_DIRECTION_ROW = 'row';
+const DRAG_DIRECTION_COLUMN = 'column';
+const defaultDragState = {
+  column: -1,
+  row: -1,
+  startPoint: null,
+  direction: DRAG_DIRECTION_NONE,
+  // row=move up down/column=move left right,
+  dropIndex: -1 // drag target
+};
+const Table = () => {
+  const {
+    state,
+    dispatch
+  } = useContext(_App__WEBPACK_IMPORTED_MODULE_1__.StateContext);
+  const {
+    tables,
+    table
+  } = state;
+  let {
+    rows = []
+  } = state.table.advanced_wp_table_data;
+  const [dragState, setDragState] = useState({
+    ...defaultDragState
+  });
+  const rowsEl = useRef(null),
+    preview = useRef(null);
+  if (dragState.direction === DRAG_DIRECTION_COLUMN) {
+    rows = rows.map(x => (0,_utils_utils__WEBPACK_IMPORTED_MODULE_0__.offsetIndex)(dragState.column, dragState.dropIndex, x));
+  }
+  if (dragState.direction === DRAG_DIRECTION_ROW) {
+    rows = (0,_utils_utils__WEBPACK_IMPORTED_MODULE_0__.offsetIndex)(dragState.row, dragState.dropIndex, rows);
+  }
+  const setOpacity = (i, j) => {
+    let opacity = null;
+    const {
+      direction,
+      dropIndex
+    } = dragState;
+    if (DRAG_DIRECTION_COLUMN === direction) {
+      if (j === dropIndex) {
+        opacity = 0.5;
+      } else {
+        opacity = 1;
+      }
+    }
+    if (DRAG_DIRECTION_ROW === direction) {
+      if (i === dropIndex) {
+        opacity = 0.5;
+      } else {
+        opacity = 1;
+      }
+    }
+    return opacity;
+  };
+  const updateTableWithCellData = (table, activeCell) => {
+    const {
+      advanced_wp_table_data: tableData
+    } = table;
+    const tempRows = [...tableData.rows];
+    const {
+      i,
+      j,
+      content
+    } = activeCell;
+    const newRows = [];
+    tempRows.map((row, rowIndex) => {
+      if (i !== rowIndex) {
+        return newRows.push(row);
+      }
+      const newRow = [];
+      row.map((data, columnIndex) => {
+        if (j !== columnIndex) {
+          return newRow.push(data);
+        }
+        return newRow.push(content);
+      });
+      return newRows.push(newRow);
+    });
+    return {
+      ...table,
+      advanced_wp_table_data: {
+        ...tableData,
+        rows: newRows
+      }
+    };
+  };
+  const handleContentChange = (value, i, j) => {
+    const activeCell = {
+      i,
+      j,
+      content: value
+    };
+    const oldTables = [...tables];
+    const updatedTable = updateTableWithCellData(table, activeCell);
+    const newTables = oldTables.map(item => {
+      if (item.id === updatedTable.id) {
+        return updatedTable;
+      }
+      return item;
+    });
+    dispatch({
+      type: 'SET_TABLE',
+      payload: updatedTable
+    });
+    dispatch({
+      type: 'UPDATE_TABLES',
+      payload: newTables
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_4__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Buttons__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("table", {
+      className: 'advanced-wp-table advanced-wp-table-post-item',
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+        ref: rowsEl,
+        children: rows.map((x = [], i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tr", {
+          children: x.map((y, j) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+            style: {
+              cursor: dragState.direction ? 'move' : 'grab',
+              opacity: setOpacity(i, j)
+            },
+            draggable: "true",
+            onDragStart: e => {
+              e.dataTransfer.setDragImage(preview.current, 0, 0);
+              setDragState({
+                ...dragState,
+                row: i,
+                column: j,
+                startPoint: {
+                  x: e.pageX,
+                  y: e.pageY
+                }
+              });
+            },
+            onDragEnter: () => {
+              if (!dragState.direction) {
+                if (dragState.column !== j) {
+                  setDragState({
+                    ...dragState,
+                    direction: DRAG_DIRECTION_COLUMN,
+                    dropIndex: j
+                  });
+                  return;
+                }
+                if (dragState.row !== i) {
+                  setDragState({
+                    ...dragState,
+                    direction: DRAG_DIRECTION_ROW,
+                    dropIndex: i
+                  });
+                  return;
+                }
+                return;
+              }
+              if (dragState.direction === DRAG_DIRECTION_COLUMN) {
+                if (j !== dragState.dropIndex) {
+                  setDragState({
+                    ...dragState,
+                    dropIndex: j
+                  });
+                }
+                return;
+              }
+              if (dragState.direction === DRAG_DIRECTION_ROW) {
+                if (i !== dragState.dropIndex) {
+                  setDragState({
+                    ...dragState,
+                    dropIndex: i
+                  });
+                }
+              }
+            },
+            onDragEnd: () => {
+              dispatch({
+                type: 'ON_DRAG_END_TABLE',
+                payload: rows
+              });
+              setDragState({
+                ...defaultDragState
+              });
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: 'advanced-wp-table-cell-wrapper',
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("textarea", {
+                value: y,
+                onChange: e => handleContentChange(e.target.value, i, j)
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Actions__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                i: i,
+                j: j
+              })]
+            })
+          }, j))
+        }, i))
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      ref: preview,
+      style: {
+        position: 'absolute',
+        width: 0,
+        height: 0,
+        overflow: 'hidden'
+      }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Buttons__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Table);
+
+/***/ },
+
+/***/ "./src/components/TableChangedDialog/TableChangedDialog.js"
+/*!*****************************************************************!*\
+  !*** ./src/components/TableChangedDialog/TableChangedDialog.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const {
+  useContext
+} = wp.element;
+const {
+  __
+} = wp.i18n;
+const TableChangedDialog = () => {
+  const {
+    state,
+    dispatch
+  } = useContext(_App__WEBPACK_IMPORTED_MODULE_1__.StateContext);
+  const {
+    tableChangedDialog
+  } = state;
+  const {
+    status,
+    callbackCancel,
+    callbackLeave
+  } = tableChangedDialog;
+  const onHandleCancel = () => {
+    if (callbackCancel) {
+      callbackCancel();
+    }
+    dispatch({
+      type: 'UNSET_TABLE_CHANGED_DIALOG'
+    });
+  };
+  const onHandleLeave = () => {
+    if (callbackLeave) {
+      callbackLeave();
+    }
+    dispatch({
+      type: 'UNSET_TABLE_CHANGED_DIALOG'
+    });
+  };
+  if (!status) {
+    return null;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Modal, {
+    title: __('Unsaved changes', 'advanced-wp-table'),
+    onRequestClose: onHandleCancel,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+      children: __('The changes you made will be lost if you leave this.', 'advanced-wp-table')
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Flex, {
+      justify: 'flex-end',
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.FlexItem, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+          variant: 'secondary',
+          onClick: onHandleCancel,
+          children: __('Keep editing', 'advanced-wp-table')
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.FlexItem, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+          variant: 'primary',
+          isDestructive: true,
+          onClick: onHandleLeave,
+          children: __('Discard', 'advanced-wp-table')
+        })
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TableChangedDialog);
+
+/***/ },
+
+/***/ "./src/components/TableDeleteDialog/TableDeleteDialog.js"
+/*!***************************************************************!*\
+  !*** ./src/components/TableDeleteDialog/TableDeleteDialog.js ***!
+  \***************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/table */ "./src/utils/table.js");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/utils */ "./src/utils/utils.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../App */ "./src/components/App.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+const {
+  useContext
+} = wp.element;
+const {
+  __
+} = wp.i18n;
+const TableDeleteDialog = () => {
+  const {
+    state,
+    dispatch
+  } = useContext(_App__WEBPACK_IMPORTED_MODULE_3__.StateContext);
+  const {
+    tables,
+    tableDeleteDialog
+  } = state;
+  const {
+    status,
+    id
+  } = tableDeleteDialog;
+  const total = parseInt(state.total);
+  const onHandleCancel = () => {
+    dispatch({
+      type: 'UNSET_TABLE_DELETE_DIALOG'
+    });
+  };
+  const onHandleDelete = () => {
+    const oldTables = [...tables];
+    const newTables = oldTables.filter(item => id !== item.id);
+    const {
+      currentPage,
+      perPage
+    } = state;
+    const newTotal = total - 1;
+    const newTotalPages = Math.ceil(newTotal / perPage);
+    dispatch({
+      type: 'UPDATE_TOTAL',
+      payload: newTotal
+    });
+    dispatch({
+      type: 'UPDATE_TABLES',
+      payload: newTables
+    });
+    dispatch({
+      type: 'UNSET_TABLE_DELETE_DIALOG'
+    });
+    (0,_utils_utils__WEBPACK_IMPORTED_MODULE_2__.toastSuccess)(__('Table deleted successfully', 'advanced-wp-table'));
+    (0,_utils_table__WEBPACK_IMPORTED_MODULE_1__.deleteTable)(id).then(() => {
+      // Go back one page if current page is now empty, otherwise stay.
+      if (currentPage >= newTotalPages && newTotalPages > 0) {
+        dispatch({
+          type: 'PAGINATE_TABLES',
+          payload: {
+            offset: (newTotalPages - 1) * perPage,
+            currentPage: newTotalPages - 1
+          }
+        });
+      }
+    }).catch(err => {
+      // eslint-disable-next-line no-console
+      console.log(err.message);
+      dispatch({
+        type: 'UPDATE_TOTAL',
+        payload: total
+      });
+      dispatch({
+        type: 'UPDATE_TABLES',
+        payload: oldTables
+      });
+      (0,_utils_utils__WEBPACK_IMPORTED_MODULE_2__.toastError)(__('Oops, there was a problem when deleting the table', 'advanced-wp-table'));
+    });
+  };
+  if (!status) {
+    return null;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Modal, {
+    title: __('Delete table', 'advanced-wp-table'),
+    onRequestClose: onHandleCancel,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+      children: __("This action is permanent and can't be undone.", 'advanced-wp-table')
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Flex, {
+      justify: 'flex-end',
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.FlexItem, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+          variant: 'secondary',
+          onClick: onHandleCancel,
+          children: __('Cancel', 'advanced-wp-table')
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.FlexItem, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+          variant: 'primary',
+          isDestructive: true,
+          onClick: onHandleDelete,
+          children: __('Delete', 'advanced-wp-table')
+        })
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TableDeleteDialog);
+
+/***/ },
+
+/***/ "./src/utils/table.js"
+/*!****************************!*\
+  !*** ./src/utils/table.js ***!
+  \****************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   deleteTable: () => (/* binding */ deleteTable),
+/* harmony export */   getShortcode: () => (/* binding */ getShortcode),
+/* harmony export */   getTable: () => (/* binding */ getTable),
+/* harmony export */   getTables: () => (/* binding */ getTables),
+/* harmony export */   parseTableSize: () => (/* binding */ parseTableSize),
+/* harmony export */   postTable: () => (/* binding */ postTable),
+/* harmony export */   prepareTable: () => (/* binding */ prepareTable),
+/* harmony export */   prepareTableToDuplicate: () => (/* binding */ prepareTableToDuplicate),
+/* harmony export */   updateTable: () => (/* binding */ updateTable),
+/* harmony export */   validateTable: () => (/* binding */ validateTable)
+/* harmony export */ });
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./src/utils/utils.js");
+
+
+
+const {
+  __
+} = wp.i18n;
+async function getTables(perPage, offset) {
+  const options = {
+    path: wp.url.addQueryArgs((0,_utils__WEBPACK_IMPORTED_MODULE_2__.getApiEndpoint)(), {
+      per_page: perPage,
+      offset
+    }),
+    parse: false
+  };
+  try {
+    const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()(options);
+    const total = parseInt(response.headers && response.headers.get('X-WP-Total'));
+    const totalPages = parseInt(response.headers && response.headers.get('X-WP-TotalPages'));
+    const tables = await response.json();
+    return {
+      total,
+      totalPages,
+      tables
+    };
+  } catch (response) {
+    const err = await response.json();
+    throw new Error(err.message);
+  }
+}
+function validateTable(tableData) {
+  const {
+    title,
+    sizeOfRows,
+    sizeOfColumns
+  } = tableData;
+  if (!title) {
+    throw new Error(__('Title shouldn\'t be empty', 'advanced-wp-table'));
+  }
+  if (parseInt(sizeOfRows) < 1) {
+    throw new Error(__('Size of rows should be greater than 0', 'advanced-wp-table'));
+  }
+  if (parseInt(sizeOfColumns) < 1) {
+    throw new Error(__('Size of columns should be greater than 0', 'advanced-wp-table'));
+  }
+}
+function prepareTable(tableData) {
+  const {
+    title,
+    sizeOfRows,
+    sizeOfColumns
+  } = tableData;
+  const tableSize = {
+    rows: sizeOfRows,
+    columns: sizeOfColumns
+  };
+  const tableRows = [];
+  for (let i = 0; i < sizeOfRows; i++) {
+    const emptyRow = [];
+    for (let j = 0; j < sizeOfColumns; j++) {
+      emptyRow.push('');
+    }
+    tableRows.push(emptyRow);
+  }
+  return {
+    title,
+    advanced_wp_table_data: {
+      size: tableSize,
+      rows: tableRows
+    }
+  };
+}
+
+// eslint-disable-next-line camelcase
+async function postTable({
+  title,
+  advanced_wp_table_data
+}) {
+  const options = {
+    path: (0,_utils__WEBPACK_IMPORTED_MODULE_2__.getApiEndpoint)(),
+    method: 'POST',
+    data: {
+      title,
+      status: 'publish',
+      advanced_wp_table_data
+    }
+  };
+  try {
+    return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()(options);
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+async function getTable(id) {
+  const options = {
+    path: (0,_utils__WEBPACK_IMPORTED_MODULE_2__.getApiEndpoint)() + '/' + id,
+    method: 'GET'
+  };
+  try {
+    return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()(options);
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+async function deleteTable(id) {
+  const options = {
+    path: (0,_utils__WEBPACK_IMPORTED_MODULE_2__.getApiEndpoint)() + '/' + id,
+    method: 'DELETE'
+  };
+  try {
+    return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()(options);
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
+// eslint-disable-next-line camelcase
+async function updateTable(id, title, advanced_wp_table_data) {
+  const options = {
+    path: (0,_utils__WEBPACK_IMPORTED_MODULE_2__.getApiEndpoint)() + '/' + id,
+    method: 'PUT',
+    data: {
+      title,
+      advanced_wp_table_data
+    }
+  };
+  try {
+    return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()(options);
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+function parseTableSize(table) {
+  const {
+    advanced_wp_table_data: tableData
+  } = table;
+  const {
+    rows,
+    columns
+  } = tableData.size;
+  const size = {
+    rows: parseInt(rows),
+    columns: parseInt(columns)
+  };
+  return {
+    ...table,
+    advanced_wp_table_data: {
+      ...tableData,
+      size
+    }
+  };
+}
+function prepareTableToDuplicate(tables, targetTableId) {
+  const targetTable = lodash__WEBPACK_IMPORTED_MODULE_1___default().find(tables, item => targetTableId === item.id);
+  const tempId = `new${targetTable.id}`;
+  const newTableTitle = `${targetTable.title.rendered} (${__('Duplicated', 'advanced-wp-table')})`;
+  return {
+    ...targetTable,
+    id: tempId,
+    title: {
+      ...targetTable.title,
+      rendered: newTableTitle
+    }
+  };
+}
+function getShortcode(id) {
+  return `[advanced_wp_table id="${id}"]`;
+}
+
+/***/ },
+
+/***/ "./src/utils/utils.js"
+/*!****************************!*\
+  !*** ./src/utils/utils.js ***!
+  \****************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   dismissToasts: () => (/* binding */ dismissToasts),
+/* harmony export */   getApiEndpoint: () => (/* binding */ getApiEndpoint),
+/* harmony export */   offsetIndex: () => (/* binding */ offsetIndex),
+/* harmony export */   toastError: () => (/* binding */ toastError),
+/* harmony export */   toastSuccess: () => (/* binding */ toastSuccess)
+/* harmony export */ });
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/notices */ "@wordpress/notices");
+/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_notices__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function getApiEndpoint() {
+  return '/wp/v2/advanced-wp-table';
+}
+function toastSuccess(message) {
+  (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_1__.store).createSuccessNotice(message, {
+    type: 'snackbar',
+    isDismissible: true
+  });
+}
+function toastError(message) {
+  (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_1__.store).createErrorNotice(message, {
+    type: 'snackbar',
+    isDismissible: true
+  });
+}
+function dismissToasts() {
+  const notices = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.select)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_1__.store).getNotices();
+  notices.forEach(notice => {
+    (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_1__.store).removeNotice(notice.id);
+  });
+}
+function offsetIndex(from, to, arr = []) {
+  if (from < to) {
+    const start = arr.slice(0, from),
+      between = arr.slice(from + 1, to + 1),
+      end = arr.slice(to + 1);
+    return [...start, ...between, arr[from], ...end];
+  }
+  if (from > to) {
+    const start = arr.slice(0, to),
+      between = arr.slice(to, from),
+      end = arr.slice(from + 1);
+    return [...start, arr[from], ...between, ...end];
+  }
+  return arr;
+}
+
+/***/ },
+
+/***/ "./src/index.scss"
+/*!************************!*\
+  !*** ./src/index.scss ***!
+  \************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "react/jsx-runtime"
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+(module) {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "lodash"
+/*!*************************!*\
+  !*** external "lodash" ***!
+  \*************************/
+(module) {
+
+module.exports = window["lodash"];
+
+/***/ },
+
+/***/ "@wordpress/api-fetch"
+/*!**********************************!*\
+  !*** external ["wp","apiFetch"] ***!
+  \**********************************/
+(module) {
+
+module.exports = window["wp"]["apiFetch"];
+
+/***/ },
+
+/***/ "@wordpress/components"
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ },
+
+/***/ "@wordpress/data"
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["data"];
+
+/***/ },
+
+/***/ "@wordpress/element"
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["element"];
+
+/***/ },
+
+/***/ "@wordpress/notices"
+/*!*********************************!*\
+  !*** external ["wp","notices"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["notices"];
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/App */ "./src/components/App.js");
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('advanced-wp-table-wrapper');
+  if (container) {
+    const root = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createRoot)(container);
+    root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.StrictMode, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_App__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+    }));
+  }
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

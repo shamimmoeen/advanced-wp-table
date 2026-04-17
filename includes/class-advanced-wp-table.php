@@ -209,8 +209,10 @@ class Advanced_WP_Table {
 			'advanced-wp-table-backend-css',
 			ADVANCED_WP_TABLE_URL . 'build/index.css',
 			array(),
-			$asset_file['version'],
+			$asset_file['version']
 		);
+
+		wp_style_add_data( 'advanced-wp-table-backend-css', 'rtl', 'replace' );
 	}
 
 	/**
