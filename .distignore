@@ -9,7 +9,6 @@
 .wordpress-org
 .DS_Store
 .prettierrc
-.travis.yml
 Thumbs.db
 CLAUDE.md
 Gruntfile.js

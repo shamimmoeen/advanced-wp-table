@@ -9,7 +9,6 @@
 .github export-ignore
 .gitignore export-ignore
 .prettierrc export-ignore
-.travis.yml export-ignore
 .wordpress-org export-ignore
 bin/ export-ignore
 Gruntfile.js export-ignore
