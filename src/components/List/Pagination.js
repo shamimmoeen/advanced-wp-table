@@ -4,14 +4,14 @@ import { StateContext } from '../App';
 const { useContext } = wp.element;
 const { __, _n, sprintf } = wp.i18n;
 
-const getPageNumbers = ( currentPage, pageCount ) => {
+const getPageNumbers = ( currentPage, totalPages ) => {
 	const delta = 2;
 	const pages = [];
 
-	for ( let i = 0; i < pageCount; i++ ) {
+	for ( let i = 0; i < totalPages; i++ ) {
 		if (
 			i === 0 ||
-			i === pageCount - 1 ||
+			i === totalPages - 1 ||
 			( i >= currentPage - delta && i <= currentPage + delta )
 		) {
 			pages.push( i );
@@ -26,7 +26,6 @@ const getPageNumbers = ( currentPage, pageCount ) => {
 const Pagination = () => {
 	const { state, dispatch } = useContext( StateContext );
 	const { total, totalPages, perPage, currentPage } = state;
-	const pageCount = totalPages;
 
 	const onPageChange = ( page ) => {
 		const offset = page * perPage;
@@ -47,7 +46,7 @@ const Pagination = () => {
 					total
 				) }
 			</span>
-			{ 1 < pageCount && (
+			{ 1 < totalPages && (
 				<nav className={ 'advanced-wp-table-pagination' } aria-label={ __( 'Pagination', 'advanced-wp-table' ) }>
 					<Button
 						variant={ 'secondary' }
@@ -57,7 +56,7 @@ const Pagination = () => {
 					>
 						{ '‹' }
 					</Button>
-					{ getPageNumbers( currentPage, pageCount ).map( ( page, index ) =>
+					{ getPageNumbers( currentPage, totalPages ).map( ( page, index ) =>
 						page === '...' ? (
 							<span key={ `ellipsis-${ index }` } className={ 'advanced-wp-table-pagination-ellipsis' }>
 								{ '...' }
@@ -77,7 +76,7 @@ const Pagination = () => {
 					<Button
 						variant={ 'secondary' }
 						size={ 'compact' }
-						disabled={ currentPage === pageCount - 1 }
+						disabled={ currentPage === totalPages - 1 }
 						onClick={ () => onPageChange( currentPage + 1 ) }
 					>
 						{ '›' }

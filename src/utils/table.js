@@ -1,5 +1,4 @@
 import apiFetch from '@wordpress/api-fetch';
-import _ from 'lodash';
 import { getApiEndpoint } from './utils';
 
 const { __ } = wp.i18n;
@@ -130,7 +129,7 @@ export function parseTableSize( table ) {
 }
 
 export function prepareTableToDuplicate( tables, targetTableId ) {
-	const targetTable = _.find( tables, ( item ) => targetTableId === item.id );
+	const targetTable = tables.find( ( item ) => targetTableId === item.id );
 	const tempId = `new${ targetTable.id }`;
 	const newTableTitle = `${ targetTable.title.rendered } (${ __( 'Duplicated', 'advanced-wp-table' ) })`;
 

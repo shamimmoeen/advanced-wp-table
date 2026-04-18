@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 import { parseTableSize } from '../../utils/table';
 import { StateContext } from '../App';
 
@@ -16,12 +16,10 @@ const Header = () => {
 	};
 
 	const isTableChanged = () => {
-		const oldTable = _.find( state.tables, ( item ) => item.id === table.id );
+		const oldTable = state.tables.find( ( item ) => item.id === table.id );
 		const { advanced_wp_table_data: oldTableData } = parseTableSize( oldTable );
 		const { advanced_wp_table_data: newTableData } = table;
-		const isEqual = _.isEqual( oldTableData, newTableData );
-
-		return ! isEqual;
+		return ! isEqual( oldTableData, newTableData );
 	};
 
 	const onHandleNavigateToList = () => {

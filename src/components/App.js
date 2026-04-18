@@ -38,7 +38,6 @@ const bulkDeleteDialog = {
 };
 
 const initialState = {
-	loading: true,
 	tablesLoading: true,
 	formLoading: false,
 	total: 0,
@@ -48,7 +47,6 @@ const initialState = {
 	currentPage: 0,
 	tables: [],
 	table: {},
-	tableData: [],
 	selectedTableIds: [],
 	tableChangedDialog,
 	tableDeleteDialog,
@@ -62,12 +60,6 @@ const reducer = (state, action) => {
 		case 'SET_VIEW':
 			return { ...state, view: action.payload };
 
-		case 'SET_LOADING':
-			return { ...state, loading: true };
-
-		case 'UNSET_LOADING':
-			return { ...state, loading: false };
-
 		case 'SET_TABLES_LOADING':
 			return { ...state, tablesLoading: true };
 
@@ -80,10 +72,11 @@ const reducer = (state, action) => {
 		case 'UNSET_FORM_LOADING':
 			return { ...state, formLoading: false };
 
-		case 'FETCH_TABLES':
+		case 'FETCH_TABLES': {
 			const { total, totalPages, tables } = action.payload;
 
 			return { ...state, total, totalPages, tables, selectedTableIds: [] };
+		}
 
 		case 'UPDATE_TOTAL':
 			return {
@@ -102,11 +95,12 @@ const reducer = (state, action) => {
 				currentPage: action.payload.currentPage,
 			};
 
-		case 'SET_INPUT':
+		case 'SET_INPUT': {
 			const data = { ...state.newTableData };
 			data[action.payload.name] = action.payload.value;
 
 			return { ...state, newTableData: data };
+		}
 
 		case 'CLEAR_NEW_TABLE_DATA':
 			return { ...state, newTableData };
@@ -117,7 +111,7 @@ const reducer = (state, action) => {
 		case 'UNSET_TABLE':
 			return { ...state, table: {} };
 
-		case 'ON_DRAG_END_TABLE':
+		case 'ON_DRAG_END_TABLE': {
 			const { advanced_wp_table_data: tableData } = state.table;
 			const updatedTableData = { ...tableData, rows: action.payload };
 
@@ -128,6 +122,7 @@ const reducer = (state, action) => {
 					advanced_wp_table_data: updatedTableData,
 				},
 			};
+		}
 
 		case 'SELECT_TABLE':
 			return {
@@ -181,7 +176,7 @@ const App = () => {
 	const { removeNotice } = useDispatch( noticesStore );
 	const snackbarNotices = notices.filter( ( notice ) => notice.type === 'snackbar' );
 
-	const fetchTables = () => {
+	useEffect(() => {
 		dispatch({ type: 'SET_TABLES_LOADING' });
 
 		getTables(perPage, offset)
@@ -193,26 +188,7 @@ const App = () => {
 				toastError(err.message);
 				dispatch({ type: 'UNSET_TABLES_LOADING' });
 			});
-	};
-
-	/**
-	 * Initially fetch the tables from the database.
-	 */
-	useEffect(() => {
-		fetchTables();
-		dispatch({ type: 'UNSET_LOADING' });
-	}, []);
-
-	/**
-	 * Fetch the tables when offset gets changed.
-	 */
-	useEffect(() => {
-		if (state.loading) {
-			return;
-		}
-
-		fetchTables();
-	}, [offset]);
+	}, [perPage, offset]);
 
 	let content;
 
