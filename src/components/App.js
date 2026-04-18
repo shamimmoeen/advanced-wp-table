@@ -3,6 +3,7 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { store as noticesStore } from '@wordpress/notices';
 import { getTables, parseTableSize } from '../utils/table';
 import { toastError } from '../utils/utils';
+import BulkDeleteDialog from './List/BulkDeleteDialog';
 import List from './List/List';
 import NewTable from './NewTable/NewTable';
 import Table from './Table/Table';
@@ -31,6 +32,11 @@ const tableDeleteDialog = {
 	id: null,
 };
 
+const bulkDeleteDialog = {
+	status: false,
+	ids: [],
+};
+
 const initialState = {
 	loading: true,
 	tablesLoading: true,
@@ -43,8 +49,10 @@ const initialState = {
 	tables: [],
 	table: {},
 	tableData: [],
+	selectedTableIds: [],
 	tableChangedDialog,
 	tableDeleteDialog,
+	bulkDeleteDialog,
 	view: 'list',
 	newTableData,
 };
@@ -75,7 +83,7 @@ const reducer = (state, action) => {
 		case 'FETCH_TABLES':
 			const { total, totalPages, tables } = action.payload;
 
-			return { ...state, total, totalPages, tables };
+			return { ...state, total, totalPages, tables, selectedTableIds: [] };
 
 		case 'UPDATE_TOTAL':
 			return {
@@ -85,7 +93,7 @@ const reducer = (state, action) => {
 			};
 
 		case 'UPDATE_TABLES':
-			return { ...state, tables: action.payload };
+			return { ...state, tables: action.payload, selectedTableIds: [] };
 
 		case 'PAGINATE_TABLES':
 			return {
@@ -120,6 +128,33 @@ const reducer = (state, action) => {
 					advanced_wp_table_data: updatedTableData,
 				},
 			};
+
+		case 'SELECT_TABLE':
+			return {
+				...state,
+				selectedTableIds: [ ...state.selectedTableIds, action.payload ],
+			};
+
+		case 'DESELECT_TABLE':
+			return {
+				...state,
+				selectedTableIds: state.selectedTableIds.filter( ( id ) => id !== action.payload ),
+			};
+
+		case 'SELECT_ALL_TABLES':
+			return {
+				...state,
+				selectedTableIds: state.tables.map( ( t ) => t.id ),
+			};
+
+		case 'DESELECT_ALL_TABLES':
+			return { ...state, selectedTableIds: [] };
+
+		case 'SET_BULK_DELETE_DIALOG':
+			return { ...state, bulkDeleteDialog: action.payload };
+
+		case 'UNSET_BULK_DELETE_DIALOG':
+			return { ...state, bulkDeleteDialog };
 
 		case 'SET_TABLE_CHANGED_DIALOG':
 			return { ...state, tableChangedDialog: action.payload };
@@ -197,6 +232,7 @@ const App = () => {
 				className={ 'advanced-wp-table-notices' }
 			/>
 			<TableDeleteDialog />
+			<BulkDeleteDialog />
 			<TableChangedDialog />
 			{content}
 		</StateContext.Provider>

@@ -2,7 +2,7 @@ import { Button } from '@wordpress/components';
 import { StateContext } from '../App';
 
 const { useContext } = wp.element;
-const { _n, sprintf } = wp.i18n;
+const { __, _n, sprintf } = wp.i18n;
 
 const getPageNumbers = ( currentPage, pageCount ) => {
 	const delta = 2;
@@ -48,7 +48,7 @@ const Pagination = () => {
 				) }
 			</span>
 			{ 1 < pageCount && (
-				<div className={ 'advanced-wp-table-pagination' }>
+				<nav className={ 'advanced-wp-table-pagination' } aria-label={ __( 'Pagination', 'advanced-wp-table' ) }>
 					<Button
 						variant={ 'secondary' }
 						size={ 'compact' }
@@ -67,6 +67,7 @@ const Pagination = () => {
 								key={ page }
 								variant={ page === currentPage ? 'primary' : 'secondary' }
 								size={ 'compact' }
+								aria-current={ page === currentPage ? 'page' : undefined }
 								onClick={ () => onPageChange( page ) }
 							>
 								{ page + 1 }
@@ -81,7 +82,7 @@ const Pagination = () => {
 					>
 						{ '›' }
 					</Button>
-				</div>
+				</nav>
 			) }
 		</div>
 	);

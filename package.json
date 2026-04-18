@@ -22,6 +22,7 @@
   "license": "GPLv3",
   "devDependencies": {
     "@wordpress/api-fetch": "^7.44.0",
+    "@wordpress/icons": "^12.2.0",
     "@wordpress/scripts": "^32.0.0",
     "@wordpress/url": "^4.44.0",
     "grunt": "^1.6.2",

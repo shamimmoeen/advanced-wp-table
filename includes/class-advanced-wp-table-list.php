@@ -48,7 +48,6 @@ class Advanced_WP_Table_Table_List {
 	public function create_admin_page() {
 		?>
 		<div class="wrap">
-			<h1></h1> <!-- Empty element to show admin notices properly if has. -->
 			<div id="advanced-wp-table-wrapper" class="advanced-wp-table-wrapper"></div>
 		</div>
 		<?php

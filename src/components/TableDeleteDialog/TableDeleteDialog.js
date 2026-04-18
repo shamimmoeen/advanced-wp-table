@@ -11,7 +11,7 @@ const TableDeleteDialog = () => {
 	const { state, dispatch } = useContext(StateContext);
 	const { tables, tableDeleteDialog } = state;
 	const { status, id } = tableDeleteDialog;
-	const total = parseInt(state.total);
+	const total = state.total;
 
 	const onHandleCancel = () => {
 		dispatch({ type: 'UNSET_TABLE_DELETE_DIALOG' });
@@ -28,6 +28,10 @@ const TableDeleteDialog = () => {
 		dispatch({ type: 'UPDATE_TABLES', payload: newTables });
 		dispatch({ type: 'UNSET_TABLE_DELETE_DIALOG' });
 		toastSuccess(__('Table deleted successfully', 'advanced-wp-table'));
+
+		if ( wp.a11y && wp.a11y.speak ) {
+			wp.a11y.speak( __( 'Table deleted', 'advanced-wp-table' ), 'assertive' );
+		}
 
 		deleteTable(id)
 			.then(() => {
