@@ -38,6 +38,7 @@ class Advanced_WP_Table {
 
 		add_filter( 'manage_advanced-wp-table_posts_columns', array( $this, 'add_shortcode_column' ) );
 		add_action( 'manage_advanced-wp-table_posts_custom_column', array( $this, 'render_shortcode_column' ), 10, 2 );
+		add_filter( 'use_block_editor_for_post_type', array( $this, 'ensure_block_editor' ), 10, 2 );
 	}
 
 	/**
@@ -201,6 +202,27 @@ class Advanced_WP_Table {
 		 * @param int    $id      The table post ID.
 		 */
 		return apply_filters( 'advanced_wp_table_output', $content, $id );
+	}
+
+	/**
+	 * Ensure the block editor is enabled for our post type.
+	 *
+	 * If the Classic Editor plugin is active, it may disable the block editor.
+	 * This filter ensures it stays enabled for our post type.
+	 *
+	 * @param bool   $use_block_editor Whether the block editor should be used.
+	 * @param string $post_type        The post type being checked.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return bool
+	 */
+	public function ensure_block_editor( $use_block_editor, $post_type ) {
+		if ( 'advanced-wp-table' === $post_type ) {
+			return true;
+		}
+
+		return $use_block_editor;
 	}
 
 	/**

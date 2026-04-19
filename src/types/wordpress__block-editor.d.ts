@@ -20,7 +20,7 @@ declare module '@wordpress/block-editor' {
 		allowedFormats?: string[];
 		'aria-label'?: string;
 	} > & {
-		Content: ComponentType< { value: string } >;
+		Content: ComponentType< { tagName?: string; value: string } >;
 	};
 
 	export const BlockControls: ComponentType< {

@@ -10,7 +10,25 @@
 	"keywords": [ "table", "data", "grid" ],
 	"supports": {
 		"html": false,
-		"multiple": false
+		"multiple": false,
+		"anchor": true,
+		"align": [ "left", "center", "right", "wide", "full" ],
+		"color": {
+			"gradients": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"style": true,
+			"width": true
+		}
 	},
 	"attributes": {
 		"hasHeader": {
@@ -21,12 +39,21 @@
 			"type": "boolean",
 			"default": false
 		},
+		"hasFixedLayout": {
+			"type": "boolean",
+			"default": true
+		},
+		"caption": {
+			"type": "string",
+			"default": ""
+		},
+		"columnAligns": {
+			"type": "array",
+			"default": []
+		},
 		"rows": {
 			"type": "array",
-			"default": [
-				[ "", "" ],
-				[ "", "" ]
-			]
+			"default": []
 		}
 	},
 	"textdomain": "advanced-wp-table",

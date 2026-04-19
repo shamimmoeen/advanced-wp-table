@@ -1,12 +1,12 @@
 import { useBlockProps, RichText } from '@wordpress/block-editor';
-import type { TableAttributes } from './types';
+import type { TableAttributes, ColumnAlign } from './types';
 
 interface SaveProps {
 	attributes: TableAttributes;
 }
 
 const save = ( { attributes }: SaveProps ) => {
-	const { rows, hasHeader, hasFooter } = attributes;
+	const { rows, hasHeader, hasFooter, hasFixedLayout, caption, columnAligns } = attributes;
 	const blockProps = useBlockProps.save();
 
 	const headerRows: string[][] = [];
@@ -26,18 +26,31 @@ const save = ( { attributes }: SaveProps ) => {
 	) => {
 		return rowsToRender.map( ( row, rowIdx ) => (
 			<tr key={ rowIdx }>
-				{ row.map( ( cell, colIdx ) => (
-					<CellTag key={ colIdx }>
-						<RichText.Content value={ cell } />
-					</CellTag>
-				) ) }
+				{ row.map( ( cell, colIdx ) => {
+					const align = ( columnAligns[ colIdx ] as ColumnAlign ) ?? '';
+					const cellStyle = align
+						? { textAlign: align as 'left' | 'center' | 'right' }
+						: undefined;
+
+					return (
+						<CellTag key={ colIdx } style={ cellStyle }>
+							<RichText.Content value={ cell } />
+						</CellTag>
+					);
+				} ) }
 			</tr>
 		) );
 	};
 
+	const tableClasses = [
+		hasFixedLayout && 'has-fixed-layout',
+	]
+		.filter( Boolean )
+		.join( ' ' ) || undefined;
+
 	return (
-		<div { ...blockProps }>
-			<table>
+		<figure { ...blockProps }>
+			<table className={ tableClasses }>
 				{ headerRows.length > 0 && (
 					<thead>{ renderRows( headerRows, 'th' ) }</thead>
 				) }
@@ -46,7 +59,14 @@ const save = ( { attributes }: SaveProps ) => {
 					<tfoot>{ renderRows( footerRows, 'td' ) }</tfoot>
 				) }
 			</table>
-		</div>
+
+			{ caption && (
+				<RichText.Content
+					tagName="figcaption"
+					value={ caption }
+				/>
+			) }
+		</figure>
 	);
 };
 

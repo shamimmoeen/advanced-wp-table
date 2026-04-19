@@ -2,6 +2,10 @@
 	table {
 		border-collapse: collapse;
 		width: 100%;
+
+		&.has-fixed-layout {
+			table-layout: fixed;
+		}
 	}
 
 	th,
@@ -25,5 +29,12 @@
 
 	tr:nth-child(even) {
 		background-color: #fafafa;
+	}
+
+	figcaption {
+		text-align: center;
+		margin-top: 8px;
+		font-size: 13px;
+		color: #757575;
 	}
 }

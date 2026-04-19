@@ -1,7 +1,21 @@
 .wp-block-advanced-wp-table-table {
+	.advanced-wp-table-setup {
+		display: flex;
+		align-items: flex-end;
+		gap: 12px;
+	}
+
+	.advanced-wp-table-scroll-container {
+		overflow-x: auto;
+	}
+
 	.advanced-wp-table-editor {
 		border-collapse: collapse;
 		width: 100%;
+
+		&.has-fixed-layout {
+			table-layout: fixed;
+		}
 
 		th,
 		td {
@@ -66,6 +80,13 @@
 	// Also show when the dropdown is open.
 	.advanced-wp-table-cell-actions:focus-within {
 		opacity: 1;
+	}
+
+	.advanced-wp-table-caption {
+		text-align: center;
+		margin-top: 8px;
+		font-size: 13px;
+		color: #757575;
 	}
 
 	.advanced-wp-table-editor-actions {

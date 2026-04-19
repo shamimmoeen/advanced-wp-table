@@ -8,6 +8,8 @@ import {
 import {
 	Button,
 	PanelBody,
+	Placeholder,
+	TextControl,
 	ToolbarGroup,
 	ToolbarButton,
 	ToggleControl,
@@ -16,6 +18,7 @@ import {
 	MenuItem,
 } from '@wordpress/components';
 import {
+	blockTable,
 	plus,
 	copy,
 	moreVertical,
@@ -29,19 +32,56 @@ import {
 	chevronDown,
 	chevronLeft,
 	chevronRight,
+	alignLeft,
+	alignCenter,
+	alignRight,
 } from '@wordpress/icons';
-import type { TableAttributes } from './types';
+
+import { useState } from '@wordpress/element';
+
+import type { TableAttributes, ColumnAlign } from './types';
 
 interface EditProps {
 	attributes: TableAttributes;
 	setAttributes: ( attrs: Partial< TableAttributes > ) => void;
 }
 
+function createTable( rowCount: number, columnCount: number ) {
+	return Array.from( { length: rowCount }, () =>
+		Array< string >( columnCount ).fill( '' )
+	);
+}
+
 const Edit = ( { attributes, setAttributes }: EditProps ) => {
-	const { rows, hasHeader, hasFooter } = attributes;
+	const { rows, hasHeader, hasFooter, hasFixedLayout, caption, columnAligns } = attributes;
 	const blockProps = useBlockProps();
 	const rowCount = rows.length;
 	const columnCount = rowCount > 0 ? rows[ 0 ].length : 0;
+	const isEmpty = rowCount === 0;
+
+	const getColumnAlign = ( colIndex: number ): ColumnAlign =>
+		( columnAligns[ colIndex ] as ColumnAlign ) ?? '';
+
+	const setColumnAlign = ( colIndex: number, align: ColumnAlign ) => {
+		const newAligns = [ ...columnAligns ];
+		// Extend array if needed.
+		while ( newAligns.length <= colIndex ) {
+			newAligns.push( '' );
+		}
+		newAligns[ colIndex ] = align;
+		setAttributes( { columnAligns: newAligns } );
+	};
+
+	// State for the initial setup form.
+	const [ initialRowCount, setInitialRowCount ] = useState( 2 );
+	const [ initialColumnCount, setInitialColumnCount ] = useState( 2 );
+
+	const onCreateTable = () => {
+		setAttributes( {
+			rows: createTable( initialRowCount, initialColumnCount ),
+			columnAligns: Array< ColumnAlign >( initialColumnCount ).fill( '' ),
+		} );
+	};
 
 	const updateCell = (
 		rowIndex: number,
@@ -66,6 +106,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 	const addColumn = () => {
 		setAttributes( {
 			rows: rows.map( ( row ) => [ ...row, '' ] ),
+			columnAligns: [ ...columnAligns, '' ],
 		} );
 	};
 
@@ -87,7 +128,9 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 			'',
 			...row.slice( insertAt ),
 		] );
-		setAttributes( { rows: newRows } );
+		const newAligns = [ ...columnAligns ];
+		newAligns.splice( insertAt, 0, '' );
+		setAttributes( { rows: newRows, columnAligns: newAligns } );
 	};
 
 	const deleteRow = ( rowIndex: number ) => {
@@ -113,10 +156,12 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 		if ( columnCount <= 1 ) {
 			return;
 		}
+		const newAligns = columnAligns.filter( ( _, idx ) => idx !== colIndex );
 		setAttributes( {
 			rows: rows.map( ( row ) =>
 				row.filter( ( _, idx ) => idx !== colIndex )
 			),
+			columnAligns: newAligns,
 		} );
 	};
 
@@ -150,7 +195,10 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 			newRow.splice( toIndex, 0, moved );
 			return newRow;
 		} );
-		setAttributes( { rows: newRows } );
+		const newAligns = [ ...columnAligns ];
+		const [ movedAlign ] = newAligns.splice( fromIndex, 1 );
+		newAligns.splice( toIndex, 0, movedAlign );
+		setAttributes( { rows: newRows, columnAligns: newAligns } );
 	};
 
 	const canToggleHeader = rowCount >= 2;
@@ -167,10 +215,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 				{ ( { onClose }: { onClose: () => void } ) => (
 					<>
 						<MenuGroup
-							label={ __(
-								'Row',
-								'advanced-wp-table'
-							) }
+							label={ __( 'Row', 'advanced-wp-table' ) }
 						>
 							<MenuItem
 								icon={ tableRowBefore }
@@ -179,10 +224,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 									onClose();
 								} }
 							>
-								{ __(
-									'Insert Row Above',
-									'advanced-wp-table'
-								) }
+								{ __( 'Insert Row Above', 'advanced-wp-table' ) }
 							</MenuItem>
 							<MenuItem
 								icon={ tableRowAfter }
@@ -191,10 +233,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 									onClose();
 								} }
 							>
-								{ __(
-									'Insert Row Below',
-									'advanced-wp-table'
-								) }
+								{ __( 'Insert Row Below', 'advanced-wp-table' ) }
 							</MenuItem>
 							<MenuItem
 								icon={ copy }
@@ -203,10 +242,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 									onClose();
 								} }
 							>
-								{ __(
-									'Duplicate Row',
-									'advanced-wp-table'
-								) }
+								{ __( 'Duplicate Row', 'advanced-wp-table' ) }
 							</MenuItem>
 							<MenuItem
 								icon={ chevronUp }
@@ -216,10 +252,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 									onClose();
 								} }
 							>
-								{ __(
-									'Move Row Up',
-									'advanced-wp-table'
-								) }
+								{ __( 'Move Row Up', 'advanced-wp-table' ) }
 							</MenuItem>
 							<MenuItem
 								icon={ chevronDown }
@@ -229,10 +262,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 									onClose();
 								} }
 							>
-								{ __(
-									'Move Row Down',
-									'advanced-wp-table'
-								) }
+								{ __( 'Move Row Down', 'advanced-wp-table' ) }
 							</MenuItem>
 							<MenuItem
 								icon={ tableRowDelete }
@@ -243,17 +273,45 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 									onClose();
 								} }
 							>
-								{ __(
-									'Delete Row',
-									'advanced-wp-table'
-								) }
+								{ __( 'Delete Row', 'advanced-wp-table' ) }
 							</MenuItem>
 						</MenuGroup>
 						<MenuGroup
-							label={ __(
-								'Column',
-								'advanced-wp-table'
-							) }
+							label={ __( 'Align Column', 'advanced-wp-table' ) }
+						>
+							<MenuItem
+								icon={ alignLeft }
+								aria-pressed={ getColumnAlign( colIndex ) === 'left' }
+								onClick={ () => {
+									setColumnAlign( colIndex, getColumnAlign( colIndex ) === 'left' ? '' : 'left' );
+									onClose();
+								} }
+							>
+								{ __( 'Align Left', 'advanced-wp-table' ) }
+							</MenuItem>
+							<MenuItem
+								icon={ alignCenter }
+								aria-pressed={ getColumnAlign( colIndex ) === 'center' }
+								onClick={ () => {
+									setColumnAlign( colIndex, getColumnAlign( colIndex ) === 'center' ? '' : 'center' );
+									onClose();
+								} }
+							>
+								{ __( 'Align Center', 'advanced-wp-table' ) }
+							</MenuItem>
+							<MenuItem
+								icon={ alignRight }
+								aria-pressed={ getColumnAlign( colIndex ) === 'right' }
+								onClick={ () => {
+									setColumnAlign( colIndex, getColumnAlign( colIndex ) === 'right' ? '' : 'right' );
+									onClose();
+								} }
+							>
+								{ __( 'Align Right', 'advanced-wp-table' ) }
+							</MenuItem>
+						</MenuGroup>
+						<MenuGroup
+							label={ __( 'Column', 'advanced-wp-table' ) }
 						>
 							<MenuItem
 								icon={ tableColumnBefore }
@@ -262,10 +320,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 									onClose();
 								} }
 							>
-								{ __(
-									'Insert Column Left',
-									'advanced-wp-table'
-								) }
+								{ __( 'Insert Column Left', 'advanced-wp-table' ) }
 							</MenuItem>
 							<MenuItem
 								icon={ tableColumnAfter }
@@ -274,10 +329,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 									onClose();
 								} }
 							>
-								{ __(
-									'Insert Column Right',
-									'advanced-wp-table'
-								) }
+								{ __( 'Insert Column Right', 'advanced-wp-table' ) }
 							</MenuItem>
 							<MenuItem
 								icon={ chevronLeft }
@@ -287,10 +339,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 									onClose();
 								} }
 							>
-								{ __(
-									'Move Column Left',
-									'advanced-wp-table'
-								) }
+								{ __( 'Move Column Left', 'advanced-wp-table' ) }
 							</MenuItem>
 							<MenuItem
 								icon={ chevronRight }
@@ -300,10 +349,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 									onClose();
 								} }
 							>
-								{ __(
-									'Move Column Right',
-									'advanced-wp-table'
-								) }
+								{ __( 'Move Column Right', 'advanced-wp-table' ) }
 							</MenuItem>
 							<MenuItem
 								icon={ tableColumnDelete }
@@ -314,10 +360,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 									onClose();
 								} }
 							>
-								{ __(
-									'Delete Column',
-									'advanced-wp-table'
-								) }
+								{ __( 'Delete Column', 'advanced-wp-table' ) }
 							</MenuItem>
 						</MenuGroup>
 					</>
@@ -333,9 +376,11 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 	) => {
 		const isHeaderCell = hasHeader && rowIndex === 0;
 		const CellTag = isHeaderCell ? 'th' : 'td';
+		const align = getColumnAlign( colIndex );
+		const cellStyle = align ? { textAlign: align as 'left' | 'center' | 'right' } : undefined;
 
 		return (
-			<CellTag key={ colIndex }>
+			<CellTag key={ colIndex } style={ cellStyle }>
 				<div className="advanced-wp-table-cell-wrapper">
 					<RichText
 						tagName="div"
@@ -378,6 +423,51 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 		} );
 	};
 
+	// Show setup form when table has no rows yet.
+	if ( isEmpty ) {
+		return (
+			<div { ...blockProps }>
+				<Placeholder
+					icon={ blockTable }
+					label={ __( 'Advanced Table', 'advanced-wp-table' ) }
+					instructions={ __( 'Set the number of rows and columns for your table.', 'advanced-wp-table' ) }
+				>
+					<form
+						className="advanced-wp-table-setup"
+						onSubmit={ ( e: React.FormEvent ) => {
+							e.preventDefault();
+							onCreateTable();
+						} }
+					>
+						<TextControl
+							__nextHasNoMarginBottom
+							label={ __( 'Column count', 'advanced-wp-table' ) }
+							type="number"
+							min="1"
+							value={ String( initialColumnCount ) }
+							onChange={ ( value: string ) =>
+								setInitialColumnCount( parseInt( value, 10 ) || 1 )
+							}
+						/>
+						<TextControl
+							__nextHasNoMarginBottom
+							label={ __( 'Row count', 'advanced-wp-table' ) }
+							type="number"
+							min="1"
+							value={ String( initialRowCount ) }
+							onChange={ ( value: string ) =>
+								setInitialRowCount( parseInt( value, 10 ) || 1 )
+							}
+						/>
+						<Button variant="primary" type="submit">
+							{ __( 'Create Table', 'advanced-wp-table' ) }
+						</Button>
+					</form>
+				</Placeholder>
+			</div>
+		);
+	}
+
 	// Split rows into sections.
 	const headerRows: string[][] = [];
 	const bodyRows = [ ...rows ];
@@ -393,6 +483,13 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 	const headerStartIndex = 0;
 	const bodyStartIndex = headerRows.length;
 	const footerStartIndex = rows.length - footerRows.length;
+
+	const tableClasses = [
+		'advanced-wp-table-editor',
+		hasFixedLayout && 'has-fixed-layout',
+	]
+		.filter( Boolean )
+		.join( ' ' );
 
 	return (
 		<>
@@ -441,11 +538,24 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 						}
 						disabled={ ! canToggleFooter }
 					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Fixed width table cells', 'advanced-wp-table' ) }
+						help={ __(
+							'Distribute column widths evenly.',
+							'advanced-wp-table'
+						) }
+						checked={ hasFixedLayout }
+						onChange={ ( value: boolean ) =>
+							setAttributes( { hasFixedLayout: value } )
+						}
+					/>
 				</PanelBody>
 			</InspectorControls>
 
-			<div { ...blockProps }>
-				<table className="advanced-wp-table-editor">
+			<figure { ...blockProps }>
+				<div className="advanced-wp-table-scroll-container">
+				<table className={ tableClasses }>
 					{ headerRows.length > 0 && (
 						<thead>
 							{ renderRows( headerRows, headerStartIndex ) }
@@ -460,6 +570,18 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 						</tfoot>
 					) }
 				</table>
+				</div>
+
+				<RichText
+					tagName="figcaption"
+					className="advanced-wp-table-caption"
+					aria-label={ __( 'Table caption', 'advanced-wp-table' ) }
+					placeholder={ __( 'Add caption', 'advanced-wp-table' ) }
+					value={ caption }
+					onChange={ ( value: string ) =>
+						setAttributes( { caption: value } )
+					}
+				/>
 
 				<div className="advanced-wp-table-editor-actions">
 					<Button
@@ -479,7 +601,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 						{ __( 'Add Column', 'advanced-wp-table' ) }
 					</Button>
 				</div>
-			</div>
+			</figure>
 		</>
 	);
 };
