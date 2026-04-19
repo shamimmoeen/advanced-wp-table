@@ -1,14 +1,14 @@
 import { SnackbarList } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { store as noticesStore } from '@wordpress/notices';
-import { getTables, parseTableSize } from '../utils/table';
-import { toastError } from '../utils/utils';
+import { getTables, parseTableSize } from '../api';
+import { showErrorNotice } from '../utils';
 import BulkDeleteDialog from './List/BulkDeleteDialog';
 import List from './List/List';
-import NewTable from './NewTable/NewTable';
+import NewTableDialog from './List/NewTableDialog';
+import TableDeleteDialog from './List/TableDeleteDialog';
 import Table from './Table/Table';
-import TableChangedDialog from './TableChangedDialog/TableChangedDialog';
-import TableDeleteDialog from './TableDeleteDialog/TableDeleteDialog';
+import TableChangedDialog from './Table/TableChangedDialog';
 
 const React = wp.element;
 const { useReducer, useEffect } = wp.element;
@@ -37,13 +37,12 @@ const bulkDeleteDialog = {
 	ids: [],
 };
 
+const hasTables = window.advancedWpTable && window.advancedWpTable.totalTables > 0;
+
 const initialState = {
-	tablesLoading: true,
-	formLoading: false,
-	total: 0,
-	totalPages: 1,
+	tablesLoading: hasTables,
+	creatingTable: false,
 	perPage: 10,
-	offset: 0,
 	currentPage: 0,
 	tables: [],
 	table: {},
@@ -51,12 +50,13 @@ const initialState = {
 	tableChangedDialog,
 	tableDeleteDialog,
 	bulkDeleteDialog,
+	newTableDialog: false,
 	view: 'list',
 	newTableData,
 };
 
-const reducer = (state, action) => {
-	switch (action.type) {
+const reducer = ( state, action ) => {
+	switch ( action.type ) {
 		case 'SET_VIEW':
 			return { ...state, view: action.payload };
 
@@ -66,38 +66,24 @@ const reducer = (state, action) => {
 		case 'UNSET_TABLES_LOADING':
 			return { ...state, tablesLoading: false };
 
-		case 'SET_FORM_LOADING':
-			return { ...state, formLoading: true };
+		case 'SET_CREATING_TABLE':
+			return { ...state, creatingTable: true };
 
-		case 'UNSET_FORM_LOADING':
-			return { ...state, formLoading: false };
+		case 'UNSET_CREATING_TABLE':
+			return { ...state, creatingTable: false };
 
-		case 'FETCH_TABLES': {
-			const { total, totalPages, tables } = action.payload;
-
-			return { ...state, total, totalPages, tables, selectedTableIds: [] };
-		}
-
-		case 'UPDATE_TOTAL':
-			return {
-				...state,
-				total: action.payload,
-				totalPages: Math.ceil( action.payload / state.perPage ),
-			};
+		case 'FETCH_TABLES':
+			return { ...state, tables: action.payload, selectedTableIds: [] };
 
 		case 'UPDATE_TABLES':
 			return { ...state, tables: action.payload, selectedTableIds: [] };
 
-		case 'PAGINATE_TABLES':
-			return {
-				...state,
-				offset: action.payload.offset,
-				currentPage: action.payload.currentPage,
-			};
+		case 'SET_CURRENT_PAGE':
+			return { ...state, currentPage: action.payload, selectedTableIds: [] };
 
 		case 'SET_INPUT': {
 			const data = { ...state.newTableData };
-			data[action.payload.name] = action.payload.value;
+			data[ action.payload.name ] = action.payload.value;
 
 			return { ...state, newTableData: data };
 		}
@@ -106,7 +92,7 @@ const reducer = (state, action) => {
 			return { ...state, newTableData };
 
 		case 'SET_TABLE':
-			return { ...state, table: parseTableSize(action.payload) };
+			return { ...state, table: parseTableSize( action.payload ) };
 
 		case 'UNSET_TABLE':
 			return { ...state, table: {} };
@@ -139,7 +125,7 @@ const reducer = (state, action) => {
 		case 'SELECT_ALL_TABLES':
 			return {
 				...state,
-				selectedTableIds: state.tables.map( ( t ) => t.id ),
+				selectedTableIds: action.payload,
 			};
 
 		case 'DESELECT_ALL_TABLES':
@@ -150,6 +136,12 @@ const reducer = (state, action) => {
 
 		case 'UNSET_BULK_DELETE_DIALOG':
 			return { ...state, bulkDeleteDialog };
+
+		case 'SET_NEW_TABLE_DIALOG':
+			return { ...state, newTableDialog: true };
+
+		case 'UNSET_NEW_TABLE_DIALOG':
+			return { ...state, newTableDialog: false };
 
 		case 'SET_TABLE_CHANGED_DIALOG':
 			return { ...state, tableChangedDialog: action.payload };
@@ -169,48 +161,49 @@ const reducer = (state, action) => {
 };
 
 const App = () => {
-	const [state, dispatch] = useReducer(reducer, initialState);
-	const { perPage, offset, view } = state;
+	const [ state, dispatch ] = useReducer( reducer, initialState );
+	const { view } = state;
 
 	const notices = useSelect( ( select ) => select( noticesStore ).getNotices(), [] );
 	const { removeNotice } = useDispatch( noticesStore );
 	const snackbarNotices = notices.filter( ( notice ) => notice.type === 'snackbar' );
 
-	useEffect(() => {
-		dispatch({ type: 'SET_TABLES_LOADING' });
+	useEffect( () => {
+		if ( ! hasTables ) {
+			return;
+		}
 
-		getTables(perPage, offset)
-			.then((response) => {
-				dispatch({ type: 'FETCH_TABLES', payload: response });
-				dispatch({ type: 'UNSET_TABLES_LOADING' });
-			})
-			.catch((err) => {
-				toastError(err.message);
-				dispatch({ type: 'UNSET_TABLES_LOADING' });
-			});
-	}, [perPage, offset]);
+		getTables()
+			.then( ( tables ) => {
+				dispatch( { type: 'FETCH_TABLES', payload: tables } );
+				dispatch( { type: 'UNSET_TABLES_LOADING' } );
+			} )
+			.catch( ( err ) => {
+				showErrorNotice( err.message );
+				dispatch( { type: 'UNSET_TABLES_LOADING' } );
+			} );
+	}, [] );
 
 	let content;
 
-	if ('list' === view) {
+	if ( 'list' === view ) {
 		content = <List />;
-	} else if ('form' === view) {
-		content = <NewTable />;
-	} else if ('table' === view) {
+	} else if ( 'table' === view ) {
 		content = <Table />;
 	}
 
 	return (
-		<StateContext.Provider value={{ state, dispatch }}>
+		<StateContext.Provider value={ { state, dispatch } }>
 			<SnackbarList
 				notices={ snackbarNotices }
 				onRemove={ removeNotice }
 				className={ 'advanced-wp-table-notices' }
 			/>
+			<NewTableDialog />
 			<TableDeleteDialog />
 			<BulkDeleteDialog />
 			<TableChangedDialog />
-			{content}
+			{ content }
 		</StateContext.Provider>
 	);
 };

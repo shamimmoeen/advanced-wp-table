@@ -1,4 +1,4 @@
-import { offsetIndex } from '../../utils/utils';
+import { offsetIndex } from '../../utils';
 import { StateContext } from '../App';
 import Actions from './Actions';
 import Buttons from './Buttons';

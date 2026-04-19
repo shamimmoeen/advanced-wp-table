@@ -1,7 +1,7 @@
 import { Button } from '@wordpress/components';
 import { StateContext } from '../App';
 
-const { useContext, useState } = wp.element;
+const { useContext, useEffect, useState } = wp.element;
 const { __ } = wp.i18n;
 
 const BulkActions = () => {
@@ -10,6 +10,12 @@ const BulkActions = () => {
 	const [ bulkAction, setBulkAction ] = useState( '' );
 
 	const hasSelection = selectedTableIds.length > 0;
+
+	useEffect( () => {
+		if ( ! hasSelection ) {
+			setBulkAction( '' );
+		}
+	}, [ hasSelection ] );
 
 	const onApply = () => {
 		if ( 'delete' === bulkAction && hasSelection ) {

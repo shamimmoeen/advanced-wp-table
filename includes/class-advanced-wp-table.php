@@ -204,6 +204,14 @@ class Advanced_WP_Table {
 			true
 		);
 
+		wp_localize_script(
+			'advanced-wp-table-backend-js',
+			'advancedWpTable',
+			array(
+				'totalTables' => (int) wp_count_posts( 'advanced-wp-table' )->publish,
+			)
+		);
+
 		wp_enqueue_style(
 			'advanced-wp-table-backend-css',
 			ADVANCED_WP_TABLE_URL . 'build/index.css',

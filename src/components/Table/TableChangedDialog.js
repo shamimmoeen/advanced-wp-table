@@ -1,59 +1,55 @@
 import { Button, Flex, FlexItem, Modal } from '@wordpress/components';
-
 import { StateContext } from '../App';
 
 const { useContext } = wp.element;
 const { __ } = wp.i18n;
 
 const TableChangedDialog = () => {
-	const { state, dispatch } = useContext(StateContext);
+	const { state, dispatch } = useContext( StateContext );
 	const { tableChangedDialog } = state;
 	const { status, callbackCancel, callbackLeave } = tableChangedDialog;
 
 	const onHandleCancel = () => {
-		if (callbackCancel) {
+		if ( callbackCancel ) {
 			callbackCancel();
 		}
 
-		dispatch({ type: 'UNSET_TABLE_CHANGED_DIALOG' });
+		dispatch( { type: 'UNSET_TABLE_CHANGED_DIALOG' } );
 	};
 
 	const onHandleLeave = () => {
-		if (callbackLeave) {
+		if ( callbackLeave ) {
 			callbackLeave();
 		}
 
-		dispatch({ type: 'UNSET_TABLE_CHANGED_DIALOG' });
+		dispatch( { type: 'UNSET_TABLE_CHANGED_DIALOG' } );
 	};
 
-	if (!status) {
+	if ( ! status ) {
 		return null;
 	}
 
 	return (
 		<Modal
-			title={__('Unsaved changes', 'advanced-wp-table')}
-			onRequestClose={onHandleCancel}
+			title={ __( 'Unsaved changes', 'advanced-wp-table' ) }
+			onRequestClose={ onHandleCancel }
 		>
 			<p>
-				{__(
-					'The changes you made will be lost if you leave this.',
-					'advanced-wp-table'
-				)}
+				{ __( 'The changes you made will be lost if you leave this.', 'advanced-wp-table' ) }
 			</p>
-			<Flex justify={'flex-end'}>
+			<Flex justify={ 'flex-end' }>
 				<FlexItem>
-					<Button variant={'secondary'} onClick={onHandleCancel}>
-						{__('Keep editing', 'advanced-wp-table')}
+					<Button variant={ 'secondary' } onClick={ onHandleCancel }>
+						{ __( 'Keep editing', 'advanced-wp-table' ) }
 					</Button>
 				</FlexItem>
 				<FlexItem>
 					<Button
-						variant={'primary'}
+						variant={ 'primary' }
 						isDestructive
-						onClick={onHandleLeave}
+						onClick={ onHandleLeave }
 					>
-						{__('Discard', 'advanced-wp-table')}
+						{ __( 'Discard', 'advanced-wp-table' ) }
 					</Button>
 				</FlexItem>
 			</Flex>

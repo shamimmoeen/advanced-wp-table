@@ -1,40 +1,16 @@
 import apiFetch from '@wordpress/api-fetch';
-import { getApiEndpoint } from './utils';
 
-const { __ } = wp.i18n;
+const API_ENDPOINT = '/wp/v2/advanced-wp-table';
 
-export async function getTables( perPage, offset ) {
+export async function getTables() {
 	const options = {
-		path: wp.url.addQueryArgs( getApiEndpoint(), { per_page: perPage, offset } ),
-		parse: false,
+		path: wp.url.addQueryArgs( API_ENDPOINT, { per_page: -1 } ),
 	};
 
 	try {
-		const response = await apiFetch( options );
-		const total = parseInt( response.headers && response.headers.get( 'X-WP-Total' ) );
-		const totalPages = parseInt( response.headers && response.headers.get( 'X-WP-TotalPages' ) );
-		const tables = await response.json();
-
-		return { total, totalPages, tables };
-	} catch ( response ) {
-		const err = await response.json();
+		return await apiFetch( options );
+	} catch ( err ) {
 		throw new Error( err.message );
-	}
-}
-
-export function validateTable( tableData ) {
-	const { title, sizeOfRows, sizeOfColumns } = tableData;
-
-	if ( ! title ) {
-		throw new Error( __( 'Title shouldn\'t be empty', 'advanced-wp-table' ) );
-	}
-
-	if ( parseInt( sizeOfRows ) < 1 ) {
-		throw new Error( __( 'Size of rows should be greater than 0', 'advanced-wp-table' ) );
-	}
-
-	if ( parseInt( sizeOfColumns ) < 1 ) {
-		throw new Error( __( 'Size of columns should be greater than 0', 'advanced-wp-table' ) );
 	}
 }
 
@@ -64,7 +40,7 @@ export function prepareTable( tableData ) {
 // eslint-disable-next-line camelcase
 export async function postTable( { title, advanced_wp_table_data } ) {
 	const options = {
-		path: getApiEndpoint(),
+		path: API_ENDPOINT,
 		method: 'POST',
 		data: { title, status: 'publish', advanced_wp_table_data },
 	};
@@ -78,7 +54,7 @@ export async function postTable( { title, advanced_wp_table_data } ) {
 
 export async function getTable( id ) {
 	const options = {
-		path: getApiEndpoint() + '/' + id,
+		path: API_ENDPOINT + '/' + id,
 		method: 'GET',
 	};
 
@@ -91,7 +67,7 @@ export async function getTable( id ) {
 
 export async function deleteTable( id ) {
 	const options = {
-		path: getApiEndpoint() + '/' + id,
+		path: API_ENDPOINT + '/' + id,
 		method: 'DELETE',
 	};
 
@@ -105,7 +81,7 @@ export async function deleteTable( id ) {
 // eslint-disable-next-line camelcase
 export async function updateTable( id, title, advanced_wp_table_data ) {
 	const options = {
-		path: getApiEndpoint() + '/' + id,
+		path: API_ENDPOINT + '/' + id,
 		method: 'PUT',
 		data: { title, advanced_wp_table_data },
 	};
@@ -126,20 +102,4 @@ export function parseTableSize( table ) {
 	};
 
 	return { ...table, advanced_wp_table_data: { ...tableData, size } };
-}
-
-export function prepareTableToDuplicate( tables, targetTableId ) {
-	const targetTable = tables.find( ( item ) => targetTableId === item.id );
-	const tempId = `new${ targetTable.id }`;
-	const newTableTitle = `${ targetTable.title.rendered } (${ __( 'Duplicated', 'advanced-wp-table' ) })`;
-
-	return {
-		...targetTable,
-		id: tempId,
-		title: { ...targetTable.title, rendered: newTableTitle },
-	};
-}
-
-export function getShortcode( id ) {
-	return `[advanced_wp_table id="${ id }"]`;
 }

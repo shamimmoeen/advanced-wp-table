@@ -12,16 +12,15 @@ const Header = () => {
 				{ __( 'All Tables', 'advanced-wp-table' ) }
 			</h1>
 			{ ' ' }
-			<a
-				href={ '#/' }
+			<button
+				type={ 'button' }
 				className={ 'page-title-action' }
-				onClick={ ( e ) => {
-					e.preventDefault();
-					dispatch( { type: 'SET_VIEW', payload: 'form' } );
-				} }
+				aria-label={ __( 'Add new table', 'advanced-wp-table' ) }
+				aria-haspopup={ 'dialog' }
+				onClick={ () => dispatch( { type: 'SET_NEW_TABLE_DIALOG' } ) }
 			>
 				{ __( 'Add New', 'advanced-wp-table' ) }
-			</a>
+			</button>
 			<hr className={ 'wp-header-end' } />
 		</>
 	);

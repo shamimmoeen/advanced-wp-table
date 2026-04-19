@@ -4,13 +4,12 @@ import { showSuccessNotice } from '../../utils';
 import { StateContext } from '../App';
 
 const { useContext, useState } = wp.element;
-const { __, _n, sprintf } = wp.i18n;
+const { __ } = wp.i18n;
 
-const BulkDeleteDialog = () => {
+const TableDeleteDialog = () => {
 	const { state, dispatch } = useContext( StateContext );
-	const { tables, bulkDeleteDialog } = state;
-	const { status, ids } = bulkDeleteDialog;
-	const count = ids.length;
+	const { tables, tableDeleteDialog } = state;
+	const { status, id } = tableDeleteDialog;
 	const [ loading, setLoading ] = useState( false );
 	const [ error, setError ] = useState( null );
 
@@ -20,44 +19,25 @@ const BulkDeleteDialog = () => {
 		}
 
 		setError( null );
-		dispatch( { type: 'UNSET_BULK_DELETE_DIALOG' } );
+		dispatch( { type: 'UNSET_TABLE_DELETE_DIALOG' } );
 	};
 
 	const onHandleDelete = () => {
 		setLoading( true );
 		setError( null );
 
-		Promise.all( ids.map( ( id ) => deleteTable( id ) ) )
+		deleteTable( id )
 			.then( () => {
 				setLoading( false );
-				dispatch( { type: 'UPDATE_TABLES', payload: tables.filter( ( item ) => ! ids.includes( item.id ) ) } );
-				dispatch( { type: 'UNSET_BULK_DELETE_DIALOG' } );
-				showSuccessNotice(
-					sprintf(
-						/* translators: %d: number of deleted tables. */
-						_n(
-							'%d table deleted successfully',
-							'%d tables deleted successfully',
-							count,
-							'advanced-wp-table'
-						),
-						count
-					)
-				);
-
-				wp.a11y.speak(
-					sprintf(
-						/* translators: %d: number of deleted tables. */
-						_n( '%d table deleted', '%d tables deleted', count, 'advanced-wp-table' ),
-						count
-					),
-					'assertive'
-				);
+				dispatch( { type: 'UPDATE_TABLES', payload: tables.filter( ( item ) => item.id !== id ) } );
+				dispatch( { type: 'UNSET_TABLE_DELETE_DIALOG' } );
+				showSuccessNotice( __( 'Table deleted successfully', 'advanced-wp-table' ) );
+				wp.a11y.speak( __( 'Table deleted', 'advanced-wp-table' ), 'assertive' );
 			} )
 			.catch( () => {
 				setLoading( false );
-				setError( __( 'Oops, there was a problem when deleting the tables', 'advanced-wp-table' ) );
-				wp.a11y.speak( __( 'Error deleting tables', 'advanced-wp-table' ), 'assertive' );
+				setError( __( 'Oops, there was a problem when deleting the table', 'advanced-wp-table' ) );
+				wp.a11y.speak( __( 'Error deleting table', 'advanced-wp-table' ), 'assertive' );
 			} );
 	};
 
@@ -67,7 +47,7 @@ const BulkDeleteDialog = () => {
 
 	return (
 		<Modal
-			title={ __( 'Delete tables', 'advanced-wp-table' ) }
+			title={ __( 'Delete table', 'advanced-wp-table' ) }
 			onRequestClose={ onHandleCancel }
 			isDismissible={ false }
 			shouldCloseOnEsc={ false }
@@ -81,16 +61,7 @@ const BulkDeleteDialog = () => {
 				</div>
 			) }
 			<p>
-				{ sprintf(
-					/* translators: %d: number of tables to delete. */
-					_n(
-						'You are about to delete %d table. This action is permanent and can\'t be undone.',
-						'You are about to delete %d tables. This action is permanent and can\'t be undone.',
-						count,
-						'advanced-wp-table'
-					),
-					count
-				) }
+				{ __( "This action is permanent and can't be undone.", 'advanced-wp-table' ) }
 			</p>
 			<Flex justify={ 'flex-end' }>
 				<FlexItem>
@@ -114,4 +85,4 @@ const BulkDeleteDialog = () => {
 	);
 };
 
-export default BulkDeleteDialog;
+export default TableDeleteDialog;

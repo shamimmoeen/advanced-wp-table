@@ -1,5 +1,5 @@
 import { isEqual } from 'lodash';
-import { parseTableSize } from '../../utils/table';
+import { parseTableSize } from '../../api';
 import { StateContext } from '../App';
 
 const { useContext } = wp.element;

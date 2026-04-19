@@ -1,25 +1,21 @@
 import { dispatch, select } from '@wordpress/data';
 import { store as noticesStore } from '@wordpress/notices';
 
-export function getApiEndpoint() {
-	return '/wp/v2/advanced-wp-table';
-}
-
-export function toastSuccess( message ) {
+export function showSuccessNotice( message ) {
 	dispatch( noticesStore ).createSuccessNotice( message, {
 		type: 'snackbar',
 		isDismissible: true,
 	} );
 }
 
-export function toastError( message ) {
+export function showErrorNotice( message ) {
 	dispatch( noticesStore ).createErrorNotice( message, {
 		type: 'snackbar',
 		isDismissible: true,
 	} );
 }
 
-export function dismissToasts() {
+export function dismissNotices() {
 	const notices = select( noticesStore ).getNotices();
 	notices.forEach( ( notice ) => {
 		dispatch( noticesStore ).removeNotice( notice.id );
@@ -42,4 +38,8 @@ export function offsetIndex( from, to, arr = [] ) {
 	}
 
 	return arr;
+}
+
+export function getShortcode( id ) {
+	return `[advanced_wp_table id="${ id }"]`;
 }

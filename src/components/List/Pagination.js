@@ -1,7 +1,7 @@
 import { Button } from '@wordpress/components';
 import { StateContext } from '../App';
 
-const { useContext } = wp.element;
+const { useContext, useEffect } = wp.element;
 const { __, _n, sprintf } = wp.i18n;
 
 const getPageNumbers = ( currentPage, totalPages ) => {
@@ -25,11 +25,19 @@ const getPageNumbers = ( currentPage, totalPages ) => {
 
 const Pagination = () => {
 	const { state, dispatch } = useContext( StateContext );
-	const { total, totalPages, perPage, currentPage } = state;
+	const { tables, perPage, currentPage } = state;
+	const total = tables.length;
+	const totalPages = Math.ceil( total / perPage );
+
+	// Auto-adjust if current page is out of bounds after deletions.
+	useEffect( () => {
+		if ( totalPages > 0 && currentPage >= totalPages ) {
+			dispatch( { type: 'SET_CURRENT_PAGE', payload: totalPages - 1 } );
+		}
+	}, [ totalPages, currentPage ] );
 
 	const onPageChange = ( page ) => {
-		const offset = page * perPage;
-		dispatch( { type: 'PAGINATE_TABLES', payload: { offset, currentPage: page } } );
+		dispatch( { type: 'SET_CURRENT_PAGE', payload: page } );
 	};
 
 	return (
@@ -52,6 +60,7 @@ const Pagination = () => {
 						variant={ 'secondary' }
 						size={ 'compact' }
 						disabled={ 0 === currentPage }
+						aria-label={ __( 'Previous page', 'advanced-wp-table' ) }
 						onClick={ () => onPageChange( currentPage - 1 ) }
 					>
 						{ '‹' }
@@ -66,6 +75,11 @@ const Pagination = () => {
 								key={ page }
 								variant={ page === currentPage ? 'primary' : 'secondary' }
 								size={ 'compact' }
+								aria-label={ sprintf(
+									/* translators: %d: page number. */
+									__( 'Page %d', 'advanced-wp-table' ),
+									page + 1
+								) }
 								aria-current={ page === currentPage ? 'page' : undefined }
 								onClick={ () => onPageChange( page ) }
 							>
@@ -77,6 +91,7 @@ const Pagination = () => {
 						variant={ 'secondary' }
 						size={ 'compact' }
 						disabled={ currentPage === totalPages - 1 }
+						aria-label={ __( 'Next page', 'advanced-wp-table' ) }
 						onClick={ () => onPageChange( currentPage + 1 ) }
 					>
 						{ '›' }

@@ -1,5 +1,5 @@
-import { updateTable } from '../../utils/table';
-import { dismissToasts, toastError, toastSuccess } from '../../utils/utils';
+import { updateTable } from '../../api';
+import { dismissNotices, showErrorNotice, showSuccessNotice } from '../../utils';
 import { StateContext } from '../App';
 
 const { useContext } = wp.element;
@@ -23,7 +23,7 @@ const Buttons = () => {
 		} );
 
 		dispatch( { type: 'UPDATE_TABLES', payload: newTables } );
-		toastSuccess( __( 'Successfully updated', 'advanced-wp-table' ) );
+		showSuccessNotice( __( 'Successfully updated', 'advanced-wp-table' ) );
 
 		// eslint-disable-next-line camelcase
 		const { id, advanced_wp_table_data } = table;
@@ -34,9 +34,9 @@ const Buttons = () => {
 				// eslint-disable-next-line no-console
 				console.log( err.message );
 
-				dismissToasts();
+				dismissNotices();
 				dispatch( { type: 'UPDATE_TABLES', payload: oldTables } );
-				toastError( __( 'Oops, there was a problem when updating the table', 'advanced-wp-table' ) );
+				showErrorNotice( __( 'Oops, there was a problem when updating the table', 'advanced-wp-table' ) );
 			} );
 	};
 
