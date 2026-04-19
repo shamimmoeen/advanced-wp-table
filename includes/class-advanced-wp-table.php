@@ -35,6 +35,9 @@ class Advanced_WP_Table {
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( 'init', array( $this, 'register_blocks' ) );
 		add_shortcode( 'advanced_wp_table', array( $this, 'register_shortcode' ) );
+
+		add_filter( 'manage_advanced-wp-table_posts_columns', array( $this, 'add_shortcode_column' ) );
+		add_action( 'manage_advanced-wp-table_posts_custom_column', array( $this, 'render_shortcode_column' ), 10, 2 );
 	}
 
 	/**
@@ -130,6 +133,41 @@ class Advanced_WP_Table {
 	 */
 	public function register_blocks() {
 		register_block_type( ADVANCED_WP_TABLE_PATH . 'build/blocks/table' );
+	}
+
+	/**
+	 * Add shortcode column to the list table.
+	 *
+	 * @param array $columns The existing columns.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array
+	 */
+	public function add_shortcode_column( $columns ) {
+		$date = $columns['date'];
+		unset( $columns['date'] );
+
+		$columns['shortcode'] = __( 'Shortcode', 'advanced-wp-table' );
+		$columns['date']      = $date;
+
+		return $columns;
+	}
+
+	/**
+	 * Render the shortcode column content.
+	 *
+	 * @param string $column  The column name.
+	 * @param int    $post_id The post ID.
+	 *
+	 * @since 2.0.0
+	 */
+	public function render_shortcode_column( $column, $post_id ) {
+		if ( 'shortcode' !== $column ) {
+			return;
+		}
+
+		printf( '<code>[advanced_wp_table id="%d"]</code>', $post_id );
 	}
 
 	/**

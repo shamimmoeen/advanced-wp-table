@@ -1,0 +1,29 @@
+.wp-block-advanced-wp-table-table {
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	th,
+	td {
+		border: 1px solid #ddd;
+		padding: 8px 12px;
+		text-align: left;
+		vertical-align: top;
+	}
+
+	thead th {
+		background-color: #f0f0f1;
+		font-weight: 600;
+		border-bottom-width: 2px;
+	}
+
+	tfoot td {
+		background-color: #f9f9f9;
+		border-top-width: 2px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #fafafa;
+	}
+}

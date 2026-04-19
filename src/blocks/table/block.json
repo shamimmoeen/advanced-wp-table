@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "advanced-wp-table/table",
+	"version": "2.0.0",
+	"title": "Advanced Table",
+	"category": "text",
+	"icon": "editor-table",
+	"description": "Create and manage data tables with rich text cells, header and footer support.",
+	"keywords": [ "table", "data", "grid" ],
+	"supports": {
+		"html": false,
+		"multiple": false
+	},
+	"attributes": {
+		"hasHeader": {
+			"type": "boolean",
+			"default": false
+		},
+		"hasFooter": {
+			"type": "boolean",
+			"default": false
+		},
+		"rows": {
+			"type": "array",
+			"default": [
+				[ "", "" ],
+				[ "", "" ]
+			]
+		}
+	},
+	"textdomain": "advanced-wp-table",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}
