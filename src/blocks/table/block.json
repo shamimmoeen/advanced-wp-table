@@ -1,0 +1,67 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "advanced-wp-table/table",
+	"version": "2.0.0",
+	"title": "Advanced Table",
+	"category": "text",
+	"description": "Advanced table block for WordPress with rich text, styling, and reusable table support.",
+	"keywords": [ "table", "data", "grid" ],
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [ "left", "center", "right", "wide", "full" ],
+		"color": {
+			"__experimentalSkipSerialization": true,
+			"gradients": true
+		},
+		"spacing": {
+			"margin": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		},
+		"__experimentalBorder": {
+			"__experimentalSkipSerialization": true,
+			"color": true,
+			"style": true,
+			"width": true
+		}
+	},
+	"attributes": {
+		"hasHeader": {
+			"type": "boolean",
+			"default": false
+		},
+		"hasFooter": {
+			"type": "boolean",
+			"default": false
+		},
+		"hasFixedLayout": {
+			"type": "boolean",
+			"default": true
+		},
+		"hasStripedRows": {
+			"type": "boolean",
+			"default": false
+		},
+		"caption": {
+			"type": "string",
+			"default": ""
+		},
+		"columnAligns": {
+			"type": "array",
+			"default": []
+		},
+		"rows": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"textdomain": "advanced-wp-table",
+	"render": "file:./render.php",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}
