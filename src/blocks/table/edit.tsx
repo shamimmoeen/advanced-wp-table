@@ -166,8 +166,15 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 
 	const deleteColumn = ( colIndex: number ) => {
 		if ( columnCount <= 1 ) {
+			setAttributes( {
+				rows: [],
+				columnAligns: [],
+				hasHeader: false,
+				hasFooter: false,
+			} );
 			return;
 		}
+
 		const newAligns = columnAligns.filter( ( _, idx ) => idx !== colIndex );
 		setAttributes( {
 			rows: rows.map( ( row ) =>
@@ -178,7 +185,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 	};
 
 	const duplicateRow = ( rowIndex: number ) => {
-		const duplicated = [ ...rows[ rowIndex ] ];
+		const duplicated = structuredClone( rows[ rowIndex ] );
 		const newRows = [
 			...rows.slice( 0, rowIndex + 1 ),
 			duplicated,

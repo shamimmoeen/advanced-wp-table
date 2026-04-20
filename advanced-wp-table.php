@@ -17,13 +17,17 @@
  * @package Advanced_WP_Table
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! defined( 'ADVANCED_WP_TABLE_VERSION' ) ) {
 	define( 'ADVANCED_WP_TABLE_VERSION', '2.0.0' );
 }
 
 // Include the main Advanced_WP_Table class.
 if ( ! class_exists( 'Advanced_WP_Table' ) ) {
-	require_once dirname( __FILE__ ) . '/includes/class-advanced-wp-table.php';
+	require_once __DIR__ . '/includes/class-advanced-wp-table.php';
 }
 
 if ( ! function_exists( 'advanced_wp_table_run' ) ) {

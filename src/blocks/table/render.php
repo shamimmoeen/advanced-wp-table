@@ -9,6 +9,10 @@
  * @package Advanced_WP_Table
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
 $rows          = $attributes['rows'] ?? array();
@@ -37,7 +41,7 @@ if ( $has_footer && count( $body_rows ) > 0 ) {
 }
 
 // Build table classes.
-$table_classes = array();
+$table_classes = array( 'awt__table' );
 
 if ( $has_fixed ) {
 	$table_classes[] = 'awt__table--fixed';
@@ -47,11 +51,7 @@ if ( $has_striped ) {
 	$table_classes[] = 'awt__table--striped';
 }
 
-$table_class_attr = ! empty( $table_classes )
-	? ' class="' . esc_attr( implode( ' ', $table_classes ) ) . '"'
-	: '';
-
-// phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+$table_class_attr = ' class="' . esc_attr( implode( ' ', $table_classes ) ) . '"';
 ?>
 
 <figure <?php echo get_block_wrapper_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
@@ -65,7 +65,7 @@ $table_class_attr = ! empty( $table_classes )
 							$align = $column_aligns[ $col_index ] ?? '';
 							$style = $align ? ' style="text-align:' . esc_attr( $align ) . '"' : '';
 							?>
-							<th<?php echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo wp_kses_post( $cell ); ?></th>
+							<th scope="col"<?php echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo wp_kses_post( $cell ); ?></th>
 						<?php endforeach; ?>
 					</tr>
 				<?php endforeach; ?>
@@ -107,3 +107,5 @@ $table_class_attr = ! empty( $table_classes )
 		<figcaption><?php echo wp_kses_post( $caption ); ?></figcaption>
 	<?php endif; ?>
 </figure>
+<?php
+// phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound

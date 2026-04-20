@@ -7,6 +7,10 @@
  * @package Advanced_WP_Table
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Advanced_WP_Table
  *
@@ -47,7 +51,7 @@ class Advanced_WP_Table {
 	 */
 	public function defines() {
 		if ( ! defined( 'ADVANCED_WP_TABLE_PATH' ) ) {
-			define( 'ADVANCED_WP_TABLE_PATH', plugin_dir_path( dirname( __FILE__ ) ) );
+			define( 'ADVANCED_WP_TABLE_PATH', plugin_dir_path( __DIR__ ) );
 		}
 	}
 
@@ -148,7 +152,7 @@ class Advanced_WP_Table {
 			return;
 		}
 
-		printf( '<code>[advanced_wp_table id="%d"]</code>', $post_id );
+		printf( '<code>[advanced_wp_table id="%d"]</code>', absint( $post_id ) );
 	}
 
 	/**
@@ -161,7 +165,7 @@ class Advanced_WP_Table {
 	 * @return string
 	 */
 	public function register_shortcode( $atts ) {
-		$id = isset( $atts['id'] ) ? absint( $atts['id'] ) : 0;
+		$id = absint( $atts['id'] ?? 0 );
 
 		if ( ! $id ) {
 			return '';
