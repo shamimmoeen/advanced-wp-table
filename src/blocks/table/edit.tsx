@@ -4,24 +4,23 @@ import {
 	RichText,
 	BlockControls,
 	InspectorControls,
+	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
+	__experimentalUseColorProps as useColorProps,
+	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
+	__experimentalUseBorderProps as useBorderProps,
 } from '@wordpress/block-editor';
 import {
 	Button,
 	PanelBody,
 	Placeholder,
 	TextControl,
-	ToolbarGroup,
 	ToolbarButton,
+	ToolbarDropdownMenu,
 	ToggleControl,
-	DropdownMenu,
-	MenuGroup,
-	MenuItem,
 } from '@wordpress/components';
 import {
 	blockTable,
-	plus,
 	copy,
-	moreVertical,
 	tableRowAfter,
 	tableRowBefore,
 	tableColumnAfter,
@@ -35,15 +34,23 @@ import {
 	alignLeft,
 	alignCenter,
 	alignRight,
+	alignNone,
+	table,
+	caption as captionIcon,
 } from '@wordpress/icons';
 
-import { useState } from '@wordpress/element';
+import { memo, useState } from '@wordpress/element';
 
 import type { TableAttributes, ColumnAlign } from './types';
 
 interface EditProps {
 	attributes: TableAttributes;
 	setAttributes: ( attrs: Partial< TableAttributes > ) => void;
+}
+
+interface SelectedCell {
+	row: number;
+	col: number;
 }
 
 function createTable( rowCount: number, columnCount: number ) {
@@ -63,16 +70,22 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 		columnAligns,
 	} = attributes;
 	const blockProps = useBlockProps();
+	const colorProps = useColorProps( attributes );
+	const borderProps = useBorderProps( attributes );
 	const rowCount = rows.length;
 	const columnCount = rowCount > 0 ? rows[ 0 ].length : 0;
 	const isEmpty = rowCount === 0;
+
+	const [ selectedCell, setSelectedCell ] = useState< SelectedCell | null >(
+		null
+	);
+	const [ showCaption, setShowCaption ] = useState( !! caption );
 
 	const getColumnAlign = ( colIndex: number ): ColumnAlign =>
 		( columnAligns[ colIndex ] as ColumnAlign ) ?? '';
 
 	const setColumnAlign = ( colIndex: number, align: ColumnAlign ) => {
 		const newAligns = [ ...columnAligns ];
-		// Extend array if needed.
 		while ( newAligns.length <= colIndex ) {
 			newAligns.push( '' );
 		}
@@ -80,7 +93,6 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 		setAttributes( { columnAligns: newAligns } );
 	};
 
-	// State for the initial setup form.
 	const [ initialRowCount, setInitialRowCount ] = useState( 2 );
 	const [ initialColumnCount, setInitialColumnCount ] = useState( 2 );
 
@@ -104,18 +116,6 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 				: [ ...row ]
 		);
 		setAttributes( { rows: newRows } );
-	};
-
-	const addRow = () => {
-		const newRow = Array< string >( columnCount ).fill( '' );
-		setAttributes( { rows: [ ...rows, newRow ] } );
-	};
-
-	const addColumn = () => {
-		setAttributes( {
-			rows: rows.map( ( row ) => [ ...row, '' ] ),
-			columnAligns: [ ...columnAligns, '' ],
-		} );
 	};
 
 	const insertRow = ( index: number, position: 'above' | 'below' ) => {
@@ -149,6 +149,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 			updates.hasHeader = false;
 			updates.hasFooter = false;
 			updates.columnAligns = [];
+			setSelectedCell( null );
 		} else {
 			if ( hasHeader && ( rowIndex === 0 || newRows.length < 2 ) ) {
 				updates.hasHeader = false;
@@ -172,6 +173,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 				hasHeader: false,
 				hasFooter: false,
 			} );
+			setSelectedCell( null );
 			return;
 		}
 
@@ -202,6 +204,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 		const [ moved ] = newRows.splice( fromIndex, 1 );
 		newRows.splice( toIndex, 0, moved );
 		setAttributes( { rows: newRows } );
+		setSelectedCell( { row: toIndex, col: selectedCell?.col ?? 0 } );
 	};
 
 	const moveColumn = ( fromIndex: number, toIndex: number ) => {
@@ -218,210 +221,11 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 		const [ movedAlign ] = newAligns.splice( fromIndex, 1 );
 		newAligns.splice( toIndex, 0, movedAlign );
 		setAttributes( { rows: newRows, columnAligns: newAligns } );
+		setSelectedCell( { row: selectedCell?.row ?? 0, col: toIndex } );
 	};
 
 	const canToggleHeader = rowCount >= 2;
 	const canToggleFooter = rowCount >= 2 && ( ! hasHeader || rowCount >= 3 );
-
-	const renderCellActions = ( rowIndex: number, colIndex: number ) => {
-		return (
-			<DropdownMenu
-				icon={ moreVertical }
-				label={ __( 'Cell actions', 'advanced-wp-table' ) }
-				className="awt__cell-actions"
-			>
-				{ ( { onClose }: { onClose: () => void } ) => (
-					<>
-						<MenuGroup label={ __( 'Row', 'advanced-wp-table' ) }>
-							<MenuItem
-								icon={ tableRowBefore }
-								onClick={ () => {
-									insertRow( rowIndex, 'above' );
-									onClose();
-								} }
-							>
-								{ __(
-									'Insert Row Above',
-									'advanced-wp-table'
-								) }
-							</MenuItem>
-							<MenuItem
-								icon={ tableRowAfter }
-								onClick={ () => {
-									insertRow( rowIndex, 'below' );
-									onClose();
-								} }
-							>
-								{ __(
-									'Insert Row Below',
-									'advanced-wp-table'
-								) }
-							</MenuItem>
-							<MenuItem
-								icon={ copy }
-								onClick={ () => {
-									duplicateRow( rowIndex );
-									onClose();
-								} }
-							>
-								{ __( 'Duplicate Row', 'advanced-wp-table' ) }
-							</MenuItem>
-							<MenuItem
-								icon={ chevronUp }
-								disabled={ rowIndex === 0 }
-								onClick={ () => {
-									moveRow( rowIndex, rowIndex - 1 );
-									onClose();
-								} }
-							>
-								{ __( 'Move Row Up', 'advanced-wp-table' ) }
-							</MenuItem>
-							<MenuItem
-								icon={ chevronDown }
-								disabled={ rowIndex === rowCount - 1 }
-								onClick={ () => {
-									moveRow( rowIndex, rowIndex + 1 );
-									onClose();
-								} }
-							>
-								{ __( 'Move Row Down', 'advanced-wp-table' ) }
-							</MenuItem>
-							<MenuItem
-								icon={ tableRowDelete }
-								isDestructive
-								onClick={ () => {
-									deleteRow( rowIndex );
-									onClose();
-								} }
-							>
-								{ __( 'Delete Row', 'advanced-wp-table' ) }
-							</MenuItem>
-						</MenuGroup>
-						<MenuGroup
-							label={ __( 'Align Column', 'advanced-wp-table' ) }
-						>
-							<MenuItem
-								icon={ alignLeft }
-								aria-pressed={
-									getColumnAlign( colIndex ) === 'left'
-								}
-								onClick={ () => {
-									setColumnAlign(
-										colIndex,
-										getColumnAlign( colIndex ) === 'left'
-											? ''
-											: 'left'
-									);
-									onClose();
-								} }
-							>
-								{ __( 'Align Left', 'advanced-wp-table' ) }
-							</MenuItem>
-							<MenuItem
-								icon={ alignCenter }
-								aria-pressed={
-									getColumnAlign( colIndex ) === 'center'
-								}
-								onClick={ () => {
-									setColumnAlign(
-										colIndex,
-										getColumnAlign( colIndex ) === 'center'
-											? ''
-											: 'center'
-									);
-									onClose();
-								} }
-							>
-								{ __( 'Align Center', 'advanced-wp-table' ) }
-							</MenuItem>
-							<MenuItem
-								icon={ alignRight }
-								aria-pressed={
-									getColumnAlign( colIndex ) === 'right'
-								}
-								onClick={ () => {
-									setColumnAlign(
-										colIndex,
-										getColumnAlign( colIndex ) === 'right'
-											? ''
-											: 'right'
-									);
-									onClose();
-								} }
-							>
-								{ __( 'Align Right', 'advanced-wp-table' ) }
-							</MenuItem>
-						</MenuGroup>
-						<MenuGroup
-							label={ __( 'Column', 'advanced-wp-table' ) }
-						>
-							<MenuItem
-								icon={ tableColumnBefore }
-								onClick={ () => {
-									insertColumn( colIndex, 'left' );
-									onClose();
-								} }
-							>
-								{ __(
-									'Insert Column Left',
-									'advanced-wp-table'
-								) }
-							</MenuItem>
-							<MenuItem
-								icon={ tableColumnAfter }
-								onClick={ () => {
-									insertColumn( colIndex, 'right' );
-									onClose();
-								} }
-							>
-								{ __(
-									'Insert Column Right',
-									'advanced-wp-table'
-								) }
-							</MenuItem>
-							<MenuItem
-								icon={ chevronLeft }
-								disabled={ colIndex === 0 }
-								onClick={ () => {
-									moveColumn( colIndex, colIndex - 1 );
-									onClose();
-								} }
-							>
-								{ __(
-									'Move Column Left',
-									'advanced-wp-table'
-								) }
-							</MenuItem>
-							<MenuItem
-								icon={ chevronRight }
-								disabled={ colIndex === columnCount - 1 }
-								onClick={ () => {
-									moveColumn( colIndex, colIndex + 1 );
-									onClose();
-								} }
-							>
-								{ __(
-									'Move Column Right',
-									'advanced-wp-table'
-								) }
-							</MenuItem>
-							<MenuItem
-								icon={ tableColumnDelete }
-								disabled={ columnCount <= 1 }
-								isDestructive
-								onClick={ () => {
-									deleteColumn( colIndex );
-									onClose();
-								} }
-							>
-								{ __( 'Delete Column', 'advanced-wp-table' ) }
-							</MenuItem>
-						</MenuGroup>
-					</>
-				) }
-			</DropdownMenu>
-		);
-	};
 
 	const renderCell = (
 		cellContent: string,
@@ -432,51 +236,54 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 		const CellTag = isHeaderCell ? 'th' : 'td';
 		const align = getColumnAlign( colIndex );
 		const cellStyle = align
-			? { textAlign: align as 'left' | 'center' | 'right' }
+			? { textAlign: align as 'start' | 'center' | 'end' }
 			: undefined;
 
 		return (
 			<CellTag key={ colIndex } style={ cellStyle }>
-				<div className="awt__cell">
-					<RichText
-						tagName="div"
-						className="awt__cell-content"
-						value={ cellContent }
-						onChange={ ( value: string ) =>
-							updateCell( rowIndex, colIndex, value )
-						}
-						placeholder={ __( 'Cell', 'advanced-wp-table' ) }
-						allowedFormats={ [
-							'core/bold',
-							'core/italic',
-							'core/link',
-							'core/image',
-							'core/strikethrough',
-							'core/code',
-						] }
-						aria-label={
-							isHeaderCell
-								? sprintf(
-										/* translators: %d: column number */
-										__(
-											'Header column %d',
-											'advanced-wp-table'
-										),
-										colIndex + 1
-								  )
-								: sprintf(
-										/* translators: %1$d: row number, %2$d: column number */
-										__(
-											'Row %1$d, Column %2$d',
-											'advanced-wp-table'
-										),
-										rowIndex + 1,
-										colIndex + 1
-								  )
-						}
-					/>
-					{ renderCellActions( rowIndex, colIndex ) }
-				</div>
+				<RichText
+					tagName="div"
+					className="awt__cell-content"
+					value={ cellContent }
+					onChange={ ( value: string ) =>
+						updateCell( rowIndex, colIndex, value )
+					}
+					onFocus={ () =>
+						setSelectedCell( {
+							row: rowIndex,
+							col: colIndex,
+						} )
+					}
+					placeholder={ __( 'Cell', 'advanced-wp-table' ) }
+					allowedFormats={ [
+						'core/bold',
+						'core/italic',
+						'core/link',
+						'core/image',
+						'core/strikethrough',
+						'core/code',
+					] }
+					aria-label={
+						isHeaderCell
+							? sprintf(
+									/* translators: %d: column number */
+									__(
+										'Header column %d',
+										'advanced-wp-table'
+									),
+									colIndex + 1
+							  )
+							: sprintf(
+									/* translators: %1$d: row number, %2$d: column number */
+									__(
+										'Row %1$d, Column %2$d',
+										'advanced-wp-table'
+									),
+									rowIndex + 1,
+									colIndex + 1
+							  )
+					}
+				/>
 			</CellTag>
 		);
 	};
@@ -494,7 +301,6 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 		} );
 	};
 
-	// Show setup form when table has no rows yet.
 	if ( isEmpty ) {
 		return (
 			<div { ...blockProps }>
@@ -570,65 +376,198 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 		'awt__table',
 		hasFixedLayout && 'awt__table--fixed',
 		hasStripedRows && 'awt__table--striped',
+		colorProps.className,
+		borderProps.className,
 	]
 		.filter( Boolean )
 		.join( ' ' );
 
+	const tableStyle = {
+		...colorProps.style,
+		...borderProps.style,
+	};
+
+	const selectedRow = selectedCell?.row ?? 0;
+	const selectedCol = selectedCell?.col ?? 0;
+
 	return (
 		<>
-			<BlockControls>
-				<ToolbarGroup>
-					<ToolbarButton
-						icon={ tableRowAfter }
-						label={ __( 'Add Row', 'advanced-wp-table' ) }
-						onClick={ addRow }
-					/>
-					<ToolbarButton
-						icon={ tableColumnAfter }
-						label={ __( 'Add Column', 'advanced-wp-table' ) }
-						onClick={ addColumn }
-					/>
-				</ToolbarGroup>
+			{ /* Alignment and caption — always visible */ }
+			<BlockControls group="block">
+				<ToolbarDropdownMenu
+					icon={ alignLeft }
+					label={ __(
+						'Change column alignment',
+						'advanced-wp-table'
+					) }
+					controls={ [
+						{
+							icon: alignNone,
+							title: __( 'None', 'advanced-wp-table' ),
+							isActive: getColumnAlign( selectedCol ) === '',
+							onClick: () => setColumnAlign( selectedCol, '' ),
+						},
+						{
+							icon: alignLeft,
+							title: __(
+								'Align column start',
+								'advanced-wp-table'
+							),
+							isActive: getColumnAlign( selectedCol ) === 'start',
+							onClick: () =>
+								setColumnAlign( selectedCol, 'start' ),
+						},
+						{
+							icon: alignCenter,
+							title: __(
+								'Align column center',
+								'advanced-wp-table'
+							),
+							isActive:
+								getColumnAlign( selectedCol ) === 'center',
+							onClick: () =>
+								setColumnAlign( selectedCol, 'center' ),
+						},
+						{
+							icon: alignRight,
+							title: __(
+								'Align column end',
+								'advanced-wp-table'
+							),
+							isActive: getColumnAlign( selectedCol ) === 'end',
+							onClick: () => setColumnAlign( selectedCol, 'end' ),
+						},
+					] }
+				/>
+				<ToolbarButton
+					icon={ captionIcon }
+					label={
+						showCaption
+							? __( 'Remove caption', 'advanced-wp-table' )
+							: __( 'Add caption', 'advanced-wp-table' )
+					}
+					isPressed={ showCaption }
+					onClick={ () => {
+						setShowCaption( ! showCaption );
+						if ( showCaption ) {
+							setAttributes( { caption: '' } );
+						}
+					} }
+				/>
 			</BlockControls>
 
+			{ /* Edit table — only when cell is selected */ }
+			{ selectedCell && (
+				<BlockControls group="other">
+					<ToolbarDropdownMenu
+						icon={ table }
+						label={ __( 'Edit table', 'advanced-wp-table' ) }
+						controls={ [
+							{
+								icon: tableRowBefore,
+								title: __(
+									'Insert row before',
+									'advanced-wp-table'
+								),
+								onClick: () =>
+									insertRow( selectedRow, 'above' ),
+							},
+							{
+								icon: tableRowAfter,
+								title: __(
+									'Insert row after',
+									'advanced-wp-table'
+								),
+								onClick: () =>
+									insertRow( selectedRow, 'below' ),
+							},
+							{
+								icon: tableRowDelete,
+								title: __( 'Delete row', 'advanced-wp-table' ),
+								onClick: () => deleteRow( selectedRow ),
+							},
+							{
+								icon: tableColumnBefore,
+								title: __(
+									'Insert column before',
+									'advanced-wp-table'
+								),
+								onClick: () =>
+									insertColumn( selectedCol, 'left' ),
+							},
+							{
+								icon: tableColumnAfter,
+								title: __(
+									'Insert column after',
+									'advanced-wp-table'
+								),
+								onClick: () =>
+									insertColumn( selectedCol, 'right' ),
+							},
+							{
+								icon: tableColumnDelete,
+								title: __(
+									'Delete column',
+									'advanced-wp-table'
+								),
+								onClick: () => deleteColumn( selectedCol ),
+							},
+							{
+								icon: copy,
+								title: __(
+									'Duplicate row',
+									'advanced-wp-table'
+								),
+								onClick: () => duplicateRow( selectedRow ),
+							},
+							{
+								icon: chevronUp,
+								title: __( 'Move row up', 'advanced-wp-table' ),
+								isDisabled: selectedRow === 0,
+								onClick: () =>
+									moveRow( selectedRow, selectedRow - 1 ),
+							},
+							{
+								icon: chevronDown,
+								title: __(
+									'Move row down',
+									'advanced-wp-table'
+								),
+								isDisabled: selectedRow === rowCount - 1,
+								onClick: () =>
+									moveRow( selectedRow, selectedRow + 1 ),
+							},
+							{
+								icon: chevronLeft,
+								title: __(
+									'Move column left',
+									'advanced-wp-table'
+								),
+								isDisabled: selectedCol === 0,
+								onClick: () =>
+									moveColumn( selectedCol, selectedCol - 1 ),
+							},
+							{
+								icon: chevronRight,
+								title: __(
+									'Move column right',
+									'advanced-wp-table'
+								),
+								isDisabled: selectedCol === columnCount - 1,
+								onClick: () =>
+									moveColumn( selectedCol, selectedCol + 1 ),
+							},
+						] }
+					/>
+				</BlockControls>
+			) }
+
 			<InspectorControls>
-				<PanelBody
-					title={ __( 'Table Settings', 'advanced-wp-table' ) }
-				>
-					<ToggleControl
-						__nextHasNoMarginBottom
-						label={ __( 'Header Row', 'advanced-wp-table' ) }
-						help={ __(
-							'Mark the first row as a table header.',
-							'advanced-wp-table'
-						) }
-						checked={ hasHeader }
-						onChange={ ( value: boolean ) =>
-							setAttributes( { hasHeader: value } )
-						}
-						disabled={ ! canToggleHeader }
-					/>
-					<ToggleControl
-						__nextHasNoMarginBottom
-						label={ __( 'Footer Row', 'advanced-wp-table' ) }
-						help={ __(
-							'Mark the last row as a table footer.',
-							'advanced-wp-table'
-						) }
-						checked={ hasFooter }
-						onChange={ ( value: boolean ) =>
-							setAttributes( { hasFooter: value } )
-						}
-						disabled={ ! canToggleFooter }
-					/>
+				<PanelBody title={ __( 'Settings', 'advanced-wp-table' ) }>
 					<ToggleControl
 						__nextHasNoMarginBottom
 						label={ __(
 							'Fixed width table cells',
-							'advanced-wp-table'
-						) }
-						help={ __(
-							'Distribute column widths evenly.',
 							'advanced-wp-table'
 						) }
 						checked={ hasFixedLayout }
@@ -638,14 +577,30 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 					/>
 					<ToggleControl
 						__nextHasNoMarginBottom
+						label={ __( 'Header section', 'advanced-wp-table' ) }
+						checked={ hasHeader }
+						onChange={ ( value: boolean ) =>
+							setAttributes( { hasHeader: value } )
+						}
+						disabled={ ! canToggleHeader }
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Footer section', 'advanced-wp-table' ) }
+						checked={ hasFooter }
+						onChange={ ( value: boolean ) =>
+							setAttributes( { hasFooter: value } )
+						}
+						disabled={ ! canToggleFooter }
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __( 'Striped rows', 'advanced-wp-table' ) }
-						help={ __(
-							'Alternate row background colors.',
-							'advanced-wp-table'
-						) }
 						checked={ hasStripedRows }
 						onChange={ ( value: boolean ) =>
-							setAttributes( { hasStripedRows: value } )
+							setAttributes( {
+								hasStripedRows: value,
+							} )
 						}
 					/>
 				</PanelBody>
@@ -653,7 +608,7 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 
 			<figure { ...blockProps }>
 				<div className="awt__scroll-container">
-					<table className={ tableClasses }>
+					<table className={ tableClasses } style={ tableStyle }>
 						{ headerRows.length > 0 && (
 							<thead>
 								{ renderRows( headerRows, headerStartIndex ) }
@@ -670,38 +625,25 @@ const Edit = ( { attributes, setAttributes }: EditProps ) => {
 					</table>
 				</div>
 
-				<RichText
-					tagName="figcaption"
-					className="awt__caption"
-					aria-label={ __( 'Table caption', 'advanced-wp-table' ) }
-					placeholder={ __( 'Add caption', 'advanced-wp-table' ) }
-					value={ caption }
-					onChange={ ( value: string ) =>
-						setAttributes( { caption: value } )
-					}
-				/>
-
-				<div className="awt__actions">
-					<Button
-						variant="secondary"
-						size="small"
-						icon={ plus }
-						onClick={ addRow }
-					>
-						{ __( 'Add Row', 'advanced-wp-table' ) }
-					</Button>
-					<Button
-						variant="secondary"
-						size="small"
-						icon={ plus }
-						onClick={ addColumn }
-					>
-						{ __( 'Add Column', 'advanced-wp-table' ) }
-					</Button>
-				</div>
+				{ showCaption && (
+					<RichText
+						tagName="figcaption"
+						className="awt__caption"
+						inlineToolbar
+						aria-label={ __(
+							'Table caption',
+							'advanced-wp-table'
+						) }
+						placeholder={ __( 'Add caption', 'advanced-wp-table' ) }
+						value={ caption }
+						onChange={ ( value: string ) =>
+							setAttributes( { caption: value } )
+						}
+					/>
+				) }
 			</figure>
 		</>
 	);
 };
 
-export default Edit;
+export default memo( Edit );

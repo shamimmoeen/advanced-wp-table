@@ -6,9 +6,11 @@
 	--awt-cell-padding: 8px 12px;
 	--awt-caption-color: #757575;
 
-	overflow-x: auto;
+	.awt__scroll-container {
+		overflow-x: auto;
+	}
 
-	table {
+	.awt__table {
 		border-collapse: collapse;
 		width: 100%;
 	}

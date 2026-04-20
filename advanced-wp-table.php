@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Advanced WP Table
  * Plugin URI:        https://wordpress.org/plugins/advanced-wp-table
- * Description:       A powerful table plugin for WordPress, built on the Gutenberg block editor.
+ * Description:       Advanced table block for WordPress with rich text, styling, and reusable table support.
  * Version:           2.0.0
  * Requires at least: 6.3
  * Tested up to:      6.9

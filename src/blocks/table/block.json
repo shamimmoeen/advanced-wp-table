@@ -5,25 +5,25 @@
 	"version": "2.0.0",
 	"title": "Advanced Table",
 	"category": "text",
-	"description": "A powerful table plugin for WordPress, built on the Gutenberg block editor.",
+	"description": "Advanced table block for WordPress with rich text, styling, and reusable table support.",
 	"keywords": [ "table", "data", "grid" ],
 	"supports": {
 		"html": false,
-		"multiple": false,
 		"anchor": true,
 		"align": [ "left", "center", "right", "wide", "full" ],
 		"color": {
+			"__experimentalSkipSerialization": true,
 			"gradients": true
 		},
 		"spacing": {
-			"margin": true,
-			"padding": true
+			"margin": true
 		},
 		"typography": {
 			"fontSize": true,
 			"lineHeight": true
 		},
 		"__experimentalBorder": {
+			"__experimentalSkipSerialization": true,
 			"color": true,
 			"style": true,
 			"width": true

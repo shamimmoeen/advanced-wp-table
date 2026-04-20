@@ -1,4 +1,4 @@
-export type ColumnAlign = 'left' | 'center' | 'right' | '';
+export type ColumnAlign = 'start' | 'center' | 'end' | '';
 
 export interface TableAttributes extends Record< string, unknown > {
 	hasHeader: boolean;

@@ -40,8 +40,11 @@ if ( $has_footer && count( $body_rows ) > 0 ) {
 	$footer_rows = array( array_pop( $body_rows ) );
 }
 
-// Build table classes.
+// Build table classes and styles.
+// Color and border supports use __experimentalSkipSerialization,
+// so we apply them to the <table> element instead of the wrapper.
 $table_classes = array( 'awt__table' );
+$table_styles  = array();
 
 if ( $has_fixed ) {
 	$table_classes[] = 'awt__table--fixed';
@@ -51,11 +54,44 @@ if ( $has_striped ) {
 	$table_classes[] = 'awt__table--striped';
 }
 
+// Apply color and border styles from block attributes.
+$style_attrs = $attributes['style'] ?? array();
+$supports    = array( 'color', 'border' );
+
+foreach ( $supports as $support ) {
+	if ( ! empty( $style_attrs[ $support ] ) ) {
+		$parsed = wp_style_engine_get_styles( array( $support => $style_attrs[ $support ] ) );
+
+		if ( ! empty( $parsed['css'] ) ) {
+			$table_styles[] = $parsed['css'];
+		}
+
+		if ( ! empty( $parsed['classnames'] ) ) {
+			$table_classes[] = $parsed['classnames'];
+		}
+	}
+}
+
+// Apply preset color/border classes.
+$preset_map = array(
+	'textColor'       => 'has-%s-color',
+	'backgroundColor' => 'has-%s-background-color',
+	'gradient'        => 'has-%s-gradient-background',
+	'borderColor'     => 'has-%s-border-color',
+);
+
+foreach ( $preset_map as $attr_key => $class_format ) {
+	if ( ! empty( $attributes[ $attr_key ] ) ) {
+		$table_classes[] = sprintf( $class_format, $attributes[ $attr_key ] );
+	}
+}
+
 $table_class_attr = ' class="' . esc_attr( implode( ' ', $table_classes ) ) . '"';
+$table_style_attr = ! empty( $table_styles ) ? ' style="' . esc_attr( implode( '', $table_styles ) ) . '"' : '';
 ?>
 
 <figure <?php echo get_block_wrapper_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-	<table<?php echo $table_class_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<table<?php echo $table_class_attr . $table_style_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 		<?php if ( ! empty( $header_rows ) ) : ?>
 			<thead>
 				<?php foreach ( $header_rows as $row ) : ?>

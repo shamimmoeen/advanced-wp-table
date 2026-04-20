@@ -1,7 +1,7 @@
 {
   "name": "advanced-wp-table",
   "version": "2.0.0",
-  "description": "A powerful table plugin for WordPress, built on the Gutenberg block editor.",
+  "description": "Advanced table block for WordPress with rich text, styling, and reusable table support.",
   "engines": {
     "node": ">=20.0.0"
   },

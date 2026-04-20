@@ -8,7 +8,7 @@ Stable tag: 2.0.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A powerful table plugin for WordPress, built on the Gutenberg block editor.
+Advanced table block for WordPress with rich text, styling, and reusable table support.
 
 == Description ==
 
@@ -17,14 +17,13 @@ A powerful table plugin for WordPress, built on the Gutenberg block editor.
 = Features =
 
 * **Rich text cells** — bold, italic, links, inline images, strikethrough, and code formatting
-* **Header and footer rows** — mark the first row as a table header and the last row as a footer
+* **Header and footer sections** — designate header and footer rows for your table
 * **Column alignment** — align columns left, center, or right
 * **Table caption** — add a description below the table
-* **Cell actions** — insert, delete, duplicate, and move rows and columns from any cell
+* **Row and column management** — insert, delete, duplicate, and move rows and columns
 * **Striped rows** — alternating row background colors for readability
 * **Fixed layout** — distribute column widths evenly
-* **Styling options** — customize colors, typography, borders, spacing, and alignment
-* **Shortcode support** — embed tables anywhere with `[advanced_wp_table id="123"]`
+* **Reusable tables** — manage tables in a dedicated section and embed anywhere via shortcode
 * **Responsive tables** — horizontal scroll for wide tables on small screens
 
 = Usage =
@@ -65,28 +64,37 @@ Yes. Advanced WP Table ensures the block editor stays enabled for tables even wh
 
 == Screenshots ==
 
+1. Table setup form — set the number of rows and columns to create a table.
+2. Table editor — edit cells with rich text formatting in the block editor.
+3. Edit table dropdown — insert, delete, duplicate, and move rows and columns.
+4. Column alignment — align column content to start, center, or end.
+5. Table settings — configure fixed layout, header, footer, and striped rows.
+6. Tables list — manage all tables with shortcode column for easy embedding.
+7. Frontend output — a styled table rendered on the frontend.
+
 == Changelog ==
 
-= 2.0.0 =
+= 2.0.0 (21 April 2026) =
 
 * Complete rebuild using the Gutenberg block editor
 * Rich text cell editing with bold, italic, links, images, strikethrough, and code
-* Header and footer row support
+* Header and footer section support
 * Per-column text alignment (left, center, right)
 * Table caption support
-* Cell actions dropdown: insert, delete, duplicate, and move rows/columns
+* Row and column management: insert, delete, duplicate, and move
 * Striped rows toggle
 * Fixed table layout toggle
-* Block supports for color, typography, border, spacing, and alignment
+* Color, typography, and border customization
 * Initial table setup form with row and column count
 * Horizontal scroll for wide tables
+* RTL language support
 * Classic Editor compatibility
 * Native WordPress list table for managing tables
 * Shortcode column in the tables list
 
 = 1.3.2 =
 
-* Trying to migrate the table data
+* Migrate the table data
 
 = 1.3.1 =
 
@@ -96,37 +104,37 @@ Yes. Advanced WP Table ensures the block editor stays enabled for tables even wh
 
 * Upgrade the npm packages, use basic textarea for the cell content
 
-= 1.2.1 =
+= 1.2.1 (13 April 2022) =
 
-* Upgrade freemius to v2.4.3.
+* Upgrade freemius to v2.4.3
 
-= 1.2.0 =
+= 1.2.0 (03 April 2020) =
 
-* Fix media upload issue in gutenberg editor following the new way comes in WordPress v5.4.
-* Re-register shortcode, freeform blocks as in WordPress v5.4 the issues are gone.
-* Put double quotes in shortcode used in FAQ.
+* Fix media upload issue in gutenberg editor following the new way comes in WordPress v5.4
+* Re-register shortcode, freeform blocks as in WordPress v5.4 the issues are gone
+* Put double quotes in shortcode used in FAQ
 
-= 1.1.0 =
+= 1.1.0 (01 April 2020) =
 
-* Add compatibility to WordPress 5.4.
-* Fix shortcode issue, put double quotes between the table id.
-* Add filter `advanced_wp_table_output` to alter the table markup dynamically.
-* Add filter `advanced_wp_table_enqueue_scripts` to load scripts dynamically.
-* Make post type private.
-* Integrate Freemius.
-* Blocks registered form other plugins can be used.
-* Add option to duplicate a table.
-* Add pagination in table list, update the design, show success, error messages.
-* Fix duplicate row issue.
+* Add compatibility to WordPress 5.4
+* Fix shortcode issue, put double quotes between the table id
+* Add filter `advanced_wp_table_output` to alter the table markup dynamically
+* Add filter `advanced_wp_table_enqueue_scripts` to load scripts dynamically
+* Make post type private
+* Integrate Freemius
+* Blocks registered from other plugins can be used
+* Add option to duplicate a table
+* Add pagination in table list, update the design, show success, error messages
+* Fix duplicate row issue
 
 = 1.0.1 =
 
-* Flush and unflash rewrite rules in plugin activation and deactivation.
-* Fix cell vertical align design issue.
-* Add option to clone row.
-* Wrap table inside unique id.
+* Flush and unflush rewrite rules in plugin activation and deactivation
+* Fix cell vertical align design issue
+* Add option to clone row
+* Wrap table inside unique id
 
-= 1.0.0 =
+= 1.0.0 (14 March 2020) =
 
 * Initial release.
 
