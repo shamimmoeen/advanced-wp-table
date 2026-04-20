@@ -1,16 +1,20 @@
 <?php
 /**
- * Plugin Name:     Advanced WP Table
- * Plugin URI:      https://wordpress.org/plugins/advanced-wp-table
- * Description:     An easy to use plugin to create tables in WordPress.
- * Author:          Mainul Hassan
- * Author URI:      https://mainulhassan.com
- * Text Domain:     advanced-wp-table
- * Domain Path:     /languages
- * Version:         2.0.0
- * License:         GPLv3
+ * Plugin Name:       Advanced WP Table
+ * Plugin URI:        https://wordpress.org/plugins/advanced-wp-table
+ * Description:       A powerful table plugin for WordPress, built on the Gutenberg block editor.
+ * Version:           2.0.0
+ * Requires at least: 6.3
+ * Tested up to:      6.9
+ * Requires PHP:      7.4
+ * Author:            Mainul Hassan
+ * Author URI:        https://mainulhassan.com
+ * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:       advanced-wp-table
+ * Domain Path:       /languages
  *
- * @package         Advanced_WP_Table
+ * @package Advanced_WP_Table
  */
 
 if ( ! defined( 'ADVANCED_WP_TABLE_VERSION' ) ) {

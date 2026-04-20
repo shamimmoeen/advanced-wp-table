@@ -31,7 +31,6 @@ class Advanced_WP_Table {
 	public function __construct() {
 		$this->defines();
 
-		add_action( 'admin_notices', array( $this, 'show_notices' ) );
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( 'init', array( $this, 'register_blocks' ) );
 		add_shortcode( 'advanced_wp_table', array( $this, 'register_shortcode' ) );
@@ -50,25 +49,6 @@ class Advanced_WP_Table {
 		if ( ! defined( 'ADVANCED_WP_TABLE_PATH' ) ) {
 			define( 'ADVANCED_WP_TABLE_PATH', plugin_dir_path( dirname( __FILE__ ) ) );
 		}
-
-		if ( ! defined( 'ADVANCED_WP_TABLE_URL' ) ) {
-			define( 'ADVANCED_WP_TABLE_URL', plugin_dir_url( dirname( __FILE__ ) ) );
-		}
-	}
-
-	/**
-	 * Should we run or not.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool
-	 */
-	private function should_we_run() {
-		if ( version_compare( get_bloginfo( 'version' ), '5.0', '<' ) ) {
-			return false;
-		}
-
-		return true;
 	}
 
 	/**
@@ -176,7 +156,7 @@ class Advanced_WP_Table {
 	 *
 	 * @param array $atts The array of options.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @return string
 	 */
@@ -189,19 +169,11 @@ class Advanced_WP_Table {
 
 		$post = get_post( $id );
 
-		if ( ! $post || 'advanced-wp-table' !== $post->post_type ) {
+		if ( ! $post || 'advanced-wp-table' !== $post->post_type || 'publish' !== $post->post_status ) {
 			return '';
 		}
 
-		$content = apply_filters( 'the_content', $post->post_content );
-
-		/**
-		 * Add filter to alter the shortcode output for developers.
-		 *
-		 * @param string $content The rendered table content.
-		 * @param int    $id      The table post ID.
-		 */
-		return apply_filters( 'advanced_wp_table_output', $content, $id );
+		return do_blocks( $post->post_content );
 	}
 
 	/**
@@ -224,21 +196,4 @@ class Advanced_WP_Table {
 
 		return $use_block_editor;
 	}
-
-	/**
-	 * Show admin notices.
-	 *
-	 * @since 1.0.0
-	 */
-	public function show_notices() {
-		if ( $this->should_we_run() ) {
-			return;
-		}
-
-		$class   = 'notice notice-info';
-		$message = __( 'Advanced WP Table plugin requires WordPress version 5.0 or greater.', 'advanced-wp-table' );
-
-		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
-	}
-
 }

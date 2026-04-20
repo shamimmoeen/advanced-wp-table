@@ -1,33 +1,40 @@
 .wp-block-advanced-wp-table-table {
-	.advanced-wp-table-setup {
+	--awt-border-color: #ccd0d4;
+	--awt-header-bg: #f0f0f1;
+	--awt-footer-bg: #f9f9f9;
+	--awt-cell-padding: 8px 12px;
+	--awt-cell-min-width: 100px;
+	--awt-focus-color: var(--wp-admin-theme-color, #3858e9);
+
+	.awt__setup {
 		display: flex;
 		align-items: flex-end;
 		gap: 12px;
 	}
 
-	.advanced-wp-table-scroll-container {
+	.awt__scroll-container {
 		overflow-x: auto;
 	}
 
-	.advanced-wp-table-editor {
+	.awt__table {
 		border-collapse: collapse;
 		width: 100%;
 
-		&.has-fixed-layout {
+		&--fixed {
 			table-layout: fixed;
 		}
 
 		th,
 		td {
-			border: 1px solid #ccd0d4;
+			border: 1px solid var(--awt-border-color);
 			padding: 0;
 			vertical-align: top;
-			min-width: 100px;
+			min-width: var(--awt-cell-min-width);
 			position: relative;
 		}
 
 		th {
-			background-color: #f0f0f1;
+			background-color: var(--awt-header-bg);
 			font-weight: 600;
 		}
 
@@ -37,31 +44,39 @@
 
 		tfoot td {
 			border-top-width: 2px;
-			background-color: #f9f9f9;
+			background-color: var(--awt-footer-bg);
+		}
+
+		&--striped tbody tr:nth-child(even) td {
+			background-color: var(--awt-header-bg);
 		}
 	}
 
-	.advanced-wp-table-cell-wrapper {
+	.awt__cell {
 		display: flex;
 		align-items: flex-start;
 	}
 
-	.advanced-wp-table-cell-content {
+	.awt__cell-content {
 		flex: 1;
-		padding: 8px 12px;
+		padding: var(--awt-cell-padding);
 		min-height: 24px;
 		outline: none;
 
 		&:focus {
 			background-color: #fff;
-			box-shadow: inset 0 0 0 1px var(--wp-admin-theme-color, #3858e9);
+			box-shadow: inset 0 0 0 1px var(--awt-focus-color);
 		}
 	}
 
-	.advanced-wp-table-cell-actions {
+	.awt__cell-actions {
 		opacity: 0;
 		transition: opacity 0.1s ease-in;
 		flex-shrink: 0;
+
+		&:focus-within {
+			opacity: 1;
+		}
 
 		.components-dropdown-menu__toggle {
 			min-width: 24px;
@@ -72,24 +87,20 @@
 
 	td:hover,
 	th:hover {
-		.advanced-wp-table-cell-actions {
+
+		.awt__cell-actions {
 			opacity: 1;
 		}
 	}
 
-	// Also show when the dropdown is open.
-	.advanced-wp-table-cell-actions:focus-within {
-		opacity: 1;
-	}
-
-	.advanced-wp-table-caption {
+	.awt__caption {
 		text-align: center;
 		margin-top: 8px;
 		font-size: 13px;
 		color: #757575;
 	}
 
-	.advanced-wp-table-editor-actions {
+	.awt__actions {
 		display: flex;
 		gap: 8px;
 		margin-top: 12px;

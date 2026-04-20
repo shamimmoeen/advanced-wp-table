@@ -1,13 +1,20 @@
 {
   "name": "advanced-wp-table",
   "version": "2.0.0",
-  "description": "An easy to use plugin to create tables in WordPress.",
+  "description": "A powerful table plugin for WordPress, built on the Gutenberg block editor.",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "build": "wp-scripts build",
     "start": "wp-scripts start",
     "lint:css": "wp-scripts lint-style",
     "lint:js": "wp-scripts lint-js",
-    "lint:pkg-json": "wp-scripts lint-pkg-json"
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "i18n": "wp i18n make-pot . languages/advanced-wp-table.pot --exclude=src,node_modules",
+    "plugin-zip": "wp dist-archive . ./advanced-wp-table.zip",
+    "dist-check": "wp dist-archive . ./advanced-wp-table.zip && unzip -l ./advanced-wp-table.zip && rm ./advanced-wp-table.zip",
+    "readme": "grunt readme"
   },
   "keywords": [
     "advanced wp table",
@@ -17,13 +24,16 @@
     "gutenberg table"
   ],
   "author": "Mainul Hassan <shamim.moeen@gmail.com> (https://mainulhassan.com)",
-  "license": "GPLv3",
+  "license": "GPL-2.0-or-later",
   "devDependencies": {
     "@wordpress/block-editor": "^15.17.0",
     "@wordpress/blocks": "^15.17.0",
     "@wordpress/components": "^32.6.0",
+    "@wordpress/element": "^6.44.0",
     "@wordpress/i18n": "^6.17.0",
     "@wordpress/icons": "^12.2.0",
-    "@wordpress/scripts": "^32.0.0"
+    "@wordpress/scripts": "^32.0.0",
+    "grunt": "^1.6.2",
+    "grunt-wp-readme-to-markdown": "^2.1.0"
   }
 }

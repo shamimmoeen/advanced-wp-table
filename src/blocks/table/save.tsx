@@ -6,7 +6,15 @@ interface SaveProps {
 }
 
 const save = ( { attributes }: SaveProps ) => {
-	const { rows, hasHeader, hasFooter, hasFixedLayout, caption, columnAligns } = attributes;
+	const {
+		rows,
+		hasHeader,
+		hasFooter,
+		hasFixedLayout,
+		hasStripedRows,
+		caption,
+		columnAligns,
+	} = attributes;
 	const blockProps = useBlockProps.save();
 
 	const headerRows: string[][] = [];
@@ -20,14 +28,12 @@ const save = ( { attributes }: SaveProps ) => {
 		footerRows.push( bodyRows.pop()! );
 	}
 
-	const renderRows = (
-		rowsToRender: string[][],
-		CellTag: 'th' | 'td'
-	) => {
+	const renderRows = ( rowsToRender: string[][], CellTag: 'th' | 'td' ) => {
 		return rowsToRender.map( ( row, rowIdx ) => (
 			<tr key={ rowIdx }>
 				{ row.map( ( cell, colIdx ) => {
-					const align = ( columnAligns[ colIdx ] as ColumnAlign ) ?? '';
+					const align =
+						( columnAligns[ colIdx ] as ColumnAlign ) ?? '';
 					const cellStyle = align
 						? { textAlign: align as 'left' | 'center' | 'right' }
 						: undefined;
@@ -42,11 +48,13 @@ const save = ( { attributes }: SaveProps ) => {
 		) );
 	};
 
-	const tableClasses = [
-		hasFixedLayout && 'has-fixed-layout',
-	]
-		.filter( Boolean )
-		.join( ' ' ) || undefined;
+	const tableClasses =
+		[
+			hasFixedLayout && 'awt__table--fixed',
+			hasStripedRows && 'awt__table--striped',
+		]
+			.filter( Boolean )
+			.join( ' ' ) || undefined;
 
 	return (
 		<figure { ...blockProps }>
@@ -61,10 +69,7 @@ const save = ( { attributes }: SaveProps ) => {
 			</table>
 
 			{ caption && (
-				<RichText.Content
-					tagName="figcaption"
-					value={ caption }
-				/>
+				<RichText.Content tagName="figcaption" value={ caption } />
 			) }
 		</figure>
 	);

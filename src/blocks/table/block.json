@@ -6,7 +6,7 @@
 	"title": "Advanced Table",
 	"category": "text",
 	"icon": "editor-table",
-	"description": "Create and manage data tables with rich text cells, header and footer support.",
+	"description": "A powerful table plugin for WordPress, built on the Gutenberg block editor.",
 	"keywords": [ "table", "data", "grid" ],
 	"supports": {
 		"html": false,
@@ -42,6 +42,10 @@
 		"hasFixedLayout": {
 			"type": "boolean",
 			"default": true
+		},
+		"hasStripedRows": {
+			"type": "boolean",
+			"default": false
 		},
 		"caption": {
 			"type": "string",
