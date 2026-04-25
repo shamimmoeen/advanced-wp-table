@@ -1,6 +1,6 @@
 <?php
 /**
- * Advanced WP Table setup.
+ * Advanced Table Block setup.
  *
  * @since   1.1.0
  *

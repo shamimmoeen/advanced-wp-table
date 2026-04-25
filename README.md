@@ -1,4 +1,4 @@
-# Advanced WP Table #
+# Advanced Table Block #
 **Contributors:** [shamimmoeen](https://profiles.wordpress.org/shamimmoeen/)  
 **Tags:** table, data table, gutenberg table, responsive table, block table  
 **Requires at least:** 6.3  
@@ -12,7 +12,7 @@ Advanced table block for WordPress with rich text, styling, and reusable table s
 
 ## Description ##
 
-**Advanced WP Table** lets you create and manage data tables using the WordPress block editor. Use the dedicated Tables admin section to manage reusable tables, or insert the Advanced Table block directly into any post or page.
+Advanced Table Block lets you create and manage data tables using the block editor. Use the dedicated Tables admin section to manage reusable tables, or insert the block directly into any post or page.
 
 ### Features ###
 
@@ -35,8 +35,22 @@ Advanced table block for WordPress with rich text, styling, and reusable table s
 
 ## Installation ##
 
-1. Upload the `advanced-wp-table` directory to `/wp-content/plugins/`
-2. Activate the plugin through the Plugins menu in WordPress
+### Automatic installation ###
+
+1. Go to Plugins → Add New in your WordPress admin.
+2. Search for "Advanced Table Block".
+3. Click Install Now, then Activate.
+
+### Manual installation via ZIP upload ###
+
+1. Download the plugin ZIP file.
+2. Go to Plugins → Add New → Upload Plugin.
+3. Upload the ZIP file, then Activate.
+
+### Manual installation via FTP ###
+
+1. Upload the `advanced-wp-table` directory to `/wp-content/plugins/`.
+2. Activate the plugin through the Plugins menu in WordPress.
 
 ## Frequently Asked Questions ##
 
@@ -60,7 +74,7 @@ Yes. The shortcode works in any theme. The block editor is used for editing tabl
 
 ### Does it work with the Classic Editor plugin? ###
 
-Yes. Advanced WP Table ensures the block editor stays enabled for tables even when the Classic Editor plugin is active.
+Yes. Advanced Table Block ensures the block editor stays enabled for tables even when the Classic Editor plugin is active.
 
 ## Screenshots ##
 

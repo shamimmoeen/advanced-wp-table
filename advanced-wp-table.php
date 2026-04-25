@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Advanced WP Table
+ * Plugin Name:       Advanced Table Block
  * Plugin URI:        https://wordpress.org/plugins/advanced-wp-table
  * Description:       Advanced table block for WordPress with rich text, styling, and reusable table support.
  * Version:           2.0.0
